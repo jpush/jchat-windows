@@ -1,0 +1,274 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>SelectUserWidget</class>
+ <widget class="QWidget" name="SelectUserWidget">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>577</width>
+    <height>452</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>SelectUserWidget</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">
+QWidget {
+    font-family: &quot;微软雅黑&quot;;
+	background-color: rgb(255, 255, 255);
+}
+
+#btnOK
+{
+	border:1px solid gray;
+	background-color: rgb(57, 209, 206);
+	color: rgb(255, 255, 255);
+	border-radius:2px;
+	min-width:80px;
+	min-height:25px;
+}
+#btnOK:hover
+{
+	background-color:rgb(62, 229, 224);
+}
+#btnOK:pressed
+{
+	background-color:rgb(47, 175, 171);
+}
+
+#btnCancel
+{
+	border:1px solid gray;
+	border-radius:2px;
+
+	background-color: rgb(255, 255, 255);
+	min-width:80px;
+	min-height:25px;
+}
+</string>
+  </property>
+  <layout class="QVBoxLayout" name="verticalLayout_3">
+   <property name="leftMargin">
+    <number>9</number>
+   </property>
+   <property name="topMargin">
+    <number>9</number>
+   </property>
+   <property name="rightMargin">
+    <number>9</number>
+   </property>
+   <property name="bottomMargin">
+    <number>9</number>
+   </property>
+   <item>
+    <widget class="QFrame" name="frame">
+     <property name="styleSheet">
+      <string notr="true">
+QLineEdit,QTextEdit {
+ 	color: rgb(0, 0, 0);
+    background-color: rgba(0, 0, 0, 0);
+	min-height:22px;
+	border:1px solid rgb(57, 209, 206);
+	border-radius:2px;
+}
+
+QLabel {
+    color: rgb(0, 0, 0);
+}
+
+#labelNickName {
+    color: rgb(0, 0, 0);
+}
+#frame
+{
+	border:1px solid gray;
+}
+#frameLeft
+{
+	border:none;
+	border-right:1px solid gray;
+}
+#frameRight
+{
+	border:none;
+}
+
+QListView
+{
+	border:none;
+
+}
+
+ QCheckBox {
+      
+  }
+
+  QCheckBox::indicator {
+     height:25px;
+      width:35px;
+  }
+
+  QCheckBox::indicator:unchecked {
+     
+	image: url(:/image/resource/关.png);
+  }
+
+
+  QCheckBox::indicator:checked {
+      
+	image: url(:/image/resource/开.png);
+  }
+
+ 
+
+ 
+ </string>
+     </property>
+     <property name="frameShape">
+      <enum>QFrame::StyledPanel</enum>
+     </property>
+     <property name="frameShadow">
+      <enum>QFrame::Raised</enum>
+     </property>
+     <layout class="QHBoxLayout" name="horizontalLayout_2">
+      <property name="spacing">
+       <number>0</number>
+      </property>
+      <property name="leftMargin">
+       <number>0</number>
+      </property>
+      <property name="topMargin">
+       <number>0</number>
+      </property>
+      <property name="rightMargin">
+       <number>0</number>
+      </property>
+      <property name="bottomMargin">
+       <number>0</number>
+      </property>
+      <item>
+       <widget class="QFrame" name="frameLeft">
+        <property name="frameShape">
+         <enum>QFrame::StyledPanel</enum>
+        </property>
+        <property name="frameShadow">
+         <enum>QFrame::Raised</enum>
+        </property>
+        <layout class="QVBoxLayout" name="verticalLayout">
+         <item>
+          <widget class="QLineEdit" name="lineEditSearch">
+           <property name="clearButtonEnabled">
+            <bool>true</bool>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QListView" name="listView">
+           <property name="editTriggers">
+            <set>QAbstractItemView::NoEditTriggers</set>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </widget>
+      </item>
+      <item>
+       <widget class="QFrame" name="frameRight">
+        <property name="frameShape">
+         <enum>QFrame::StyledPanel</enum>
+        </property>
+        <property name="frameShadow">
+         <enum>QFrame::Raised</enum>
+        </property>
+        <layout class="QVBoxLayout" name="verticalLayout_2">
+         <item>
+          <widget class="QLabel" name="label">
+           <property name="text">
+            <string>已选</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QListView" name="listViewSelected">
+           <property name="styleSheet">
+            <string notr="true">QTreeView::indicator:checked 
+{ 
+
+subcontrol-position:  right center;
+
+}</string>
+           </property>
+           <property name="editTriggers">
+            <set>QAbstractItemView::NoEditTriggers</set>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item>
+    <layout class="QHBoxLayout" name="horizontalLayout">
+     <item>
+      <widget class="QFrame" name="frame_2">
+       <property name="frameShape">
+        <enum>QFrame::StyledPanel</enum>
+       </property>
+       <property name="frameShadow">
+        <enum>QFrame::Raised</enum>
+       </property>
+       <layout class="QHBoxLayout" name="horizontalLayout_3">
+        <property name="leftMargin">
+         <number>0</number>
+        </property>
+        <property name="topMargin">
+         <number>0</number>
+        </property>
+        <property name="rightMargin">
+         <number>0</number>
+        </property>
+        <property name="bottomMargin">
+         <number>0</number>
+        </property>
+       </layout>
+      </widget>
+     </item>
+     <item>
+      <spacer name="horizontalSpacer">
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
+       </property>
+       <property name="sizeHint" stdset="0">
+        <size>
+         <width>40</width>
+         <height>20</height>
+        </size>
+       </property>
+      </spacer>
+     </item>
+     <item>
+      <widget class="QPushButton" name="btnCancel">
+       <property name="text">
+        <string>取消</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="btnOK">
+       <property name="text">
+        <string>确定</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </item>
+  </layout>
+ </widget>
+ <layoutdefault spacing="6" margin="11"/>
+ <resources/>
+ <connections/>
+</ui>

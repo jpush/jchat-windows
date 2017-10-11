@@ -1,0 +1,776 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{3D9BA35E-D91B-3866-9090-C3EDCDEAB8D1}</ProjectGuid>
+    <RootNamespace>QxOrm</RootNamespace>
+    <Keyword>Qt4VSv1.0</Keyword>
+    <WindowsTargetPlatformVersion>8.1</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <PlatformToolset>v141</PlatformToolset>
+    <OutputDirectory>lib\</OutputDirectory>
+    <ATLMinimizesCRunTimeLibraryUsage>false</ATLMinimizesCRunTimeLibraryUsage>
+    <CharacterSet>NotSet</CharacterSet>
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <IntermediateDirectory>release\</IntermediateDirectory>
+    <PrimaryOutput>QxOrm</PrimaryOutput>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <PlatformToolset>v141</PlatformToolset>
+    <OutputDirectory>lib\</OutputDirectory>
+    <ATLMinimizesCRunTimeLibraryUsage>false</ATLMinimizesCRunTimeLibraryUsage>
+    <CharacterSet>NotSet</CharacterSet>
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <IntermediateDirectory>debug\</IntermediateDirectory>
+    <PrimaryOutput>QxOrmd</PrimaryOutput>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings" />
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup>
+    <IgnoreImportLibrary Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</IgnoreImportLibrary>
+    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</LinkIncremental>
+    <IgnoreImportLibrary Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</IgnoreImportLibrary>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>.;.\include;$(QTDIR)\include;$(QTDIR)\include\QtSql;$(QTDIR)\include\QtCore;$(QTDIR)\mkspecs\win32-msvc;.\GeneratedFiles\$(ConfigurationName);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalOptions>-Zc:rvalueCast -Zc:inline -Zc:strictStrings -Zc:throwingNew -Zc:referenceBinding -w34100 -w34189 -w44996 -w44456 -w44457 -w44458 %(AdditionalOptions)</AdditionalOptions>
+      <AssemblerListingLocation>release\</AssemblerListingLocation>
+      <BrowseInformation>false</BrowseInformation>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <DisableSpecificWarnings>4577;4467;%(DisableSpecificWarnings)</DisableSpecificWarnings>
+      <ExceptionHandling>Sync</ExceptionHandling>
+      <ForcedIncludeFiles>include\QxPrecompiled.h;%(ForcedIncludeFiles)</ForcedIncludeFiles>
+      <Optimization>MaxSpeed</Optimization>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeaderFile>include\QxPrecompiled.h</PrecompiledHeaderFile>
+      <PrecompiledHeaderOutputFile>$(IntDir)\QxOrm.pch</PrecompiledHeaderOutputFile>
+      <PreprocessorDefinitions>_WINDOWS;UNICODE;WIN32;_QX_BUILDING_QX_ORM;QT_NO_DEBUG;QT_SQL_LIB;QT_CORE_LIB;NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessToFile>false</PreprocessToFile>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <WarningLevel>Level3</WarningLevel>
+    </ClCompile>
+    <Link>
+      <AdditionalDependencies>$(QTDIR)\lib\Qt5Sql.lib;$(QTDIR)\lib\Qt5Core.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(QTDIR)\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <DataExecutionPrevention>true</DataExecutionPrevention>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <IgnoreImportLibrary>true</IgnoreImportLibrary>
+      <LinkDLL>true</LinkDLL>
+      <LinkIncremental>false</LinkIncremental>
+      <OutputFile>$(OutDir)\QxOrm.dll</OutputFile>
+      <RandomizedBaseAddress>true</RandomizedBaseAddress>
+      <SubSystem>Windows</SubSystem>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+    </Link>
+    <Midl>
+      <DefaultCharType>Unsigned</DefaultCharType>
+      <EnableErrorChecks>None</EnableErrorChecks>
+      <WarningLevel>0</WarningLevel>
+    </Midl>
+    <ResourceCompile>
+      <PreprocessorDefinitions>_WINDOWS;UNICODE;WIN32;_QX_MODE_RELEASE;_QX_BUILDING_QX_ORM;QT_NO_DEBUG;QT_SQL_LIB;QT_CORE_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ResourceCompile>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>.;.\include;$(QTDIR)\include;$(QTDIR)\include\QtSql;$(QTDIR)\include\QtCore;$(QTDIR)\mkspecs\win32-msvc;.\GeneratedFiles\$(ConfigurationName);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalOptions>-Zc:rvalueCast -Zc:inline -Zc:strictStrings -Zc:throwingNew -Zc:referenceBinding -w34100 -w34189 -w44996 -w44456 -w44457 -w44458 %(AdditionalOptions)</AdditionalOptions>
+      <AssemblerListingLocation>debug\</AssemblerListingLocation>
+      <BrowseInformation>false</BrowseInformation>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <DisableSpecificWarnings>4577;4467;%(DisableSpecificWarnings)</DisableSpecificWarnings>
+      <ExceptionHandling>Sync</ExceptionHandling>
+      <ForcedIncludeFiles>include\QxPrecompiled.h;%(ForcedIncludeFiles)</ForcedIncludeFiles>
+      <Optimization>Disabled</Optimization>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeaderFile>include\QxPrecompiled.h</PrecompiledHeaderFile>
+      <PrecompiledHeaderOutputFile>$(IntDir)\QxOrmd.pch</PrecompiledHeaderOutputFile>
+      <PreprocessorDefinitions>_WINDOWS;UNICODE;WIN32;_QX_BUILDING_QX_ORM;QT_SQL_LIB;QT_CORE_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessToFile>false</PreprocessToFile>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <WarningLevel>Level3</WarningLevel>
+    </ClCompile>
+    <Link>
+      <AdditionalDependencies>$(QTDIR)\lib\Qt5Sqld.lib;$(QTDIR)\lib\Qt5Cored.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(QTDIR)\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <DataExecutionPrevention>true</DataExecutionPrevention>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <IgnoreImportLibrary>true</IgnoreImportLibrary>
+      <LinkDLL>true</LinkDLL>
+      <OutputFile>$(OutDir)\QxOrmd.dll</OutputFile>
+      <RandomizedBaseAddress>true</RandomizedBaseAddress>
+      <SubSystem>Windows</SubSystem>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+    </Link>
+    <Midl>
+      <DefaultCharType>Unsigned</DefaultCharType>
+      <EnableErrorChecks>None</EnableErrorChecks>
+      <WarningLevel>0</WarningLevel>
+    </Midl>
+    <ResourceCompile>
+      <PreprocessorDefinitions>_WINDOWS;UNICODE;WIN32;_QX_MODE_DEBUG;_QX_BUILDING_QX_ORM;QT_SQL_LIB;QT_CORE_LIB;_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ResourceCompile>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="GeneratedFiles\Debug\moc_IxModel.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_QxDaoAsync.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_QxThread.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_QxThreadPool.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_IxModel.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_QxDaoAsync.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_QxThread.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_QxThreadPool.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="src\QxSerialize\QxBoostSerializeHelper\IxBoostSerializeRegisterHelper.cpp" />
+    <ClCompile Include="src\QxRegister\IxClass.cpp" />
+    <ClCompile Include="src\QxDao\IxDao_Helper.cpp" />
+    <ClCompile Include="src\QxDataMember\IxDataMember.cpp" />
+    <ClCompile Include="src\QxDataMember\IxDataMemberX.cpp" />
+    <ClCompile Include="src\QxFactory\IxFactory.cpp" />
+    <ClCompile Include="src\QxModelView\IxModel.cpp" />
+    <ClCompile Include="src\QxService\IxParameter.cpp" />
+    <ClCompile Include="src\QxDao\IxPersistable.cpp" />
+    <ClCompile Include="src\QxDao\QxRepository\IxRepository.cpp" />
+    <ClCompile Include="src\QxService\IxService.cpp" />
+    <ClCompile Include="src\QxSingleton\IxSingleton.cpp" />
+    <ClCompile Include="src\QxDao\QxSqlElement\IxSqlElement.cpp" />
+    <ClCompile Include="src\QxDao\QxSqlGenerator\IxSqlGenerator.cpp" />
+    <ClCompile Include="src\QxDao\IxSqlQueryBuilder.cpp" />
+    <ClCompile Include="src\QxDao\IxSqlRelation.cpp" />
+    <ClCompile Include="src\QxValidator\IxValidator.cpp" />
+    <ClCompile Include="src\QxValidator\IxValidatorX.cpp" />
+    <ClCompile Include="src\QxCommon\QxBool.cpp" />
+    <ClCompile Include="src\QxSerialize\QxBoostSerializeHelper\QxBoostSerializeRegisterHelperX.cpp" />
+    <ClCompile Include="src\QxCommon\QxCache.cpp" />
+    <ClCompile Include="src\QxRegister\QxClassX.cpp" />
+    <ClCompile Include="src\QxCollection\QxCollection.cpp" />
+    <ClCompile Include="src\QxService\QxConnect.cpp" />
+    <ClCompile Include="src\QxConvert\QxConvert_Export.cpp" />
+    <ClCompile Include="src\QxDao\QxDaoAsync.cpp" />
+    <ClCompile Include="src\QxDataMember\QxDataMember_QObject.cpp" />
+    <ClCompile Include="src\QxDao\QxDateNeutral.cpp" />
+    <ClCompile Include="src\QxDao\QxDateTimeNeutral.cpp" />
+    <ClCompile Include="src\QxSerialize\boost\QxExportDllBoostArchive.cpp" />
+    <ClCompile Include="src\QxFactory\QxFactoryX.cpp" />
+    <ClCompile Include="src\QxValidator\QxInvalidValue.cpp" />
+    <ClCompile Include="src\QxValidator\QxInvalidValueX.cpp" />
+    <ClCompile Include="src\QxModelView\QxModelRowCompare.cpp" />
+    <ClCompile Include="src\QxModelView\QxNestedModel.cpp" />
+    <ClCompile Include="src\QxDao\QxRepository\QxRepositoryX.cpp" />
+    <ClCompile Include="src\QxSerialize\QxSerializeCheckInstance.cpp" />
+    <ClCompile Include="src\QxSerialize\QDataStream\QxSerializeQDataStream_QObject.cpp" />
+    <ClCompile Include="src\QxSerialize\QDataStream\QxSerializeQDataStream_QSqlError.cpp" />
+    <ClCompile Include="src\QxSerialize\QDataStream\QxSerializeQDataStream_primitive_type.cpp" />
+    <ClCompile Include="src\QxSerialize\QDataStream\QxSerializeQDataStream_qx_registered_class.cpp" />
+    <ClCompile Include="src\QxSerialize\QDataStream\QxSerializeQDataStream_std_string.cpp" />
+    <ClCompile Include="src\QxSerialize\QJson\QxSerializeQJson_IxService.cpp" />
+    <ClCompile Include="src\QxSerialize\QJson\QxSerializeQJson_IxSqlElement.cpp" />
+    <ClCompile Include="src\QxSerialize\QJson\QxSerializeQJson_QBrush.cpp" />
+    <ClCompile Include="src\QxSerialize\QJson\QxSerializeQJson_QColor.cpp" />
+    <ClCompile Include="src\QxSerialize\QJson\QxSerializeQJson_QFont.cpp" />
+    <ClCompile Include="src\QxSerialize\QJson\QxSerializeQJson_QImage.cpp" />
+    <ClCompile Include="src\QxSerialize\QJson\QxSerializeQJson_QMatrix.cpp" />
+    <ClCompile Include="src\QxSerialize\QJson\QxSerializeQJson_QObject.cpp" />
+    <ClCompile Include="src\QxSerialize\QJson\QxSerializeQJson_QPicture.cpp" />
+    <ClCompile Include="src\QxSerialize\QJson\QxSerializeQJson_QPixmap.cpp" />
+    <ClCompile Include="src\QxSerialize\QJson\QxSerializeQJson_QPoint.cpp" />
+    <ClCompile Include="src\QxSerialize\QJson\QxSerializeQJson_QRect.cpp" />
+    <ClCompile Include="src\QxSerialize\QJson\QxSerializeQJson_QRegExp.cpp" />
+    <ClCompile Include="src\QxSerialize\QJson\QxSerializeQJson_QRegion.cpp" />
+    <ClCompile Include="src\QxSerialize\QJson\QxSerializeQJson_QSize.cpp" />
+    <ClCompile Include="src\QxSerialize\QJson\QxSerializeQJson_QSqlError.cpp" />
+    <ClCompile Include="src\QxSerialize\QJson\QxSerializeQJson_QStringList.cpp" />
+    <ClCompile Include="src\QxSerialize\QJson\QxSerializeQJson_QxInvalidValue.cpp" />
+    <ClCompile Include="src\QxSerialize\QJson\QxSerializeQJson_QxInvalidValueX.cpp" />
+    <ClCompile Include="src\QxSerialize\QJson\QxSerializeQJson_QxSqlQuery.cpp" />
+    <ClCompile Include="src\QxSerialize\QJson\QxSerializeQJson_QxTransaction.cpp" />
+    <ClCompile Include="src\QxSerialize\QJson\QxSerializeQJson_qx_registered_class.cpp" />
+    <ClCompile Include="src\QxSerialize\Qt\QxSerialize_QBrush.cpp" />
+    <ClCompile Include="src\QxSerialize\Qt\QxSerialize_QByteArray.cpp" />
+    <ClCompile Include="src\QxSerialize\Qt\QxSerialize_QColor.cpp" />
+    <ClCompile Include="src\QxSerialize\Qt\QxSerialize_QDate.cpp" />
+    <ClCompile Include="src\QxSerialize\Qt\QxSerialize_QDateTime.cpp" />
+    <ClCompile Include="src\QxSerialize\Qt\QxSerialize_QFont.cpp" />
+    <ClCompile Include="src\QxSerialize\Qt\QxSerialize_QImage.cpp" />
+    <ClCompile Include="src\QxSerialize\Qt\QxSerialize_QMatrix.cpp" />
+    <ClCompile Include="src\QxSerialize\Qt\QxSerialize_QObject.cpp" />
+    <ClCompile Include="src\QxSerialize\Qt\QxSerialize_QPicture.cpp" />
+    <ClCompile Include="src\QxSerialize\Qt\QxSerialize_QPixmap.cpp" />
+    <ClCompile Include="src\QxSerialize\Qt\QxSerialize_QPoint.cpp" />
+    <ClCompile Include="src\QxSerialize\Qt\QxSerialize_QRect.cpp" />
+    <ClCompile Include="src\QxSerialize\Qt\QxSerialize_QRegExp.cpp" />
+    <ClCompile Include="src\QxSerialize\Qt\QxSerialize_QRegion.cpp" />
+    <ClCompile Include="src\QxSerialize\Qt\QxSerialize_QSize.cpp" />
+    <ClCompile Include="src\QxSerialize\Qt\QxSerialize_QSqlError.cpp" />
+    <ClCompile Include="src\QxSerialize\Qt\QxSerialize_QString.cpp" />
+    <ClCompile Include="src\QxSerialize\Qt\QxSerialize_QStringList.cpp" />
+    <ClCompile Include="src\QxSerialize\Qt\QxSerialize_QTime.cpp" />
+    <ClCompile Include="src\QxSerialize\Qt\QxSerialize_QUrl.cpp" />
+    <ClCompile Include="src\QxSerialize\Qt\QxSerialize_QUuid.cpp" />
+    <ClCompile Include="src\QxSerialize\Qt\QxSerialize_QVariant.cpp" />
+    <ClCompile Include="src\QxService\QxServer.cpp" />
+    <ClCompile Include="src\QxDao\QxSession.cpp" />
+    <ClCompile Include="src\QxCommon\QxSimpleCrypt.cpp" />
+    <ClCompile Include="src\QxSingleton\QxSingletonInit.cpp" />
+    <ClCompile Include="src\QxSingleton\QxSingletonX.cpp" />
+    <ClCompile Include="src\QxDao\QxSoftDelete.cpp" />
+    <ClCompile Include="src\QxDao\QxSqlElement\QxSqlCompare.cpp" />
+    <ClCompile Include="src\QxDao\QxSqlDatabase.cpp" />
+    <ClCompile Include="src\QxDao\QxSqlElement\QxSqlElementTemp.cpp" />
+    <ClCompile Include="src\QxDao\QxSqlElement\QxSqlExpression.cpp" />
+    <ClCompile Include="src\QxDao\QxSqlElement\QxSqlFreeText.cpp" />
+    <ClCompile Include="src\QxDao\QxSqlGenerator\QxSqlGenerator_MSSQLServer.cpp" />
+    <ClCompile Include="src\QxDao\QxSqlGenerator\QxSqlGenerator_MySQL.cpp" />
+    <ClCompile Include="src\QxDao\QxSqlGenerator\QxSqlGenerator_Oracle.cpp" />
+    <ClCompile Include="src\QxDao\QxSqlGenerator\QxSqlGenerator_PostgreSQL.cpp" />
+    <ClCompile Include="src\QxDao\QxSqlGenerator\QxSqlGenerator_SQLite.cpp" />
+    <ClCompile Include="src\QxDao\QxSqlGenerator\QxSqlGenerator_Standard.cpp" />
+    <ClCompile Include="src\QxDao\QxSqlElement\QxSqlIn.cpp" />
+    <ClCompile Include="src\QxDao\QxSqlElement\QxSqlIsBetween.cpp" />
+    <ClCompile Include="src\QxDao\QxSqlElement\QxSqlIsNull.cpp" />
+    <ClCompile Include="src\QxDao\QxSqlElement\QxSqlLimit.cpp" />
+    <ClCompile Include="src\QxDao\QxSqlQuery.cpp" />
+    <ClCompile Include="src\QxDao\QxSqlRelationLinked.cpp" />
+    <ClCompile Include="src\QxDao\QxSqlRelationParams.cpp" />
+    <ClCompile Include="src\QxDao\QxSqlElement\QxSqlSort.cpp" />
+    <ClCompile Include="src\QxService\QxThread.cpp" />
+    <ClCompile Include="src\QxService\QxThreadPool.cpp" />
+    <ClCompile Include="src\QxDao\QxTimeNeutral.cpp" />
+    <ClCompile Include="src\QxService\QxTools.cpp" />
+    <ClCompile Include="src\QxService\QxTransaction.cpp" />
+    <ClCompile Include="src\QxMemLeak\bool_array.cpp" />
+    <ClCompile Include="src\QxMemLeak\debug_new.cpp" />
+    <ClCompile Include="src\main.cpp" />
+    <ClCompile Include="src\QxMemLeak\mem_pool_base.cpp" />
+    <ClCompile Include="src\QxMemLeak\static_mem_pool.cpp" />
+    <ClCompile Include="src\QxTraits\unit_test_is_container.cpp" />
+    <ClCompile Include="src\QxTraits\unit_test_is_smart_ptr.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="include\QxSerialize\QxBoostSerializeHelper\IxBoostSerializeRegisterHelper.h" />
+    <ClInclude Include="include\QxRegister\IxClass.h" />
+    <ClInclude Include="include\QxCollection\IxCollection.h" />
+    <ClInclude Include="include\QxDao\IxDao_Helper.h" />
+    <ClInclude Include="include\QxDataMember\IxDataMember.h" />
+    <ClInclude Include="include\QxDataMember\IxDataMemberX.h" />
+    <ClInclude Include="include\QxFactory\IxFactory.h" />
+    <ClInclude Include="include\QxFunction\IxFunction.h" />
+    <CustomBuild Include="include\QxModelView\IxModel.h">
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -D_WINDOWS -DUNICODE -DWIN32 -D_QX_BUILDING_QX_ORM -DQT_NO_DEBUG -DQT_SQL_LIB -DQT_CORE_LIB -DNDEBUG -D_HAS_AUTO_PTR_ETC=1 -D_WINDLL  "-I." "-I.\include" "-I$(QTDIR)\include" "-I$(QTDIR)\include\QtSql" "-I$(QTDIR)\include\QtCore" "-I$(QTDIR)\mkspecs\win32-msvc" "-I.\GeneratedFiles\$(ConfigurationName)\." "-finclude/QxPrecompiled.h" "-f../../include/QxModelView/IxModel.h"</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Moc%27ing IxModel.h...</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -D_WINDOWS -DUNICODE -DWIN32 -D_QX_BUILDING_QX_ORM -DQT_SQL_LIB -DQT_CORE_LIB -D_HAS_AUTO_PTR_ETC=1 -D_WINDLL  "-I." "-I.\include" "-I$(QTDIR)\include" "-I$(QTDIR)\include\QtSql" "-I$(QTDIR)\include\QtCore" "-I$(QTDIR)\mkspecs\win32-msvc" "-I.\GeneratedFiles\$(ConfigurationName)\." "-finclude/QxPrecompiled.h" "-f../../include/QxModelView/IxModel.h"</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Moc%27ing IxModel.h...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
+    </CustomBuild>
+    <ClInclude Include="include\QxService\IxParameter.h" />
+    <ClInclude Include="include\QxDao\IxPersistable.h" />
+    <ClInclude Include="include\QxDao\QxRepository\IxRepository.h" />
+    <ClInclude Include="include\QxService\IxService.h" />
+    <ClInclude Include="include\QxSingleton\IxSingleton.h" />
+    <ClInclude Include="include\QxDao\QxSqlElement\IxSqlElement.h" />
+    <ClInclude Include="include\QxDao\QxSqlGenerator\IxSqlGenerator.h" />
+    <ClInclude Include="include\QxDao\IxSqlQueryBuilder.h" />
+    <ClInclude Include="include\QxDao\IxSqlRelation.h" />
+    <ClInclude Include="include\QxRegister\IxTypeInfo.h" />
+    <ClInclude Include="include\QxValidator\IxValidator.h" />
+    <ClInclude Include="include\QxValidator\IxValidatorX.h" />
+    <ClInclude Include="include\QxCommon\QxAny.h" />
+    <ClInclude Include="include\QxCommon\QxAnyCastDynamic.h" />
+    <ClInclude Include="include\QxSerialize\QxArchive.h" />
+    <ClInclude Include="include\QxCommon\QxBool.h" />
+    <ClInclude Include="include\QxSerialize\QxBoostSerializeHelper\QxBoostInitGuid.h" />
+    <ClInclude Include="include\QxExtras\QxBoostOptionalOnly.h" />
+    <ClInclude Include="include\QxSerialize\QxBoostSerializeHelper\QxBoostSerializeHelper.h" />
+    <ClInclude Include="include\QxSerialize\QxBoostSerializeHelper\QxBoostSerializeRegisterHelper.h" />
+    <ClInclude Include="include\QxSerialize\QxBoostSerializeHelper\QxBoostSerializeRegisterHelperX.h" />
+    <ClInclude Include="include\QxCommon\QxCache.h" />
+    <ClInclude Include="include\QxRegister\QxClass.h" />
+    <ClInclude Include="include\QxRegister\QxClassName.h" />
+    <ClInclude Include="include\QxRegister\QxClassX.h" />
+    <ClInclude Include="include\QxService\QxClientAsync.h" />
+    <ClInclude Include="include\QxSerialize\QxClone.h" />
+    <ClInclude Include="include\QxCollection\QxCollection.h" />
+    <ClInclude Include="include\QxCollection\QxCollectionIterator.h" />
+    <ClInclude Include="include\QxCommon\QxConfig.h" />
+    <ClInclude Include="include\QxService\QxConnect.h" />
+    <ClInclude Include="include\QxConvert\QxConvert.h" />
+    <ClInclude Include="include\QxConvert\QxConvert_Export.h" />
+    <ClInclude Include="include\QxConvert\QxConvert_Impl.h" />
+    <ClInclude Include="include\QxDao\QxDao.h" />
+    <CustomBuild Include="include\QxDao\QxDaoAsync.h">
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -D_WINDOWS -DUNICODE -DWIN32 -D_QX_BUILDING_QX_ORM -DQT_NO_DEBUG -DQT_SQL_LIB -DQT_CORE_LIB -DNDEBUG -D_HAS_AUTO_PTR_ETC=1 -D_WINDLL  "-I." "-I.\include" "-I$(QTDIR)\include" "-I$(QTDIR)\include\QtSql" "-I$(QTDIR)\include\QtCore" "-I$(QTDIR)\mkspecs\win32-msvc" "-I.\GeneratedFiles\$(ConfigurationName)\." "-finclude/QxPrecompiled.h" "-f../../include/QxDao/QxDaoAsync.h"</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Moc%27ing QxDaoAsync.h...</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -D_WINDOWS -DUNICODE -DWIN32 -D_QX_BUILDING_QX_ORM -DQT_SQL_LIB -DQT_CORE_LIB -D_HAS_AUTO_PTR_ETC=1 -D_WINDLL  "-I." "-I.\include" "-I$(QTDIR)\include" "-I$(QTDIR)\include\QtSql" "-I$(QTDIR)\include\QtCore" "-I$(QTDIR)\mkspecs\win32-msvc" "-I.\GeneratedFiles\$(ConfigurationName)\." "-finclude/QxPrecompiled.h" "-f../../include/QxDao/QxDaoAsync.h"</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Moc%27ing QxDaoAsync.h...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
+    </CustomBuild>
+    <ClInclude Include="include\QxDao\QxDaoPointer.h" />
+    <ClInclude Include="include\QxDaoRepository.h" />
+    <ClInclude Include="include\QxDao\QxDaoStrategy.h" />
+    <ClInclude Include="include\QxDao\QxDaoThrowable.h" />
+    <ClInclude Include="include\QxDao\QxDao_Impl.h" />
+    <ClInclude Include="include\QxDao\QxDao_IsDirty.h" />
+    <ClInclude Include="include\QxDataMember\QxDataMember.h" />
+    <ClInclude Include="include\QxDataMember\QxDataMemberX.h" />
+    <ClInclude Include="include\QxDataMember\QxDataMember_QObject.h" />
+    <ClInclude Include="include\QxDao\QxDateNeutral.h" />
+    <ClInclude Include="include\QxDao\QxDateTimeNeutral.h" />
+    <ClInclude Include="include\QxSerialize\QxDump.h" />
+    <ClInclude Include="include\QxCommon\QxException.h" />
+    <ClInclude Include="include\QxCommon\QxExceptionCode.h" />
+    <ClInclude Include="include\QxSerialize\boost\QxExportDllBoostArchive.h" />
+    <ClInclude Include="include\QxSerialize\boost\QxExportDllMacroCpp.h" />
+    <ClInclude Include="include\QxSerialize\boost\QxExportDllMacroHpp.h" />
+    <ClInclude Include="include\QxFactory\QxFactory.h" />
+    <ClInclude Include="include\QxFactory\QxFactoryX.h" />
+    <ClInclude Include="include\QxCollection\QxForeach.h" />
+    <ClInclude Include="include\QxFunction\QxFunctionError.h" />
+    <ClInclude Include="include\QxFunction\QxFunctionInclude.h" />
+    <ClInclude Include="include\QxFunction\QxFunctionMacro.h" />
+    <ClInclude Include="include\QxFunction\QxFunction_0.h" />
+    <ClInclude Include="include\QxFunction\QxFunction_1.h" />
+    <ClInclude Include="include\QxFunction\QxFunction_2.h" />
+    <ClInclude Include="include\QxFunction\QxFunction_3.h" />
+    <ClInclude Include="include\QxFunction\QxFunction_4.h" />
+    <ClInclude Include="include\QxFunction\QxFunction_5.h" />
+    <ClInclude Include="include\QxFunction\QxFunction_6.h" />
+    <ClInclude Include="include\QxFunction\QxFunction_7.h" />
+    <ClInclude Include="include\QxFunction\QxFunction_8.h" />
+    <ClInclude Include="include\QxFunction\QxFunction_9.h" />
+    <ClInclude Include="include\QxCommon\QxHashValue.h" />
+    <ClInclude Include="include\QxSerialize\boost\QxImportDllBoostArchive.h" />
+    <ClInclude Include="include\QxValidator\QxInvalidValue.h" />
+    <ClInclude Include="include\QxValidator\QxInvalidValueX.h" />
+    <ClInclude Include="include\QxCommon\QxMacro.h" />
+    <ClInclude Include="include\QxMemLeak.h" />
+    <ClInclude Include="include\QxModelView\QxModel.h" />
+    <ClInclude Include="include\QxModelView\QxModelRowCompare.h" />
+    <ClInclude Include="include\QxModelView\QxModelService.h" />
+    <ClInclude Include="include\QxModelView.h" />
+    <ClInclude Include="include\QxModelView\QxNestedModel.h" />
+    <ClInclude Include="include\QxOrm.h" />
+    <ClInclude Include="include\QxOrm_Impl.h" />
+    <ClInclude Include="include\QxFunction\QxParameters.h" />
+    <CustomBuild Include="include\QxPrecompiled.h">
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">echo /*-------------------------------------------------------------------- &gt;include\QxPrecompiled.h.cpp
+if errorlevel 1 goto VCEnd
+echo * Precompiled header source file used by Visual Studio.NET to generate&gt;&gt;include\QxPrecompiled.h.cpp
+if errorlevel 1 goto VCEnd
+echo * the .pch file.&gt;&gt;include\QxPrecompiled.h.cpp
+if errorlevel 1 goto VCEnd
+echo *&gt;&gt;include\QxPrecompiled.h.cpp
+if errorlevel 1 goto VCEnd
+echo * Due to issues with the dependencies checker within the IDE, it&gt;&gt;include\QxPrecompiled.h.cpp
+if errorlevel 1 goto VCEnd
+echo * sometimes fails to recompile the PCH file, if we force the IDE to&gt;&gt;include\QxPrecompiled.h.cpp
+if errorlevel 1 goto VCEnd
+echo * create the PCH file directly from the header file.&gt;&gt;include\QxPrecompiled.h.cpp
+if errorlevel 1 goto VCEnd
+echo *&gt;&gt;include\QxPrecompiled.h.cpp
+if errorlevel 1 goto VCEnd
+echo * This file is auto-generated by qmake since no PRECOMPILED_SOURCE was&gt;&gt;include\QxPrecompiled.h.cpp
+if errorlevel 1 goto VCEnd
+echo * specified, and is used as the common stdafx.cpp. The file is only&gt;&gt;include\QxPrecompiled.h.cpp
+if errorlevel 1 goto VCEnd
+echo * generated when creating .vcxproj project files, and is not used for&gt;&gt;include\QxPrecompiled.h.cpp
+if errorlevel 1 goto VCEnd
+echo * command line compilations by nmake.&gt;&gt;include\QxPrecompiled.h.cpp
+if errorlevel 1 goto VCEnd
+echo *&gt;&gt;include\QxPrecompiled.h.cpp
+if errorlevel 1 goto VCEnd
+echo * WARNING: All changes made in this file will be lost.&gt;&gt;include\QxPrecompiled.h.cpp
+if errorlevel 1 goto VCEnd
+echo --------------------------------------------------------------------*/&gt;&gt;include\QxPrecompiled.h.cpp
+if errorlevel 1 goto VCEnd
+echo #include "QxPrecompiled.h"&gt;&gt;include\QxPrecompiled.h.cpp</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Generating precompiled header source file 'include\QxPrecompiled.h.cpp' ...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">include\QxPrecompiled.h.cpp;%(Outputs)</Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">echo /*-------------------------------------------------------------------- &gt;include\QxPrecompiled.h.cpp
+if errorlevel 1 goto VCEnd
+echo * Precompiled header source file used by Visual Studio.NET to generate&gt;&gt;include\QxPrecompiled.h.cpp
+if errorlevel 1 goto VCEnd
+echo * the .pch file.&gt;&gt;include\QxPrecompiled.h.cpp
+if errorlevel 1 goto VCEnd
+echo *&gt;&gt;include\QxPrecompiled.h.cpp
+if errorlevel 1 goto VCEnd
+echo * Due to issues with the dependencies checker within the IDE, it&gt;&gt;include\QxPrecompiled.h.cpp
+if errorlevel 1 goto VCEnd
+echo * sometimes fails to recompile the PCH file, if we force the IDE to&gt;&gt;include\QxPrecompiled.h.cpp
+if errorlevel 1 goto VCEnd
+echo * create the PCH file directly from the header file.&gt;&gt;include\QxPrecompiled.h.cpp
+if errorlevel 1 goto VCEnd
+echo *&gt;&gt;include\QxPrecompiled.h.cpp
+if errorlevel 1 goto VCEnd
+echo * This file is auto-generated by qmake since no PRECOMPILED_SOURCE was&gt;&gt;include\QxPrecompiled.h.cpp
+if errorlevel 1 goto VCEnd
+echo * specified, and is used as the common stdafx.cpp. The file is only&gt;&gt;include\QxPrecompiled.h.cpp
+if errorlevel 1 goto VCEnd
+echo * generated when creating .vcxproj project files, and is not used for&gt;&gt;include\QxPrecompiled.h.cpp
+if errorlevel 1 goto VCEnd
+echo * command line compilations by nmake.&gt;&gt;include\QxPrecompiled.h.cpp
+if errorlevel 1 goto VCEnd
+echo *&gt;&gt;include\QxPrecompiled.h.cpp
+if errorlevel 1 goto VCEnd
+echo * WARNING: All changes made in this file will be lost.&gt;&gt;include\QxPrecompiled.h.cpp
+if errorlevel 1 goto VCEnd
+echo --------------------------------------------------------------------*/&gt;&gt;include\QxPrecompiled.h.cpp
+if errorlevel 1 goto VCEnd
+echo #include "QxPrecompiled.h"&gt;&gt;include\QxPrecompiled.h.cpp</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Generating precompiled header source file 'include\QxPrecompiled.h.cpp' ...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">include\QxPrecompiled.h.cpp;%(Outputs)</Outputs>
+    </CustomBuild>
+    <ClInclude Include="include\QxCommon\QxPropertyBag.h" />
+    <ClInclude Include="include\QxRegister\QxRegister.h" />
+    <ClInclude Include="include\QxRegister\QxRegisterInternalHelper.h" />
+    <ClInclude Include="include\QxRegister\QxRegisterQtProperty.h" />
+    <ClInclude Include="include\QxDao\QxRepository\QxRepository.h" />
+    <ClInclude Include="include\QxDao\QxRepository\QxRepositoryX.h" />
+    <ClInclude Include="include\QxSerialize\QxSerialize.h" />
+    <ClInclude Include="include\QxSerialize\QxSerializeCheckInstance.h" />
+    <ClInclude Include="include\QxSerialize\QxSerializeFastCompil.h" />
+    <ClInclude Include="include\QxSerialize\boost\QxSerializeInclude.h" />
+    <ClInclude Include="include\QxSerialize\QxSerializeInvoker.h" />
+    <ClInclude Include="include\QxSerialize\QxSerializeMacro.h" />
+    <ClInclude Include="include\QxSerialize\QxSerializeQDataStream.h" />
+    <ClInclude Include="include\QxSerialize\QDataStream\QxSerializeQDataStream_QFlags.h" />
+    <ClInclude Include="include\QxSerialize\QDataStream\QxSerializeQDataStream_QObject.h" />
+    <ClInclude Include="include\QxSerialize\QDataStream\QxSerializeQDataStream_QScopedPointer.h" />
+    <ClInclude Include="include\QxSerialize\QDataStream\QxSerializeQDataStream_QSharedPointer.h" />
+    <ClInclude Include="include\QxSerialize\QDataStream\QxSerializeQDataStream_QSqlError.h" />
+    <ClInclude Include="include\QxSerialize\QDataStream\QxSerializeQDataStream_QWeakPointer.h" />
+    <ClInclude Include="include\QxSerialize\QDataStream\QxSerializeQDataStream_all_include.h" />
+    <ClInclude Include="include\QxSerialize\QDataStream\QxSerializeQDataStream_boost_optional.h" />
+    <ClInclude Include="include\QxSerialize\QDataStream\QxSerializeQDataStream_boost_scoped_ptr.h" />
+    <ClInclude Include="include\QxSerialize\QDataStream\QxSerializeQDataStream_boost_shared_ptr.h" />
+    <ClInclude Include="include\QxSerialize\QDataStream\QxSerializeQDataStream_boost_tuple.h" />
+    <ClInclude Include="include\QxSerialize\QDataStream\QxSerializeQDataStream_boost_unordered_map.h" />
+    <ClInclude Include="include\QxSerialize\QDataStream\QxSerializeQDataStream_boost_unordered_set.h" />
+    <ClInclude Include="include\QxSerialize\QDataStream\QxSerializeQDataStream_primitive_type.h" />
+    <ClInclude Include="include\QxSerialize\QDataStream\QxSerializeQDataStream_qx_registered_class.h" />
+    <ClInclude Include="include\QxSerialize\QDataStream\QxSerializeQDataStream_std_list.h" />
+    <ClInclude Include="include\QxSerialize\QDataStream\QxSerializeQDataStream_std_map.h" />
+    <ClInclude Include="include\QxSerialize\QDataStream\QxSerializeQDataStream_std_pair.h" />
+    <ClInclude Include="include\QxSerialize\QDataStream\QxSerializeQDataStream_std_set.h" />
+    <ClInclude Include="include\QxSerialize\QDataStream\QxSerializeQDataStream_std_shared_ptr.h" />
+    <ClInclude Include="include\QxSerialize\QDataStream\QxSerializeQDataStream_std_string.h" />
+    <ClInclude Include="include\QxSerialize\QDataStream\QxSerializeQDataStream_std_tuple.h" />
+    <ClInclude Include="include\QxSerialize\QDataStream\QxSerializeQDataStream_std_unique_ptr.h" />
+    <ClInclude Include="include\QxSerialize\QDataStream\QxSerializeQDataStream_std_unordered_map.h" />
+    <ClInclude Include="include\QxSerialize\QDataStream\QxSerializeQDataStream_std_unordered_set.h" />
+    <ClInclude Include="include\QxSerialize\QDataStream\QxSerializeQDataStream_std_vector.h" />
+    <ClInclude Include="include\QxSerialize\QxSerializeQJson.h" />
+    <ClInclude Include="include\QxSerialize\QJson\QxSerializeQJson_IxParameter.h" />
+    <ClInclude Include="include\QxSerialize\QJson\QxSerializeQJson_IxService.h" />
+    <ClInclude Include="include\QxSerialize\QJson\QxSerializeQJson_IxSqlElement.h" />
+    <ClInclude Include="include\QxSerialize\QJson\QxSerializeQJson_QBrush.h" />
+    <ClInclude Include="include\QxSerialize\QJson\QxSerializeQJson_QColor.h" />
+    <ClInclude Include="include\QxSerialize\QJson\QxSerializeQJson_QFlags.h" />
+    <ClInclude Include="include\QxSerialize\QJson\QxSerializeQJson_QFont.h" />
+    <ClInclude Include="include\QxSerialize\QJson\QxSerializeQJson_QHash.h" />
+    <ClInclude Include="include\QxSerialize\QJson\QxSerializeQJson_QImage.h" />
+    <ClInclude Include="include\QxSerialize\QJson\QxSerializeQJson_QLinkedList.h" />
+    <ClInclude Include="include\QxSerialize\QJson\QxSerializeQJson_QList.h" />
+    <ClInclude Include="include\QxSerialize\QJson\QxSerializeQJson_QMap.h" />
+    <ClInclude Include="include\QxSerialize\QJson\QxSerializeQJson_QMatrix.h" />
+    <ClInclude Include="include\QxSerialize\QJson\QxSerializeQJson_QMultiHash.h" />
+    <ClInclude Include="include\QxSerialize\QJson\QxSerializeQJson_QMultiMap.h" />
+    <ClInclude Include="include\QxSerialize\QJson\QxSerializeQJson_QObject.h" />
+    <ClInclude Include="include\QxSerialize\QJson\QxSerializeQJson_QPair.h" />
+    <ClInclude Include="include\QxSerialize\QJson\QxSerializeQJson_QPicture.h" />
+    <ClInclude Include="include\QxSerialize\QJson\QxSerializeQJson_QPixmap.h" />
+    <ClInclude Include="include\QxSerialize\QJson\QxSerializeQJson_QPoint.h" />
+    <ClInclude Include="include\QxSerialize\QJson\QxSerializeQJson_QRect.h" />
+    <ClInclude Include="include\QxSerialize\QJson\QxSerializeQJson_QRegExp.h" />
+    <ClInclude Include="include\QxSerialize\QJson\QxSerializeQJson_QRegion.h" />
+    <ClInclude Include="include\QxSerialize\QJson\QxSerializeQJson_QScopedPointer.h" />
+    <ClInclude Include="include\QxSerialize\QJson\QxSerializeQJson_QSharedPointer.h" />
+    <ClInclude Include="include\QxSerialize\QJson\QxSerializeQJson_QSize.h" />
+    <ClInclude Include="include\QxSerialize\QJson\QxSerializeQJson_QSqlError.h" />
+    <ClInclude Include="include\QxSerialize\QJson\QxSerializeQJson_QStringList.h" />
+    <ClInclude Include="include\QxSerialize\QJson\QxSerializeQJson_QUrl.h" />
+    <ClInclude Include="include\QxSerialize\QJson\QxSerializeQJson_QVector.h" />
+    <ClInclude Include="include\QxSerialize\QJson\QxSerializeQJson_QWeakPointer.h" />
+    <ClInclude Include="include\QxSerialize\QJson\QxSerializeQJson_QxCollection.h" />
+    <ClInclude Include="include\QxSerialize\QJson\QxSerializeQJson_QxDaoPointer.h" />
+    <ClInclude Include="include\QxSerialize\QJson\QxSerializeQJson_QxInvalidValue.h" />
+    <ClInclude Include="include\QxSerialize\QJson\QxSerializeQJson_QxInvalidValueX.h" />
+    <ClInclude Include="include\QxSerialize\QJson\QxSerializeQJson_QxSqlQuery.h" />
+    <ClInclude Include="include\QxSerialize\QJson\QxSerializeQJson_QxTransaction.h" />
+    <ClInclude Include="include\QxSerialize\QJson\QxSerializeQJson_all_include.h" />
+    <ClInclude Include="include\QxSerialize\QJson\QxSerializeQJson_boost_scoped_ptr.h" />
+    <ClInclude Include="include\QxSerialize\QJson\QxSerializeQJson_boost_shared_ptr.h" />
+    <ClInclude Include="include\QxSerialize\QJson\QxSerializeQJson_boost_tuple.h" />
+    <ClInclude Include="include\QxSerialize\QJson\QxSerializeQJson_boost_unordered_map.h" />
+    <ClInclude Include="include\QxSerialize\QJson\QxSerializeQJson_boost_unordered_set.h" />
+    <ClInclude Include="include\QxSerialize\QJson\QxSerializeQJson_qx_registered_class.h" />
+    <ClInclude Include="include\QxSerialize\QJson\QxSerializeQJson_std_list.h" />
+    <ClInclude Include="include\QxSerialize\QJson\QxSerializeQJson_std_map.h" />
+    <ClInclude Include="include\QxSerialize\QJson\QxSerializeQJson_std_pair.h" />
+    <ClInclude Include="include\QxSerialize\QJson\QxSerializeQJson_std_set.h" />
+    <ClInclude Include="include\QxSerialize\QJson\QxSerializeQJson_std_shared_ptr.h" />
+    <ClInclude Include="include\QxSerialize\QJson\QxSerializeQJson_std_tuple.h" />
+    <ClInclude Include="include\QxSerialize\QJson\QxSerializeQJson_std_unique_ptr.h" />
+    <ClInclude Include="include\QxSerialize\QJson\QxSerializeQJson_std_unordered_map.h" />
+    <ClInclude Include="include\QxSerialize\QJson\QxSerializeQJson_std_unordered_set.h" />
+    <ClInclude Include="include\QxSerialize\QJson\QxSerializeQJson_std_vector.h" />
+    <ClInclude Include="include\QxSerialize\Qt\QxSerialize_QBrush.h" />
+    <ClInclude Include="include\QxSerialize\Qt\QxSerialize_QByteArray.h" />
+    <ClInclude Include="include\QxSerialize\Qt\QxSerialize_QColor.h" />
+    <ClInclude Include="include\QxSerialize\Qt\QxSerialize_QDate.h" />
+    <ClInclude Include="include\QxSerialize\Qt\QxSerialize_QDateTime.h" />
+    <ClInclude Include="include\QxSerialize\Qt\QxSerialize_QFlags.h" />
+    <ClInclude Include="include\QxSerialize\Qt\QxSerialize_QFont.h" />
+    <ClInclude Include="include\QxSerialize\Qt\QxSerialize_QHash.h" />
+    <ClInclude Include="include\QxSerialize\Qt\QxSerialize_QImage.h" />
+    <ClInclude Include="include\QxSerialize\Qt\QxSerialize_QLinkedList.h" />
+    <ClInclude Include="include\QxSerialize\Qt\QxSerialize_QList.h" />
+    <ClInclude Include="include\QxSerialize\Qt\QxSerialize_QMap.h" />
+    <ClInclude Include="include\QxSerialize\Qt\QxSerialize_QMatrix.h" />
+    <ClInclude Include="include\QxSerialize\Qt\QxSerialize_QMultiHash.h" />
+    <ClInclude Include="include\QxSerialize\Qt\QxSerialize_QMultiMap.h" />
+    <ClInclude Include="include\QxSerialize\Qt\QxSerialize_QObject.h" />
+    <ClInclude Include="include\QxSerialize\Qt\QxSerialize_QPair.h" />
+    <ClInclude Include="include\QxSerialize\Qt\QxSerialize_QPicture.h" />
+    <ClInclude Include="include\QxSerialize\Qt\QxSerialize_QPixmap.h" />
+    <ClInclude Include="include\QxSerialize\Qt\QxSerialize_QPoint.h" />
+    <ClInclude Include="include\QxSerialize\Qt\QxSerialize_QRect.h" />
+    <ClInclude Include="include\QxSerialize\Qt\QxSerialize_QRegExp.h" />
+    <ClInclude Include="include\QxSerialize\Qt\QxSerialize_QRegion.h" />
+    <ClInclude Include="include\QxSerialize\Qt\QxSerialize_QScopedPointer.h" />
+    <ClInclude Include="include\QxSerialize\Qt\QxSerialize_QSharedPointer.h" />
+    <ClInclude Include="include\QxSerialize\Qt\QxSerialize_QSize.h" />
+    <ClInclude Include="include\QxSerialize\Qt\QxSerialize_QSqlError.h" />
+    <ClInclude Include="include\QxSerialize\Qt\QxSerialize_QString.h" />
+    <ClInclude Include="include\QxSerialize\Qt\QxSerialize_QStringList.h" />
+    <ClInclude Include="include\QxSerialize\Qt\QxSerialize_QTime.h" />
+    <ClInclude Include="include\QxSerialize\Qt\QxSerialize_QUrl.h" />
+    <ClInclude Include="include\QxSerialize\Qt\QxSerialize_QUuid.h" />
+    <ClInclude Include="include\QxSerialize\Qt\QxSerialize_QVariant.h" />
+    <ClInclude Include="include\QxSerialize\Qt\QxSerialize_QVector.h" />
+    <ClInclude Include="include\QxSerialize\Qt\QxSerialize_QWeakPointer.h" />
+    <ClInclude Include="include\QxSerialize\Qx\QxSerialize_QxCollection.h" />
+    <ClInclude Include="include\QxSerialize\Qx\QxSerialize_QxDaoPointer.h" />
+    <ClInclude Include="include\QxSerialize\boost\QxSerialize_shared_ptr.h" />
+    <ClInclude Include="include\QxSerialize\std\QxSerialize_std_shared_ptr.h" />
+    <ClInclude Include="include\QxSerialize\std\QxSerialize_std_tuple.h" />
+    <ClInclude Include="include\QxSerialize\std\QxSerialize_std_unique_ptr.h" />
+    <ClInclude Include="include\QxSerialize\std\QxSerialize_std_unordered_map.h" />
+    <ClInclude Include="include\QxSerialize\std\QxSerialize_std_unordered_set.h" />
+    <ClInclude Include="include\QxSerialize\boost\QxSerialize_tuple.h" />
+    <ClInclude Include="include\QxSerialize\boost\QxSerialize_unordered_map.h" />
+    <ClInclude Include="include\QxSerialize\boost\QxSerialize_unordered_set.h" />
+    <ClInclude Include="include\QxService\QxServer.h" />
+    <ClInclude Include="include\QxService\QxService.h" />
+    <ClInclude Include="include\QxServices.h" />
+    <ClInclude Include="include\QxDao\QxSession.h" />
+    <ClInclude Include="include\QxCommon\QxSimpleCrypt.h" />
+    <ClInclude Include="include\QxSingleton\QxSingleton.h" />
+    <ClInclude Include="include\QxSingleton\QxSingletonInit.h" />
+    <ClInclude Include="include\QxSingleton\QxSingletonX.h" />
+    <ClInclude Include="include\QxDao\QxSoftDelete.h" />
+    <ClInclude Include="include\QxDao\QxSqlElement\QxSqlCompare.h" />
+    <ClInclude Include="include\QxDao\QxSqlDatabase.h" />
+    <ClInclude Include="include\QxDao\QxSqlElement\QxSqlElement.h" />
+    <ClInclude Include="include\QxDao\QxSqlElement\QxSqlElementTemp.h" />
+    <ClInclude Include="include\QxDao\QxSqlError.h" />
+    <ClInclude Include="include\QxDao\QxSqlElement\QxSqlExpression.h" />
+    <ClInclude Include="include\QxDao\QxSqlElement\QxSqlFreeText.h" />
+    <ClInclude Include="include\QxDao\QxSqlGenerator\QxSqlGenerator.h" />
+    <ClInclude Include="include\QxDao\QxSqlGenerator\QxSqlGenerator_MSSQLServer.h" />
+    <ClInclude Include="include\QxDao\QxSqlGenerator\QxSqlGenerator_MySQL.h" />
+    <ClInclude Include="include\QxDao\QxSqlGenerator\QxSqlGenerator_Oracle.h" />
+    <ClInclude Include="include\QxDao\QxSqlGenerator\QxSqlGenerator_PostgreSQL.h" />
+    <ClInclude Include="include\QxDao\QxSqlGenerator\QxSqlGenerator_SQLite.h" />
+    <ClInclude Include="include\QxDao\QxSqlGenerator\QxSqlGenerator_Standard.h" />
+    <ClInclude Include="include\QxDao\QxSqlElement\QxSqlIn.h" />
+    <ClInclude Include="include\QxDao\QxSqlElement\QxSqlIsBetween.h" />
+    <ClInclude Include="include\QxDao\QxSqlElement\QxSqlIsNull.h" />
+    <ClInclude Include="include\QxDao\QxSqlJoin.h" />
+    <ClInclude Include="include\QxDao\QxSqlElement\QxSqlLimit.h" />
+    <ClInclude Include="include\QxDao\QxSqlQuery.h" />
+    <ClInclude Include="include\QxDao\QxSqlQueryBuilder.h" />
+    <ClInclude Include="include\QxDao\QxSqlQueryHelper.h" />
+    <ClInclude Include="include\QxDao\QxSqlRelation.h" />
+    <ClInclude Include="include\QxDao\QxSqlRelationLinked.h" />
+    <ClInclude Include="include\QxDao\QxSqlRelationParams.h" />
+    <ClInclude Include="include\QxDao\QxSqlRelation_ManyToMany.h" />
+    <ClInclude Include="include\QxDao\QxSqlRelation_ManyToOne.h" />
+    <ClInclude Include="include\QxDao\QxSqlRelation_OneToMany.h" />
+    <ClInclude Include="include\QxDao\QxSqlRelation_OneToOne.h" />
+    <ClInclude Include="include\QxDao\QxSqlRelation_RawData.h" />
+    <ClInclude Include="include\QxDao\QxSqlSaveMode.h" />
+    <ClInclude Include="include\QxDao\QxSqlElement\QxSqlSort.h" />
+    <ClInclude Include="include\QxExtras\QxStdOptional.h" />
+    <CustomBuild Include="include\QxService\QxThread.h">
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -D_WINDOWS -DUNICODE -DWIN32 -D_QX_BUILDING_QX_ORM -DQT_NO_DEBUG -DQT_SQL_LIB -DQT_CORE_LIB -DNDEBUG -D_HAS_AUTO_PTR_ETC=1 -D_WINDLL  "-I." "-I.\include" "-I$(QTDIR)\include" "-I$(QTDIR)\include\QtSql" "-I$(QTDIR)\include\QtCore" "-I$(QTDIR)\mkspecs\win32-msvc" "-I.\GeneratedFiles\$(ConfigurationName)\." "-finclude/QxPrecompiled.h" "-f../../include/QxService/QxThread.h"</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Moc%27ing QxThread.h...</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -D_WINDOWS -DUNICODE -DWIN32 -D_QX_BUILDING_QX_ORM -DQT_SQL_LIB -DQT_CORE_LIB -D_HAS_AUTO_PTR_ETC=1 -D_WINDLL  "-I." "-I.\include" "-I$(QTDIR)\include" "-I$(QTDIR)\include\QtSql" "-I$(QTDIR)\include\QtCore" "-I$(QTDIR)\mkspecs\win32-msvc" "-I.\GeneratedFiles\$(ConfigurationName)\." "-finclude/QxPrecompiled.h" "-f../../include/QxService/QxThread.h"</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Moc%27ing QxThread.h...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
+    </CustomBuild>
+    <CustomBuild Include="include\QxService\QxThreadPool.h">
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -D_WINDOWS -DUNICODE -DWIN32 -D_QX_BUILDING_QX_ORM -DQT_NO_DEBUG -DQT_SQL_LIB -DQT_CORE_LIB -DNDEBUG -D_HAS_AUTO_PTR_ETC=1 -D_WINDLL  "-I." "-I.\include" "-I$(QTDIR)\include" "-I$(QTDIR)\include\QtSql" "-I$(QTDIR)\include\QtCore" "-I$(QTDIR)\mkspecs\win32-msvc" "-I.\GeneratedFiles\$(ConfigurationName)\." "-finclude/QxPrecompiled.h" "-f../../include/QxService/QxThreadPool.h"</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Moc%27ing QxThreadPool.h...</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -D_WINDOWS -DUNICODE -DWIN32 -D_QX_BUILDING_QX_ORM -DQT_SQL_LIB -DQT_CORE_LIB -D_HAS_AUTO_PTR_ETC=1 -D_WINDLL  "-I." "-I.\include" "-I$(QTDIR)\include" "-I$(QTDIR)\include\QtSql" "-I$(QTDIR)\include\QtCore" "-I$(QTDIR)\mkspecs\win32-msvc" "-I.\GeneratedFiles\$(ConfigurationName)\." "-finclude/QxPrecompiled.h" "-f../../include/QxService/QxThreadPool.h"</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Moc%27ing QxThreadPool.h...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
+    </CustomBuild>
+    <ClInclude Include="include\QxDao\QxTimeNeutral.h" />
+    <ClInclude Include="include\QxService\QxTools.h" />
+    <ClInclude Include="include\QxService\QxTransaction.h" />
+    <ClInclude Include="include\QxValidator\QxValidator.h" />
+    <ClInclude Include="include\QxValidator\QxValidatorError.h" />
+    <ClInclude Include="include\QxValidator\QxValidatorFct.h" />
+    <ClInclude Include="include\QxValidator\QxValidatorX.h" />
+    <ClInclude Include="include\QxRegister\QxVersion.h" />
+    <ClInclude Include="include\QxTraits\archive_printable.h" />
+    <ClInclude Include="include\QxTraits\archive_wide_traits.h" />
+    <ClInclude Include="include\QxMemLeak\bool_array.h" />
+    <ClInclude Include="include\QxMemLeak\class_level_lock.h" />
+    <ClInclude Include="include\QxTraits\construct_ptr.h" />
+    <ClInclude Include="include\QxMemLeak\cont_ptr_utils.h" />
+    <ClInclude Include="include\QxMemLeak\debug_new.h" />
+    <ClInclude Include="include\QxMemLeak\fast_mutex.h" />
+    <ClInclude Include="include\QxMemLeak\fixed_mem_pool.h" />
+    <ClInclude Include="include\QxTraits\generic_container.h" />
+    <ClInclude Include="include\QxTraits\get_base_class.h" />
+    <ClInclude Include="include\QxTraits\get_class_name.h" />
+    <ClInclude Include="include\QxTraits\get_class_name_primitive.h" />
+    <ClInclude Include="include\QxTraits\get_primary_key.h" />
+    <ClInclude Include="include\QxTraits\get_sql_type.h" />
+    <ClInclude Include="include\QxTraits\is_boost_intrusive_ptr.h" />
+    <ClInclude Include="include\QxTraits\is_boost_scoped_ptr.h" />
+    <ClInclude Include="include\QxTraits\is_boost_shared_ptr.h" />
+    <ClInclude Include="include\QxTraits\is_boost_unordered_map.h" />
+    <ClInclude Include="include\QxTraits\is_boost_unordered_set.h" />
+    <ClInclude Include="include\QxTraits\is_boost_weak_ptr.h" />
+    <ClInclude Include="include\QxTraits\is_container.h" />
+    <ClInclude Include="include\QxTraits\is_container_base_of.h" />
+    <ClInclude Include="include\QxTraits\is_container_key_value.h" />
+    <ClInclude Include="include\QxTraits\is_container_to_pod.h" />
+    <ClInclude Include="include\QxTraits\is_equal.h" />
+    <ClInclude Include="include\QxTraits\is_ptr_base_of.h" />
+    <ClInclude Include="include\QxTraits\is_ptr_to_pod.h" />
+    <ClInclude Include="include\QxTraits\is_qt_hash.h" />
+    <ClInclude Include="include\QxTraits\is_qt_linked_list.h" />
+    <ClInclude Include="include\QxTraits\is_qt_list.h" />
+    <ClInclude Include="include\QxTraits\is_qt_map.h" />
+    <ClInclude Include="include\QxTraits\is_qt_multi_hash.h" />
+    <ClInclude Include="include\QxTraits\is_qt_multi_map.h" />
+    <ClInclude Include="include\QxTraits\is_qt_scoped_ptr.h" />
+    <ClInclude Include="include\QxTraits\is_qt_set.h" />
+    <ClInclude Include="include\QxTraits\is_qt_shared_data_ptr.h" />
+    <ClInclude Include="include\QxTraits\is_qt_shared_ptr.h" />
+    <ClInclude Include="include\QxTraits\is_qt_variant_compatible.h" />
+    <ClInclude Include="include\QxTraits\is_qt_vector.h" />
+    <ClInclude Include="include\QxTraits\is_qt_weak_ptr.h" />
+    <ClInclude Include="include\QxTraits\is_qx_collection.h" />
+    <ClInclude Include="include\QxTraits\is_qx_dao_ptr.h" />
+    <ClInclude Include="include\QxTraits\is_qx_pod.h" />
+    <ClInclude Include="include\QxTraits\is_qx_registered.h" />
+    <ClInclude Include="include\QxTraits\is_smart_ptr.h" />
+    <ClInclude Include="include\QxTraits\is_smart_ptr_base_of.h" />
+    <ClInclude Include="include\QxTraits\is_smart_ptr_to_pod.h" />
+    <ClInclude Include="include\QxTraits\is_std_list.h" />
+    <ClInclude Include="include\QxTraits\is_std_map.h" />
+    <ClInclude Include="include\QxTraits\is_std_set.h" />
+    <ClInclude Include="include\QxTraits\is_std_shared_ptr.h" />
+    <ClInclude Include="include\QxTraits\is_std_unique_ptr.h" />
+    <ClInclude Include="include\QxTraits\is_std_unordered_map.h" />
+    <ClInclude Include="include\QxTraits\is_std_unordered_set.h" />
+    <ClInclude Include="include\QxTraits\is_std_vector.h" />
+    <ClInclude Include="include\QxTraits\is_std_weak_ptr.h" />
+    <ClInclude Include="include\QxTraits\is_valid_primary_key.h" />
+    <ClInclude Include="include\QxMemLeak\mem_leak.h" />
+    <ClInclude Include="include\QxMemLeak\mem_pool_base.h" />
+    <ClInclude Include="include\QxMemLeak\object_level_lock.h" />
+    <ClInclude Include="include\QxMemLeak\pctimer.h" />
+    <ClInclude Include="include\QxSerialize\boost\portable_binary\portable_archive_exception.hpp" />
+    <ClInclude Include="include\QxSerialize\boost\portable_binary\portable_iarchive.hpp" />
+    <ClInclude Include="include\QxSerialize\boost\portable_binary\portable_oarchive.hpp" />
+    <ClInclude Include="include\QxTraits\qt_meta_object.h" />
+    <ClInclude Include="include\QxSerialize\boost\class_export\qx_boost_class_export.h" />
+    <ClInclude Include="include\QxTraits\qx_traits.h" />
+    <ClInclude Include="include\QxTraits\remove_attr.h" />
+    <ClInclude Include="include\QxTraits\remove_smart_ptr.h" />
+    <ClInclude Include="include\QxMemLeak\set_assign.h" />
+    <ClInclude Include="include\QxMemLeak\static_assert.h" />
+    <ClInclude Include="include\QxMemLeak\static_mem_pool.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="include\QxPrecompiled.h.cpp">
+      <ForcedIncludeFiles Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(NOINHERIT)</ForcedIncludeFiles>
+      <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">QxPrecompiled.h</PrecompiledHeaderFile>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
+      <ForcedIncludeFiles Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(NOINHERIT)</ForcedIncludeFiles>
+      <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">QxPrecompiled.h</PrecompiledHeaderFile>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
+    </ClCompile>
+    <CustomBuild Include="qt\moc\moc_predefs.h.cbt">
+      <FileType>Document</FileType>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(QTDIR)\mkspecs\features\data\dummy.cpp;%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">cl -Bx"$(QTDIR)\bin\qmake.exe" -nologo -Zc:wchar_t -FS -Zc:rvalueCast -Zc:inline -Zc:strictStrings -Zc:throwingNew -Zc:referenceBinding -O2 -MD -W3 -w34100 -w34189 -w44996 -w44456 -w44457 -w44458 -wd4577 -wd4467 -E $(QTDIR)\mkspecs\features\data\dummy.cpp 2&gt;NUL &gt;qt\moc\moc_predefs.h</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Generate moc_predefs.h</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">qt\moc\moc_predefs.h;%(Outputs)</Outputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\mkspecs\features\data\dummy.cpp;%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">cl -Bx"$(QTDIR)\bin\qmake.exe" -nologo -Zc:wchar_t -FS -Zc:rvalueCast -Zc:inline -Zc:strictStrings -Zc:throwingNew -Zc:referenceBinding -Zi -MDd -W3 -w34100 -w34189 -w44996 -w44456 -w44457 -w44458 -wd4577 -wd4467 -E $(QTDIR)\mkspecs\features\data\dummy.cpp 2&gt;NUL &gt;qt\moc\moc_predefs.h</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Generate moc_predefs.h</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">qt\moc\moc_predefs.h;%(Outputs)</Outputs>
+    </CustomBuild>
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets" />
+  <ProjectExtensions>
+    <VisualStudio>
+      <UserProperties MocDir=".\GeneratedFiles\$(ConfigurationName)" UicDir=".\GeneratedFiles" RccDir=".\GeneratedFiles" Qt5Version_x0020_Win32="$(DefaultQtVersion)" />
+    </VisualStudio>
+  </ProjectExtensions>
+</Project>
