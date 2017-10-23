@@ -7,7 +7,6 @@ namespace JChat {
 	class BusyIndicator : public QWidget
 	{
 		Q_OBJECT
-
 	public:
 		BusyIndicator(QWidget *parent = Q_NULLPTR);
 		~BusyIndicator();
@@ -19,6 +18,7 @@ namespace JChat {
 
 		virtual void closeEvent(QCloseEvent *event) override;
 
+		virtual void paintEvent(QPaintEvent *event) override;
 	private:
 	};
 

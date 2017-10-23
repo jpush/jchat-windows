@@ -6,6 +6,7 @@
 #include <QCloseEvent>
 #include <QResizeEvent>
 #include <QHBoxLayout>
+#include <QStyleOption>
 #include <QtSvg/QSvgWidget>
 
 namespace JChat {
@@ -13,15 +14,17 @@ namespace JChat {
 	BusyIndicator::BusyIndicator(QWidget *parent)
 		: QWidget(parent)
 	{
+		setAutoFillBackground(true);
+
 		auto horizontalLayout = new QHBoxLayout(this);
 		horizontalLayout->setSpacing(6);
 		horizontalLayout->setContentsMargins(11, 11, 11, 11);
 		horizontalLayout->setObjectName(QStringLiteral("horizontalLayout"));
 		horizontalLayout->setContentsMargins(0, 0, 0, 0);
-
+		
 		if(parent)
 		{
-			setStyleSheet(" background-color: rgba(255, 255, 255, 150 );    ");
+			setStyleSheet(" background-color: rgba(255, 255, 255, 100 ); ");
 			// 		
 			auto svg = new QSvgWidget(this);
 			svg->load(QString(":/image/resource/Double Ring.svg"));
@@ -73,6 +76,14 @@ namespace JChat {
 	void BusyIndicator::closeEvent(QCloseEvent *event)
 	{
 		event->setAccepted(!event->spontaneous());
+	}
+
+	void BusyIndicator::paintEvent(QPaintEvent *event)
+	{
+		QStyleOption opt;
+		opt.init(this);
+		QPainter p(this);
+		style()->drawPrimitive(QStyle::PE_Widget, &opt, &p, this);
 	}
 
 } // namespace JChat

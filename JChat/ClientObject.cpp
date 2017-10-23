@@ -40,6 +40,27 @@ namespace
 }
 
 
+Jmcpp::Configuration
+JChat::ClientObject::getSDKConfig()
+{
+	Jmcpp::Configuration cfg;
+	cfg.logLevel = 3;
+	return cfg;
+}
+
+Jmcpp::Authorization
+JChat::ClientObject::getAuthorization()
+{
+	Jmcpp::Authorization auth;
+	auth.appKey = "4f7aef34fb361292c566a1cd";
+	auth.randomStr = "022cd9fd995849b58b3ef0e943421ed9";
+	auth.timestamp = "1507793640389";
+	auth.signature = "c5e83666337c32e9bcf6e948edf606f0";
+	return auth;
+}
+
+
+//////////////////////////////////////////////////////////////////////////
 JChat::ClientObject::ClientObject(Jmcpp::Configuration const& cfg) :Client(cfg)
 {
 	(void)(this | qTrack);
@@ -886,24 +907,6 @@ JChat::ClientObject::updateBlackList()
 	}
 }
 
-Jmcpp::Configuration
-JChat::ClientObject::getSDKConfig()
-{
-	Jmcpp::Configuration cfg;
-	cfg.logLevel = 3;
-	return cfg;
-}
-
-Jmcpp::Authorization
-JChat::ClientObject::getAuthorization()
-{
-	Jmcpp::Authorization auth;
-	auth.appKey = "4f7aef34fb361292c566a1cd";
-	auth.randomStr = "022cd9fd995849b58b3ef0e943421ed9";
-	auth.timestamp = "1507793640389";
-	auth.signature = "c5e83666337c32e9bcf6e948edf606f0";
-	return auth;
-}
 
 /************************************************************************/
 /*                                                                      */
