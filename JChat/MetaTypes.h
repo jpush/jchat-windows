@@ -9,6 +9,7 @@
 Q_DECLARE_METATYPE(std::string)
 
 Q_DECLARE_METATYPE(Jmcpp::UserId)
+Q_DECLARE_METATYPE(Jmcpp::GroupId)
 Q_DECLARE_METATYPE(Jmcpp::UserIdList)
 
 Q_DECLARE_METATYPE(Jmcpp::UserInfo)
@@ -157,6 +158,90 @@ namespace qx::cvt::detail{
 	};
 }
 
+namespace qx::cvt::detail{
+
+	template <>
+	struct QxConvert_ToString< Jmcpp::GroupId >
+	{
+		static inline QString toString(const Jmcpp::GroupId & t, const QString & format, int index, qx::cvt::context::ctx_type ctx)
+		{
+			switch(index)
+			{
+				//case -1: return t.toString().data();
+				case 0:return	to_string(t, format, -1, ctx);
+
+			}
+			Q_ASSERT(false);
+			return QString();
+		}
+	};
+
+	template <>
+	struct QxConvert_FromString<Jmcpp::GroupId>
+	{
+		static inline qx_bool fromString(const QString & s, Jmcpp::GroupId & t, const QString & format, int index, qx::cvt::context::ctx_type ctx)
+		{
+			switch(index)
+			{
+				//case -1: t = Jmcpp::UserId::fromString(s.toStdString()); return true;
+				case 0:return from_string(s, t, format, -1, ctx);
+			}
+			Q_ASSERT(false);
+			return qx_bool(false);
+		}
+	};
+
+	template <>
+	struct QxConvert_ToVariant<Jmcpp::GroupId>
+	{
+		static inline QVariant toVariant(const Jmcpp::GroupId & t, const QString & format, int index, qx::cvt::context::ctx_type ctx)
+		{
+			switch(index)
+			{
+				case -1:
+				{
+					return QVariant::fromValue(t);
+				}break;
+				case 0:
+				{
+					return to_variant(t, format, -1, ctx);
+				}break;
+				default:
+					break;
+			}
+			Q_ASSERT(false);
+			return {};
+		}
+	};
+
+	template <>
+	struct QxConvert_FromVariant<Jmcpp::GroupId>
+	{
+		static inline qx_bool fromVariant(const QVariant & v, Jmcpp::GroupId & t, const QString & format, int index, qx::cvt::context::ctx_type ctx)
+		{
+			switch(index)
+			{
+				case -1:
+				{
+					t = v.value<int64_t>();
+					return true;
+				}break;
+				case 0:
+				{
+					int64_t value;
+					auto b = from_variant(v, value, format, -1, ctx);
+					t = value;
+					return b;
+				}break;
+				default:
+					break;
+			}
+			Q_ASSERT(false);
+			return false;
+		}
+	};
+}
+
 
 namespace qx::cvt::detail{
 
@@ -223,7 +308,7 @@ namespace qx::cvt::detail{
 				{
 					QByteArray data;
 					QDataStream ds(&data, QIODevice::WriteOnly);
-					ds << t.getGroupId() << t.getUserId().username << t.getUserId().appKey;
+					ds << t.getGroupId().get() << t.getUserId().username << t.getUserId().appKey;
 					return data;
 				}break;
 				case 0:

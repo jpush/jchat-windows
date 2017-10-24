@@ -10,6 +10,7 @@ namespace
 
 
 		qRegisterMetaType<Jmcpp::UserId>("Jmcpp::UserId");
+		qRegisterMetaType<Jmcpp::GroupId>("Jmcpp::GroupId");
 		qRegisterMetaType<Jmcpp::UserIdList>("Jmcpp::UserIdList");
 
 		qRegisterMetaType<Jmcpp::ConversationId>("Jmcpp::ConversationId");

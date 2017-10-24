@@ -143,7 +143,7 @@ QString JChat::getConversationDisplayName(Jmcpp::ConversationId const& conId)
 	}
 	else
 	{
-		return QString::number(conId.getGroupId());
+		return QString::number(conId.getGroupId().get());
 	}
 
 	return "?????";
@@ -155,7 +155,7 @@ JChat::getMessageDisplayString(Jmcpp::MessagePtr const& msg, Jmcpp::UserInfo con
 {
 	auto&& content = msg->content;
 
-	if(msg->groupId)
+	if(msg->groupId.get())
 	{
 		auto name = (msg->isOutgoing ? u8"我" : getUserDisplayName(sender)) + ':';
 		if(std::holds_alternative<Jmcpp::TextContent>(content))

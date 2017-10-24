@@ -114,7 +114,7 @@ namespace JChat
 		None setLeftAvatarAndDisplayname(T iw, Jmcpp::MessagePtr const& msg)
 		{
 			auto co = _co;
-			if(!msg->groupId)
+			if(!msg->groupId.get())
 			{
 				if(_leftAvatar)
 				{

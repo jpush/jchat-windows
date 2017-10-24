@@ -208,7 +208,7 @@ JChat::ClientObject::getCacheUserInfo(Jmcpp::UserId userId, bool update)
 }
 
 pplx::task<Jmcpp::GroupInfo>
-JChat::ClientObject::getCacheGroupInfo(int64_t groupId, bool update)
+JChat::ClientObject::getCacheGroupInfo(Jmcpp::GroupId groupId, bool update)
 {
 	auto self = shared_from_this();
 	if(!update)
@@ -291,7 +291,7 @@ JChat::ClientObject::getCacheUserAvatar(Jmcpp::UserId userId, std::string avatar
 }
 
 pplx::task<QPixmap>
-JChat::ClientObject::getCacheGroupAvatar(int64_t groupId, std::string avatarMediaId /*= std::string()*/, bool update /*= false*/)
+JChat::ClientObject::getCacheGroupAvatar(Jmcpp::GroupId groupId, std::string avatarMediaId /*= std::string()*/, bool update /*= false*/)
 {
 	auto self = this | qTrack;
 	auto idStr = QString::number(groupId);
@@ -352,7 +352,7 @@ JChat::ClientObject::getUserDisplayName(Jmcpp::UserId userId, bool update)
 }
 
 pplx::task<QString>
-JChat::ClientObject::getGroupDisplayName(int64_t groupId, bool update)
+JChat::ClientObject::getGroupDisplayName(Jmcpp::GroupId groupId, bool update)
 {
 	auto info = co_await getCacheGroupInfo(groupId, update);
 
@@ -391,7 +391,7 @@ JChat::ClientObject::getConversationImage(Jmcpp::ConversationId const& conId)
 	else
 	{
 		auto groupId = conId.getGroupId();
-		auto idStr = QString::number(groupId);
+		auto idStr = QString::number(groupId.get());
 		auto avatarFilePath = _avatarCachePath.absoluteFilePath(idStr + ".jpg");
 		if(QFile::exists(avatarFilePath))
 		{
@@ -524,7 +524,7 @@ JChat::ClientObject::isFriend(Jmcpp::UserId const& userId)
 }
 
 bool
-JChat::ClientObject::isNotDisturb(int64_t groupId)
+JChat::ClientObject::isNotDisturb(Jmcpp::GroupId groupId)
 {
 	std::unique_lock<std::mutex> locker(_lock);
 	auto iter = _notDisturbGroup.find(groupId);
@@ -554,7 +554,7 @@ bool JChat::ClientObject::isNotDisturb(Jmcpp::ConversationId const& conId)
 
 
 bool
-JChat::ClientObject::isShield(int64_t groupId)
+JChat::ClientObject::isShield(Jmcpp::GroupId groupId)
 {
 	std::unique_lock<std::mutex> locker(_lock);
 	auto iter = _shieldGroup.find(groupId);
@@ -632,7 +632,7 @@ JChat::ClientObject::updateFriendRemark(Jmcpp::UserId const& userId, std::string
 
 
 pplx::task<void>
-JChat::ClientObject::setGroupShield(int64_t groupId, bool on)
+JChat::ClientObject::setGroupShield(Jmcpp::GroupId groupId, bool on)
 {
 	auto self = shared_from_this();
 	co_await Client::setGroupShield(groupId, on);
@@ -650,7 +650,7 @@ JChat::ClientObject::setGroupShield(int64_t groupId, bool on)
 }
 
 pplx::task<void>
-JChat::ClientObject::setNotDisturb(int64_t groupId, bool on)
+JChat::ClientObject::setNotDisturb(Jmcpp::GroupId groupId, bool on)
 {
 	auto self = shared_from_this();
 	co_await Client::setNotDisturb(groupId, on);
@@ -1238,7 +1238,7 @@ JChat::ClientObject::initDB()
 }
 
 pplx::task<QString>
-JChat::ClientObject::_getGroupDummyName(int64_t groupId)
+JChat::ClientObject::_getGroupDummyName(Jmcpp::GroupId groupId)
 {
 	auto self = shared_from_this();
 	auto members = co_await getGroupMembers(groupId);

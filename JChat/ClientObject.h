@@ -51,17 +51,17 @@ namespace JChat
 
 
 		pplx::task<Jmcpp::UserInfo>		getCacheUserInfo(Jmcpp::UserId userId, bool update = false);
-		pplx::task<Jmcpp::GroupInfo>	getCacheGroupInfo(int64_t groupId, bool update = false);
+		pplx::task<Jmcpp::GroupInfo>	getCacheGroupInfo(Jmcpp::GroupId groupId, bool update = false);
 
 		pplx::task<QPixmap>				getCacheUserAvatar(Jmcpp::UserId userId, std::string avatarMediaId = std::string(), bool update = false);
-		pplx::task<QPixmap>				getCacheGroupAvatar(int64_t groupId, std::string avatarMediaId = std::string(), bool update = false);
+		pplx::task<QPixmap>				getCacheGroupAvatar(Jmcpp::GroupId groupId, std::string avatarMediaId = std::string(), bool update = false);
 
 
 		pplx::task<QPixmap>				getCacheAvatar(Jmcpp::ConversationId const&, std::string avatarMediaId = std::string(), bool update = false);
 
 
 		pplx::task<QString>				getUserDisplayName(Jmcpp::UserId userId, bool update = false);
-		pplx::task<QString>				getGroupDisplayName(int64_t groupId, bool update = false);
+		pplx::task<QString>				getGroupDisplayName(Jmcpp::GroupId groupId, bool update = false);
 
 		pplx::task<QString>				getDisplayName(Jmcpp::ConversationId const& conId, bool update = false);
 
@@ -91,12 +91,12 @@ namespace JChat
 
 		bool				isNotDisturb(Jmcpp::UserId const& userId);
 
-		bool				isNotDisturb(int64_t groupId);
+		bool				isNotDisturb(Jmcpp::GroupId groupId);
 
 		bool				isNotDisturb(Jmcpp::ConversationId const& conId);
 
 
-		bool				isShield(int64_t groupId);
+		bool				isShield(Jmcpp::GroupId groupId);
 
 		bool				isInBlackList(Jmcpp::UserId const& userId);
 
@@ -109,9 +109,9 @@ namespace JChat
 
 		// 添加signal
 
-		pplx::task<void>			setGroupShield(int64_t groupId, bool on);
+		pplx::task<void>			setGroupShield(Jmcpp::GroupId groupId, bool on);
 
-		pplx::task<void>			setNotDisturb(int64_t groupId, bool on);
+		pplx::task<void>			setNotDisturb(Jmcpp::GroupId groupId, bool on);
 
 		pplx::task<void>			setNotDisturb(Jmcpp::UserId userId, bool on);
 
@@ -144,7 +144,7 @@ namespace JChat
 
 		Q_SIGNAL void selfInfoUpdated(Jmcpp::UserId const& userId);
 
-		Q_SIGNAL void groupInfoUpdated(int64_t groupId);
+		Q_SIGNAL void groupInfoUpdated(Jmcpp::GroupId groupId);
 
 		Q_SIGNAL void friendListUpdated(Jmcpp::UserInfoList const&);
 
@@ -155,7 +155,7 @@ namespace JChat
 		Q_SIGNAL void friendsRemoved(Jmcpp::UserIdList const&);
 
 		Q_SIGNAL void notDisturbChanged(Jmcpp::ConversationId const& conId, bool on);
-		Q_SIGNAL void groupShieldChanged(int64_t groupId, bool on);
+		Q_SIGNAL void groupShieldChanged(Jmcpp::GroupId groupId, bool on);
 		Q_SIGNAL void blackListChanged(Jmcpp::UserId const& userId, bool added);
 
 		// events
@@ -210,7 +210,7 @@ namespace JChat
 
 		void initDB(QSqlDatabase const& db);
 
-		pplx::task<QString> _getGroupDummyName(int64_t groupId);
+		pplx::task<QString> _getGroupDummyName(Jmcpp::GroupId groupId);
 
 
 		pplx::task<void> updateFriendList();
@@ -302,18 +302,17 @@ namespace JChat
 
 		std::map<Jmcpp::UserId, Jmcpp::UserInfo> _userInfos;
 
-		std::map<int64_t, Jmcpp::GroupInfo>		_groupInfos;
+		std::map<Jmcpp::GroupId, Jmcpp::GroupInfo>		_groupInfos;
 
 
 		std::set<Jmcpp::UserId>	_blackList;
 
 		std::set<Jmcpp::UserId>	_notDisturbUser;
-		std::set<int64_t>		_notDisturbGroup;
+		std::set<Jmcpp::GroupId>_notDisturbGroup;
 
-		std::set<int64_t>		_shieldGroup;
+		std::set<Jmcpp::GroupId>_shieldGroup;
 
 		int						globalNotDisturb = 0;
-
 
 		static QDir						_storageRootPath;
 		QDir							_userRootPath;
