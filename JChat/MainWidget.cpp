@@ -618,19 +618,19 @@ JChat::MainWidget::initEvent()
 
 	connect(_co.get(), &ClientObject::disconnected, this, [=]()
 	{
-		//BusyIndicator busy(this);
-		//for(;;)
-		//{
-		//	try
-		//	{
-		//		qAwait(_co->relogin(ClientObject::getAuthorization()));
-		//		break;
-		//	}
-		//	catch(std::runtime_error& e)
-		//	{
-		//		qAwait(std::chrono::seconds(5));
-		//	}
-		//}
+		BusyIndicator busy(this);
+		for(;;)
+		{
+			try
+			{
+				qAwait(_co->relogin(ClientObject::getAuthorization()));
+				break;
+			}
+			catch(std::runtime_error& e)
+			{
+				qAwait(std::chrono::seconds(5));
+			}
+		}
 	});
 
 

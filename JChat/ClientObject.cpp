@@ -940,9 +940,9 @@ JChat::ClientObject::updateBlackList()
 void
 JChat::ClientObject::init()
 {
+	onLogined([=](bool firstLogin){
 
-	onLogined([=](){
-
+		if(firstLogin)
 		{
 			initPath();
 			initDB();
