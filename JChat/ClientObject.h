@@ -37,7 +37,7 @@ namespace JChat
 			}
 
 			auto handle = std::make_shared<UserHandle>(shared_from_this(), userId);
-		
+
 			_userhandles.insert_or_assign(userId, handle);
 			return new User(handle, parent);
 		}
@@ -228,7 +228,7 @@ namespace JChat
 
 	private:
 		template<class T>
-		void onEvent(T const& e){	}
+		void onEvent(T const& e){ qDebug() << "*****" << typeid(e).name(); }
 
 		void onEvent(Jmcpp::ForceLogoutEvent const& e);
 

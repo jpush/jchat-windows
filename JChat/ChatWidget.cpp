@@ -218,21 +218,24 @@ namespace JChat
 
 		ui.textEdit->clear();
 
-		auto content = co_await _co->createTextContent(text.toStdString());
+		auto co = _co;
+		auto conId = _conId;
+
+		auto content = co_await co->createTextContent(text.toStdString());
 
 		Jmcpp::MessagePtr msg;
-		if(_conId.isGroup())
+		if(conId.isGroup())
 		{
-			msg = _co->buildMessage(_conId.getGroupId(), content, {}, userList);
+			msg = co->buildMessage(conId.getGroupId(), content, {}, userList);
 		}
 		else
 		{
-			msg = _co->buildMessage(_conId.getUserId(), content);
+			msg = co->buildMessage(conId.getUserId(), content);
 		}
 
 		try
 		{
-			co_await _co->sendMessage(msg);
+			co_await co->sendMessage(msg);
 			co_await iw;
 			iw->setMessage(msg);
 			iw->setComplete();
@@ -301,14 +304,14 @@ namespace JChat
 			ui.listWidget->setLeftDisplayName(name);
 			ui.btnName->setText(name);
 
-// 			auto user = _co->createUser(_conId.getUserId(),this);
-// 			new Binding(user, "displayName", ui.btnName, "text");
-// 
-// 			connect(user, &User::avatarFilePathChanged, this, [=](QString const& filePath)
-// 			{
-// 				QPixmap img(filePath);
-// 				ui.listWidget->setLeftAvatar(img);
-// 			});
+			// 			auto user = _co->createUser(_conId.getUserId(),this);
+			// 			new Binding(user, "displayName", ui.btnName, "text");
+			// 
+			// 			connect(user, &User::avatarFilePathChanged, this, [=](QString const& filePath)
+			// 			{
+			// 				QPixmap img(filePath);
+			// 				ui.listWidget->setLeftAvatar(img);
+			// 			});
 		}
 		else
 		{

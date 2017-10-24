@@ -3,7 +3,7 @@
 
 #include <QtNetwork/QtNetwork>
 
-
+#include "Settings.h"
 #include "Util.h"
 
 
@@ -43,7 +43,13 @@ namespace
 Jmcpp::Configuration
 JChat::ClientObject::getSDKConfig()
 {
+	Settings setting(QCoreApplication::applicationFilePath() + ".ini");
+
 	Jmcpp::Configuration cfg;
+	cfg.serverUrl = setting.value<QString>("serverUrl", QString()).toStdString();
+	cfg.uploadUrl = setting.value<QString>("uploadUrl", QString()).toStdString();
+	cfg.downloadUrl = setting.value<QString>("downloadUrl", QString()).toStdString();
+
 	cfg.logLevel = 3;
 	return cfg;
 }
@@ -51,12 +57,32 @@ JChat::ClientObject::getSDKConfig()
 Jmcpp::Authorization
 JChat::ClientObject::getAuthorization()
 {
-	Jmcpp::Authorization auth;
-	auth.appKey = "4f7aef34fb361292c566a1cd";
-	auth.randomStr = "022cd9fd995849b58b3ef0e943421ed9";
-	auth.timestamp = "1507793640389";
-	auth.signature = "c5e83666337c32e9bcf6e948edf606f0";
-	return auth;
+	Settings setting(QCoreApplication::applicationFilePath() + ".ini");
+	auto appKey = setting.value<QString>("appKey", QString());
+	auto masterSecret = setting.value<QString>("masterSecret", QString());
+	if(appKey.isEmpty() || (appKey == "4f7aef34fb361292c566a1cd" && masterSecret.isEmpty()))
+	{
+		Jmcpp::Authorization auth;
+		auth.appKey = "4f7aef34fb361292c566a1cd";
+		auth.randomStr = "022cd9fd995849b58b3ef0e943421ed9";
+		auth.timestamp = "1507793640389";
+		auth.signature = "c5e83666337c32e9bcf6e948edf606f0";
+		return auth;
+	}
+	else
+	{
+		auto time = QDateTime::currentDateTime().toMSecsSinceEpoch();
+		auto str = QString("appkey=%1&timestamp=%2&random_str=022cd9fd995849b58b3ef0e943421ed9&key=%3")
+			.arg(appKey).arg(time).arg(masterSecret);
+
+		Jmcpp::Authorization auth;
+		auth.appKey = appKey.toStdString();
+		auth.randomStr = "022cd9fd995849b58b3ef0e943421ed9";
+		auth.timestamp = QString::number(time).toStdString();
+		auth.signature = QCryptographicHash::hash(str.toUtf8(), QCryptographicHash::Md5).toHex().toStdString();
+		return auth;
+	}
+
 }
 
 
@@ -1238,7 +1264,7 @@ JChat::ClientObject::_getGroupDummyName(int64_t groupId)
 
 
 
-static void 
+static void
 createTable(qx::IxClass* pClass, QString const& tableName, QSqlDatabase const& db)
 {
 	QSqlQuery query(db);
