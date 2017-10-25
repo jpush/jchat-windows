@@ -15,7 +15,7 @@ namespace JChat {
 		Q_OBJECT
 
 	public:
-		GroupInfoWidget(ClientObjectPtr const& co, int64_t groupId, QWidget *parent = Q_NULLPTR);
+		GroupInfoWidget(ClientObjectPtr const& co, Jmcpp::GroupId groupId, QWidget *parent = Q_NULLPTR);
 		~GroupInfoWidget();
 
 		MemberModel* memberModel()
@@ -55,7 +55,7 @@ namespace JChat {
 		bool active = false;
 
 		ClientObjectPtr _co;
-		int64_t			_groupId;
+		Jmcpp::GroupId	_groupId;
 	};
 
 } // namespace JChat

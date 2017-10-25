@@ -642,7 +642,7 @@ JChat::MainWidget::initEvent()
 	connect(_co.get(), &ClientObject::messageReceived, this, [=](Jmcpp::MessagePtr const& msg)
 	{
 		QApplication::alert(this);
-		auto conId = msg->getConId();
+		auto conId = msg->conId;
 		auto w = getOrCreateChatWidget(conId);
 
 		w->listWidget()->insertMessage(msg);
@@ -678,7 +678,7 @@ JChat::MainWidget::initEvent()
 	connect(_co.get(), &ClientObject::messagesReceived, this, [=](std::vector<Jmcpp::MessagePtr> const& msgs)
 	{
 		QApplication::alert(this);
-		auto conId = msgs.back()->getConId();
+		auto conId = msgs.back()->conId;
 		auto w = getOrCreateChatWidget(conId);
 
 

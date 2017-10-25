@@ -98,7 +98,7 @@ QString JChat::ItemWidgetInterface::getUnreadCountText(size_t count) const
 	{
 		return {};
 	}
-	if(_msg->groupId)
+	if(_msg->conId.isGroup())
 	{
 		if(count)
 		{
@@ -109,7 +109,7 @@ QString JChat::ItemWidgetInterface::getUnreadCountText(size_t count) const
 			return QString(u8R"(<html><head/><body><p><span style=" color:#9a9a9a;">全部已读</span></p></body></html>)");
 		}
 	}
-	else
+	else if(_msg->conId.isUser())
 	{
 		if(count)
 		{
@@ -119,6 +119,10 @@ QString JChat::ItemWidgetInterface::getUnreadCountText(size_t count) const
 		{
 			return QString(u8R"(<html><head/><body><p><span style=" color:#9a9a9a;">已读</span></p></body></html>)");
 		}
+	}
+	else
+	{
+		return {};
 	}
 }
 

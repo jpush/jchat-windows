@@ -72,12 +72,12 @@ namespace JChat{
 
 
 		void			onUserInfoUpdated(Jmcpp::UserId const& userId);
-		void			onGroupInfoUpdated(int64_t groupId);
+		void			onGroupInfoUpdated(Jmcpp::GroupId groupId);
 
 
 		None			_updateItemUserInfo(QStandardItem* item, Jmcpp::UserId userId);
 
-		None			_updateItemGroupInfo(QStandardItem* item, int64_t groupId);
+		None			_updateItemGroupInfo(QStandardItem* item, Jmcpp::GroupId groupId);
 
 	protected:
 		Q_SLOT None onUserLogined();

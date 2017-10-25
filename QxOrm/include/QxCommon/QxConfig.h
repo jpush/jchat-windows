@@ -181,4 +181,8 @@
 #endif // _QX_NO_JSON
 #endif // (QT_VERSION < 0x050000)
 
+#ifndef _QX_NO_JSON
+#define _QX_NO_JSON
+#endif
+
 #endif // _QX_CONFIG_H_

@@ -33,9 +33,38 @@ static LONG WINAPI crashHandler(EXCEPTION_POINTERS * ExceptionInfo)
 	return EXCEPTION_CONTINUE_SEARCH;
 }
 
+
+static void loggerFn(QtMsgType type, const QMessageLogContext &context, const QString &msg)
+{
+	QByteArray localMsg = msg.toLocal8Bit();
+
+	switch(type) {
+		case QtDebugMsg:
+			std::cerr << localMsg.constData() << std::endl;
+			break;
+		case QtInfoMsg:
+			std::cerr << localMsg.constData() << std::endl;
+			break;
+		case QtWarningMsg:
+			std::cerr << localMsg.constData() << std::endl;
+			break;
+		case QtCriticalMsg:
+			std::cerr << localMsg.constData() << std::endl;
+			break;
+		case QtFatalMsg:
+			std::cerr << localMsg.constData() << std::endl;
+			abort();
+	}
+}
+
+
 int main(int argc, char *argv[])
 {
+
 	SetUnhandledExceptionFilter(crashHandler);
+
+	qInstallMessageHandler(loggerFn);
+
 	qputenv("QT_SCALE_FACTOR", "1");
 
 	QApplication a(argc, argv);

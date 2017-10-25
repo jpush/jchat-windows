@@ -9,7 +9,7 @@
 #include "ModelRange.h"
 namespace JChat {
 
-	MemberModel::MemberModel(ClientObjectPtr const& co, int64_t groupId, QObject *parent)
+	MemberModel::MemberModel(ClientObjectPtr const& co, Jmcpp::GroupId groupId, QObject *parent)
 		: QStandardItemModel(parent)
 		, _co(co)
 		, _groupId(groupId)

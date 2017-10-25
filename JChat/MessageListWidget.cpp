@@ -301,7 +301,7 @@ namespace JChat
 			{
 				if(!conId.isValid())
 				{
-					conId = msg->getConId();
+					conId = msg->conId;
 				}
 
 				if(msg->needReceipt && !msg->isOutgoing && (iwif->flags()&ItemWidgetInterface::type_mask & flags))
@@ -388,7 +388,7 @@ namespace JChat
 					{
 						delete takeItem(row(iw->item()));
 					}
-					_co->deleteMessage(msg->getConId(), msg->msgId);
+					_co->deleteMessage(msg->conId, msg->msgId);
 				}
 			});
 		}
@@ -952,7 +952,7 @@ namespace JChat
 					{
 						delete takeItem(row);
 
-						_co->deleteMessage(msg->getConId(), msg->msgId);
+						_co->deleteMessage(msg->conId, msg->msgId);
 
 						if(_co->getCurrentUser() == e.fromUser)
 						{

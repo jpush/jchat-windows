@@ -28,7 +28,7 @@ namespace JChat{
 			}
 		});
 
-		connect(_co, &ClientObject::groupShieldChanged, this, [=](int64_t groupId, bool on)
+		connect(_co, &ClientObject::groupShieldChanged, this, [=](Jmcpp::GroupId groupId, bool on)
 		{
 			for(auto&& item : this | depthFirst)
 			{
@@ -57,7 +57,7 @@ namespace JChat{
 
 	void ConversationModel::addConversationItem(Jmcpp::MessagePtr const& msg)
 	{
-		auto conId = msg->getConId();
+		auto conId = msg->conId;
 		for(auto&& item : this | depthFirst)
 		{
 			if(item->data(Role::ConIdRole).value<Jmcpp::ConversationId>() == conId)
@@ -115,7 +115,7 @@ namespace JChat{
 
 	void ConversationModel::_addConversationToDB(Jmcpp::MessagePtr const& msg)
 	{
-		auto conId = msg->getConId();
+		auto conId = msg->conId;
 		Conversation con;
 		con.conId = conId;
 		qx::dao::save(con);
@@ -295,7 +295,7 @@ namespace JChat{
 
 		item->setData(QDateTime::fromMSecsSinceEpoch(msg->time), Role::TimeRole);
 
-		if(msg->isOutgoing || !msg->groupId)
+		if(msg->isOutgoing || !msg->conId.isGroup())
 		{
 			QString msgRole = getMessageDisplayString(msg);
 			item->setData(msgRole, Role::MessageRole);
@@ -332,7 +332,7 @@ namespace JChat{
 	}
 
 
-	void ConversationModel::onGroupInfoUpdated(int64_t groupId)
+	void ConversationModel::onGroupInfoUpdated(Jmcpp::GroupId groupId)
 	{
 		for(auto&& iter : this | depthFirst)
 		{
@@ -364,7 +364,7 @@ namespace JChat{
 		item->setData(getUserDisplayName(info), Role::TitleRole);
 	}
 
-	None ConversationModel::_updateItemGroupInfo(QStandardItem* item, int64_t groupId)
+	None ConversationModel::_updateItemGroupInfo(QStandardItem* item, Jmcpp::GroupId groupId)
 	{
 		auto self = this | qTrack;
 		auto co = _co;
@@ -386,7 +386,7 @@ namespace JChat{
 		}
 		else if(item->data(TitleRole).toString().isEmpty())
 		{
-			item->setData(QString::number(info.groupId), Role::TitleRole);
+			item->setData(QString::number(info.groupId.get()), Role::TitleRole);
 		}
 	}
 

@@ -148,4 +148,150 @@ namespace qx {
 }
 
 
+//////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////
+template <>
+QVariant qx::cvt::to_variant(const Jmcpp::UserId & t, const QString & format, int index, context::ctx_type ctx)
+{
+	switch(index)
+	{
+		case -1:
+		{
+			QByteArray data;
+			QDataStream ds(&data, QIODevice::WriteOnly);
+			ds << t.username << t.appKey;
+			return data;
+		}break;
+		case 0:
+		{
+			return to_variant(t.username, format, -1, ctx);
+		}break;
+		case 1:
+		{
+			return to_variant(t.appKey, format, -1, ctx);
+		}break;
+		default:
+			break;
+	}
+	Q_ASSERT(false);
+	return {};
+}
 
+template <>
+qx_bool qx::cvt::from_variant(const QVariant & v, Jmcpp::UserId & t, const QString & format, int index, context::ctx_type ctx)
+{
+	switch(index)
+	{
+		case -1:
+		{
+			auto data = v.toByteArray();
+			QDataStream ds(data);
+			ds >> t.username >> t.appKey;
+			return true;
+		}break;
+		case 0:
+		{
+			return from_variant(v, t.username, format, -1, ctx);
+		}break;
+		case 1:
+		{
+			return from_variant(v, t.appKey, format, -1, ctx);
+		}break;
+		default:
+			break;
+	}
+	Q_ASSERT(false);
+	return false;
+}
+
+
+//////////////////////////////////////////////////////////////////////////
+template <>
+QVariant qx::cvt::to_variant(const Jmcpp::ConversationId & t, const QString & format, int index, context::ctx_type ctx)
+{
+	switch(index)
+	{
+		case -1:
+		{
+			QByteArray data;
+			QDataStream ds(&data, QIODevice::WriteOnly);
+			ds << t.getGroupId().get() << t.getUserId().username << t.getUserId().appKey;
+			return data;
+		}break;
+		case 0:
+		{
+			return to_variant(t.getGroupId().get(), format, -1, ctx);
+		}break;
+		case 1:
+		{
+			return to_variant(t.getUserId().username, format, -1, ctx);
+		}break;
+		case 2:
+		{
+			return to_variant(t.getUserId().appKey, format, -1, ctx);
+		}break;
+		default:
+			break;
+	}
+	Q_ASSERT(false);
+	return {};
+}
+
+template <>
+qx_bool qx::cvt::from_variant(const QVariant & v, Jmcpp::ConversationId & t, const QString & format, int index, context::ctx_type ctx)
+{
+	switch(index)
+	{
+		case -1:
+		{
+			auto data = v.toByteArray();
+			QDataStream ds(data);
+			int64_t groupId = 0;
+			std::string username, appkey;
+			ds >> groupId >> username >> appkey;
+			if(groupId)
+			{
+				t.setGroupId(groupId);
+			}
+			else
+			{
+				t.setUserId({ username,appkey });
+			}
+			return true;
+		}break;
+		case 0:
+		{
+			int64_t groupId = 0;
+			from_variant(v, groupId, format, -1, ctx);
+			if(groupId)
+			{
+				t.setGroupId(groupId);
+			}
+			return true;
+		}break;
+		case 1:
+		{
+			std::string username, appkey;
+			from_variant(v, username, format, -1, ctx);
+			if(!t.isGroup())
+			{
+				t.setUsername(username);
+			}
+			return true;
+		}break;
+		case 2:
+		{
+			std::string appkey;
+			from_variant(v, appkey, format, -1, ctx);
+			if(!t.isGroup())
+			{
+				t.setAppkey(appkey);
+			}
+			return true;
+		}break;
+		default:
+			break;
+	}
+	Q_ASSERT(false);
+	return false;
+}

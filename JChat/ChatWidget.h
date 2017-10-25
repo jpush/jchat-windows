@@ -65,7 +65,7 @@ namespace JChat
 
 		None onUserInfoUpdated(Jmcpp::UserId const& userId);
 
-		None onGroupInfoUpdated(int64_t groupId);
+		None onGroupInfoUpdated(Jmcpp::GroupId groupId);
 
 
 		virtual void showEvent(QShowEvent *event) override;

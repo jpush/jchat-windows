@@ -97,7 +97,7 @@ namespace JChat{
 	}
 
 
-	void ContactModel::onGroupInfoUpdated(int64_t groupId)
+	void ContactModel::onGroupInfoUpdated(Jmcpp::GroupId groupId)
 	{
 		for(auto&& iter : getGroupRootItem() | depthFirst)
 		{
@@ -130,7 +130,7 @@ namespace JChat{
 		item->setData(QVariant::fromValue(info), Role::InfoRole);
 	}
 
-	None ContactModel::_updateItemGroupInfo(QStandardItem* item, int64_t groupId)
+	None ContactModel::_updateItemGroupInfo(QStandardItem* item, Jmcpp::GroupId groupId)
 	{
 		auto self = this | qTrack;
 		auto co = _co;

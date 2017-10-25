@@ -50,7 +50,7 @@ namespace JChat
 	{
 		auto sz = img.size();
 		sz = getImageThumbnailSize(sz);
-		auto image =img.scaledToWidth(sz.width(), Qt::TransformationMode::SmoothTransformation);
+		auto image = img.scaledToWidth(sz.width(), Qt::TransformationMode::SmoothTransformation);
 
 		ui.labelImage->setPixmap(image);
 		ui.labelImage->setScaledContents(true);
@@ -65,7 +65,7 @@ namespace JChat
 		mv->setParent(this);
 		ui.labelImage->setMovie(mv);
 
-		if (this->isVisible())
+		if(this->isVisible())
 		{
 			mv->start();
 		}
@@ -151,7 +151,7 @@ namespace JChat
 			auto ev = static_cast<QMouseEvent*>(event);
 			if(ev->button() == Qt::LeftButton && _msg)
 			{
-				if(_msg->unreadUserCount&& _msg->groupId)
+				if(_msg->unreadUserCount && _msg->conId.isGroup())
 				{
 					auto listWidget = static_cast<MessageListWidget*>(_item->listWidget());
 					listWidget->showUnreadUsers(_msg->msgId);

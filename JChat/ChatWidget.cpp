@@ -315,7 +315,7 @@ namespace JChat
 		}
 		else
 		{
-			ui.btnName->setText(QString::number(_conId.getGroupId()));
+			ui.btnName->setText(QString::number(_conId.getGroupId().get()));
 			auto info = co_await _co->getCacheGroupInfo(_conId.getGroupId());
 			co_await self;
 			if(!info.groupName.empty())
@@ -635,7 +635,7 @@ namespace JChat
 
 			if(msgs.size() < count)
 			{
-				listWidget()->insertCenterWidget(u8"没有更多消息", 0);
+				//listWidget()->insertCenterWidget(u8"没有更多消息", 0);
 				listWidget()->setProperty("allLoaded", true);
 			}
 
@@ -680,19 +680,13 @@ namespace JChat
 			{
 				if(!listWidget()->property("allLoaded").toBool())
 				{
-					listWidget()->insertCenterWidget(u8"没有更多消息", 0);
+					//listWidget()->insertCenterWidget(u8"没有更多消息", 0);
 					listWidget()->setProperty("allLoaded", true);
 				}
 			}
 
-			// 			for(auto iter = msgs.rbegin(); iter != msgs.rend(); ++iter, i++)
-			// 			{
-			// 				ui.listWidget->insertMessage(*iter);
-			// 				//qApp->processEvents();
-			// 			}
-
 			ui.listWidget->scrollToBottom();
-			//ui.listWidget->verticalScrollBar()->setValue(1);
+	
 		}
 		catch(...)
 		{
@@ -730,7 +724,7 @@ namespace JChat
 		}
 	}
 
-	None ChatWidget::onGroupInfoUpdated(int64_t groupId)
+	None ChatWidget::onGroupInfoUpdated(Jmcpp::GroupId groupId)
 	{
 		if(_conId == groupId)
 		{

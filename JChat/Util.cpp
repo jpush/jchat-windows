@@ -155,7 +155,7 @@ JChat::getMessageDisplayString(Jmcpp::MessagePtr const& msg, Jmcpp::UserInfo con
 {
 	auto&& content = msg->content;
 
-	if(msg->groupId.get())
+	if(!msg->conId.isUser())
 	{
 		auto name = (msg->isOutgoing ? u8"我" : getUserDisplayName(sender)) + ':';
 		if(std::holds_alternative<Jmcpp::TextContent>(content))

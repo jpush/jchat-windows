@@ -21,7 +21,7 @@ namespace JChat {
 			IsOwnerRole,
 		};
 
-		MemberModel(ClientObjectPtr const& co, int64_t groupId, QObject *parent = nullptr);
+		MemberModel(ClientObjectPtr const& co, Jmcpp::GroupId groupId, QObject *parent = nullptr);
 		~MemberModel();
 
 		QStandardItemModel* getCompleterModel() const{ return _completerModel; }
@@ -55,7 +55,7 @@ namespace JChat {
 		std::optional<Jmcpp::UserId> _owner;
 		std::optional<Jmcpp::UserId> _currentUser;
 
-		int64_t _groupId = 0;
+		Jmcpp::GroupId _groupId = 0;
 
 		ClientObjectPtr		_co;
 		QStandardItemModel* _completerModel = nullptr;

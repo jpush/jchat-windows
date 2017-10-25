@@ -117,7 +117,7 @@ namespace JChat
 			auto ev = static_cast<QMouseEvent*>(event);
 			if(ev->button() == Qt::LeftButton && _msg)
 			{
-				if(_msg->unreadUserCount && _msg->groupId)
+				if(_msg->unreadUserCount && _msg->conId.isGroup())
 				{
 					auto listWidget = static_cast<MessageListWidget*>(_item->listWidget());
 					listWidget->showUnreadUsers(_msg->msgId);

@@ -7,6 +7,26 @@
 #include "Util.h"
 
 
+class qLogger :public Jmcpp::Logger
+{
+public:
+	virtual void debug(const std::string& msg) override
+	{
+		qDebug().noquote() << QString::fromStdString(msg);
+	}
+
+	virtual void error(const std::string& msg) override
+	{
+		qCritical().noquote() << QString::fromStdString(msg);
+	}
+
+	virtual void warning(const std::string& msg) override
+	{
+		qWarning().noquote() << QString::fromStdString(msg);
+	}
+};
+
+
 QDir JChat::ClientObject::_storageRootPath = []{
 	QDir dir = "./JChat";
 	dir.makeAbsolute();
@@ -39,7 +59,6 @@ namespace
 	}
 }
 
-
 Jmcpp::Configuration
 JChat::ClientObject::getSDKConfig()
 {
@@ -51,6 +70,9 @@ JChat::ClientObject::getSDKConfig()
 	cfg.downloadUrl = setting.value<QString>("downloadUrl", QString()).toStdString();
 
 	cfg.logLevel = 3;
+
+	cfg.logger = std::make_shared<qLogger>();
+
 	return cfg;
 }
 
@@ -294,7 +316,7 @@ pplx::task<QPixmap>
 JChat::ClientObject::getCacheGroupAvatar(Jmcpp::GroupId groupId, std::string avatarMediaId /*= std::string()*/, bool update /*= false*/)
 {
 	auto self = this | qTrack;
-	auto idStr = QString::number(groupId);
+	auto idStr = QString::number(groupId.get());
 	auto avatarFilePath = _avatarCachePath.absoluteFilePath(idStr + ".jpg");
 	auto key = idStr + "avatar";
 	if(!update)

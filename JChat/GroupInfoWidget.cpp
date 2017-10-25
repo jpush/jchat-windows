@@ -16,7 +16,7 @@
 
 namespace JChat {
 
-	GroupInfoWidget::GroupInfoWidget(ClientObjectPtr const& co, int64_t groupId, QWidget *parent)
+	GroupInfoWidget::GroupInfoWidget(ClientObjectPtr const& co, Jmcpp::GroupId groupId, QWidget *parent)
 		: QWidget(parent)
 		, _co(co)
 		, _groupId(groupId)
@@ -90,7 +90,7 @@ namespace JChat {
 			}
 		});
 
-		connect(_co.get(), &ClientObject::groupShieldChanged, this, [=](int64_t groupId, bool on)
+		connect(_co.get(), &ClientObject::groupShieldChanged, this, [=](Jmcpp::GroupId groupId, bool on)
 		{
 			if(groupId == _groupId)
 			{
