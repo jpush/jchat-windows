@@ -52,7 +52,7 @@ namespace JChat{
 
 		void			setUnreadMessageCountRole(Jmcpp::ConversationId const& conId, int unreadMsgCount);
 
-		void			removeRow( int row);
+		void			removeRow(int row);
 
 		void			remove(Jmcpp::ConversationId const& conId);
 
@@ -67,7 +67,7 @@ namespace JChat{
 
 		None	_updateMessagRole(QStandardItem* item);
 
-		None	_updateMessagRole(QStandardItem* item,Jmcpp::MessagePtr msg);
+		None	_updateMessagRole(QStandardItem* item, Jmcpp::MessagePtr msg);
 
 
 

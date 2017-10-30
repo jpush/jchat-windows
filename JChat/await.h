@@ -233,7 +233,7 @@ namespace std::experimental {
 				return{};
 			}
 
-			void return_void() const noexcept	{	}
+			void return_void() const noexcept{}
 
 			suspend_never initial_suspend() const noexcept	{ return{}; }
 

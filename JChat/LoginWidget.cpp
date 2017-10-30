@@ -31,6 +31,14 @@ namespace JChat{
 		ui.password2->addAction(passwordIcon, QLineEdit::LeadingPosition);
 		ui.btnRegister->setEnabled(false);
 
+		connect(ui.username, &QLineEdit::returnPressed, ui.btnLogin, &QPushButton::click);
+		connect(ui.password, &QLineEdit::returnPressed, ui.btnLogin, &QPushButton::click);
+
+
+		connect(ui.usernameR, &QLineEdit::returnPressed, ui.btnRegister, &QPushButton::click);
+		connect(ui.password1, &QLineEdit::returnPressed, ui.btnRegister, &QPushButton::click);
+		connect(ui.password2, &QLineEdit::returnPressed, ui.btnRegister, &QPushButton::click);
+
 
 		RememberedAccount data;
 		auto accounts = data.getRememberedUsers();

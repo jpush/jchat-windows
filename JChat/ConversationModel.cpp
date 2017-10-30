@@ -14,6 +14,30 @@ namespace JChat{
 
 		connect(_co, &ClientObject::userLogined, this, &ConversationModel::onUserLogined);
 
+
+		//connect(_co, &ClientObject::groupListUpdated, this, [=](Jmcpp::GroupInfoList const & groups)
+		//{
+		//	std::vector<QPersistentModelIndex> toRemove;
+		//	for(auto&& item : this | depthFirst)
+		//	{
+		//		if(auto conId = item->data(Role::ConIdRole).value<Jmcpp::ConversationId>(); conId.isGroup())
+		//		{
+		//			if(std::find_if(groups.begin(), groups.end(), [&](auto&& g){ return conId == g.groupId; }) == end(groups))
+		//			{
+		//				toRemove.emplace_back(item->index());
+		//			}
+		//		}
+		//	}
+
+		//	for(auto&& index : toRemove)
+		//	{
+		//		if(index.isValid())
+		//		{
+		//			this->removeRow(index.row());
+		//		}
+		//	}
+		//});
+
 		connect(_co, &ClientObject::userInfoUpdated, this, &ConversationModel::onUserInfoUpdated);
 		connect(_co, &ClientObject::groupInfoUpdated, this, &ConversationModel::onGroupInfoUpdated);
 

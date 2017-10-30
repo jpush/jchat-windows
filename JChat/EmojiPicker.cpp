@@ -21,7 +21,8 @@ namespace JChat {
 				auto item = new QStandardItem();
 				item->setIcon(QIcon(filename));
 				item->setData(p.second);
-
+				item->setDragEnabled(false);
+				item->setDropEnabled(false);
 				model->appendRow(item);
 
 				if(++i == 140)
