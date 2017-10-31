@@ -199,14 +199,17 @@ namespace JChat{
 	void ConversationModel::setUnreadMessageCountRole(Jmcpp::ConversationId const& conId, int unreadMsgCount)
 	{
 		auto item = addConversationItem(conId);
+		auto tmp = item->data(UnreadRole).toInt();
 		item->setData(unreadMsgCount, ConversationModel::UnreadRole);
 
-		Conversation con;
-		con.conId = conId;
-		auto err = qx::dao::fetch_by_id(con);
-		con.unreadMsgCount = unreadMsgCount;
-		qx::dao::save(con);
-
+		if(tmp != unreadMsgCount)
+		{
+			Conversation con;
+			con.conId = conId;
+			auto err = qx::dao::fetch_by_id(con);
+			con.unreadMsgCount = unreadMsgCount;
+			qx::dao::save(con);
+		}
 	}
 
 	void ConversationModel::removeRow(int row)

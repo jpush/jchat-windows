@@ -563,8 +563,8 @@ namespace JChat
 
 	//////////////////////////////////////////////////////////////////////////
 	None MessageListWidget::insertMessage(Jmcpp::MessagePtr const& msg,
-												   Jmcpp::TextContent const& text,
-												   ItemWidgetInterface*&iwif, int row)
+										  Jmcpp::TextContent const& text,
+										  ItemWidgetInterface*&iwif, int row)
 	{
 		auto doc = QJsonDocument::fromJson(QByteArray::fromStdString(text.extras));
 		if(doc.isObject())
@@ -583,7 +583,7 @@ namespace JChat
 			}
 		}
 
-		auto self = this | qTrack;
+		auto self = this | qTrack.resumeOnShow;
 		auto co = _co;
 		auto emoji = Emoji::getSingleton();
 		auto html = emoji->toImage(text.text.data());
@@ -628,7 +628,7 @@ namespace JChat
 
 		if(msg->isOutgoing)
 		{
-			auto iw = new ItemWidgetImageRight() | qTrack;
+			auto iw = new ItemWidgetImageRight() | qTrack.resumeOnShow;
 			iw->setImageHolder({ content.width,content.height });
 			iw->setMessage(msg);
 			insertItemWidget(iw, row);
@@ -674,7 +674,7 @@ namespace JChat
 		}
 		else
 		{
-			auto iw = new ItemWidgetImageLeft() | qTrack;
+			auto iw = new ItemWidgetImageLeft() | qTrack.resumeOnShow;
 
 			iw->setImageHolder({ content.width,content.height });
 			iw->setMessage(msg);
@@ -728,7 +728,7 @@ namespace JChat
 		auto msg = msg_;
 		if(msg->isOutgoing)
 		{
-			auto iw = new ItemWidgetFileRight() | qTrack;
+			auto iw = new ItemWidgetFileRight() | qTrack.resumeOnShow;
 			iw->setFileName(content.fileName.data());
 			iw->setFileSize(content.fileSize);
 			iw->setMessage(msg);
@@ -757,7 +757,7 @@ namespace JChat
 		}
 		else
 		{
-			auto iw = new ItemWidgetFileLeft() | qTrack;
+			auto iw = new ItemWidgetFileLeft() | qTrack.resumeOnShow;
 			iw->setFileName(content.fileName.data());
 			iw->setFileSize(content.fileSize);
 			iw->setMessage(msg);
@@ -817,7 +817,7 @@ namespace JChat
 		auto co = _co;
 		if(msg->isOutgoing)
 		{
-			auto iw = new ItemWidgetLocationRight() | qTrack;
+			auto iw = new ItemWidgetLocationRight() | qTrack.resumeOnShow;
 			iw->setLocation(content);
 			iw->setImageHolder({ 300,200 });
 			iw->setMessage(msg);
@@ -842,7 +842,7 @@ namespace JChat
 		}
 		else
 		{
-			auto iw = new ItemWidgetLocationLeft() | qTrack;
+			auto iw = new ItemWidgetLocationLeft() | qTrack.resumeOnShow;
 			iw->setLocation(content);
 			iw->setImageHolder({ 300,200 });
 			iw->setMessage(msg);
@@ -870,7 +870,7 @@ namespace JChat
 		auto co = _co;
 		if(msg->isOutgoing)
 		{
-			auto iw = new ItemWidgetVoiceRight() | qTrack;
+			auto iw = new ItemWidgetVoiceRight() | qTrack.resumeOnShow;
 			iw->setData(content.duration);
 			iw->setMessage(msg);
 			insertItemWidget(iw, row);
@@ -895,7 +895,7 @@ namespace JChat
 		}
 		else
 		{
-			auto iw = new ItemWidgetVoiceLeft() | qTrack;
+			auto iw = new ItemWidgetVoiceLeft() | qTrack.resumeOnShow;
 			iw->setData(content.duration);
 			iw->setMessage(msg);
 			insertItemWidget(iw, row);

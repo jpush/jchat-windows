@@ -111,10 +111,14 @@ JChat::MainWidget::_switchToConversation(Jmcpp::ConversationId const& conId)
 	auto w = getOrCreateChatWidget(conId);
 	ui.stackedWidgetChat->setCurrentWidget(w);
 
+	auto tmp = w->listWidget()->getUnreadMessageCount();
 	w->listWidget()->setUnreadMessageCount(0);
 	_conModel->setUnreadMessageCountRole(conId, 0);
 
-	_co->clearUnreadCount(conId);
+	if (tmp)
+	{
+		_co->clearUnreadCount(conId);
+	}
 }
 
 

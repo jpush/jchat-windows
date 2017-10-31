@@ -6,7 +6,6 @@
 #include "Settings.h"
 #include "Util.h"
 
-
 class qLogger :public Jmcpp::Logger
 {
 public:
@@ -173,7 +172,6 @@ JChat::ClientObject::getUserAvatarFilePath(Jmcpp::UserId userId, std::string ava
 	}
 
 	filePath += ".jpg";
-
 
 	if(QFile::exists(filePath))
 	{
@@ -504,7 +502,12 @@ JChat::ClientObject::getImage(Jmcpp::ImageContent const& content)
 		co_await ResumeBackground{};
 		QImage image;
 		image.loadFromData(data);
-		image.save(filePath);
+		if(!image.save(filePath))
+		{
+			QFile file(filePath);
+			file.open(QFile::WriteOnly);
+			file.write(data);
+		}
 		co_return filePath;
 	}
 }

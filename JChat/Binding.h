@@ -9,7 +9,7 @@ namespace JChat {
 	{
 		Q_OBJECT
 	public:
-		Binding( QObject* source, QByteArray const& propSource, QObject* target, QByteArray const& propTarget, QObject *parent = nullptr);
+		Binding(QObject* source, QByteArray const& propSource, QObject* target, QByteArray const& propTarget, QObject *parent = nullptr);
 
 		~Binding();
 	protected:

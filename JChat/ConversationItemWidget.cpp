@@ -13,6 +13,13 @@ namespace JChat {
 		auto menu = new QMenu(this);
 		auto act = menu->addAction(u8"会话置顶");
 		act->setCheckable(true);
+
+		menu->addAction(u8"删除会话", [=]
+		{
+			Q_EMIT closeClicked();
+		});
+
+
 		connect(menu, &QMenu::aboutToShow, this, [=]
 		{
 			act->setChecked(_sticktop);
@@ -131,12 +138,10 @@ QLabel
 		else
 		{
 			_unreadCountLabel->setText("99+");
-			_unreadCountLabel->resize(30,18);
+			_unreadCountLabel->resize(30, 18);
 
 		}
 	}
-
-
 
 	void ConversationItemWidget::enterEvent(QEvent *event)
 	{

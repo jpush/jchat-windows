@@ -12,7 +12,7 @@ namespace JChat
 	{
 	public:
 		QCallEvent() :QEvent(static_cast<QEvent::Type>(static_type)) {}
-		virtual void operator()() const = 0;
+		virtual void operator()() = 0;
 		static const int static_type;
 	};
 
@@ -38,7 +38,7 @@ namespace JChat
 		{
 			template<class ...Args>
 			CallEventT(Args && ... args) :_fn(std::forward<Args>(args)...){}
-			virtual void operator() () const
+			virtual void operator() ()
 			{
 				try{
 					_fn();
@@ -65,8 +65,8 @@ namespace JChat
 		class = std::result_of_t<_Slot() > >
 		inline void post(const QObject * context, _Slot&& _slot)
 	{
-		auto e = _qx_core::createCallEvent([c = QPointer<const QObject>(context), slot = std::forward<_Slot>(_slot)]{
-			 slot();
+		auto e = _qx_core::createCallEvent([c = QPointer<const QObject>(context), slot = std::forward<_Slot>(_slot)]() mutable {
+			slot();
 		});
 		e->handler.moveToThread(context->thread());
 		QCoreApplication::postEvent(&e->handler, e);
@@ -79,7 +79,7 @@ namespace JChat
 	{
 		auto e = _qx_core::createCallEvent([c = QPointer<const QObject>(context),
 										   slot = std::forward<_Slot>(_slot),
-										   slot2 = std::forward<_Slot2>(_slot2)]
+										   slot2 = std::forward<_Slot2>(_slot2)]() mutable
 		{
 			if(c){ slot(); }
 			else{ slot2(); }
@@ -106,7 +106,7 @@ namespace JChat
 		auto receiver_ = const_cast<C*>(receiver);
 		auto e = _qx_core::createCallEvent([c = QPointer<const QObject>(receiver),
 										   receiver_, pmf,
-										   slot2 = std::forward<_Slot2>(_slot2)]
+										   slot2 = std::forward<_Slot2>(_slot2)]() mutable
 		{
 			if(c) (receiver_->*pmf)();
 			else _slot2();

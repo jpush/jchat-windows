@@ -33,27 +33,69 @@ static LONG WINAPI crashHandler(EXCEPTION_POINTERS * ExceptionInfo)
 	return EXCEPTION_CONTINUE_SEARCH;
 }
 
+namespace console_colours
+{
+	const WORD BOLD = FOREGROUND_INTENSITY;
+	const WORD RED = FOREGROUND_RED;
+	const WORD CYAN = FOREGROUND_GREEN | FOREGROUND_BLUE;
+	const WORD WHITE = FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE;
+	const WORD YELLOW = FOREGROUND_RED | FOREGROUND_GREEN;
+
+	struct Reset;
+	Reset set_console_attribs(HANDLE out_handle_, WORD attribs);
+
+	struct Reset
+	{
+		HANDLE out_handle; WORD old;
+		~Reset()
+		{
+			SetConsoleTextAttribute(out_handle, old);
+		}
+	};
+
+	Reset set_console_attribs(HANDLE out_handle_, WORD attribs)
+	{
+		CONSOLE_SCREEN_BUFFER_INFO orig_buffer_info;
+		GetConsoleScreenBufferInfo(out_handle_, &orig_buffer_info);
+		WORD back_color = orig_buffer_info.wAttributes;
+
+		back_color &= ~(FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE | FOREGROUND_INTENSITY);
+
+		SetConsoleTextAttribute(out_handle_, attribs | back_color);
+		return { out_handle_, orig_buffer_info.wAttributes };
+	}
+}
+
 
 static void loggerFn(QtMsgType type, const QMessageLogContext &context, const QString &msg)
 {
 	QByteArray localMsg = msg.toLocal8Bit();
-
+	auto h = GetStdHandle(STD_OUTPUT_HANDLE);
 	switch(type) {
 		case QtDebugMsg:
+		{
+			auto reset = console_colours::set_console_attribs(h, console_colours::CYAN);
 			std::cerr << localMsg.constData() << std::endl;
-			break;
+		}break;
 		case QtInfoMsg:
 			std::cerr << localMsg.constData() << std::endl;
 			break;
 		case QtWarningMsg:
+		{
+			console_colours::set_console_attribs(h, console_colours::YELLOW);
 			std::cerr << localMsg.constData() << std::endl;
-			break;
+		}break;
 		case QtCriticalMsg:
+		{
+			console_colours::set_console_attribs(h, console_colours::RED | console_colours::BOLD);
 			std::cerr << localMsg.constData() << std::endl;
-			break;
+		}break;
 		case QtFatalMsg:
+		{
+			console_colours::set_console_attribs(h, console_colours::RED | BACKGROUND_RED);
 			std::cerr << localMsg.constData() << std::endl;
 			abort();
+		}break;
 	}
 }
 
