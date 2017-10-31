@@ -1,7 +1,6 @@
 ﻿#pragma once
 
 #include <windows.h>
-
 #include <optional>
 #include <QCoreApplication>
 #include <QEventLoop>
@@ -10,9 +9,9 @@
 #include <QTimer>
 #include <QPointer>
 #include <QDebug>
+#include <QShowEvent>
 
 #include <pplx/pplxtasks.h>
-
 
 #if defined(_RESUMABLE_FUNCTIONS_SUPPORTED) && _RESUMABLE_FUNCTIONS_SUPPORTED
 
@@ -20,41 +19,150 @@
 #include "Dispatch.h"
 #include <pplawait.h>
 
-template<class T>
+template < class T, int ResumePolicy = 0, bool ResumeOnIdle = (ResumePolicy == 1), bool ResumeOnShow = (ResumePolicy > 1) >
 class Pointer : public QPointer<T>
 {
+	static_assert(!ResumeOnShow || std::is_base_of_v<QWidget, T>);
+
+	template<class U>
+	static auto isVisible(U u) -> decltype(u->isVisible())
+	{
+		return u->isVisible();
+	}
+
+	static auto isVisible(...)
+	{
+		return true;
+	}
+
+	class ResumeOnShowTask :QObject
+	{
+		std::experimental::coroutine_handle<> _h;
+	public:
+		ResumeOnShowTask(...) { Q_UNREACHABLE(); }
+
+		ResumeOnShowTask(QWidget* w, std::experimental::coroutine_handle<> h) :_h(h){
+			w->installEventFilter(this);
+			QObject::connect(w, &QWidget::destroyed, this, [=]
+			{
+				this->deleteLater();
+			});
+		}
+		~ResumeOnShowTask()
+		{
+			if(_h)
+			{
+				_h.destroy();
+				_h = nullptr;
+			}
+		}
+	protected:
+		virtual bool eventFilter(QObject *watched, QEvent *event) override
+		{
+			if(event->type() == QEvent::Show)
+			{
+				auto handle = _h;
+				_h = nullptr;
+				auto connection = QObject::connect(QCoreApplication::instance(), &QCoreApplication::aboutToQuit, [=]() mutable
+				{
+					handle.destroy();
+				});
+
+				QTimer::singleShot(0, QCoreApplication::instance(), [=]
+				{
+					QObject::disconnect(connection);
+					handle();
+				});
+				this->deleteLater();
+			}
+			return false;
+		}
+	};
+
 public:
 	using QPointer::QPointer;
 
 	bool await_ready() const noexcept
 	{
+		if(ResumeOnShow || ResumeOnIdle)
+		{
+			return false;
+		}
 		return QThread::currentThread() == QCoreApplication::instance()->thread();
 	}
 
 	void await_resume() const noexcept{}
 
-	void await_suspend(std::experimental::coroutine_handle<> handle) const
+	auto await_suspend(std::experimental::coroutine_handle<> handle) const
 	{
 		auto connection = QObject::connect(QCoreApplication::instance(), &QCoreApplication::aboutToQuit, [=]() mutable
 		{
 			handle.destroy();
 		});
-		JChat::post(QCoreApplication::instance(), [=]()
-		{
-			QObject::disconnect(connection);
 
-			if(this->data())
-			{
-				handle();
+		if constexpr(ResumeOnShow)
+		{
+			std::optional<QEventLoop> el;
+			if(QThread::currentThread() != QCoreApplication::instance()->thread()){
+				el.emplace();
 			}
-			else
+			QTimer::singleShot(0, QCoreApplication::instance(), [=]
 			{
-				const_cast<std::experimental::coroutine_handle<>&>(handle).destroy();
+				QObject::disconnect(connection);
+				if(this->data())
+				{
+					if(isVisible(this->data()))
+					{
+						handle();
+					}
+					else
+					{
+						new ResumeOnShowTask(this->data(), handle);
+					}
+				}
+				else
+				{
+					const_cast<std::experimental::coroutine_handle<>&>(handle).destroy();
+				}
+			});
+		}
+		else if constexpr(ResumeOnIdle)
+		{
+			std::optional<QEventLoop> el;
+			if(QThread::currentThread() != QCoreApplication::instance()->thread())	{
+				el.emplace();
 			}
-		});
+			QTimer::singleShot(0, QCoreApplication::instance(), [=]
+			{
+				QObject::disconnect(connection);
+				if(this->data())
+				{
+					handle();
+				}
+				else
+				{
+					const_cast<std::experimental::coroutine_handle<>&>(handle).destroy();
+				}
+			});
+		}
+		else
+		{
+			JChat::post(QCoreApplication::instance(), [=]() mutable
+			{
+				QObject::disconnect(connection);
+				if(this->data())
+				{
+					handle();
+				}
+				else
+				{
+					handle.destroy();
+				}
+			});
+		}
 	}
 
-	auto delayed() const
+	auto resumeOnIdle() const
 	{
 		struct Awaitable
 		{
@@ -71,7 +179,12 @@ public:
 				{
 					handle.destroy();
 				});
-				QTimer::singleShot(0, QCoreApplication::instance(), [=]
+
+				std::optional<QEventLoop> el;
+				if(QThread::currentThread() != QCoreApplication::instance()->thread()){
+					el.emplace();
+				}
+				QTimer::singleShot(0, QCoreApplication::instance(), [=]() mutable
 				{
 					QObject::disconnect(connection);
 					if(_context)
@@ -80,8 +193,59 @@ public:
 					}
 					else
 					{
-						const_cast<std::experimental::coroutine_handle<>&>(handle).destroy();
+						handle.destroy();
 					}
+				});
+			}
+
+			Pointer<T> const& _context;
+		};
+
+		return Awaitable{ *this };
+	}
+
+
+	auto resumeOnShow() const
+	{
+		struct Awaitable
+		{
+			bool await_ready() const noexcept
+			{
+				return false;
+			}
+
+			void await_resume() const noexcept{}
+
+			void await_suspend(std::experimental::coroutine_handle<> handle) const
+			{
+				auto connection = QObject::connect(QCoreApplication::instance(), &QCoreApplication::aboutToQuit, [=]() mutable
+				{
+					handle.destroy();
+				});
+
+				std::optional<QEventLoop> el;
+				if(QThread::currentThread() != QCoreApplication::instance()->thread()){
+					el.emplace();
+				}
+				QTimer::singleShot(0, QCoreApplication::instance(), [=]() mutable
+				{
+					QObject::disconnect(connection);
+					if(_context.data())
+					{
+						if(isVisible(_context.data()))
+						{
+							handle();
+						}
+						else
+						{
+							new ResumeOnShowTask(_context.data(), handle);
+						}
+					}
+					else
+					{
+						handle.destroy();
+					}
+
 				});
 			}
 
@@ -92,27 +256,40 @@ public:
 	}
 };
 
+template<int ResumePolicy = 0>
 struct QTrackFn
 {
 	template<class T, class = std::enable_if_t<std::is_base_of_v<QObject, T>>>
-	Pointer<T> operator()(T* ptr) const
+	Pointer<T, ResumePolicy> operator()(T* ptr) const
 	{
 		return ptr;
 	}
 
+	static const QTrackFn<1> resumeOnIdle;
+
+	static const QTrackFn<2> resumeOnShow;
+
 	template<class T, class = std::enable_if_t<std::is_base_of_v<QObject, T>>>
-	friend Pointer<T> operator|(T* ptr, QTrackFn)
+	friend Pointer<T, ResumePolicy> operator|(T* ptr, QTrackFn)
 	{
 		return ptr;
 	}
 };
 
-constexpr QTrackFn qTrack;
+template<int ResumePolicy>
+const QTrackFn<1> QTrackFn<ResumePolicy>::resumeOnIdle;
+
+template<int ResumePolicy>
+const QTrackFn<2> QTrackFn<ResumePolicy>::resumeOnShow;
+
+constexpr QTrackFn<> qTrack;
 
 
 struct ResumeMainThread
 {
-	const bool delayed = false;
+	const bool delayed = false;//resumeOnIdle
+
+	explicit ResumeMainThread(bool const delayed = false) :delayed(delayed){}
 
 	bool await_ready() const noexcept
 	{
@@ -134,6 +311,11 @@ struct ResumeMainThread
 		});
 		if(delayed)
 		{
+			std::optional<QEventLoop> el;
+			if(QThread::currentThread() != QCoreApplication::instance()->thread()){
+				el.emplace();
+			}
+
 			QTimer::singleShot(0, QCoreApplication::instance(), [=]
 			{
 				QObject::disconnect(connection);
@@ -178,7 +360,8 @@ struct ResumeBackground
 
 struct ResumeAfter
 {
-	explicit ResumeAfter(std::chrono::milliseconds const& duration) noexcept
+	template<class Rep, class Period>
+	explicit ResumeAfter(std::chrono::duration<Rep, Period> const& duration) noexcept
 		:_duration(duration){}
 
 	~ResumeAfter()
@@ -201,7 +384,7 @@ struct ResumeAfter
 		{
 			throw std::system_error(std::make_error_code(std::errc::resource_unavailable_try_again));
 		}
-		int64_t relative_count = -_duration.count() * 10000;
+		int64_t relative_count = -_duration.count() * 10;
 		SetThreadpoolTimer(_timer, reinterpret_cast<PFILETIME>(&relative_count), 0, 0);
 	}
 
@@ -214,9 +397,8 @@ private:
 	}
 
 	PTP_TIMER					_timer{};
-	std::chrono::milliseconds	_duration;
+	std::chrono::microseconds	_duration;
 };
-
 
 
 struct FireAndForget{};
@@ -273,8 +455,8 @@ namespace std::experimental {
 
 #endif
 
-template<class T, class ... Fn>
-T qAwait(pplx::task<T> tsk, Fn&&... fn)
+template<class T>
+inline T qAwait(pplx::task<T> tsk)
 {
 	QEventLoop el;
 	std::optional<T> result;
@@ -296,7 +478,6 @@ T qAwait(pplx::task<T> tsk, Fn&&... fn)
 		}
 	});
 
-	auto invokeFns = { 0, (void(fn()),0)... };
 	el.exec();
 	if(ex){
 		std::rethrow_exception(ex);
@@ -304,9 +485,8 @@ T qAwait(pplx::task<T> tsk, Fn&&... fn)
 	return std::move(*result);
 }
 
-
-template<class ... Fn>
-void qAwait(pplx::task<void> tsk, Fn&&... fn)
+inline
+void qAwait(pplx::task<void> tsk)
 {
 	QEventLoop el;
 	std::exception_ptr ex;
@@ -327,18 +507,16 @@ void qAwait(pplx::task<void> tsk, Fn&&... fn)
 		}
 	});
 
-	auto invokeFns = { 0, (void(fn()),0)... };
 	el.exec();
 	if(ex){
 		std::rethrow_exception(ex);
 	}
 }
-
-
-inline void qAwait(std::chrono::milliseconds const& ms)
+template<class Rep, class Period>
+inline void qAwait(std::chrono::duration<Rep, Period> const& duration)
 {
 	QEventLoop el;
-	QTimer::singleShot(ms.count(), [&]
+	QTimer::singleShot(std::chrono::milliseconds(duration).count(), [&]
 	{
 		el.quit();
 	});
