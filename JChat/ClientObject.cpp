@@ -62,16 +62,13 @@ Jmcpp::Configuration
 JChat::ClientObject::getSDKConfig()
 {
 	Settings setting(QCoreApplication::applicationFilePath() + ".ini");
-
 	Jmcpp::Configuration cfg;
 	cfg.serverUrl = setting.value<QString>("serverUrl", QString()).toStdString();
 	cfg.uploadUrl = setting.value<QString>("uploadUrl", QString()).toStdString();
 	cfg.downloadUrl = setting.value<QString>("downloadUrl", QString()).toStdString();
 
-	cfg.logLevel = 3;
-
+	cfg.logLevel = 4;
 	cfg.logger = std::make_shared<qLogger>();
-
 	return cfg;
 }
 

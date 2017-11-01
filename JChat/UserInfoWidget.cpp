@@ -11,6 +11,8 @@
 
 #include "SelectUserWidget.h"
 
+#include "ImageCut.h"
+
 namespace JChat
 {
 	UserInfoWidget::UserInfoWidget(ClientObjectPtr const& co, QWidget *parent /*= Q_NULLPTR*/) : QWidget(parent)
@@ -379,9 +381,8 @@ namespace JChat
 				QMouseEvent * ev = (QMouseEvent*)event;
 				if(ev->button() == Qt::LeftButton)
 				{
-					auto filePath = QFileDialog::getOpenFileName(this, tr("Open File"), "",
-																 tr("Images (*.png *.jpg *.jpeg *.bmp *.gif)"));
-					if(filePath.isEmpty())
+					auto image = ImageCut::cutImage(this);
+					if(image.isNull())
 					{
 						return false;
 					}
@@ -389,15 +390,20 @@ namespace JChat
 					BusyIndicator busy(this);
 					try
 					{
-						auto mediaId = qAwait(_co->updateSelfAvatar(filePath.toStdString()));
+						auto tmp = QDir::temp();
+						auto tmpImge = tmp.absoluteFilePath(QString::number(QDateTime::currentMSecsSinceEpoch()) + ".jpg");
+						if(image.save(tmpImge, "JPG"))
+						{
+							auto mediaId = qAwait(_co->updateSelfAvatar(tmpImge.toStdString()));
+							auto pixmap = qAwait(_co->getCacheUserAvatar(_userId, mediaId, true));
+							ui.label->setPixmap(pixmap);
 
-						auto pixmap = qAwait(_co->getCacheUserAvatar(_userId, mediaId, true));
-
-						ui.label->setPixmap(pixmap);
+							QFile::remove(tmpImge);
+						}
 					}
 					catch(std::runtime_error& e)
 					{
-
+						qWarning() << e.what();
 					}
 				}
 			}

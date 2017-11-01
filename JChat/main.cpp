@@ -41,9 +41,6 @@ namespace console_colours
 	const WORD WHITE = FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE;
 	const WORD YELLOW = FOREGROUND_RED | FOREGROUND_GREEN;
 
-	struct Reset;
-	Reset set_console_attribs(HANDLE out_handle_, WORD attribs);
-
 	struct Reset
 	{
 		HANDLE out_handle; WORD old;
@@ -69,6 +66,10 @@ namespace console_colours
 
 static void loggerFn(QtMsgType type, const QMessageLogContext &context, const QString &msg)
 {
+	static std::mutex lock;
+
+	std::unique_lock<std::mutex> locker(lock);
+
 	QByteArray localMsg = msg.toLocal8Bit();
 	auto h = GetStdHandle(STD_OUTPUT_HANDLE);
 	switch(type) {
@@ -82,17 +83,17 @@ static void loggerFn(QtMsgType type, const QMessageLogContext &context, const QS
 			break;
 		case QtWarningMsg:
 		{
-			console_colours::set_console_attribs(h, console_colours::YELLOW);
+			auto reset = console_colours::set_console_attribs(h, console_colours::YELLOW);
 			std::cerr << localMsg.constData() << std::endl;
 		}break;
 		case QtCriticalMsg:
 		{
-			console_colours::set_console_attribs(h, console_colours::RED | console_colours::BOLD);
+			auto reset = console_colours::set_console_attribs(h, console_colours::RED | console_colours::BOLD);
 			std::cerr << localMsg.constData() << std::endl;
 		}break;
 		case QtFatalMsg:
 		{
-			console_colours::set_console_attribs(h, console_colours::RED | BACKGROUND_RED);
+			auto reset = console_colours::set_console_attribs(h, console_colours::RED | BACKGROUND_RED);
 			std::cerr << localMsg.constData() << std::endl;
 			abort();
 		}break;
@@ -128,9 +129,6 @@ int main(int argc, char *argv[])
 	{
 		a.installTranslator(&qtBaseTranslator);
 	}
-
-
-
 
 	QMediaPlayer* player = new QMediaPlayer();
 	a.setProperty("QMediaPlayer", QVariant::fromValue(player));

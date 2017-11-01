@@ -110,7 +110,6 @@ namespace JChat{
 
 				this->close();
 
-
 				return;
 			}
 			catch(Jmcpp::ServerException& e)
