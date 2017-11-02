@@ -76,25 +76,25 @@ static void loggerFn(QtMsgType type, const QMessageLogContext &context, const QS
 		case QtDebugMsg:
 		{
 			auto reset = console_colours::set_console_attribs(h, console_colours::CYAN);
-			std::cerr << localMsg.constData() << std::endl;
+			std::clog << localMsg.constData() << std::endl;
 		}break;
 		case QtInfoMsg:
-			std::cerr << localMsg.constData() << std::endl;
+			std::clog << localMsg.constData() << std::endl;
 			break;
 		case QtWarningMsg:
 		{
 			auto reset = console_colours::set_console_attribs(h, console_colours::YELLOW);
-			std::cerr << localMsg.constData() << std::endl;
+			std::clog << localMsg.constData() << std::endl;
 		}break;
 		case QtCriticalMsg:
 		{
 			auto reset = console_colours::set_console_attribs(h, console_colours::RED | console_colours::BOLD);
-			std::cerr << localMsg.constData() << std::endl;
+			std::clog << localMsg.constData() << std::endl;
 		}break;
 		case QtFatalMsg:
 		{
 			auto reset = console_colours::set_console_attribs(h, console_colours::RED | BACKGROUND_RED);
-			std::cerr << localMsg.constData() << std::endl;
+			std::clog << localMsg.constData() << std::endl;
 			abort();
 		}break;
 	}

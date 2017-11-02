@@ -456,7 +456,7 @@ namespace std::experimental {
 #endif
 
 template<class T>
-inline T qAwait(pplx::task<T> tsk)
+inline T qAwait(pplx::task<T> tsk, QEventLoop::ProcessEventsFlags flags = QEventLoop::AllEvents)
 {
 	QEventLoop el;
 	std::optional<T> result;
@@ -478,7 +478,7 @@ inline T qAwait(pplx::task<T> tsk)
 		}
 	});
 
-	el.exec();
+	el.exec(flags);
 	if(ex){
 		std::rethrow_exception(ex);
 	}
@@ -486,7 +486,7 @@ inline T qAwait(pplx::task<T> tsk)
 }
 
 inline
-void qAwait(pplx::task<void> tsk)
+void qAwait(pplx::task<void> tsk, QEventLoop::ProcessEventsFlags flags = QEventLoop::AllEvents)
 {
 	QEventLoop el;
 	std::exception_ptr ex;
@@ -507,7 +507,7 @@ void qAwait(pplx::task<void> tsk)
 		}
 	});
 
-	el.exec();
+	el.exec(flags);
 	if(ex){
 		std::rethrow_exception(ex);
 	}

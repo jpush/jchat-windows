@@ -375,23 +375,25 @@ namespace JChat
 	{
 		if(watched == ui.label && event->type() == QEvent::MouseButtonRelease)
 		{
-			if(_mode == self && _editable)
+			if(_mode == self)
 			{
-
 				QMouseEvent * ev = (QMouseEvent*)event;
 				if(ev->button() == Qt::LeftButton)
 				{
-					auto image = ImageCut::cutImage(this);
-					if(image.isNull())
-					{
-						return false;
-					}
-
-					BusyIndicator busy(this);
 					try
 					{
+						BusyIndicator busy(this);
+
+						auto pixmap = qAwait(_co->getCacheUserAvatar(_userId));
+						auto image = ImageCut::cutImage(this, pixmap.toImage());
+						if(image.isNull())
+						{
+							return false;
+						}
+
+
 						auto tmp = QDir::temp();
-						auto tmpImge = tmp.absoluteFilePath(QString::number(QDateTime::currentMSecsSinceEpoch()) + ".jpg");
+						auto tmpImge = tmp.absoluteFilePath(QString("JChat_%1.jpg").arg(QString::number(QDateTime::currentMSecsSinceEpoch())));
 						if(image.save(tmpImge, "JPG"))
 						{
 							auto mediaId = qAwait(_co->updateSelfAvatar(tmpImge.toStdString()));

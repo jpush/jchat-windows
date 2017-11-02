@@ -299,7 +299,10 @@ JChat::ClientObject::getCacheUserAvatar(Jmcpp::UserId userId, std::string avatar
 
 	QImage img;
 	img.loadFromData(data);
-	img = img.scaledToWidth(60, Qt::TransformationMode::SmoothTransformation);
+	if(userId != getCurrentUser())
+	{
+		img = img.scaledToWidth(60, Qt::TransformationMode::SmoothTransformation);
+	}
 	img.save(avatarFilePath);
 
 	co_await self;
@@ -1105,7 +1108,7 @@ JChat::ClientObject::onEvent(Jmcpp::UserInfoUpdatedEvent const& e)
 
 	co_await getCacheUserAvatar(userId, info.avatar, true);
 
-	if(e.user == getCurrentUser())
+	if(userId == getCurrentUser())
 	{
 		Q_EMIT selfInfoUpdated(userId);
 	}

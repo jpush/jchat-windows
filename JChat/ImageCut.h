@@ -17,15 +17,25 @@ namespace JChat {
 		ImageCut(QWidget *parent = Q_NULLPTR);
 		~ImageCut();
 
-		static QImage cutImage(QWidget* parent);
+		static QImage cutImage(QWidget* parent, QImage const& img = QImage());
 
 	protected:
 
 		Q_SLOT void on_btnOpenFile_clicked();
 
+		Q_SLOT void on_rotateRight_clicked();
+		Q_SLOT void on_rotateLeft_clicked();
+
+
 		Q_SLOT void on_horizontalSlider_valueChanged(int);
 
 		Q_SIGNAL void closed();
+
+
+		void fitInView(const QRectF &rect);
+
+		void fitInView(QGraphicsItem* item);
+
 
 		void setImage(QImage const& img);
 
@@ -38,13 +48,14 @@ namespace JChat {
 
 		virtual bool eventFilter(QObject *watched, QEvent *event) override;
 
-		bool isEnableScale() const{ return _initScale < 1 && _item; }
+		bool isEnableScale() const{ return (1 - _initScale) > 0 && _item; }
 	private:
 		Ui::ImageCut ui;
 
 		QGraphicsScene _scene;
 		QGraphicsPixmapItem* _item = nullptr;
 
+		double _rotate = 0;
 		double _initScale = 1;
 		double _scaleStep = 0;
 	};
