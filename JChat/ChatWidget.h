@@ -4,13 +4,13 @@
 #include "ui_ChatWidget.h"
 
 #include "ClientObject.h"
-#include "EmojiPicker.h"
 #include "GroupInfoWidget.h"
 
 class QCompleter;
 
 namespace JChat
 {
+	class EmojiPicker;
 	class ChatWidget : public QWidget
 	{
 		Q_OBJECT
@@ -25,9 +25,7 @@ namespace JChat
 			return ui.listWidget;
 		}
 
-
 		QString getEditingText() const;
-
 
 		Q_SLOT void on_btnName_clicked();
 
@@ -41,11 +39,11 @@ namespace JChat
 		Q_SLOT void on_btnUserCard_clicked();
 
 
-
-
 		None init();
 
 		None forwardMessage(Jmcpp::MessagePtr const& msgPtr);
+
+		None sendImage(QByteArray const& image);
 
 		None sendImage(QImage const& image);
 
@@ -55,11 +53,15 @@ namespace JChat
 
 		None sendUserCard(Jmcpp::UserId userId);
 
+		None sendLargeEmoji(QString const& filePath,QString const& emojiName);
+
 		None loadMoreMessage(size_t count);
 
 		None loadMessage(size_t count);
 	protected:
-		void onEmojiSelected(QVariantMap const& info);
+		void onEmojiSelected(QString const& emojiHtml);
+		void onLargetEmojiSelected(QString const& );
+
 
 		None onSelfInfoUpdated(Jmcpp::UserId const& userId);
 

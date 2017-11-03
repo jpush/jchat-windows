@@ -28,6 +28,7 @@
 #include "UserInfoWidget.h"
 
 #include "Emoji.h"
+#include "EmojiPicker.h"
 #include "SelectMemberWidget.h"
 #include "BusyIndicator.h"
 #include "MainWidget.h"
@@ -85,14 +86,14 @@ namespace JChat
 		connect(_co.get(), &ClientObject::userInfoUpdated, this, &ChatWidget::onUserInfoUpdated);
 		connect(_co.get(), &ClientObject::groupInfoUpdated, this, &ChatWidget::onGroupInfoUpdated);
 
-
 		init();
 
 		//////////////////////////////////////////////////////////////////////////
 		_emojiPicker = new EmojiPicker(this);
 		connect(_emojiPicker, &EmojiPicker::emojiSelected, this, &ChatWidget::onEmojiSelected);
+		connect(_emojiPicker, &EmojiPicker::largeEmojiSelected, this, &ChatWidget::onLargetEmojiSelected);
 
-		_emojiPicker->installEventFilter(this);
+
 		connect(ui.btnEmoji, &QToolButton::clicked, this, [=]()
 		{
 			auto cursor = ui.textEdit->textCursor();
@@ -101,7 +102,6 @@ namespace JChat
 			point -= { 0, geo.height()};
 			_emojiPicker->move(point);
 			_emojiPicker->show();
-			_emojiPicker->activateWindow();
 		});
 
 		connect(ui.listWidget->verticalScrollBar(), &QScrollBar::valueChanged, [=](int value){
@@ -369,7 +369,7 @@ namespace JChat
 			QByteArray ba;
 			QBuffer buffer(&ba);
 			buffer.open(QIODevice::WriteOnly);
-			img.save(&buffer, "JPG"); // writes image into ba in PNG format
+			img.save(&buffer, "JPG");
 
 			auto imageName = QUuid::createUuid().toString() + ".jpg";
 			auto filePath = _co->imageFilePath(imageName);
@@ -491,7 +491,6 @@ namespace JChat
 			co_return;
 		}
 
-
 		auto iw = new ItemWidgetFileRight() | qTrack;
 		iw->setDateTime(QDateTime::currentDateTime());
 
@@ -546,8 +545,6 @@ namespace JChat
 		iw->setProgress(0);
 
 		auto content = co_await co->createTextContent(u8"推荐一张名片给你");
-
-
 		QJsonObject extrasData;
 		extrasData["userName"] = QString::fromStdString(userId.username);
 		extrasData["appKey"] = QString::fromStdString(userId.appKey);
@@ -595,11 +592,79 @@ namespace JChat
 		co_return;
 	}
 
-	void ChatWidget::onEmojiSelected(QVariantMap const& info)
+	None ChatWidget::sendLargeEmoji(QString const& filePath, QString const& emojiName)
 	{
-		auto e = JChat::Emoji::getSingleton();
-		auto image = e->toImage(e->convert(info["code_points"].toMap().value("output").toString()));
-		ui.textEdit->insertHtml(image);
+		if(QFileInfo(filePath).size() > 8 * 1024 * 1024)
+		{
+			QMessageBox::warning(this, "", u8"文件过大!");
+			co_return;
+		}
+
+		auto iw = new ItemWidgetImageRight() | qTrack;
+		iw->setDateTime(QDateTime::currentDateTime());
+
+		QPixmap img(filePath);
+		auto movie = new QMovie(filePath);
+		if(movie->frameCount() > 1)
+		{
+			iw->setMovie(movie, img.size());
+		}
+		else
+		{
+			delete movie;
+			img = img.scaledToWidth(120);
+			iw->setImage(img);
+		}
+
+		ui.listWidget->insertItemWidget(iw);
+		iw->setProgress(0);
+
+		try
+		{
+			QFile file(filePath);
+			if(!file.open(QFile::ReadOnly))
+			{
+				iw->setFailed();
+				co_return;
+			}
+
+			auto data = file.readAll();
+			auto content = co_await _co->createImageContent(data.constData(), data.size(), file.fileName().toStdString());
+
+			content.extras = R"_({"kLargeEmoticon":"kLargeEmoticon"})_";
+
+			Jmcpp::MessagePtr msg = _co->buildMessage(_conId, content);
+
+			co_await _co->sendMessage(msg);
+			co_await iw;
+
+			iw->setMessage(msg);
+			iw->setComplete();
+			iw->setUnreadUserCount(msg->unreadUserCount);
+
+			co_return;
+		}
+		catch(std::system_error& e)
+		{
+
+		}
+		catch(Jmcpp::ServerException& e)
+		{
+		}
+
+		co_await iw;
+		iw->setFailed();
+	}
+
+	void ChatWidget::onEmojiSelected(QString const& emojiHtml)
+	{
+		ui.textEdit->insertHtml(emojiHtml);
+		_emojiPicker->hide();
+	}
+
+	void ChatWidget::onLargetEmojiSelected(QString const& filePath)
+	{
+		sendLargeEmoji(filePath, "");
 		_emojiPicker->hide();
 	}
 
@@ -686,7 +751,7 @@ namespace JChat
 			}
 
 			ui.listWidget->scrollToBottom();
-	
+
 		}
 		catch(...)
 		{
@@ -782,13 +847,6 @@ namespace JChat
 				}break;
 				default:
 					break;
-			}
-		}
-		else if(watched == _emojiPicker && event->type() == QEvent::ActivationChange)
-		{
-			if(!_emojiPicker->isActiveWindow())
-			{
-				_emojiPicker->hide();
 			}
 		}
 		else if(watched == ui.listWidget->verticalScrollBar() && event->type() == QEvent::Wheel)

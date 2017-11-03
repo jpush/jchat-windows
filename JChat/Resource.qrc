@@ -88,4 +88,30 @@
         <file>emojione.js</file>
         <file>emoji.json</file>
     </qresource>
+    <qresource prefix="/guang">
+        <file>resource/guang/01.png</file>
+        <file>resource/guang/02.png</file>
+        <file>resource/guang/03.png</file>
+        <file>resource/guang/04.png</file>
+        <file>resource/guang/05.png</file>
+        <file>resource/guang/06.png</file>
+        <file>resource/guang/07.png</file>
+        <file>resource/guang/08.png</file>
+        <file>resource/guang/09.png</file>
+        <file>resource/guang/10.png</file>
+        <file>resource/guang/11.png</file>
+        <file>resource/guang/12.png</file>
+        <file>resource/guang/13.png</file>
+        <file>resource/guang/14.png</file>
+        <file>resource/guang/15.png</file>
+        <file>resource/guang/16.png</file>
+        <file>resource/guang/17.png</file>
+        <file>resource/guang/18.png</file>
+        <file>resource/guang/19.png</file>
+        <file>resource/guang/20.png</file>
+        <file>resource/guang/21.png</file>
+        <file>resource/guang/22.png</file>
+        <file>resource/guang/23.png</file>
+        <file>resource/guang/24.png</file>
+    </qresource>
 </RCC>

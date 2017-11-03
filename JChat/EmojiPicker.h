@@ -14,8 +14,9 @@ namespace JChat {
 		EmojiPicker(QWidget *parent = Q_NULLPTR);
 		~EmojiPicker();
 
+		Q_SIGNAL void emojiSelected(QString const& emojiHtml);
 
-		Q_SIGNAL void emojiSelected(QVariantMap const& info);
+		Q_SIGNAL void largeEmojiSelected(QString const&);
 
 	private:
 		Ui::EmojiPicker ui;
