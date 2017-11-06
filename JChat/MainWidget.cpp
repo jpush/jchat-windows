@@ -63,6 +63,8 @@ MainWidget::MainWidget(JChat::ClientObjectPtr const& co, QWidget *parent /*= Q_N
 	auto btnGroup = new QButtonGroup(this);
 	btnGroup->addButton(ui.btnMessages);
 	btnGroup->addButton(ui.btnContacts);
+	btnGroup->addButton(ui.btnRooms);
+
 
 	ui.pageMessages->installEventFilter(this);
 	connect(ui.btnMessages, &QToolButton::clicked, this, [=]	{
@@ -72,6 +74,11 @@ MainWidget::MainWidget(JChat::ClientObjectPtr const& co, QWidget *parent /*= Q_N
 	connect(ui.btnContacts, &QToolButton::clicked, this, [=]	{
 		ui.stackedWidget->setCurrentWidget(ui.pageContacts);
 	});
+
+	connect(ui.btnRooms, &QToolButton::clicked, this, [=]	{
+		ui.stackedWidget->setCurrentWidget(ui.pageRooms);
+	});
+
 
 	initMenu();
 	initMessagePage();

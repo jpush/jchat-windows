@@ -14,11 +14,12 @@ namespace JChat {
 	public:
 		enum Role
 		{
-			UserIdRole= Qt::UserRole + 1,
+			UserIdRole = Qt::UserRole + 1,
 			AvatarIdRole,
 			NameInfo,
 			ImageRole,
 			IsOwnerRole,
+			IsSlientRole
 		};
 
 		MemberModel(ClientObjectPtr const& co, Jmcpp::GroupId groupId, QObject *parent = nullptr);
@@ -64,19 +65,5 @@ namespace JChat {
 	};
 
 
-	class MemberDelegate :public QStyledItemDelegate
-	{
-
-	public:
-		using  QStyledItemDelegate::QStyledItemDelegate;
-
-		virtual void paint(QPainter *painter, const QStyleOptionViewItem &option, const QModelIndex &index) const override;
-
-
-		virtual QSize sizeHint(const QStyleOptionViewItem &option, const QModelIndex &index) const override;
-
-		virtual bool editorEvent(QEvent *event, QAbstractItemModel *model, const QStyleOptionViewItem &option, const QModelIndex &index) override;
-
-	};
 
 } // namespace JChat

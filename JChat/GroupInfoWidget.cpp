@@ -4,6 +4,7 @@
 #include <QGraphicsDropShadowEffect>
 #include <QPropertyAnimation>
 #include <QMessageBox>
+#include <QMenu>
 
 #include "UserInfoWidget.h"
 #include "MemberModel.h"
@@ -13,6 +14,9 @@
 #include "GroupInfoWidget.h"
 
 #include "SelectMemberWidget.h"
+#include "ItemWidgetMapper.h"
+
+#include "MemberItemWidget.h"
 
 namespace JChat {
 
@@ -34,52 +38,10 @@ namespace JChat {
 			ui.labelMemberCount->setText(QString(u8"成员:%1").arg(_memberModel->rowCount()));
 		});
 
-		connect(_memberModel, &MemberModel::removeMemberClicked, this, [=](Jmcpp::UserId const& userId)
-		{
-			removeMember({ userId });
-		});
-
-		connect(_memberModel, &MemberModel::memberInfoClicked, this, [=](Jmcpp::UserId const& userId)
-		{
-			auto w = new UserInfoWidget(_co, this);
-			try
-			{
-				w->setWindowModality(Qt::WindowModality::ApplicationModal);
-				if(userId == _co->getCurrentUser())
-				{
-					w->setMode(UserInfoWidget::self);
-					w->show();
-					auto info = qAwait(_co->getSelfInfo());
-					auto pixmap = qAwait(_co->getCacheUserAvatar(userId));
-
-					w->setUserInfo(info);
-					w->setAvatar(pixmap);
-				}
-				else
-				{
-					if(_co->isFriend(userId))
-					{
-						w->setMode(UserInfoWidget::friends);
-					}
-					else
-					{
-						w->setMode(UserInfoWidget::stranger);
-					}
-					w->show();
-					auto info = qAwait(_co->getCacheUserInfo(userId));
-					auto pixmap = qAwait(_co->getCacheUserAvatar(userId));
-					w->setUserInfo(info);
-					w->setAvatar(pixmap);
-				}
-			}
-			catch(std::runtime_error& e)
-			{
-				w->close();
-				w->deleteLater();
-			}
-		});
-
-
+		// 		connect(_memberModel, &MemberModel::removeMemberClicked, this, [=](Jmcpp::UserId const& userId)
+		// 		{
+		// 			removeMember({ userId });
+		// 		});
 
 		connect(_co.get(), &ClientObject::notDisturbChanged, this, [=](Jmcpp::ConversationId const& conId, bool on)
 		{
@@ -99,7 +61,6 @@ namespace JChat {
 			}
 		});
 
-
 		connect(_co.get(), &ClientObject::groupInfoUpdatedEvent, this, [=](Jmcpp::GroupInfoUpdatedEvent const& e)
 		{
 			if(e.groupId != _groupId)
@@ -109,13 +70,58 @@ namespace JChat {
 			updateInfo();
 		});
 
-
 		auto model = new ProxyModel(this);
 		model->setSourceModel(_memberModel);
 		model->setFilterRole(MemberModel::NameInfo);
 
 		ui.listView->setModel(model);
-		ui.listView->setItemDelegate(new MemberDelegate(this));
+
+		auto mapper = new ItemWidgetMapper(this);
+
+		connect(mapper, &ItemWidgetMapper::itemWidgetCreated, this, [=](QWidget* widget, QModelIndex const& index)
+		{
+			auto w = static_cast<MemberItemWidget*>(widget);
+
+			auto userId = index.data(MemberModel::UserIdRole).value<Jmcpp::UserId>();
+
+			connect(w, &QWidget::customContextMenuRequested, this, [=](QPoint const& pt)
+			{
+				if(_memberModel->isOwner())
+				{
+					QPoint globalPos = widget->mapToGlobal(pt);
+
+					QMenu myMenu;
+					myMenu.addAction(u8"禁言", [=]
+					{
+						//_co->setGroupMemberSilent(groupId, userId, true);
+					});
+
+					myMenu.addAction(u8"移出群聊", [=]
+					{
+						removeMember({ userId });
+					});
+
+					myMenu.exec(globalPos);
+				}
+
+			});
+
+			connect(w, &MemberItemWidget::memberInfoClicked, this, [=]()
+			{
+				UserInfoWidget::showUserInfo(_co, userId, this);
+			});
+		});
+
+
+		mapper->addMapping(MemberModel::NameInfo, "title");
+		mapper->addMapping(MemberModel::ImageRole, "avatar");
+		mapper->addMapping(MemberModel::IsOwnerRole, "isOwner");
+		mapper->addMapping(MemberModel::IsSlientRole, "isSilent");
+
+		mapper->setItemWidgetClass<MemberItemWidget>();
+
+		mapper->setView(ui.listView);
+
 
 		ui.lineEditGroupName->installEventFilter(this);
 		ui.textEditGroupDesc->installEventFilter(this);

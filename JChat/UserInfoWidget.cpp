@@ -295,7 +295,6 @@ namespace JChat
 			BusyIndicator busy(parent);
 			auto info = qAwait(co->getCacheUserInfo(userId));
 			auto pixmap = qAwait(co->getCacheUserAvatar(userId));
-
 			if(info.userId == co->getCurrentUser())
 			{
 				auto w = new UserInfoWidget(co, parent);

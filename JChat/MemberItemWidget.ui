@@ -1,34 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>ChatIdItemWidget</class>
- <widget class="QWidget" name="ChatIdItemWidget">
+ <class>MemberItemWidget</class>
+ <widget class="QWidget" name="MemberItemWidget">
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>258</width>
-    <height>50</height>
+    <width>350</width>
+    <height>48</height>
    </rect>
   </property>
-  <property name="minimumSize">
-   <size>
-    <width>0</width>
-    <height>50</height>
-   </size>
-  </property>
-  <property name="maximumSize">
-   <size>
-    <width>16777215</width>
-    <height>50</height>
-   </size>
-  </property>
   <property name="windowTitle">
-   <string>ChatIdItemWidget</string>
+   <string>MemberItemWidget</string>
   </property>
   <layout class="QHBoxLayout" name="horizontalLayout">
-   <property name="spacing">
-    <number>0</number>
-   </property>
    <property name="leftMargin">
     <number>0</number>
    </property>
@@ -152,21 +137,28 @@
        </spacer>
       </item>
       <item>
-       <widget class="QCheckBox" name="checkBox">
-        <property name="sizePolicy">
-         <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-          <horstretch>0</horstretch>
-          <verstretch>0</verstretch>
-         </sizepolicy>
-        </property>
-        <property name="font">
-         <font>
-          <family>微软雅黑</family>
-          <pointsize>12</pointsize>
-         </font>
-        </property>
+       <widget class="QLabel" name="labelOwner">
         <property name="text">
          <string/>
+        </property>
+        <property name="pixmap">
+         <pixmap resource="Resource.qrc">:/image/resource/群主.png</pixmap>
+        </property>
+        <property name="scaledContents">
+         <bool>false</bool>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QLabel" name="labelSlient">
+        <property name="text">
+         <string/>
+        </property>
+        <property name="pixmap">
+         <pixmap resource="Resource.qrc">:/image/resource/x点选.png</pixmap>
+        </property>
+        <property name="scaledContents">
+         <bool>false</bool>
         </property>
        </widget>
       </item>
@@ -179,7 +171,7 @@
          </sizepolicy>
         </property>
         <property name="text">
-         <string>X</string>
+         <string/>
         </property>
        </widget>
       </item>
