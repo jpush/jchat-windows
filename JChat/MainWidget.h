@@ -66,6 +66,9 @@ namespace JChat{
 
 		void			searchUser(Jmcpp::UserId const& userId);
 
+		void			searchGroup(Jmcpp::GroupId groupId);
+
+
 		void			createGroup();
 
 

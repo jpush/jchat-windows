@@ -162,7 +162,7 @@ namespace JChat
 	Q_SLOT void ChatWidget::on_btnAdd_clicked()
 	{
 		QString groupName = "xxx";
-		auto userIds = SelectMemberWidget::getUserIds(_co, u8"多人会话", &groupName, this);
+		auto userIds = SelectMemberWidget::getUserIds(_co, u8"多人会话", groupName, this);
 		if(!userIds)
 		{
 			return;
@@ -660,12 +660,14 @@ namespace JChat
 	{
 		ui.textEdit->insertHtml(emojiHtml);
 		_emojiPicker->hide();
+		ui.textEdit->setFocus();
 	}
 
 	void ChatWidget::onLargetEmojiSelected(QString const& filePath)
 	{
 		sendLargeEmoji(filePath, "");
 		_emojiPicker->hide();
+		ui.textEdit->setFocus();
 	}
 
 	None ChatWidget::loadMoreMessage(size_t count)

@@ -98,7 +98,14 @@ namespace JChat {
 
 					myMenu.addAction(isSlient ? u8"解除禁言" : u8"禁言", this, [=]
 					{
-						_co->setGroupMemberSilent(groupId, userId, !isSlient);
+						try
+						{
+							qAwait(_co->setGroupMemberSilent(groupId, userId, !isSlient));
+						}
+						catch(std::system_error& e)
+						{
+							QMessageBox::warning(this, "", u8"禁言失败!", QMessageBox::Ok);
+						}
 					});
 
 					myMenu.addAction(u8"移出群聊", this, [=]
@@ -192,7 +199,7 @@ namespace JChat {
 	{
 		try
 		{
-			//BusyIndicator busy(this);
+			BusyIndicator busy(this);
 			qAwait(_co->setNotDisturb(_groupId, checked));
 		}
 		catch(std::runtime_error& e)
@@ -206,7 +213,7 @@ namespace JChat {
 	{
 		try
 		{
-			//BusyIndicator busy(this);
+			BusyIndicator busy(this);
 			qAwait(_co->setGroupShield(_groupId, checked));
 		}
 		catch(std::runtime_error& e)
@@ -234,7 +241,8 @@ namespace JChat {
 
 	void GroupInfoWidget::on_btnAddMember_clicked()
 	{
-		auto userIds = SelectMemberWidget::getUserIds(_co, u8"添加群成员", nullptr, this);
+		QString groupName;
+		auto userIds = SelectMemberWidget::getUserIds(_co, u8"添加群成员", groupName, this);
 		if(!userIds){ return; }
 
 		BusyIndicator busy(this);

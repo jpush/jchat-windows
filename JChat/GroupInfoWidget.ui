@@ -10,7 +10,7 @@
     <x>0</x>
     <y>0</y>
     <width>278</width>
-    <height>604</height>
+    <height>491</height>
    </rect>
   </property>
   <property name="focusPolicy">
@@ -79,6 +79,11 @@ QLabel {
 	border-radius:4px;
 	background-color: rgb(235,66,77);
 }
+#btnQuitGroup:hover
+{
+	background-color: rgb(245, 110, 113);
+}
+
 
  QCheckBox {
       

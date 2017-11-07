@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>EnterUserNameWidget</class>
- <widget class="QWidget" name="EnterUserNameWidget">
+ <class>InputGroupId</class>
+ <widget class="QDialog" name="InputGroupId">
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>334</width>
-    <height>139</height>
+    <width>335</width>
+    <height>138</height>
    </rect>
   </property>
   <property name="windowTitle">
-   <string>发起单聊</string>
+   <string>InputGroupId</string>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
    <property name="spacing">
@@ -32,7 +32,7 @@
    <item>
     <widget class="QLineEdit" name="lineEdit">
      <property name="placeholderText">
-      <string>输入用户名查找</string>
+      <string>输入公开群的群组ID</string>
      </property>
     </widget>
    </item>

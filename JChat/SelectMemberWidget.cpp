@@ -4,12 +4,14 @@
 #include <QMouseEvent>
 #include <QMessageBox>
 
+
 #include "ContactModel.h"
 #include "ModelRange.h"
 #include "Util.h"
 #include "ItemWidgetMapper.h"
 #include "ChatIdItemWidget.h"
 
+#include "ImageCut.h"
 #include "SearchUser.h"
 #include "BusyIndicator.h"
 
@@ -20,8 +22,12 @@ JChat::SelectMemberWidget::SelectMemberWidget(ClientObjectPtr const&co, QWidget 
 {
 	ui.setupUi(this);
 
+	ui.labelAvatar->installEventFilter(this);
 
 	setWindowModality(Qt::ApplicationModal);
+
+	ui.stackedWidget->setCurrentIndex(0);
+
 	auto search = ui.lineEditSearch->addAction(QIcon(u8":/image/resource/搜索.png"), QLineEdit::TrailingPosition);
 
 	auto model = new QStandardItemModel(this);
@@ -192,25 +198,58 @@ void JChat::SelectMemberWidget::closeEvent(QCloseEvent *event)
 
 
 std::optional< std::vector<Jmcpp::UserId>>
-JChat::SelectMemberWidget::getUserIds(ClientObjectPtr const&co, QString const& title, QString* groupName, QWidget* parent /*= nullptr*/)
+JChat::SelectMemberWidget::getUserIds(ClientObjectPtr const&co, QString const& title, QString& groupName, QWidget* parent /*= nullptr*/)
 {
 	QEventLoop el;
-
 	SelectMemberWidget w(co, parent);
 	w.setWindowTitle(title);
-	w.setGroupNameEnable(groupName);
+	w.setAdvanceGroupEnable(false);
+
+	w.setGroupNameEnable(!groupName.isEmpty());
+
 
 	connect(w.ui.btnOK, &QPushButton::clicked, [&]
 	{
-		if(groupName && groupName->isEmpty() && w.ui.lineEdit->text().isEmpty())
-		{
-			QMessageBox::warning(&w, "", u8"群名称不能为空!", QMessageBox::Ok);
-			return;
-		}
+		el.exit(0);
+	});
 
-		if(groupName)
+	connect(w.ui.btnCancel, &QPushButton::clicked, [&]
+	{
+		el.exit(1);
+	});
+	connect(&w, &SelectMemberWidget::closed, [&]
+	{
+		el.exit(1);
+	});
+
+	w.show();
+	if(el.exec() == 0)
+	{
+		groupName = w.ui.lineEdit->text();
+
+		return w._getUserIds();
+	}
+
+	return {};
+}
+
+std::optional<std::vector<Jmcpp::UserId>>
+JChat::SelectMemberWidget::getUserIds(ClientObjectPtr const&co, QString const& title,
+									  QString& groupName, QString &groupAvatar, bool& isPublic,
+									  QWidget* parent /*= nullptr*/)
+{
+	QEventLoop el;
+	SelectMemberWidget w(co, parent);
+	w.setWindowTitle(title);
+	w.setAdvanceGroupEnable(true);
+	w.setGroupNameEnable(false);
+
+	connect(w.ui.btnDone, &QPushButton::clicked, [&]
+	{
+		if(w.ui.lineEditGroupName->text().isEmpty())
 		{
-			*groupName = w.ui.lineEdit->text();
+			QMessageBox::warning(&w, "", u8"请输入群组名称", QMessageBox::Ok);
+			return;
 		}
 
 		el.exit(0);
@@ -228,10 +267,58 @@ JChat::SelectMemberWidget::getUserIds(ClientObjectPtr const&co, QString const& t
 	w.show();
 	if(el.exec() == 0)
 	{
+		isPublic = w.ui.radioButtonPublic->isChecked();
+		groupName = w.ui.lineEditGroupName->text();
+
+		auto tmp = QDir::temp();
+		auto tmpImge = tmp.absoluteFilePath(QString("JChat_%1.jpg").arg(QString::number(QDateTime::currentMSecsSinceEpoch())));
+		if(w.ui.labelAvatar->pixmap()->save(tmpImge, "JPG"))
+		{
+			groupAvatar = tmpImge;
+		}
+
 		return w._getUserIds();
 	}
 
 	return {};
+}
+
+bool
+JChat::SelectMemberWidget::eventFilter(QObject *watched, QEvent *event)
+{
+	if(watched == ui.labelAvatar && event->type() == QEvent::MouseButtonRelease)
+	{
+		auto e = static_cast<QMouseEvent*>(event);
+		if(e->button() == Qt::LeftButton)
+		{
+			auto img = ImageCut::cutImage(this, ui.labelAvatar->pixmap()->toImage());
+
+			if(!img.isNull())
+			{
+				ui.labelAvatar->setPixmap(QPixmap::fromImage(img));
+			}
+		}
+	}
+
+	return false;
+}
+
+Q_SLOT void
+JChat::SelectMemberWidget::on_btnNext_clicked()
+{
+	ui.stackedWidget->setCurrentIndex(1);
+}
+
+Q_SLOT void
+JChat::SelectMemberWidget::on_btnPrev_clicked()
+{
+	ui.stackedWidget->setCurrentIndex(0);
+}
+
+Q_SLOT
+void JChat::SelectMemberWidget::on_radioButton_toggled(bool checked)
+{
+	ui.label_6->setText(checked ? u8"私有群：只能通过群成员邀请入群，无需审核" : u8"公开群：用户可主动申请入群，需群主审核");
 }
 
 std::vector<Jmcpp::UserId>

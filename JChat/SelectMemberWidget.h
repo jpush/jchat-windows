@@ -20,11 +20,27 @@ namespace JChat
 		~SelectMemberWidget();
 
 
-		static std::optional<std::vector<Jmcpp::UserId>> getUserIds(ClientObjectPtr const&co, QString const& title,
-																	QString* groupName,
+		static std::optional<std::vector<Jmcpp::UserId>> getUserIds(ClientObjectPtr const&co, QString const& title, QString& groupName,
 																	QWidget* parent = nullptr);
 
+
+
+		static std::optional<std::vector<Jmcpp::UserId>> getUserIds(ClientObjectPtr const&co, QString const& title,
+																	QString& groupName, QString & groupAvatar, bool& isPublic,
+																	QWidget* parent = nullptr);
+
+
+
 	protected:
+		virtual bool eventFilter(QObject *watched, QEvent *event) override;
+		virtual void closeEvent(QCloseEvent *event) override;
+
+		Q_SLOT void on_btnNext_clicked();
+		Q_SLOT void on_btnPrev_clicked();
+
+		Q_SLOT void on_radioButton_toggled(bool);
+
+
 		Q_SIGNAL void closed();
 
 		std::vector<Jmcpp::UserId>	_getUserIds();
@@ -34,8 +50,11 @@ namespace JChat
 			ui.frameName->setVisible(enabled);
 		}
 
-
-		virtual void closeEvent(QCloseEvent *event) override;
+		void setAdvanceGroupEnable(bool enabled)
+		{
+			ui.btnNext->setVisible(enabled);
+			ui.btnOK->setVisible(!enabled);
+		}
 
 	private:
 		Ui::SelectMemberWidget ui;

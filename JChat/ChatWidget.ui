@@ -367,24 +367,27 @@
           <enum>QFrame::Raised</enum>
          </property>
          <layout class="QHBoxLayout" name="horizontalLayout_3">
+          <property name="spacing">
+           <number>16</number>
+          </property>
           <property name="leftMargin">
            <number>0</number>
           </property>
           <property name="topMargin">
-           <number>0</number>
+           <number>4</number>
           </property>
           <property name="rightMargin">
            <number>0</number>
           </property>
           <property name="bottomMargin">
-           <number>0</number>
+           <number>4</number>
           </property>
           <item>
            <widget class="QToolButton" name="btnEmoji">
             <property name="minimumSize">
              <size>
-              <width>20</width>
-              <height>20</height>
+              <width>24</width>
+              <height>24</height>
              </size>
             </property>
             <property name="text">
@@ -396,8 +399,8 @@
            <widget class="QToolButton" name="btnImage">
             <property name="minimumSize">
              <size>
-              <width>20</width>
-              <height>20</height>
+              <width>24</width>
+              <height>24</height>
              </size>
             </property>
             <property name="text">
@@ -409,8 +412,8 @@
            <widget class="QToolButton" name="btnFile">
             <property name="minimumSize">
              <size>
-              <width>20</width>
-              <height>20</height>
+              <width>24</width>
+              <height>24</height>
              </size>
             </property>
             <property name="text">
@@ -422,8 +425,8 @@
            <widget class="QToolButton" name="btnUserCard">
             <property name="minimumSize">
              <size>
-              <width>20</width>
-              <height>20</height>
+              <width>24</width>
+              <height>24</height>
              </size>
             </property>
             <property name="text">

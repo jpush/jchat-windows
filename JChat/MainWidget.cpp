@@ -10,6 +10,8 @@
 #include <QMouseEvent>
 #include <QMessageBox>
 #include <QProcess>
+#include <QInputDialog>
+
 #include <QxModelView.h>
 
 #include "Dispatch.h"
@@ -29,6 +31,10 @@
 #include "ChangePassword.h"
 
 #include "TrayIconMessage.h"
+
+#include "GroupInfoDialog.h"
+
+#include "InputGroupId.h"
 
 #include "LoginWidget.h"
 #include "BlackList.h"
@@ -122,7 +128,7 @@ JChat::MainWidget::_switchToConversation(Jmcpp::ConversationId const& conId)
 	w->listWidget()->setUnreadMessageCount(0);
 	_conModel->setUnreadMessageCountRole(conId, 0);
 
-	if (tmp)
+	if(tmp)
 	{
 		_co->clearUnreadCount(conId);
 	}
@@ -133,6 +139,11 @@ void
 JChat::MainWidget::searchUser(Jmcpp::UserId const& userId)
 {
 	UserInfoWidget::showUserInfo(_co, userId, this);
+}
+
+void JChat::MainWidget::searchGroup(Jmcpp::GroupId groupId)
+{
+
 }
 
 None
@@ -184,7 +195,9 @@ JChat::MainWidget::createGroup()
 	auto self = this | qTrack;
 	auto co = _co;
 	QString groupName;
-	auto userIds = SelectMemberWidget::getUserIds(_co, u8"发起群聊", &groupName, this);
+	QString groupAvatar;
+	bool isPublic = false;
+	auto userIds = SelectMemberWidget::getUserIds(_co, u8"发起群聊", groupName, groupAvatar, isPublic, this);
 	if(!userIds)
 	{
 		return;
@@ -194,7 +207,7 @@ JChat::MainWidget::createGroup()
 	Jmcpp::ConversationId conId;
 	try
 	{
-		auto info = qAwait(co->createGroup(groupName.toStdString()));
+		auto info = qAwait(co->createGroup(groupName.toStdString(), {}, groupAvatar.toStdString(), isPublic));
 		conId = info.groupId;
 		qAwait(co->addGroupMembers(info.groupId, *userIds));
 	}
@@ -385,6 +398,14 @@ JChat::MainWidget::initMenu()
 		if(name.isEmpty())
 			return;
 		searchUser(Jmcpp::UserId(name.toStdString()));
+	});
+
+	addMenu->addAction(u8"加入公开群", this, [=]
+	{
+		InputGroupId* w = new InputGroupId(_co, this);
+		w->setAttribute(Qt::WA_DeleteOnClose);
+		w->setModal(true);
+		w->show();
 	});
 
 	connect(ui.btnAdd, &QToolButton::clicked, this, [=]{
