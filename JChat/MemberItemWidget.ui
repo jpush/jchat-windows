@@ -155,23 +155,10 @@
          <string/>
         </property>
         <property name="pixmap">
-         <pixmap resource="Resource.qrc">:/image/resource/x点选.png</pixmap>
+         <pixmap resource="Resource.qrc">:/image/resource/屏蔽.png</pixmap>
         </property>
         <property name="scaledContents">
          <bool>false</bool>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QToolButton" name="btnClose">
-        <property name="sizePolicy">
-         <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-          <horstretch>0</horstretch>
-          <verstretch>0</verstretch>
-         </sizepolicy>
-        </property>
-        <property name="text">
-         <string/>
         </property>
        </widget>
       </item>

@@ -44,7 +44,7 @@ Q_DECLARE_METATYPE(Jmcpp::UserUpdatedEvent)
 Q_DECLARE_METATYPE(Jmcpp::GroupCreatedEvent)
 Q_DECLARE_METATYPE(Jmcpp::LeavedGroupEvent)
 Q_DECLARE_METATYPE(Jmcpp::AddedToGroupEvent)
-
+Q_DECLARE_METATYPE(Jmcpp::GroupMemberSilentChangedEvent)
 Q_DECLARE_METATYPE(Jmcpp::RemovedFromGroupEvent)
 Q_DECLARE_METATYPE(Jmcpp::GroupInfoUpdatedEvent)
 Q_DECLARE_METATYPE(Jmcpp::NoDisturbUpdatedEvent)

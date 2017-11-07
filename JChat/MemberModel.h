@@ -47,6 +47,8 @@ namespace JChat {
 
 		None onAddedToGroupEvent(Jmcpp::AddedToGroupEvent const&);
 
+		void onGroupMemberSilentChangedEvent(Jmcpp::GroupMemberSilentChangedEvent const&e);
+
 		Q_SIGNAL void removeMemberClicked(Jmcpp::UserId const&);
 
 		Q_SIGNAL void memberInfoClicked(Jmcpp::UserId const&);

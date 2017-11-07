@@ -1029,6 +1029,12 @@ JChat::ClientObject::onEvent(Jmcpp::ReceiptsUpdatedEvent const& e)
 	Q_EMIT receiptsUpdatedEvent(e);
 }
 
+void
+JChat::ClientObject::onEvent(Jmcpp::GroupMemberSilentChangedEvent const& e)
+{
+	Q_EMIT groupMemberSilentChangedEvent(e);
+}
+
 void JChat::ClientObject::onEvent(Jmcpp::MultiGroupShieldChangedEvent const& e)
 {
 	std::unique_lock<std::mutex> locker(_lock);

@@ -38,11 +38,6 @@ namespace JChat {
 			ui.labelMemberCount->setText(QString(u8"成员:%1").arg(_memberModel->rowCount()));
 		});
 
-		// 		connect(_memberModel, &MemberModel::removeMemberClicked, this, [=](Jmcpp::UserId const& userId)
-		// 		{
-		// 			removeMember({ userId });
-		// 		});
-
 		connect(_co.get(), &ClientObject::notDisturbChanged, this, [=](Jmcpp::ConversationId const& conId, bool on)
 		{
 			if(conId == _groupId)
@@ -82,21 +77,31 @@ namespace JChat {
 		{
 			auto w = static_cast<MemberItemWidget*>(widget);
 
+			auto idx = QPersistentModelIndex(index);
+
 			auto userId = index.data(MemberModel::UserIdRole).value<Jmcpp::UserId>();
 
 			connect(w, &QWidget::customContextMenuRequested, this, [=](QPoint const& pt)
 			{
+				if(!idx.isValid())
+				{
+					return;
+				}
+
+				auto isSlient = idx.data(MemberModel::IsSlientRole).toBool();
+
 				if(_memberModel->isOwner())
 				{
 					QPoint globalPos = widget->mapToGlobal(pt);
 
 					QMenu myMenu;
-					myMenu.addAction(u8"禁言", [=]
+
+					myMenu.addAction(isSlient ? u8"解除禁言" : u8"禁言", this, [=]
 					{
-						//_co->setGroupMemberSilent(groupId, userId, true);
+						_co->setGroupMemberSilent(groupId, userId, !isSlient);
 					});
 
-					myMenu.addAction(u8"移出群聊", [=]
+					myMenu.addAction(u8"移出群聊", this, [=]
 					{
 						removeMember({ userId });
 					});
@@ -268,14 +273,20 @@ namespace JChat {
 	void GroupInfoWidget::removeMember(Jmcpp::UserIdList const& userIds)
 	{
 		auto self = this | qTrack;
-		BusyIndicator busy(this);
+
+		BusyIndicator busy(this->topLevelWidget());
 		try
 		{
-			qAwait(_co->removeGroupMembers(_groupId, userIds));
+			auto name = qAwait(_co->getUserDisplayName(userIds.front()));
+			if(QMessageBox::question(this, u8"删除群成员", QString(u8"确定将 %1 移出群聊吗").arg(name), QMessageBox::Cancel | QMessageBox::Default, QMessageBox::Ok) == QMessageBox::Ok)
+			{
+				qAwait(_co->removeGroupMembers(_groupId, userIds));
+			}
 		}
 		catch(std::runtime_error& e)
 		{
 		}
+
 	}
 
 	None GroupInfoWidget::updateInfo()

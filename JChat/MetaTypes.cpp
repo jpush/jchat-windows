@@ -37,6 +37,9 @@ namespace
 		qRegisterMetaType<Jmcpp::GroupCreatedEvent >("Jmcpp::GroupCreatedEvent");
 		qRegisterMetaType<Jmcpp::LeavedGroupEvent >("Jmcpp::LeavedGroupEvent");
 		qRegisterMetaType<Jmcpp::AddedToGroupEvent>("Jmcpp::AddedToGroupEvent");
+
+		qRegisterMetaType<Jmcpp::GroupMemberSilentChangedEvent>("Jmcpp::GroupMemberSilentChangedEvent");
+
 		qRegisterMetaType<Jmcpp::RemovedFromGroupEvent>("Jmcpp::RemovedFromGroupEvent");
 		qRegisterMetaType<Jmcpp::GroupInfoUpdatedEvent>("Jmcpp::GroupInfoUpdatedEvent");
 		qRegisterMetaType<Jmcpp::NoDisturbUpdatedEvent>("Jmcpp::NoDisturbUpdatedEvent");

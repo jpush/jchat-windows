@@ -24,6 +24,10 @@ namespace JChat {
 		connect(_co.get(), &ClientObject::leavedGroupEvent, this, &MemberModel::onLeavedGroupEvent);
 
 		connect(_co.get(), &ClientObject::removedFromGroupEvent, this, &MemberModel::onRemovedFromGroupEvent);
+
+
+		connect(_co.get(), &ClientObject::groupMemberSilentChangedEvent, this, &MemberModel::onGroupMemberSilentChangedEvent);
+
 	}
 
 	MemberModel::~MemberModel()
@@ -68,6 +72,8 @@ namespace JChat {
 				item->setData(QVariant::fromValue(info.userId), UserIdRole);
 				item->setData(QVariant::fromValue(info.avatar), AvatarIdRole);
 				item->setData(getUserDisplayName(info), NameInfo);
+				item->setData(info.isSilent, IsSlientRole);
+
 				//item->setData(QVariant::fromValue(image), ImageRole);
 				this->appendRow(item);
 				if(info.isOwner)
@@ -132,7 +138,7 @@ namespace JChat {
 			item->setData(QVariant::fromValue(image), ImageRole);
 		}
 
-		
+
 
 		co_await self;
 
@@ -232,6 +238,21 @@ namespace JChat {
 		}
 
 		co_return;
+	}
+
+	void MemberModel::onGroupMemberSilentChangedEvent(Jmcpp::GroupMemberSilentChangedEvent const&e)
+	{
+		for(auto&& userId : e.users)
+		{
+			for(auto&& item : this | depthFirst)
+			{
+				auto userId0 = item->data(UserIdRole).value<Jmcpp::UserId>();
+				if(userId0 == userId)
+				{
+					item->setData(e.on, IsSlientRole);
+				}
+			}
+		}
 	}
 
 	void MemberModel::onLeavedGroupEvent(Jmcpp::LeavedGroupEvent const& e)
