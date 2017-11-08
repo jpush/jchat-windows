@@ -55,6 +55,9 @@ namespace JChat{
 		void initMessagePage();
 		void initContactPage();
 
+		void initRoomPage();
+
+
 		void initEvent();
 
 

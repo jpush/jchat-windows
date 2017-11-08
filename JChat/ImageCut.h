@@ -9,7 +9,7 @@
 
 namespace JChat {
 
-	class ImageCut : public QWidget
+	class ImageCut : public QDialog
 	{
 		Q_OBJECT
 
@@ -26,10 +26,17 @@ namespace JChat {
 		Q_SLOT void on_rotateRight_clicked();
 		Q_SLOT void on_rotateLeft_clicked();
 
+		Q_SLOT void on_btnOK_clicked()
+		{
+			this->accept();
+		}
+
+		Q_SLOT void on_btnCancel_clicked()
+		{
+			this->reject();
+		}
 
 		Q_SLOT void on_horizontalSlider_valueChanged(int);
-
-		Q_SIGNAL void closed();
 
 
 		void fitInView(const QRectF &rect);
@@ -41,11 +48,7 @@ namespace JChat {
 
 		QImage getImage() const;
 
-		void closeEvent(QCloseEvent *event) override
-		{
-			emit closed();
-		}
-
+	
 		virtual bool eventFilter(QObject *watched, QEvent *event) override;
 
 		bool isEnableScale() const{ return (1 - _initScale) > 0 && _item; }

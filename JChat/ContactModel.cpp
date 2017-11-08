@@ -161,6 +161,7 @@ namespace JChat{
 		font.setPointSize(12);
 		painter->setFont(font);
 		painter->setPen(Qt::black);
+		painter->setRenderHints(QPainter::SmoothPixmapTransform | QPainter::TextAntialiasing);
 
 		auto info = index.data(ContactModel::Role::InfoRole);
 		if(info.canConvert<Jmcpp::UserInfo>())

@@ -1,10 +1,13 @@
 #include "GroupInfoDialog.h"
 
+#include <QInputDialog>
+#include <QMessageBox>
 namespace JChat {
 
-	GroupInfoDialog::GroupInfoDialog(ClientObjectPtr const& co, QWidget *parent)
+	GroupInfoDialog::GroupInfoDialog(ClientObjectPtr const& co,Jmcpp::GroupId groupId, QWidget *parent)
 		: QDialog(parent)
 		, _co(co)
+		,_groupId(groupId)
 	{
 		ui.setupUi(this);
 	}
@@ -16,12 +19,13 @@ namespace JChat {
 
 	pplx::task<void> GroupInfoDialog::setGroup(Jmcpp::GroupId groupId)
 	{
+		_groupId = groupId;
 		auto self = this | qTrack;
 
 		auto infoTask = _co->getCacheGroupInfo(groupId);
 		auto memberTask = _co->getGroupMembers(groupId);
 
-		auto pixmap =co_await _co->getCacheGroupAvatar(groupId);
+		auto pixmap = co_await _co->getCacheGroupAvatar(groupId);
 
 		auto info = co_await infoTask;
 		auto members = co_await memberTask;
@@ -50,8 +54,22 @@ namespace JChat {
 	Q_SLOT void GroupInfoDialog::on_btnJoinGroup_clicked()
 	{
 
+		bool ok = false;
+		auto text = QInputDialog::getMultiLineText(this, "", u8"请填写验证信息", {}, &ok);
+		if(!ok)
+		{
+			return;
+		}
 
-
+		try
+		{
+			qAwait(_co->joinGroup(_groupId, text.toStdString()));
+			QMessageBox::information(this, "", u8"入群申请已发送，请等待审核", QMessageBox::Ok);
+		}
+		catch(std::runtime_error& e)
+		{
+			QMessageBox::warning(this, "", e.what(), QMessageBox::Ok);
+		}
 	}
 
 } // namespace JChat

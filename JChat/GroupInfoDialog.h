@@ -10,19 +10,13 @@ namespace JChat {
 	{
 		Q_OBJECT
 	public:
-		GroupInfoDialog(ClientObjectPtr const& co, QWidget *parent = Q_NULLPTR);
+		GroupInfoDialog(ClientObjectPtr const& co, Jmcpp::GroupId groupId, QWidget *parent = Q_NULLPTR);
 		~GroupInfoDialog();
 
 		pplx::task<void> setGroup(Jmcpp::GroupId groupId);
 
 
 
-
-
-		static void showGroupInfo(ClientObjectPtr co, Jmcpp::GroupId groupId)
-		{
-
-		}
 	protected:
 
 		Q_SLOT void on_btnJoinGroup_clicked();

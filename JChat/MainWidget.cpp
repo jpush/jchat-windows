@@ -40,6 +40,9 @@
 #include "BlackList.h"
 #include "ModelRange.h"
 
+#include "RoomListModel.h"
+#include "RoomItemWidget.h"
+
 using namespace JChat;
 
 MainWidget::MainWidget(JChat::ClientObjectPtr const& co, QWidget *parent /*= Q_NULLPTR*/)
@@ -89,7 +92,9 @@ MainWidget::MainWidget(JChat::ClientObjectPtr const& co, QWidget *parent /*= Q_N
 	initMenu();
 	initMessagePage();
 	initContactPage();
+	initRoomPage();
 	initEvent();
+
 }
 
 
@@ -639,6 +644,45 @@ JChat::MainWidget::initContactPage()
 	ui.listContactType->setCurrentIndex(contactModel->getFriendRootItem()->index());
 }
 
+void
+JChat::MainWidget::initRoomPage()
+{
+
+	auto roomModel = new RoomListModel(_co, this);
+
+	ui.listRoom->setModel(roomModel);
+
+	auto mapper = new ItemWidgetMapper(this);
+
+	mapper->setItemWidgetClass<RoomItemWidget>();
+	mapper->addMapping(RoomListModel::Role::NameRole, "title");
+	mapper->addMapping(RoomListModel::Role::DescRole, "desc");
+	mapper->addMapping(RoomListModel::Role::ImageRole, "avatar");
+
+	mapper->setView(ui.listRoom);
+
+
+	connect(ui.listRoom->selectionModel(), &QItemSelectionModel::currentChanged,
+			this, [=](const QModelIndex &current, const QModelIndex &previous)
+	{
+		if(previous.isValid())
+		{
+
+		}
+
+		if(current.isValid()){
+			auto roomId = current.data(RoomListModel::RoomIdRole).value<Jmcpp::RoomId>();
+			ui.pageRoomInfo->setRoomId(_co, roomId);
+			ui.stackedWidgetRoom->setCurrentWidget(ui.pageRoomInfo);
+		}
+		else
+		{
+			ui.pageRoomInfo->setRoomId(_co, 0);
+			ui.stackedWidgetRoom->setCurrentWidget(ui.pageWelcome);
+		}
+	});
+}
+
 //////////////////////////////////////////////////////////////////////////
 void
 JChat::MainWidget::initEvent()
@@ -882,5 +926,18 @@ JChat::MainWidget::initEvent()
 
 		_conModel->setMessageRole(e.groupId, text);
 	});
+
+
+	connect(_co.get(), &ClientObject::groupMemberSilentChangedEvent, this, [=](Jmcpp::GroupMemberSilentChangedEvent const &e)
+	{
+		auto w = getOrCreateChatWidget(e.groupId) | qTrack;
+
+		QString text = e.on ? QString(u8"%1 被禁言").arg(e.users.front().username.c_str()) : QString(u8"%1 被解除禁言").arg(e.users.front().username.c_str());
+
+		w->listWidget()->insertCenterWidget(text);
+
+		_conModel->setMessageRole(e.groupId, text);
+	});
+
 }
 

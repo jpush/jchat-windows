@@ -5,7 +5,9 @@
 #include <QPropertyAnimation>
 #include <QMessageBox>
 #include <QMenu>
+#include <QMouseEvent>
 
+#include "ImageCut.h"
 #include "UserInfoWidget.h"
 #include "MemberModel.h"
 #include "ProxyModel.h"
@@ -26,6 +28,7 @@ namespace JChat {
 		, _groupId(groupId)
 	{
 		ui.setupUi(this);
+
 
 		_memberModel = new MemberModel(co, groupId, this);
 
@@ -135,6 +138,7 @@ namespace JChat {
 		mapper->setView(ui.listView);
 
 
+		ui.labelAvatar->installEventFilter(this);
 		ui.lineEditGroupName->installEventFilter(this);
 		ui.textEditGroupDesc->installEventFilter(this);
 
@@ -230,7 +234,7 @@ namespace JChat {
 		{
 			try
 			{
-				//BusyIndicator busy(this);
+				BusyIndicator busy(this);
 				qAwait(_co->exitGroup(_groupId));
 			}
 			catch(std::runtime_error& e)
@@ -300,14 +304,25 @@ namespace JChat {
 	None GroupInfoWidget::updateInfo()
 	{
 		auto self = this | qTrack;
+		auto co = _co;
+		auto groupId = _groupId;
 
-		auto info = co_await _co->getCacheGroupInfo(_groupId);
+		auto info = co_await co->getCacheGroupInfo(groupId);
+
+		auto pixmap = co_await co->getCacheGroupAvatar(groupId);
 
 		co_await self;
 
 
 		if(!info.groupName.empty())
 			ui.lineEditGroupName->setText(info.groupName.data());
+
+		ui.labelGroupId->setText(QString(u8"群ID:%1").arg(info.groupId.get()));
+
+		ui.labelIsPublic->setText(info.isPublic ? u8"公开群" : u8"私有群");
+
+		ui.labelAvatar->setPixmap(pixmap);
+
 		ui.textEditGroupDesc->setText(info.description.data());
 
 		QSignalBlocker b(ui.checkBoxNoDis), b2(ui.checkBoxShield);
@@ -322,6 +337,38 @@ namespace JChat {
 			auto ev = static_cast<QResizeEvent*>(event);
 			move(ev->size().width() - width(), 0);
 			resize(width(), ev->size().height());
+
+			return false;
+		}
+
+		if(watched == ui.labelAvatar && event->type() == QEvent::MouseButtonRelease)
+		{
+			auto ev = static_cast<QMouseEvent*>(event);
+
+			if(ev->button() == Qt::LeftButton)
+			{
+				auto img = ImageCut::cutImage(this, ui.labelAvatar->pixmap()->toImage());
+				if(img.isNull())
+				{
+					return false;
+				}
+
+				auto tmp = QDir::temp();
+				auto tmpImge = tmp.absoluteFilePath(QString("JChat_%1.jpg").arg(QString::number(QDateTime::currentMSecsSinceEpoch())));
+				if(img.save(tmpImge, "JPG"))
+				{
+					try
+					{
+						BusyIndicator busy(this);
+						qAwait(_co->updateGroupInfo(_groupId, {}, {}, tmpImge.toStdString()));
+					}
+					catch (std::runtime_error& e)
+					{
+					}
+				}
+			}
+
+			return false;
 		}
 
 		if(watched == ui.lineEditGroupName || watched == ui.textEditGroupDesc)

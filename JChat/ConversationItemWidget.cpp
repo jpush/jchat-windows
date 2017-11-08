@@ -32,6 +32,7 @@ namespace JChat {
 		});
 
 
+
 		setContextMenuPolicy(Qt::ContextMenuPolicy::CustomContextMenu);
 		connect(this, &QWidget::customContextMenuRequested, this, [=](QPoint const& pt)
 		{
@@ -55,6 +56,9 @@ QLabel
 		_unreadCountLabel->raise();
 		_unreadCountLabel->hide();
 
+
+
+		setNotDisturb(false);
 	}
 
 	ConversationItemWidget::~ConversationItemWidget()

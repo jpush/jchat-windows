@@ -146,6 +146,9 @@ QLabel , QTextEdit
          <pointsize>10</pointsize>
         </font>
        </property>
+       <property name="styleSheet">
+        <string notr="true">color: rgb(136, 136, 136);</string>
+       </property>
        <property name="text">
         <string/>
        </property>
@@ -373,7 +376,7 @@ QPushButton:hover
 }</string>
        </property>
        <property name="text">
-        <string>申请加入</string>
+        <string>申请入群</string>
        </property>
       </widget>
      </item>

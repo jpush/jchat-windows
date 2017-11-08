@@ -9,10 +9,9 @@
 namespace JChat {
 
 	ImageCut::ImageCut(QWidget *parent)
-		: QWidget(parent, Qt::Window)
+		: QDialog(parent)
 	{
 		ui.setupUi(this);
-		setWindowModality(Qt::ApplicationModal);
 
 		ui.graphicsView->setScene(&_scene);
 		ui.graphicsView->viewport()->installEventFilter(this);
@@ -162,26 +161,16 @@ namespace JChat {
 	QImage ImageCut::cutImage(QWidget* parent, QImage const& img)
 	{
 		QEventLoop el;
-		ImageCut widget(parent);
-		widget.show();
+		ImageCut d(parent);
+		d.show();
+		d.setImage(img);
 
-		widget.setImage(img);
-
-		connect(widget.ui.btnOK, &QPushButton::clicked, [&]
+		if(d.exec() == QDialog::Accepted)
 		{
-			el.exit(0);
-		});
+			return d.getImage();
+		}
 
-		connect(widget.ui.btnCancel, &QPushButton::clicked, [&]
-		{
-			el.exit(1);
-		});
-		connect(&widget, &ImageCut::closed, [&]
-		{
-			el.exit(1);
-		});
-
-		return el.exec() ? QImage{} : widget.getImage();
+		return QImage{};
 	}
 
 } // namespace JChat

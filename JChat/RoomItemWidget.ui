@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>ConversationItemWidget</class>
- <widget class="QWidget" name="ConversationItemWidget">
+ <class>RoomItemWidget</class>
+ <widget class="QWidget" name="RoomItemWidget">
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>311</width>
+    <width>394</width>
     <height>70</height>
    </rect>
   </property>
@@ -23,7 +23,7 @@
    </size>
   </property>
   <property name="windowTitle">
-   <string>ConversationItemWidget</string>
+   <string>RoomItemWidget</string>
   </property>
   <layout class="QHBoxLayout" name="horizontalLayout_2">
    <property name="leftMargin">
@@ -92,7 +92,7 @@ QFrame[sticktop=&quot;true&quot;]
        <number>0</number>
       </property>
       <property name="leftMargin">
-       <number>0</number>
+       <number>20</number>
       </property>
       <property name="topMargin">
        <number>9</number>
@@ -103,28 +103,6 @@ QFrame[sticktop=&quot;true&quot;]
       <property name="bottomMargin">
        <number>9</number>
       </property>
-      <item>
-       <widget class="QToolButton" name="btnClose">
-        <property name="enabled">
-         <bool>false</bool>
-        </property>
-        <property name="sizePolicy">
-         <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-          <horstretch>0</horstretch>
-          <verstretch>0</verstretch>
-         </sizepolicy>
-        </property>
-        <property name="maximumSize">
-         <size>
-          <width>20</width>
-          <height>20</height>
-         </size>
-        </property>
-        <property name="text">
-         <string/>
-        </property>
-       </widget>
-      </item>
       <item>
        <widget class="QLabel" name="labelAvatar">
         <property name="minimumSize">
@@ -169,7 +147,7 @@ QFrame[sticktop=&quot;true&quot;]
          </widget>
         </item>
         <item>
-         <widget class="QLabel" name="labelMsg">
+         <widget class="QLabel" name="labelDesc">
           <property name="font">
            <font>
             <family>微软雅黑</family>
@@ -179,77 +157,12 @@ QFrame[sticktop=&quot;true&quot;]
            </font>
           </property>
           <property name="text">
-           <string>msg</string>
+           <string>desc</string>
           </property>
           <property name="alignment">
            <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
           </property>
          </widget>
-        </item>
-       </layout>
-      </item>
-      <item>
-       <layout class="QVBoxLayout" name="verticalLayout_2">
-        <property name="spacing">
-         <number>0</number>
-        </property>
-        <item>
-         <widget class="QLabel" name="labelTime">
-          <property name="font">
-           <font>
-            <family>微软雅黑</family>
-            <pointsize>10</pointsize>
-           </font>
-          </property>
-          <property name="text">
-           <string>00:00</string>
-          </property>
-          <property name="alignment">
-           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <layout class="QHBoxLayout" name="horizontalLayout">
-          <item>
-           <spacer name="horizontalSpacer">
-            <property name="orientation">
-             <enum>Qt::Horizontal</enum>
-            </property>
-            <property name="sizeHint" stdset="0">
-             <size>
-              <width>10</width>
-              <height>24</height>
-             </size>
-            </property>
-           </spacer>
-          </item>
-          <item>
-           <widget class="QLabel" name="label">
-            <property name="minimumSize">
-             <size>
-              <width>15</width>
-              <height>15</height>
-             </size>
-            </property>
-            <property name="maximumSize">
-             <size>
-              <width>15</width>
-              <height>15</height>
-             </size>
-            </property>
-            <property name="text">
-             <string/>
-            </property>
-            <property name="pixmap">
-             <pixmap resource="Resource.qrc">:/image/resource/屏蔽.png</pixmap>
-            </property>
-            <property name="scaledContents">
-             <bool>true</bool>
-            </property>
-           </widget>
-          </item>
-         </layout>
         </item>
        </layout>
       </item>

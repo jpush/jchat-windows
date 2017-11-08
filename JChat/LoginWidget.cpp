@@ -22,7 +22,7 @@ namespace JChat{
 		auto userIcon = QIcon(u8":/image/resource/用户名 icon.png");
 		auto passwordIcon = QIcon(u8":/image/resource/密码 icon.png");
 
-		ui.username->addAction(userIcon, QLineEdit::LeadingPosition);
+		ui.username->lineEdit()->addAction(userIcon, QLineEdit::LeadingPosition);
 		ui.password->addAction(passwordIcon, QLineEdit::LeadingPosition);
 		ui.btnLogin->setEnabled(false);
 
@@ -31,7 +31,7 @@ namespace JChat{
 		ui.password2->addAction(passwordIcon, QLineEdit::LeadingPosition);
 		ui.btnRegister->setEnabled(false);
 
-		connect(ui.username, &QLineEdit::returnPressed, ui.btnLogin, &QPushButton::click);
+		connect(ui.username->lineEdit(), &QLineEdit::returnPressed, ui.btnLogin, &QPushButton::click);
 		connect(ui.password, &QLineEdit::returnPressed, ui.btnLogin, &QPushButton::click);
 
 
@@ -39,24 +39,49 @@ namespace JChat{
 		connect(ui.password1, &QLineEdit::returnPressed, ui.btnRegister, &QPushButton::click);
 		connect(ui.password2, &QLineEdit::returnPressed, ui.btnRegister, &QPushButton::click);
 
-
 		RememberedAccount data;
 		auto accounts = data.getRememberedUsers();
-		if(!accounts.empty())
+
+		for(auto&& account : accounts)
 		{
-			auto&& account = accounts.front();
+			if(!account.username.isEmpty() && !account.password.isEmpty())
+			{
+				ui.username->addItem(account.username);
+			}
+		}
+
+		{
+			ui.username->setCurrentIndex(0);
+			auto&& account = accounts[0];
 			if(!account.username.isEmpty() && !account.password.isEmpty())
 			{
 				ui.checkBox->setCheckState(Qt::Checked);
-				ui.username->setText(account.username);
+				ui.username->setEditText(account.username);
 				ui.password->setText(account.password);
 				ui.password->setProperty("encoded", true);
 			}
 		}
 
+		connect(ui.username, static_cast<void(QComboBox::*)(int)>(&QComboBox::activated), this, [=](int i)
+		{
+			if(i == -1)
+			{
+				return;
+			}
+			auto&& account = accounts[i];
+			if(!account.username.isEmpty() && !account.password.isEmpty())
+			{
+				ui.checkBox->setCheckState(Qt::Checked);
+				ui.username->setEditText(account.username);
+				ui.password->setText(account.password);
+				ui.password->setProperty("encoded", true);
+			}
+		});
+
+
 		updateLoginButtonState();
 
-		connect(ui.username, &QLineEdit::textChanged, [=](QString const& str){	updateLoginButtonState(); });
+		connect(ui.username, &QComboBox::currentTextChanged, [=](QString const& str){updateLoginButtonState(); });
 		connect(ui.password, &QLineEdit::textChanged, [=](QString const& str){	updateLoginButtonState(); ui.password->setProperty("encoded", false);   });
 
 		connect(ui.usernameR, &QLineEdit::textChanged, [=](QString const& str){	updateRegisterButtonState(); });
@@ -71,10 +96,10 @@ namespace JChat{
 
 			try
 			{
-				auto lock = std::make_unique<QSharedMemory>(ui.username->text());
+				auto lock = std::make_unique<QSharedMemory>(ui.username->currentText());
 				if(!lock->create(1))
 				{
-					QMessageBox::warning(this, "", QString(u8"用户[%1]已登录,不能重复登录").arg(ui.username->text()), QMessageBox::Ok);
+					QMessageBox::warning(this, "", QString(u8"用户[%1]已登录,不能重复登录").arg(ui.username->currentText()), QMessageBox::Ok);
 					return;
 				}
 
@@ -87,14 +112,14 @@ namespace JChat{
 					Emoji::getSingleton()->moveToThread(qApp->thread());
 				}));
 
-				qAwait(_co->login(ui.username->text().toStdString(),
+				qAwait(_co->login(ui.username->currentText().toStdString(),
 								  ui.password->text().toStdString(), ClientObject::getAuthorization(),
 								  ui.password->property("encoded").toBool()));
 
 				lock.release();
 
 				Account accout;
-				accout.username = ui.username->text();
+				accout.username = ui.username->currentText();
 				accout.password = ui.password->property("encoded").toBool() ? ui.password->text() : QCryptographicHash::hash(ui.password->text().toUtf8(), QCryptographicHash::Md5).toHex();
 
 				if(ui.checkBox->isChecked())

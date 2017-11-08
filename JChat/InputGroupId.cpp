@@ -29,15 +29,22 @@ namespace JChat {
 			QMessageBox::warning(this, "", u8"群组不存在", QMessageBox::Ok);
 			return;
 		}
-		
+
 		try
 		{
-			auto dialog = std::make_unique<GroupInfoDialog>(_co, this);
+			auto dialog = std::make_unique<GroupInfoDialog>(_co, groupId, this);
 			dialog->setAttribute(Qt::WA_DeleteOnClose);
 			dialog->setModal(true);
 
 			BusyIndicator busy(this);
-			qAwait(_co->getCacheGroupInfo(groupId));
+			auto info = qAwait(_co->getCacheGroupInfo(groupId));
+
+			if(!info.isPublic)
+			{
+				//QMessageBox::warning(this, "", u8"群组不存在", QMessageBox::Ok);
+				//return;
+			}
+
 			qAwait(dialog->setGroup(groupId));
 
 			dialog->show();

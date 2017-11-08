@@ -323,7 +323,7 @@ JChat::ClientObject::getCacheGroupAvatar(Jmcpp::GroupId groupId, std::string ava
 		auto pixmap = QPixmap(avatarFilePath);
 		if(!pixmap.isNull())
 		{
-			pixmap = pixmap.scaledToWidth(60, Qt::TransformationMode::SmoothTransformation);
+			//pixmap = pixmap.scaledToWidth(60, Qt::TransformationMode::SmoothTransformation);
 			co_return pixmap;
 		}
 	}
@@ -344,7 +344,7 @@ JChat::ClientObject::getCacheGroupAvatar(Jmcpp::GroupId groupId, std::string ava
 	co_await self;
 	QPixmap pixmap;
 	pixmap.loadFromData(data);
-	pixmap = pixmap.scaledToWidth(60, Qt::TransformationMode::SmoothTransformation);
+	//pixmap = pixmap.scaledToWidth(60, Qt::TransformationMode::SmoothTransformation);
 	pixmap.save(avatarFilePath);
 	co_return pixmap;
 }

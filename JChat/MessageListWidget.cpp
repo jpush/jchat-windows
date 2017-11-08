@@ -480,10 +480,13 @@ namespace JChat
 
 		if(row == -1)
 		{
-			row = this->count();
+			addItem(item);
+		}
+		else
+		{
+			insertItem(row, item);
 		}
 
-		insertItem(row, item);
 		iwif->attachItem(item, indexFromItem(item));
 
 		if(row == -1)

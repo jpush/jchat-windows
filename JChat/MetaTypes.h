@@ -10,6 +10,8 @@ Q_DECLARE_METATYPE(std::string)
 
 Q_DECLARE_METATYPE(Jmcpp::UserId)
 Q_DECLARE_METATYPE(Jmcpp::GroupId)
+Q_DECLARE_METATYPE(Jmcpp::RoomId)
+
 Q_DECLARE_METATYPE(Jmcpp::UserIdList)
 
 Q_DECLARE_METATYPE(Jmcpp::UserInfo)

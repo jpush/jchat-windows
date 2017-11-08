@@ -21,7 +21,7 @@ namespace JChat{
 
 		void updateLoginButtonState()
 		{
-			if(ui.username->text().isEmpty() || ui.password->text().isEmpty())
+			if(ui.username->currentText().isEmpty() || ui.password->text().isEmpty())
 			{
 				ui.btnLogin->setEnabled(false);
 			}

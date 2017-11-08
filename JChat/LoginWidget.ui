@@ -47,9 +47,8 @@
 	font: 10pt &quot;微软雅黑&quot;;
 }
 
-QLineEdit
+QComboBox , QLineEdit
 {
-	
 	border:1px solid rgb(0, 170, 255);
 	height:30px;
 	border-radius:2px;
@@ -126,12 +125,12 @@ QLineEdit
              <number>30</number>
             </property>
             <item>
-             <widget class="QLineEdit" name="username">
-              <property name="maxLength">
-               <number>128</number>
+             <widget class="QComboBox" name="username">
+              <property name="editable">
+               <bool>true</bool>
               </property>
-              <property name="placeholderText">
-               <string>请输入用户名</string>
+              <property name="maxCount">
+               <number>10</number>
               </property>
              </widget>
             </item>
