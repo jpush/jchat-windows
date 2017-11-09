@@ -102,6 +102,31 @@ namespace JChat
 
 		bool				getFriendRemark(Jmcpp::UserId const& userId);
 
+		Jmcpp::RoomId		getCurrentRoomId()
+		{
+			if(!_roomId.get())
+			{
+				KeyValueT kv;
+				kv.key = "currentRoomId";
+				auto err = qx::dao::fetch_by_id(kv);
+				bool ok = false;
+				if(auto v = kv.value.toInt(&ok); ok)
+				{
+					_roomId = v;
+				}
+			}
+			return _roomId;
+		}
+
+		void		setCurrentRoomId(Jmcpp::RoomId roomId)
+		{
+			_roomId = roomId;
+			KeyValueT kv;
+			kv.key = "currentRoomId";
+			kv.value = _roomId.get();
+			qx::dao::save(kv);
+		}
+
 		//////////////////////////////////////////////////////////////////////////
 		// hide base
 
@@ -320,6 +345,9 @@ namespace JChat
 		std::set<Jmcpp::GroupId>_shieldGroup;
 
 		int						globalNotDisturb = 0;
+
+
+		Jmcpp::RoomId			_roomId;
 
 		static QDir						_storageRootPath;
 		QDir							_userRootPath;

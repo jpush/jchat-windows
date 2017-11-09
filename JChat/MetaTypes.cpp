@@ -68,7 +68,18 @@ namespace
 	Q_CONSTRUCTOR_FUNCTION(registerTypes);
 }
 
+QX_REGISTER_COMPLEX_CLASS_NAME_CPP(JChat::KeyValueT, JChatKeyValueT)
 
+namespace qx {
+	template <>
+	void register_class(QxClass<JChat::KeyValueT> & t)
+	{
+		using JChat::KeyValueT;
+		t.setName("KeyValueT");
+		t.id(&KeyValueT::key, "key");
+		t.data(&KeyValueT::value, "value");
+	}
+}
 
 QX_REGISTER_COMPLEX_CLASS_NAME_CPP(JChat::UserInfo, JChatUserInfo)
 
@@ -77,7 +88,7 @@ namespace qx {
 	void register_class(QxClass<JChat::UserInfo> & t)
 	{
 		using JChat::UserInfo;
-		t.setName("UserInfo");
+		t.setName("UserInfoT");
 		t.id(&UserInfo::userId, "username|appkey");
 
 		t.data(&UserInfo::nickname, "nickname");
@@ -92,25 +103,24 @@ namespace qx {
 	}
 }
 
-
-QX_REGISTER_COMPLEX_CLASS_NAME_CPP(JChat::Conversation, JChatConversation)
+QX_REGISTER_COMPLEX_CLASS_NAME_CPP(JChat::ConversationT, JChatConversationT)
 
 namespace qx {
 	template <>
-	void register_class(QxClass<JChat::Conversation> & t)
+	void register_class(QxClass<JChat::ConversationT> & t)
 	{
-		using JChat::Conversation;
-		t.setName("Conversation");
-		t.id(&Conversation::conId, "groupId|username|appkey");
+		using JChat::ConversationT;
+		t.setName("ConversationT");
+		t.id(&ConversationT::conId, "username|appkey|groupId|roomId");
 
-		t.data(&Conversation::lastChatTime, "lastChatTime");
-		t.data(&Conversation::lastMessageStr, "lastMessageStr");
+		t.data(&ConversationT::lastChatTime, "lastChatTime");
+		t.data(&ConversationT::lastMessageStr, "lastMessageStr");
 
-		t.data(&Conversation::unreadMsgCount, "unreadMsgCount");
+		t.data(&ConversationT::unreadMsgCount, "unreadMsgCount");
 
-		t.data(&Conversation::sticktopTime, "sticktopTime");
+		t.data(&ConversationT::sticktopTime, "sticktopTime");
 
-		t.data(&Conversation::deleted, "deleted");
+		t.data(&ConversationT::deleted, "deleted");
 	}
 }
 
@@ -122,7 +132,7 @@ namespace qx {
 	{
 		using JChat::Account;
 		t.setName("Account");
-		
+
 		t.id(&Account::username, "username");
 		t.data(&Account::password, "password");
 		t.data(&Account::lastTime, "lastTime");
@@ -131,24 +141,24 @@ namespace qx {
 }
 
 
-QX_REGISTER_COMPLEX_CLASS_NAME_CPP(JChat::FriendEventTable, JChatFriendEventTable)
+QX_REGISTER_COMPLEX_CLASS_NAME_CPP(JChat::FriendEventT, JChatFriendEventT)
 namespace qx {
 	template <>
-	void register_class(QxClass<JChat::FriendEventTable> & t)
+	void register_class(QxClass<JChat::FriendEventT> & t)
 	{
-		using JChat::FriendEventTable;
-		t.setName("FriendEventTable");
-		t.id(&FriendEventTable::id, "id");
-		t.data(&FriendEventTable::username, "username");
-		t.data(&FriendEventTable::appkey, "appkey");
+		using JChat::FriendEventT;
+		t.setName("FriendEventT");
+		t.id(&FriendEventT::id, "id");
+		t.data(&FriendEventT::username, "username");
+		t.data(&FriendEventT::appkey, "appkey");
 
-		t.data(&FriendEventTable::isOutgoing, "isOutgoing");
-		t.data(&FriendEventTable::message, "message");
+		t.data(&FriendEventT::isOutgoing, "isOutgoing");
+		t.data(&FriendEventT::message, "message");
 
-		t.data(&FriendEventTable::hasRead, "hasRead");
+		t.data(&FriendEventT::hasRead, "hasRead");
 
-		t.data(&FriendEventTable::status, "status");
-		t.data(&FriendEventTable::time, "time");
+		t.data(&FriendEventT::status, "status");
+		t.data(&FriendEventT::time, "time");
 	}
 }
 
@@ -220,20 +230,24 @@ QVariant qx::cvt::to_variant(const Jmcpp::ConversationId & t, const QString & fo
 		{
 			QByteArray data;
 			QDataStream ds(&data, QIODevice::WriteOnly);
-			ds << t.getGroupId().get() << t.getUserId().username << t.getUserId().appKey;
+			ds << t.getUserId().username << t.getUserId().appKey << t.getGroupId().get() << t.getRoomId().get();
 			return data;
 		}break;
 		case 0:
 		{
-			return to_variant(t.getGroupId().get(), format, -1, ctx);
+			return to_variant(t.getUserId().username, format, -1, ctx);
 		}break;
 		case 1:
 		{
-			return to_variant(t.getUserId().username, format, -1, ctx);
+			return to_variant(t.getUserId().appKey, format, -1, ctx);
 		}break;
 		case 2:
 		{
-			return to_variant(t.getUserId().appKey, format, -1, ctx);
+			return to_variant(t.getGroupId().get(), format, -1, ctx);
+		}break;
+		case 3:
+		{
+			return to_variant(t.getRoomId().get(), format, -1, ctx);
 		}break;
 		default:
 			break;
@@ -251,12 +265,16 @@ qx_bool qx::cvt::from_variant(const QVariant & v, Jmcpp::ConversationId & t, con
 		{
 			auto data = v.toByteArray();
 			QDataStream ds(data);
-			int64_t groupId = 0;
+			int64_t groupId = 0, roomId = 0;
 			std::string username, appkey;
-			ds >> groupId >> username >> appkey;
+			ds >> username >> appkey >> groupId >> roomId;
 			if(groupId)
 			{
 				t.setGroupId(groupId);
+			}
+			else if(roomId)
+			{
+				t.setRoomId(roomId);
 			}
 			else
 			{
@@ -264,7 +282,28 @@ qx_bool qx::cvt::from_variant(const QVariant & v, Jmcpp::ConversationId & t, con
 			}
 			return true;
 		}break;
+
 		case 0:
+		{
+			std::string username, appkey;
+			from_variant(v, username, format, -1, ctx);
+			if(!t.isGroup() && t.isRoom())
+			{
+				t.setUsername(username);
+			}
+			return true;
+		}break;
+		case 1:
+		{
+			std::string appkey;
+			from_variant(v, appkey, format, -1, ctx);
+			if(!t.isGroup() && t.isRoom())
+			{
+				t.setAppkey(appkey);
+			}
+			return true;
+		}break;
+		case 2:
 		{
 			int64_t groupId = 0;
 			from_variant(v, groupId, format, -1, ctx);
@@ -274,23 +313,13 @@ qx_bool qx::cvt::from_variant(const QVariant & v, Jmcpp::ConversationId & t, con
 			}
 			return true;
 		}break;
-		case 1:
+		case 3:
 		{
-			std::string username, appkey;
-			from_variant(v, username, format, -1, ctx);
-			if(!t.isGroup())
+			int64_t roomId = 0;
+			from_variant(v, roomId, format, -1, ctx);
+			if(roomId)
 			{
-				t.setUsername(username);
-			}
-			return true;
-		}break;
-		case 2:
-		{
-			std::string appkey;
-			from_variant(v, appkey, format, -1, ctx);
-			if(!t.isGroup())
-			{
-				t.setAppkey(appkey);
+				t.setRoomId(roomId);
 			}
 			return true;
 		}break;

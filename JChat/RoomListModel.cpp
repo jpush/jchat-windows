@@ -6,8 +6,7 @@
 
 namespace JChat {
 
-
-	RoomListModel::RoomListModel(ClientObjectPtr const& co, QObject *parent) 
+	RoomListModel::RoomListModel(ClientObjectPtr const& co, QObject *parent)
 		:QStandardItemModel(parent)
 		, _co(co)
 	{
@@ -19,6 +18,16 @@ namespace JChat {
 
 	}
 
+
+	bool RoomListModel::canFetchMore(const QModelIndex &parent) const
+	{
+		return _canFetchMore && !_fetching && _co->isLogined() && _co->isConnected();
+	}
+
+	void RoomListModel::fetchMore(const QModelIndex &parent)
+	{
+		_fetchMore();
+	}
 
 	None RoomListModel::_fetchMore()
 	{
@@ -34,6 +43,21 @@ namespace JChat {
 
 		try
 		{
+// 			auto roomId = _co->getCurrentRoomId();
+// 			if(roomId.get())
+// 			{
+// 				try
+// 				{
+// 					co_await _co->leaveRoom(roomId);
+// 					co_await self;
+// 					_co->setCurrentRoomId({});
+// 				}
+// 				catch(std::runtime_error& e)
+// 				{
+// 
+// 				}
+// 			}
+
 			auto result = co_await _co->getRooms(_start);
 
 			co_await self;

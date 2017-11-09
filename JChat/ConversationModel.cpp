@@ -81,6 +81,11 @@ namespace JChat{
 
 	void ConversationModel::addConversationItem(Jmcpp::MessagePtr const& msg)
 	{
+		if (msg->conId.isRoom())
+		{
+			return;
+		}
+
 		auto conId = msg->conId;
 		for(auto&& item : this | depthFirst)
 		{
@@ -102,7 +107,7 @@ namespace JChat{
 		_updateItem(item);
 		_updateMessagRole(item, msg);
 
-		Conversation con;
+		ConversationT con;
 		con.conId = conId;
 		qx::dao::save(con);
 	}
@@ -117,7 +122,7 @@ namespace JChat{
 			}
 		}
 
-		Conversation con;
+		ConversationT con;
 		con.conId = conId;
 
 		auto item = new QStandardItem();
@@ -140,7 +145,7 @@ namespace JChat{
 	void ConversationModel::_addConversationToDB(Jmcpp::MessagePtr const& msg)
 	{
 		auto conId = msg->conId;
-		Conversation con;
+		ConversationT con;
 		con.conId = conId;
 		qx::dao::save(con);
 	}
@@ -175,7 +180,7 @@ namespace JChat{
 
 	void ConversationModel::setSticktop(Jmcpp::ConversationId const& conId, bool enabled)
 	{
-		Conversation con;
+		ConversationT con;
 		con.conId = conId;
 		auto err = qx::dao::fetch_by_id(con);
 		con.sticktopTime = enabled ? QDateTime::currentDateTime() : QDateTime();
@@ -204,7 +209,7 @@ namespace JChat{
 
 		if(tmp != unreadMsgCount)
 		{
-			Conversation con;
+			ConversationT con;
 			con.conId = conId;
 			auto err = qx::dao::fetch_by_id(con);
 			con.unreadMsgCount = unreadMsgCount;
@@ -216,7 +221,7 @@ namespace JChat{
 	{
 		auto item = this->item(row);
 		auto conId = item->data(Role::ConIdRole).value<Jmcpp::ConversationId>();
-		Conversation con;
+		ConversationT con;
 		con.conId = conId;
 		qx::dao::delete_by_id(con);
 		QStandardItemModel::removeRow(row);
@@ -236,7 +241,7 @@ namespace JChat{
 
 	Q_SLOT None ConversationModel::onUserLogined()
 	{
-		std::vector<Conversation> conList;
+		std::vector<ConversationT> conList;
 		qx::dao::fetch_all(conList);
 		for(auto&& con : conList)
 		{

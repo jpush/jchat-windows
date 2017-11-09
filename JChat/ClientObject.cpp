@@ -361,6 +361,10 @@ JChat::ClientObject::getCacheAvatar(Jmcpp::ConversationId const& conId, std::str
 	{
 		return getCacheUserAvatar(conId.getUserId(), avatarMediaId, update);
 	}
+	else if(conId.isRoom())
+	{
+		return pplx::task_from_result(groupAvatar());
+	}
 	return {};
 }
 
@@ -385,13 +389,19 @@ JChat::ClientObject::getDisplayName(Jmcpp::ConversationId const& conId, bool upd
 	Q_ASSERT(conId.isValid());
 	if(conId.isGroup())
 	{
-		return getGroupDisplayName(conId.getGroupId(), update);
+		co_return co_await getGroupDisplayName(conId.getGroupId(), update);
 	}
 	else if(conId.isUser())
 	{
-		return getUserDisplayName(conId.getUserId(), update);
+		co_return co_await getUserDisplayName(conId.getUserId(), update);
 	}
-	return {};
+	else if(conId.isRoom())
+	{
+		auto roomInfo = co_await getRoomInfo(conId.getRoomId());
+		co_return QString::fromStdString(roomInfo.roomName);
+	}
+
+	co_return{};
 }
 
 QPixmap
@@ -408,7 +418,7 @@ JChat::ClientObject::getConversationImage(Jmcpp::ConversationId const& conId)
 		}
 		return userAvatar();
 	}
-	else
+	else if(conId.isGroup())
 	{
 		auto groupId = conId.getGroupId();
 		auto idStr = QString::number(groupId.get());
@@ -419,6 +429,12 @@ JChat::ClientObject::getConversationImage(Jmcpp::ConversationId const& conId)
 		}
 		return groupAvatar();
 	}
+	else if(conId.isRoom())
+	{
+		return groupAvatar();
+	}
+
+	return groupAvatar();
 }
 
 pplx::task<QPixmap>

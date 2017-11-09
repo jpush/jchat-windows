@@ -34,7 +34,7 @@ namespace JChat {
 		{
 
 			auto userId = e.fromUser;
-			std::vector<FriendEventTable> events;
+			std::vector<FriendEventT> events;
 
 			qx_query query;
 
@@ -46,7 +46,7 @@ namespace JChat {
 
 			qx::dao::fetch_by_query(query, events);
 
-			FriendEventTable et;
+			FriendEventT et;
 
 			if(!events.empty())
 			{
@@ -57,7 +57,7 @@ namespace JChat {
 			et.message = e.message.c_str();
 			et.isOutgoing = false;
 			et.hasRead = false;
-			et.status = FriendEventTable::undone;
+			et.status = FriendEventT::undone;
 			et.time = QDateTime::fromMSecsSinceEpoch(getEventTime(e));
 			qx::dao::save(et);
 			updateItem(et);
@@ -72,7 +72,7 @@ namespace JChat {
 		{
 
 			auto userId = e.fromUser;
-			std::vector<FriendEventTable> events;
+			std::vector<FriendEventT> events;
 			qx_query query;
 			query.where("username").isEqualTo(qx::cvt::to_variant(userId.username))
 				.and_("appkey").isEqualTo(qx::cvt::to_variant(userId.appKey))
@@ -82,7 +82,7 @@ namespace JChat {
 
 			qx::dao::fetch_by_query(query, events);
 
-			FriendEventTable et;
+			FriendEventT et;
 			if(!events.empty())
 			{
 				et = events.front();
@@ -92,7 +92,7 @@ namespace JChat {
 			et.isOutgoing = true;
 			et.hasRead = false;
 
-			et.status = FriendEventTable::passed;
+			et.status = FriendEventT::passed;
 			et.time = QDateTime::fromMSecsSinceEpoch(getEventTime(e));
 			qx::dao::save(et);
 			updateItem(et);
@@ -107,7 +107,7 @@ namespace JChat {
 		{
 
 			auto userId = e.fromUser;
-			std::vector<FriendEventTable> events;
+			std::vector<FriendEventT> events;
 			qx_query query;
 			query.where("username").isEqualTo(qx::cvt::to_variant(userId.username))
 				.and_("appkey").isEqualTo(qx::cvt::to_variant(userId.appKey))
@@ -117,7 +117,7 @@ namespace JChat {
 
 			qx::dao::fetch_by_query(query, events);
 
-			FriendEventTable et;
+			FriendEventT et;
 
 			if(!events.empty())
 			{
@@ -128,7 +128,7 @@ namespace JChat {
 			et.isOutgoing = true;
 			et.hasRead = false;
 
-			et.status = FriendEventTable::rejected;
+			et.status = FriendEventT::rejected;
 			et.time = QDateTime::fromMSecsSinceEpoch(getEventTime(e));
 			qx::dao::save(et);
 			updateItem(et);
@@ -139,7 +139,7 @@ namespace JChat {
 
 		connect(_co.get(), &ClientObject::requestAddFriendSent, this, [=](Jmcpp::UserId const& userId, bool isFriend)
 		{
-			std::vector<FriendEventTable> events;
+			std::vector<FriendEventT> events;
 			qx_query query;
 			query.where("username").isEqualTo(qx::cvt::to_variant(userId.username))
 				.and_("appkey").isEqualTo(qx::cvt::to_variant(userId.appKey))
@@ -149,7 +149,7 @@ namespace JChat {
 
 			qx::dao::fetch_by_query(query, events);
 
-			FriendEventTable et;
+			FriendEventT et;
 			if(!events.empty())
 			{
 				et = events.front();
@@ -159,7 +159,7 @@ namespace JChat {
 			et.isOutgoing = true;
 			et.hasRead = true;
 
-			et.status = isFriend ? FriendEventTable::passed : FriendEventTable::undone;
+			et.status = isFriend ? FriendEventT::passed : FriendEventT::undone;
 			et.time = QDateTime::currentDateTime();
 			qx::dao::save(et);
 			updateItem(et);
@@ -169,12 +169,12 @@ namespace JChat {
 
 	int FriendEventListWidget::unreadCount() const
 	{
-		std::vector<FriendEventTable> events;
+		std::vector<FriendEventT> events;
 		qx_query query;
 		query.orderAsc("time");
 		qx::dao::fetch_by_query(query, events);
 
-		return std::count_if(events.begin(), events.end(), [](FriendEventTable const& t)
+		return std::count_if(events.begin(), events.end(), [](FriendEventT const& t)
 		{
 			return !t.hasRead;
 		});
@@ -188,7 +188,7 @@ namespace JChat {
 		Q_EMIT unreadChanged(0);
 	}
 
-	void FriendEventListWidget::updateItem(FriendEventTable const& et)
+	void FriendEventListWidget::updateItem(FriendEventT const& et)
 	{
 		for(int i = 0, n = count(); i < n; i++)
 		{
@@ -217,7 +217,7 @@ namespace JChat {
 
 	void FriendEventListWidget::loadFromDB()
 	{
-		std::vector<FriendEventTable> events;
+		std::vector<FriendEventT> events;
 		qx_query query;
 		query.orderAsc("time");
 
@@ -235,7 +235,7 @@ namespace JChat {
 			setItemWidget(item, w);
 		}
 
-		Q_EMIT unreadChanged(std::count_if(events.begin(), events.end(), [](FriendEventTable const& t)
+		Q_EMIT unreadChanged(std::count_if(events.begin(), events.end(), [](FriendEventT const& t)
 		{
 			return !t.hasRead;
 		}));
@@ -262,18 +262,18 @@ namespace JChat {
 		auto w = static_cast<FriendEventItemWidget*>(sender()) | qTrack;
 		co_await _co->passAddFriend(userId);
 
-		FriendEventTable et;
+		FriendEventT et;
 		et.id = id;
 
 		if(!qx::dao::fetch_by_id(et).isValid())
 		{
-			et.status = FriendEventTable::passed;
+			et.status = FriendEventT::passed;
 			qx::dao::save(et);
 		}
 
 		co_await w;
 
-		w->setStatus(false, FriendEventTable::passed);
+		w->setStatus(false, FriendEventT::passed);
 		w->setStatusLabel(u8"已同意");
 
 	}
@@ -283,17 +283,17 @@ namespace JChat {
 		auto w = static_cast<FriendEventItemWidget*>(sender()) | qTrack;
 		_co->rejectAddFriend(userId, "");
 
-		FriendEventTable et;
+		FriendEventT et;
 		et.id = id;
 
 		if(!qx::dao::fetch_by_id(et).isValid())
 		{
-			et.status = FriendEventTable::rejected;
+			et.status = FriendEventT::rejected;
 			qx::dao::save(et);
 		}
 
 		co_await w;
-		w->setStatus(false, FriendEventTable::rejected);
+		w->setStatus(false, FriendEventT::rejected);
 		w->setStatusLabel(u8"已拒绝");
 	}
 

@@ -29,7 +29,7 @@ namespace JChat {
 
 	}
 
-	None FriendEventItemWidget::setEvent(ClientObjectPtr co, FriendEventTable et)
+	None FriendEventItemWidget::setEvent(ClientObjectPtr co, FriendEventT et)
 	{
 		auto userId = Jmcpp::UserId{ et.username ,et.appkey };
 		_userId = userId;

@@ -40,7 +40,7 @@ namespace JChat {
 		Q_SLOT None onRejectClicked(Jmcpp::UserId const&, int64_t);
 
 
-		void updateItem(FriendEventTable const&);
+		void updateItem(FriendEventT const&);
 
 		void loadFromDB();
 

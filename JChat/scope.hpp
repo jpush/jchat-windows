@@ -124,55 +124,55 @@ namespace cpp
 {
 	namespace __scope{
 
+		struct _{ void operator()() noexcept{} };
+
 		struct on_exit_policy
 		{
+		protected:
 			constexpr static bool noexcept_ = true;
-
 			bool execute_ = true;
-
-			void release() noexcept
-			{
-				execute_ = false;
-			}
-
 			bool should_execute() noexcept
 			{
 				return execute_;
+			}
+		public:
+			void release() noexcept
+			{
+				execute_ = false;
 			}
 		};
 
 
 		struct on_fail_policy
 		{
+		protected:
 			constexpr static bool noexcept_ = true;
-
 			int ec_ = std::uncaught_exceptions();
-
+			bool should_execute() noexcept
+			{
+				return ec_ < std::uncaught_exceptions();
+			}
+		public:
 			void release() noexcept
 			{
 				ec_ = (std::numeric_limits<int>::max)();
 			}
 
-			bool should_execute() noexcept
-			{
-				return ec_ < std::uncaught_exceptions();
-			}
 		};
 
 		struct on_success_policy
 		{
+		protected:
 			constexpr static bool noexcept_ = false;
-
 			int ec_ = std::uncaught_exceptions();
-
-			void release() noexcept
-			{
-				ec_ = -1;
-			}
-
 			bool should_execute() noexcept
 			{
 				return ec_ >= std::uncaught_exceptions();
+			}
+		public:
+			void release() noexcept
+			{
+				ec_ = -1;
 			}
 		};
 	}
@@ -227,8 +227,7 @@ namespace cpp
 		}
 		struct _empty_scope_exit
 		{
-			void release() noexcept
-			{}
+			void release() noexcept {}
 		};
 
 	}
@@ -271,7 +270,6 @@ namespace cpp
 		basic_scope_exit &operator=(basic_scope_exit &&) = delete;
 
 		using Policy::release;
-
 	};
 
 	template<class EF, class Policy>
@@ -281,21 +279,21 @@ namespace cpp
 	auto make_scope_exit(EF &&ef)
 		noexcept(std::is_nothrow_constructible<std::decay_t<EF>, EF>::value)
 	{
-		return __scope::_make_guard<__scope::on_exit_policy>(std::forward<EF>(ef));
+		return scope_exit<std::decay_t<EF>>(std::forward<EF>(ef));
 	}
 
 	template<class EF>
 	auto make_scope_fail(EF &&ef)
 		noexcept(std::is_nothrow_constructible<std::decay_t<EF>, EF>::value)
 	{
-		return __scope::_make_guard<__scope::on_fail_policy>(std::forward<EF>(ef));
+		return scope_fail<std::decay_t<EF>>(std::forward<EF>(ef));
 	}
 
 	template<class EF>
 	auto make_scope_success(EF &&ef)
 		noexcept(std::is_nothrow_constructible<std::decay_t<EF>, EF>::value)
 	{
-		return __scope::_make_guard<__scope::on_success_policy>(std::forward<EF>(ef));
+		return scope_success<std::decay_t<EF>>(std::forward<EF>(ef));
 	}
 
 	namespace __scope
@@ -527,9 +525,9 @@ namespace cpp
 
 #define __CPP_SCOPE_GET_LAST(...) __CPP_SCOPE_GET_ELEM( __CPP__ELEM_SIZE(__VA_ARGS__) ,  (__VA_ARGS__) )
 
-#define __CPP_SCOPE_EXIT_VARIABLE(...)		__CPP_SCOPE_VARIABLE_NAME(___CPP_SCOPE_EXIT_STATE) , ##  __VA_ARGS__
-#define __CPP_SCOPE_FAIL_VARIABLE(...)		__CPP_SCOPE_VARIABLE_NAME(___CPP_SCOPE_FAIL_STATE) , ##  __VA_ARGS__
-#define __CPP_SCOPE_SUCCESS_VARIABLE(...)	__CPP_SCOPE_VARIABLE_NAME(___CPP_SCOPE_SUCCESS_STATE) , ##  __VA_ARGS__
+#define __CPP_SCOPE_EXIT_VARIABLE(...)		__CPP_SCOPE_VARIABLE_NAME(___CPP_SCOPE_EXIT_STATE) ,__VA_ARGS__
+#define __CPP_SCOPE_FAIL_VARIABLE(...)		__CPP_SCOPE_VARIABLE_NAME(___CPP_SCOPE_FAIL_STATE) ,__VA_ARGS__
+#define __CPP_SCOPE_SUCCESS_VARIABLE(...)	__CPP_SCOPE_VARIABLE_NAME(___CPP_SCOPE_SUCCESS_STATE) ,__VA_ARGS__
 
 
 #if defined(__COUNTER__)
@@ -539,6 +537,14 @@ namespace cpp
 #endif // __COUNTER__
 
 
+#ifdef __INTELLISENSE__
+
+#define SCOPE_EXIT(x) ::cpp::scope_exit<::cpp::__scope::_> x{::cpp::__scope::_{}};
+#define SCOPE_FAIL(x) ::cpp::scope_fail<::cpp::__scope::_> x{::cpp::__scope::_{}};
+#define SCOPE_SUCCESS(x) ::cpp::scope_success<::cpp::__scope::_> x{::cpp::__scope::_{}};
+
+#else
+
 #define SCOPE_EXIT(...) \
 			auto __CPP_SCOPE_GET_LAST(__CPP_SCOPE_EXIT_VARIABLE(__VA_ARGS__)) = ::cpp::__scope::scope_on_exit{} +[&]() noexcept
 
@@ -547,3 +553,7 @@ namespace cpp
 
 #define SCOPE_SUCCESS(...) \
 			auto __CPP_SCOPE_GET_LAST(__CPP_SCOPE_SUCCESS_VARIABLE(__VA_ARGS__)) = ::cpp::__scope::scope_on_success{} +[&]()
+
+#endif
+
+

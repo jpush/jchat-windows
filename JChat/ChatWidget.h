@@ -4,7 +4,6 @@
 #include "ui_ChatWidget.h"
 
 #include "ClientObject.h"
-#include "GroupInfoWidget.h"
 
 class QCompleter;
 
@@ -53,14 +52,14 @@ namespace JChat
 
 		None sendUserCard(Jmcpp::UserId userId);
 
-		None sendLargeEmoji(QString const& filePath,QString const& emojiName);
+		None sendLargeEmoji(QString const& filePath, QString const& emojiName);
 
 		None loadMoreMessage(size_t count);
 
 		None loadMessage(size_t count);
 	protected:
 		void onEmojiSelected(QString const& emojiHtml);
-		void onLargetEmojiSelected(QString const& );
+		void onLargetEmojiSelected(QString const&);
 
 
 		None onSelfInfoUpdated(Jmcpp::UserId const& userId);
@@ -82,8 +81,9 @@ namespace JChat
 	private:
 		Ui::ChatWidget ui;
 
-		GroupInfoWidget*	 _groupInfo = nullptr;
+		//GroupInfoWidget*	_groupInfo = nullptr;
 		QCompleter*			_completer = nullptr;
+		QWidget*			_groupOrRoomInfo = nullptr;
 
 		bool				_loadingMessage = false;
 

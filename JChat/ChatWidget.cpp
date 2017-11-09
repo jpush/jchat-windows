@@ -27,6 +27,9 @@
 
 #include "UserInfoWidget.h"
 
+#include "RoomInfoWidget.h"
+#include "GroupInfoWidget.h"
+
 #include "Emoji.h"
 #include "EmojiPicker.h"
 #include "SelectMemberWidget.h"
@@ -54,13 +57,14 @@ namespace JChat
 		{
 			ui.btnSetting->hide();
 		}
-		else
+		else if(conId.isGroup())
 		{
 			ui.btnName->setEnabled(false);
 			ui.btnAdd->hide();
-			_groupInfo = new GroupInfoWidget(_co, _conId.getGroupId(), this);
-			auto memberModel = _groupInfo->memberModel();
-			_groupInfo->hide();
+			auto groupInfo = new GroupInfoWidget(_co, _conId.getGroupId(), this);
+			auto memberModel = groupInfo->memberModel();
+			groupInfo->hide();
+			_groupOrRoomInfo = groupInfo;
 
 			_completer = new QCompleter(this);
 			_completer->setWrapAround(false);
@@ -68,11 +72,15 @@ namespace JChat
 
 			ui.textEdit->setCompleter(_completer);
 		}
-
-		connect(ui.textEdit, &QTextEdit::textChanged, this, [=]
+		else if(conId.isRoom())
 		{
-			//ui.btnSend->setEnabled(!ui.textEdit->toPlainText().isEmpty());
-		});
+			ui.btnName->setEnabled(false);
+			ui.btnAdd->hide();
+			auto roomInfoWidget = new RoomInfoWidget(_co, _conId.getRoomId(), this);
+			roomInfoWidget->hide();
+
+			_groupOrRoomInfo = roomInfoWidget;
+		}
 
 
 		auto fileManager = new FileManager(this);
@@ -156,7 +164,7 @@ namespace JChat
 
 	Q_SLOT void ChatWidget::on_btnSetting_clicked()
 	{
-		_groupInfo->show();
+		_groupOrRoomInfo->show();
 	}
 
 	Q_SLOT void ChatWidget::on_btnAdd_clicked()
@@ -215,23 +223,13 @@ namespace JChat
 		iw->setHtml(html);
 		ui.listWidget->insertItemWidget(iw);
 		iw->setProgress(0);
-
 		ui.textEdit->clear();
 
 		auto co = _co;
 		auto conId = _conId;
-
 		auto content = co_await co->createTextContent(text.toStdString());
 
-		Jmcpp::MessagePtr msg;
-		if(conId.isGroup())
-		{
-			msg = co->buildMessage(conId.getGroupId(), content, {}, userList);
-		}
-		else
-		{
-			msg = co->buildMessage(conId.getUserId(), content);
-		}
+		Jmcpp::MessagePtr msg = co->buildMessage(conId, content, {}, userList);
 
 		try
 		{
@@ -288,11 +286,9 @@ namespace JChat
 	None ChatWidget::init()
 	{
 		auto self = (this) | qTrack;
-
 		if(_conId.isUser())
 		{
 			ui.btnName->setText(_conId.getUserId().username.data());
-
 			auto img = co_await _co->getCacheUserAvatar(_conId.getUserId());
 
 			co_await self;
@@ -313,7 +309,7 @@ namespace JChat
 			// 				ui.listWidget->setLeftAvatar(img);
 			// 			});
 		}
-		else
+		else if(_conId.isGroup())
 		{
 			ui.btnName->setText(QString::number(_conId.getGroupId().get()));
 			auto info = co_await _co->getCacheGroupInfo(_conId.getGroupId());
@@ -323,7 +319,17 @@ namespace JChat
 				ui.btnName->setText(info.groupName.data());
 			}
 		}
+		else if(_conId.isRoom())
+		{
+			ui.btnName->setText(QString::number(_conId.getRoomId().get()));
+			auto info = co_await _co->getRoomInfo(_conId.getRoomId());
+			co_await self;
+			ui.btnName->setText(info.roomName.data());
+		}
+		else
+		{
 
+		}
 		auto img = co_await _co->getCacheUserAvatar(_co->getCurrentUser());
 		co_await self;
 		ui.listWidget->setRightAvatar(img);
@@ -393,15 +399,7 @@ namespace JChat
 				iw->setFilePath(newPath);
 			}
 
-			Jmcpp::MessagePtr msg;
-			if(_conId.isGroup())
-			{
-				msg = co->buildMessage(_conId.getGroupId(), content);
-			}
-			else
-			{
-				msg = co->buildMessage(_conId.getUserId(), content);
-			}
+			Jmcpp::MessagePtr msg = co->buildMessage(_conId, content);
 
 			co_await co->sendMessage(msg);
 			co_await iw;
@@ -449,20 +447,14 @@ namespace JChat
 		ui.listWidget->insertItemWidget(iw);
 		iw->setProgress(0);
 
+		auto co = _co;
+
 		try
 		{
-			auto content = co_await _co->createImageContent(filePath.toStdString());
-			Jmcpp::MessagePtr msg;
-			if(_conId.isGroup())
-			{
-				msg = _co->buildMessage(_conId.getGroupId(), content);
-			}
-			else
-			{
-				msg = _co->buildMessage(_conId.getUserId(), content);
-			}
+			auto content = co_await co->createImageContent(filePath.toStdString());
+			Jmcpp::MessagePtr msg = co->buildMessage(_conId, content);
 
-			co_await _co->sendMessage(msg);
+			co_await co->sendMessage(msg);
 			co_await iw;
 
 			iw->setMessage(msg);
@@ -501,21 +493,14 @@ namespace JChat
 		iw->setFileSize(info.size());
 		ui.listWidget->insertItemWidget(iw);
 		iw->setProgress(0);
+		auto co = _co;
 
 		try
 		{
-			auto content = co_await _co->createFileContent(filePath.toStdString());
-			Jmcpp::MessagePtr msg;
-			if(_conId.isGroup())
-			{
-				msg = _co->buildMessage(_conId.getGroupId(), content);
-			}
-			else
-			{
-				msg = _co->buildMessage(_conId.getUserId(), content);
-			}
+			auto content = co_await co->createFileContent(filePath.toStdString());
+			Jmcpp::MessagePtr msg = co->buildMessage(_conId, content);
 
-			co_await _co->sendMessage(msg);
+			co_await co->sendMessage(msg);
 			co_await iw;
 
 			iw->setMessage(msg);
@@ -551,18 +536,9 @@ namespace JChat
 		extrasData["businessCard"] = "businessCard";
 
 		auto extras = QJsonDocument(extrasData).toJson().toStdString();
-
 		content.extras = extras;
 
-		Jmcpp::MessagePtr msg;
-		if(_conId.isGroup())
-		{
-			msg = co->buildMessage(_conId.getGroupId(), content);
-		}
-		else
-		{
-			msg = co->buildMessage(_conId.getUserId(), content);
-		}
+		Jmcpp::MessagePtr msg = co->buildMessage(_conId, content);
 
 		try
 		{

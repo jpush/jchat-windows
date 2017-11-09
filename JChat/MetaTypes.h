@@ -88,7 +88,13 @@ namespace JChat
 {
 	using Jmcpp::UserInfo;
 
-	struct Conversation
+	struct KeyValueT
+	{
+		QString  key;
+		QVariant value;
+	};
+
+	struct ConversationT
 	{
 		using key_t = Jmcpp::ConversationId;
 
@@ -109,7 +115,7 @@ namespace JChat
 		QDateTime lastTime;
 	};
 
-	struct FriendEventTable
+	struct FriendEventT
 	{
 		enum Status
 		{
@@ -129,21 +135,23 @@ namespace JChat
 	};
 }
 
+QX_REGISTER_PRIMARY_KEY(JChat::KeyValueT, QString)
+QX_REGISTER_COMPLEX_CLASS_NAME_HPP_EXPORT_DLL(JChat::KeyValueT, qx::trait::no_base_class_defined, 0, JChatKeyValueT)
 
 QX_REGISTER_PRIMARY_KEY(JChat::UserInfo, Jmcpp::UserId)
 QX_REGISTER_COMPLEX_CLASS_NAME_HPP_EXPORT_DLL(JChat::UserInfo, qx::trait::no_base_class_defined, 0, JChatUserInfo)
 
 
-QX_REGISTER_PRIMARY_KEY(JChat::Conversation, JChat::Conversation::key_t)
-QX_REGISTER_COMPLEX_CLASS_NAME_HPP_EXPORT_DLL(JChat::Conversation, qx::trait::no_base_class_defined, 0, JChatConversation)
+QX_REGISTER_PRIMARY_KEY(JChat::ConversationT, JChat::ConversationT::key_t)
+QX_REGISTER_COMPLEX_CLASS_NAME_HPP_EXPORT_DLL(JChat::ConversationT, qx::trait::no_base_class_defined, 0, JChatConversationT)
 
 
 QX_REGISTER_PRIMARY_KEY(JChat::Account, QString)
 QX_REGISTER_COMPLEX_CLASS_NAME_HPP_EXPORT_DLL(JChat::Account, qx::trait::no_base_class_defined, 0, JChatAccount)
 
-QX_REGISTER_PRIMARY_KEY(JChat::FriendEventTable, int64_t)
-QX_REGISTER_COMPLEX_CLASS_NAME_HPP_EXPORT_DLL(JChat::FriendEventTable, qx::trait::no_base_class_defined, 0, JChatFriendEventTable)
+QX_REGISTER_PRIMARY_KEY(JChat::FriendEventT, int64_t)
+QX_REGISTER_COMPLEX_CLASS_NAME_HPP_EXPORT_DLL(JChat::FriendEventT, qx::trait::no_base_class_defined, 0, JChatFriendEventT)
 
 ///
-Q_DECLARE_METATYPE(JChat::Conversation);
+Q_DECLARE_METATYPE(JChat::ConversationT);
 

@@ -16,7 +16,7 @@ namespace JChat {
 		FriendEventItemWidget(QWidget *parent = Q_NULLPTR);
 		~FriendEventItemWidget();
 
-		None setEvent(ClientObjectPtr co, FriendEventTable et);
+		None setEvent(ClientObjectPtr co, FriendEventT et);
 
 		Q_SIGNAL void infoClicked(Jmcpp::UserId const&,int64_t);
 
@@ -30,11 +30,11 @@ namespace JChat {
 			ui.labelStatus->setText(text);
 		}
 
-		void setStatus(bool outgoing, FriendEventTable::Status status)
+		void setStatus(bool outgoing, FriendEventT::Status status)
 		{
 			ui.labelMessage->setVisible(!outgoing);
 
-			if(!outgoing && status == FriendEventTable::undone)
+			if(!outgoing && status == FriendEventT::undone)
 			{
 				ui.labelStatus->hide();
 				ui.toolButtonPass->show();

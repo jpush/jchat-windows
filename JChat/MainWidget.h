@@ -35,6 +35,12 @@ namespace JChat{
 		ChatWidget*		getOrCreateChatWidget(Jmcpp::ConversationId const& conId);
 		ChatWidget*		getChatWidget(Jmcpp::ConversationId const& conId);
 
+		void			removeChatWidget(Jmcpp::ConversationId const& conId);
+
+
+		void			switchToRoomPage(Jmcpp::RoomId const& roomId);
+
+
 		ConversationModel*	getConversationModel() const{ return _conModel; }
 		ProxyModel*			getConversationProxyModel() const;
 

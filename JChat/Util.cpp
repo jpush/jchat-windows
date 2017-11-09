@@ -141,11 +141,14 @@ QString JChat::getConversationDisplayName(Jmcpp::ConversationId const& conId)
 	{
 		return getUserDisplayName(conId.getUserId());
 	}
-	else
+	else if(conId.isGroup())
 	{
 		return QString::number(conId.getGroupId().get());
 	}
-
+	else if(conId.isRoom())
+	{
+		return QString::number(conId.getRoomId().get());
+	}
 	return "?????";
 }
 

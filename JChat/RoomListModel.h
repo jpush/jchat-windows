@@ -24,17 +24,9 @@ namespace JChat {
 
 		~RoomListModel();
 
-		bool canFetchMore(const QModelIndex &parent) const override
-		{
-			return _canFetchMore && !_fetching && _co->isLogined() && _co->isConnected();
-		}
+		bool canFetchMore(const QModelIndex &parent) const override;
 
-		void fetchMore(const QModelIndex &parent) override
-		{
-			_fetchMore();
-		}
-
-		//////////////////////////////////////////////////////////////////////////
+		void fetchMore(const QModelIndex &parent) override;
 
 	protected:
 

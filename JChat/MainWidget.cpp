@@ -85,6 +85,16 @@ MainWidget::MainWidget(JChat::ClientObjectPtr const& co, QWidget *parent /*= Q_N
 	});
 
 	connect(ui.btnRooms, &QToolButton::clicked, this, [=]	{
+
+		auto roomId = _co->getCurrentRoomId();
+		if(roomId.get())
+		{
+			if(auto w = getChatWidget(roomId))
+			{
+				ui.stackedWidgetRoom->setCurrentWidget(w);
+			}
+		}
+
 		ui.stackedWidget->setCurrentWidget(ui.pageRooms);
 	});
 
@@ -109,6 +119,14 @@ MainWidget::~MainWidget()
 void
 JChat::MainWidget::switchToConversation(Jmcpp::ConversationId const& conId)
 {
+	if(conId.isRoom())
+	{
+		ui.btnRooms->click();
+		auto w = getOrCreateChatWidget(conId);
+		ui.stackedWidgetRoom->setCurrentWidget(w);
+		return;
+	}
+
 	auto item = _conModel->addConversationItem(conId);
 	ui.btnMessages->click();
 
@@ -126,6 +144,11 @@ JChat::MainWidget::switchToConversation(Jmcpp::ConversationId const& conId)
 void
 JChat::MainWidget::_switchToConversation(Jmcpp::ConversationId const& conId)
 {
+	if(conId.isRoom())
+	{
+		return;
+	}
+
 	auto w = getOrCreateChatWidget(conId);
 	ui.stackedWidgetChat->setCurrentWidget(w);
 
@@ -255,10 +278,20 @@ JChat::MainWidget::getOrCreateChatWidget(Jmcpp::ConversationId const& conId)
 		return iter->second;
 	}
 
-	auto w = new ChatWidget(_co, conId, ui.stackedWidgetChat);
-	_chatWidgets.insert_or_assign(conId, w);
-	ui.stackedWidgetChat->addWidget(w);
-	return w;
+	if(conId.isRoom())
+	{
+		auto w = new ChatWidget(_co, conId, ui.stackedWidgetRoom);
+		_chatWidgets.insert_or_assign(conId, w);
+		ui.stackedWidgetRoom->addWidget(w);
+		return w;
+	}
+	else
+	{
+		auto w = new ChatWidget(_co, conId, ui.stackedWidgetChat);
+		_chatWidgets.insert_or_assign(conId, w);
+		ui.stackedWidgetChat->addWidget(w);
+		return w;
+	}
 }
 
 JChat::ChatWidget*
@@ -272,10 +305,30 @@ JChat::MainWidget::getChatWidget(Jmcpp::ConversationId const& conId)
 	return nullptr;
 }
 
+void
+JChat::MainWidget::removeChatWidget(Jmcpp::ConversationId const& conId)
+{
+	auto iter = _chatWidgets.find(conId);
+	if(iter != _chatWidgets.end())
+	{
+		delete iter->second;
+		_chatWidgets.erase(iter);
+	}
+}
+
+
 JChat::ProxyModel*
 JChat::MainWidget::getConversationProxyModel() const
 {
 	return _conPrxModel;
+}
+
+
+void
+JChat::MainWidget::switchToRoomPage(Jmcpp::RoomId const& roomId)
+{
+	ui.pageRoomInfo->setRoomId(_co, roomId);
+	ui.stackedWidgetRoom->setCurrentWidget(ui.pageRoomInfo);
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -572,7 +625,7 @@ JChat::MainWidget::initMessagePage()
 		{
 			auto index = _conPrxModel->index(first, 0, parent);
 			auto conId = index.data(ConversationModel::Role::ConIdRole).value<Jmcpp::ConversationId>();
-			delete getOrCreateChatWidget(conId);
+			removeChatWidget(conId);
 		}
 	});
 
@@ -665,15 +718,20 @@ JChat::MainWidget::initRoomPage()
 	connect(ui.listRoom->selectionModel(), &QItemSelectionModel::currentChanged,
 			this, [=](const QModelIndex &current, const QModelIndex &previous)
 	{
-		if(previous.isValid())
-		{
-
-		}
 
 		if(current.isValid()){
 			auto roomId = current.data(RoomListModel::RoomIdRole).value<Jmcpp::RoomId>();
-			ui.pageRoomInfo->setRoomId(_co, roomId);
-			ui.stackedWidgetRoom->setCurrentWidget(ui.pageRoomInfo);
+
+			auto w = getChatWidget(roomId);
+			if(w)
+			{
+				ui.stackedWidgetRoom->setCurrentWidget(w);
+			}
+			else
+			{
+				ui.pageRoomInfo->setRoomId(_co, roomId);
+				ui.stackedWidgetRoom->setCurrentWidget(ui.pageRoomInfo);
+			}
 		}
 		else
 		{
@@ -723,6 +781,11 @@ JChat::MainWidget::initEvent()
 
 		w->listWidget()->insertMessage(msg);
 
+		if(conId.isRoom())
+		{
+			return;
+		}
+
 		if(w->isVisible())
 		{
 			w->listWidget()->setUnreadMessageCount(0);
@@ -757,12 +820,24 @@ JChat::MainWidget::initEvent()
 		auto conId = msgs.back()->conId;
 		auto w = getOrCreateChatWidget(conId);
 
-
-		if(w->listWidget()->getFirstLoadedMessage())
+		if(conId.isRoom())
 		{
-			w->listWidget()->clear();
-			w->loadMessage(15);
+			for(auto&& m : msgs)
+			{
+				w->listWidget()->insertMessage(m);
+				qApp->processEvents(QEventLoop::ExcludeUserInputEvents);
+			}
+			return;
 		}
+		else
+		{
+			if(w->listWidget()->getFirstLoadedMessage())
+			{
+				w->listWidget()->clear();
+				w->loadMessage(15);
+			}
+		}
+
 
 		auto sz = std::count_if(msgs.begin(), msgs.end(), [](Jmcpp::MessagePtr const& msg)
 		{
