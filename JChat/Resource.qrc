@@ -83,6 +83,10 @@
         <file>resource/滚动Right.png</file>
         <file>resource/滚动上.png</file>
         <file>resource/滚动下.png</file>
+        <file>resource/room-active.png</file>
+        <file>resource/room-normal.png</file>
+        <file>resource/Group.png</file>
+        <file>resource/slient.png</file>
     </qresource>
     <qresource prefix="/js">
         <file>emojione.js</file>

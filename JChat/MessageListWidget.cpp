@@ -329,7 +329,7 @@ namespace JChat
 		auto itemWidget = iw->asWidget() | qTrack;
 		auto msg = iw->getMessage();
 
-		if(iw->flags() & ItemWidgetInterface::outgoing)
+		if(msg && !msg->conId.isRoom() && iw->flags() & ItemWidgetInterface::outgoing)
 		{
 			menu->addAction(u8"³·»Ø", this, [=]
 			{

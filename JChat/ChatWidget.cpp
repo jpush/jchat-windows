@@ -56,6 +56,22 @@ namespace JChat
 		if(_conId.isUser())
 		{
 			ui.btnSetting->hide();
+
+			_inputtingTime.start();
+			_inputtingTimer = new QTimer(this);
+			_inputtingTimer->setSingleShot(true);
+			connect(_inputtingTimer, &QTimer::timeout, this, [=]
+			{
+				setInputtingStatus(false);
+			});
+
+			_inputtingLableTimer = new QTimer(this);
+			_inputtingLableTimer->setSingleShot(true);
+			connect(_inputtingLableTimer, &QTimer::timeout, this, [=]
+			{
+				setInputtingLable(false);
+			});
+
 		}
 		else if(conId.isGroup())
 		{
@@ -81,7 +97,6 @@ namespace JChat
 
 			_groupOrRoomInfo = roomInfoWidget;
 		}
-
 
 		auto fileManager = new FileManager(this);
 		fileManager->hide();
@@ -281,6 +296,21 @@ namespace JChat
 		}
 
 		sendUserCard(users.front().getUserId());
+	}
+
+	Q_SLOT void ChatWidget::on_textEdit_textChanged()
+	{
+		if(!_inputtingTimer)
+		{
+			return;
+		}
+
+		if(_inputtingTime.elapsed() > 3000 && !ui.textEdit->toPlainText().isEmpty())
+		{
+			setInputtingStatus(true);
+			_inputtingTime.restart();
+			_inputtingTimer->start(6000);
+		}
 	}
 
 	None ChatWidget::init()
@@ -646,6 +676,18 @@ namespace JChat
 		ui.textEdit->setFocus();
 	}
 
+	None ChatWidget::setInputtingStatus(bool inputting)
+	{
+		if(inputting)
+		{
+			co_await _co->sendTransCommand(_conId, u8R"( { "type": "input", "content": {"message":"正在输入"} }  )");
+		}
+		else
+		{
+			co_await _co->sendTransCommand(_conId, R"( { "type": "input", "content": {"message":""} }  )");
+		}
+	}
+
 	None ChatWidget::loadMoreMessage(size_t count)
 	{
 		if(listWidget()->property("allLoaded").toBool())
@@ -740,6 +782,8 @@ namespace JChat
 		_loadingMessage = false;
 		listWidget()->setLoadingMessageIndicator(false);
 	}
+
+
 
 	None ChatWidget::onSelfInfoUpdated(Jmcpp::UserId const& userId)
 	{
@@ -837,4 +881,42 @@ namespace JChat
 		}
 		return false;
 	}
+
+	void ChatWidget::onInputtingStatusChanged(bool inputting)
+	{
+		if(!_inputtingLableTimer)
+		{
+			return;
+		}
+		setInputtingLable(inputting);
+		if(inputting)
+		{
+			_inputtingLableTimer->start(6000);
+		}
+		else
+		{
+			_inputtingLableTimer->stop();
+		}
+	}
+
+	void ChatWidget::setInputtingLable(bool inputting)
+	{
+		if(inputting)
+		{
+			if(!ui.labelInputting->text().isEmpty())
+			{
+				return;
+			}
+
+			ui.labelInputting->setText(u8"正在输入...");
+			//ui.labelInputting->adjustSize();
+			ui.labelInputting->show();
+		}
+		else
+		{
+			ui.labelInputting->setText(u8"");
+			ui.labelInputting->hide();
+		}
+	}
+
 }

@@ -43,20 +43,6 @@ namespace JChat {
 
 		try
 		{
-// 			auto roomId = _co->getCurrentRoomId();
-// 			if(roomId.get())
-// 			{
-// 				try
-// 				{
-// 					co_await _co->leaveRoom(roomId);
-// 					co_await self;
-// 					_co->setCurrentRoomId({});
-// 				}
-// 				catch(std::runtime_error& e)
-// 				{
-// 
-// 				}
-// 			}
 
 			auto result = co_await _co->getRooms(_start);
 

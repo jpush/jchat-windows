@@ -64,6 +64,9 @@ Q_DECLARE_METATYPE(Jmcpp::MultiGroupShieldChangedEvent)
 
 Q_DECLARE_METATYPE(Jmcpp::ReceiptsUpdatedEvent)
 
+Q_DECLARE_METATYPE(Jmcpp::TransCommandEvent)
+
+
 namespace qx::cvt
 {
 

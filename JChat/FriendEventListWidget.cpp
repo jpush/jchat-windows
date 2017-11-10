@@ -182,7 +182,7 @@ namespace JChat {
 
 	void FriendEventListWidget::clearUnread()
 	{
-		qx_query query{ "update FriendEventTable set hasRead = 1 " };
+		qx_query query{ "update FriendEventT set hasRead = 1 " };
 		qx::dao::call_query(query);
 
 		Q_EMIT unreadChanged(0);

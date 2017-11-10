@@ -81,6 +81,9 @@
          <property name="text">
           <string/>
          </property>
+         <property name="pixmap">
+          <pixmap resource="Resource.qrc">:/image/resource/Group.png</pixmap>
+         </property>
          <property name="scaledContents">
           <bool>true</bool>
          </property>
@@ -228,6 +231,8 @@ QPushButton:hover
   </layout>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
- <resources/>
+ <resources>
+  <include location="Resource.qrc"/>
+ </resources>
  <connections/>
 </ui>

@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>958</width>
-    <height>722</height>
+    <width>926</width>
+    <height>699</height>
    </rect>
   </property>
   <property name="focusPolicy">
@@ -246,11 +246,11 @@ image: url(:/image/resource/聊天pre.png);
 
 #btnRooms
 {
-	image: url(:/image/resource/通讯录.png);
+	image: url(:/image/resource/room-normal.png);
 }
 #btnRooms:checked
 {
-	image: url(:/image/resource/通讯录pre.png);
+	image: url(:/image/resource/room-active.png);
 }</string>
         </property>
         <property name="frameShape">
@@ -260,6 +260,9 @@ image: url(:/image/resource/聊天pre.png);
          <enum>QFrame::Raised</enum>
         </property>
         <layout class="QVBoxLayout" name="verticalLayout">
+         <property name="spacing">
+          <number>20</number>
+         </property>
          <property name="leftMargin">
           <number>5</number>
          </property>

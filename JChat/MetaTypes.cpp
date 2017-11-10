@@ -26,9 +26,6 @@ namespace
 
 		qRegisterMetaType<Jmcpp::GroupInfoList>("Jmcpp::GroupInfoList");
 
-
-
-
 		qRegisterMetaType<Jmcpp::ForceLogoutEvent >("Jmcpp::ForceLogoutEvent");
 		qRegisterMetaType<Jmcpp::RequestAddFriendEvent>("Jmcpp::RequestAddFriendEvent");
 		qRegisterMetaType<Jmcpp::RejectAddFriendEvent>("Jmcpp::RejectAddFriendEvent");
@@ -63,6 +60,7 @@ namespace
 
 		qRegisterMetaType<Jmcpp::MultiUnreadMsgCountChangedEvent >("Jmcpp::MultiUnreadMsgCountChangedEvent");
 
+		qRegisterMetaType<Jmcpp::TransCommandEvent >("Jmcpp::TransCommandEvent");
 	}
 
 	Q_CONSTRUCTOR_FUNCTION(registerTypes);
@@ -287,7 +285,7 @@ qx_bool qx::cvt::from_variant(const QVariant & v, Jmcpp::ConversationId & t, con
 		{
 			std::string username, appkey;
 			from_variant(v, username, format, -1, ctx);
-			if(!t.isGroup() && t.isRoom())
+			if(!t.isGroup() && !t.isRoom())
 			{
 				t.setUsername(username);
 			}
@@ -297,7 +295,7 @@ qx_bool qx::cvt::from_variant(const QVariant & v, Jmcpp::ConversationId & t, con
 		{
 			std::string appkey;
 			from_variant(v, appkey, format, -1, ctx);
-			if(!t.isGroup() && t.isRoom())
+			if(!t.isGroup() && !t.isRoom())
 			{
 				t.setAppkey(appkey);
 			}

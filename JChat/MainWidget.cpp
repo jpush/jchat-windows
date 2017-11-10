@@ -11,6 +11,8 @@
 #include <QMessageBox>
 #include <QProcess>
 #include <QInputDialog>
+#include <QJsonDocument>
+#include <QJsonValue>
 
 #include <QxModelView.h>
 
@@ -771,6 +773,24 @@ JChat::MainWidget::initEvent()
 	connect(_co.get(), &ClientObject::selfInfoUpdated, this, [=]()
 	{
 		updateSelfInfo();
+	});
+
+
+	connect(_co.get(), &ClientObject::transCommandEvent, this, [=](Jmcpp::TransCommandEvent const& e)
+	{
+		auto conId = e.conId;
+		auto w = getChatWidget(conId);
+		if(w)
+		{
+			auto json = QJsonDocument::fromJson(QByteArray::fromStdString(e.cmd)).object().toVariantMap();
+			auto type = json.value("type").toString();
+			if(type == "input")
+			{
+				auto content = json.value("content").toMap();
+				auto message = content.value("message").toString();
+				w->onInputtingStatusChanged(!message.isEmpty());
+			}
+		}
 	});
 
 	connect(_co.get(), &ClientObject::messageReceived, this, [=](Jmcpp::MessagePtr const& msg)

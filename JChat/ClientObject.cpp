@@ -352,7 +352,6 @@ JChat::ClientObject::getCacheGroupAvatar(Jmcpp::GroupId groupId, std::string ava
 pplx::task<QPixmap>
 JChat::ClientObject::getCacheAvatar(Jmcpp::ConversationId const& conId, std::string avatarMediaId /*= std::string()*/, bool update /*= false*/)
 {
-	Q_ASSERT(conId.isValid());
 	if(conId.isGroup())
 	{
 		return getCacheGroupAvatar(conId.getGroupId(), avatarMediaId, update);
@@ -1043,6 +1042,12 @@ void
 JChat::ClientObject::onEvent(Jmcpp::ReceiptsUpdatedEvent const& e)
 {
 	Q_EMIT receiptsUpdatedEvent(e);
+}
+
+void 
+JChat::ClientObject::onEvent(Jmcpp::TransCommandEvent const& e)
+{
+	Q_EMIT transCommandEvent(e);
 }
 
 void

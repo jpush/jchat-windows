@@ -216,6 +216,8 @@ namespace JChat
 
 		Q_SIGNAL void receiptsUpdatedEvent(Jmcpp::ReceiptsUpdatedEvent const&e);
 
+		Q_SIGNAL void transCommandEvent(Jmcpp::TransCommandEvent const&e);
+
 
 		static Jmcpp::Configuration getSDKConfig();
 
@@ -322,6 +324,10 @@ namespace JChat
 		//////////////////////////////////////////////////////////////////////////
 		void onEvent(Jmcpp::MultiUnreadMsgCountChangedEvent const& e);
 		void onEvent(Jmcpp::ReceiptsUpdatedEvent const& e);
+
+
+		void onEvent(Jmcpp::TransCommandEvent const& e);
+
 	private:
 		std::mutex								_lock;
 

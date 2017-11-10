@@ -508,6 +508,13 @@ namespace cpp
 		}
 }
 
+#ifdef __INTELLISENSE__
+
+#define SCOPE_EXIT(x) ::cpp::scope_exit<::cpp::__scope::_> x{::cpp::__scope::_{}};
+#define SCOPE_FAIL(x) ::cpp::scope_fail<::cpp::__scope::_> x{::cpp::__scope::_{}};
+#define SCOPE_SUCCESS(x) ::cpp::scope_success<::cpp::__scope::_> x{::cpp::__scope::_{}};
+
+#else
 
 #define __CPP__ELEM_SIZE_PREFIX__CPP__ELEM_SIZE_POSTFIX ,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,0
 #define __CPP__ELEM_SIZE_I(__p0,__p1,__p2,__p3,__p4,__p5,__p6,__p7,__p8,__p9,__p10,__p11,__p12,__p13,__p14,__p15,__p16,__p17,__p18,__p19,__p20,__p21,__p22,__p23,__p24,__p25,__p26,__p27,__p28,__p29,__p30,__p31,__n,...) __n
@@ -522,28 +529,17 @@ namespace cpp
 //#define __CPP_SCOPE_GET_ELEM_3( _1 ,_2 ,_3 ,... )  _3
 
 #define __CPP_SCOPE_GET_ELEM(N,ELEMS) __CPP_SCOPE_CAT(__CPP_SCOPE_GET_ELEM_, N) ELEMS
-
 #define __CPP_SCOPE_GET_LAST(...) __CPP_SCOPE_GET_ELEM( __CPP__ELEM_SIZE(__VA_ARGS__) ,  (__VA_ARGS__) )
 
 #define __CPP_SCOPE_EXIT_VARIABLE(...)		__CPP_SCOPE_VARIABLE_NAME(___CPP_SCOPE_EXIT_STATE) ,__VA_ARGS__
 #define __CPP_SCOPE_FAIL_VARIABLE(...)		__CPP_SCOPE_VARIABLE_NAME(___CPP_SCOPE_FAIL_STATE) ,__VA_ARGS__
 #define __CPP_SCOPE_SUCCESS_VARIABLE(...)	__CPP_SCOPE_VARIABLE_NAME(___CPP_SCOPE_SUCCESS_STATE) ,__VA_ARGS__
 
-
 #if defined(__COUNTER__)
 #define __CPP_SCOPE_VARIABLE_NAME(x) __CPP_SCOPE_CAT(x,__COUNTER__)
 #else
 #define __CPP_SCOPE_VARIABLE_NAME(x) __CPP_SCOPE_CAT(x,__LINE__)
 #endif // __COUNTER__
-
-
-#ifdef __INTELLISENSE__
-
-#define SCOPE_EXIT(x) ::cpp::scope_exit<::cpp::__scope::_> x{::cpp::__scope::_{}};
-#define SCOPE_FAIL(x) ::cpp::scope_fail<::cpp::__scope::_> x{::cpp::__scope::_{}};
-#define SCOPE_SUCCESS(x) ::cpp::scope_success<::cpp::__scope::_> x{::cpp::__scope::_{}};
-
-#else
 
 #define SCOPE_EXIT(...) \
 			auto __CPP_SCOPE_GET_LAST(__CPP_SCOPE_EXIT_VARIABLE(__VA_ARGS__)) = ::cpp::__scope::scope_on_exit{} +[&]() noexcept
@@ -555,5 +551,3 @@ namespace cpp
 			auto __CPP_SCOPE_GET_LAST(__CPP_SCOPE_SUCCESS_VARIABLE(__VA_ARGS__)) = ::cpp::__scope::scope_on_success{} +[&]()
 
 #endif
-
-

@@ -93,7 +93,7 @@ static void loggerFn(QtMsgType type, const QMessageLogContext &context, const QS
 		}break;
 		case QtFatalMsg:
 		{
-			auto reset = console_colours::set_console_attribs(h, console_colours::RED | BACKGROUND_RED);
+			auto reset = console_colours::set_console_attribs(h, console_colours::WHITE | BACKGROUND_RED);
 			std::clog << localMsg.constData() << std::endl;
 			abort();
 		}break;
