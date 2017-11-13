@@ -6,6 +6,11 @@
 
 namespace JChat {
 
+	static QPixmap defautAvatar()
+	{
+		return QPixmap{":/image/resource/Group.png"};
+	}
+
 	RoomListModel::RoomListModel(ClientObjectPtr const& co, QObject *parent)
 		:QStandardItemModel(parent)
 		, _co(co)
@@ -57,6 +62,7 @@ namespace JChat {
 			for(auto&& room : result.rooms)
 			{
 				auto item = new QStandardItem();
+				item->setData(defautAvatar(), ImageRole);
 				item->setData(QVariant::fromValue(room.roomId), RoomIdRole);
 				item->setData(QString::fromStdString(room.roomName), NameRole);
 				item->setData(QString::fromStdString(room.description), DescRole);
