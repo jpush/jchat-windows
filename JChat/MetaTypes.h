@@ -69,7 +69,6 @@ Q_DECLARE_METATYPE(Jmcpp::TransCommandEvent)
 
 namespace qx::cvt
 {
-
 	template <>
 	QVariant to_variant(const Jmcpp::UserId & t, const QString & format, int index, qx::cvt::context::ctx_type ctx);
 
@@ -78,12 +77,18 @@ namespace qx::cvt
 
 
 	template <>
-	QVariant to_variant(const Jmcpp::ConversationId & t, const QString & format, int index , qx::cvt::context::ctx_type ctx );
+	QVariant to_variant(const Jmcpp::ConversationId & t, const QString & format, int index, qx::cvt::context::ctx_type ctx);
 
 	template <>
-	qx_bool from_variant(const QVariant & v, Jmcpp::ConversationId & t, const QString & format, int index , qx::cvt::context::ctx_type ctx );
-}
+	qx_bool from_variant(const QVariant & v, Jmcpp::ConversationId & t, const QString & format, int index, qx::cvt::context::ctx_type ctx);
 
+
+	template <>
+	QVariant to_variant(const Jmcpp::GroupId & t, const QString & format, int index, qx::cvt::context::ctx_type ctx);
+
+	template <>
+	qx_bool from_variant(const QVariant & v, Jmcpp::GroupId & t, const QString & format, int index, qx::cvt::context::ctx_type ctx);
+}
 
 
 
@@ -136,6 +141,33 @@ namespace JChat
 		Status			status = undone;
 		QDateTime		time;
 	};
+
+	struct GroupEventT
+	{
+		int64_t id;
+
+		int64_t eventId;
+		Jmcpp::GroupId	groupId;
+
+		enum Status
+		{
+			undone,
+			passed,
+			rejected,
+		};
+
+		bool			hasRead = false;
+
+		bool			isReject = false;
+		bool			bySelf = false;
+
+		Jmcpp::UserId	fromUser;
+		Jmcpp::UserId	user;
+
+		QString message;
+		Status			status = undone;
+		QDateTime		time;
+	};
 }
 
 QX_REGISTER_PRIMARY_KEY(JChat::KeyValueT, QString)
@@ -154,6 +186,11 @@ QX_REGISTER_COMPLEX_CLASS_NAME_HPP_EXPORT_DLL(JChat::Account, qx::trait::no_base
 
 QX_REGISTER_PRIMARY_KEY(JChat::FriendEventT, int64_t)
 QX_REGISTER_COMPLEX_CLASS_NAME_HPP_EXPORT_DLL(JChat::FriendEventT, qx::trait::no_base_class_defined, 0, JChatFriendEventT)
+
+
+QX_REGISTER_PRIMARY_KEY(JChat::GroupEventT, int64_t)
+QX_REGISTER_COMPLEX_CLASS_NAME_HPP_EXPORT_DLL(JChat::GroupEventT, qx::trait::no_base_class_defined, 0, JChatGroupEventT)
+
 
 ///
 Q_DECLARE_METATYPE(JChat::ConversationT);

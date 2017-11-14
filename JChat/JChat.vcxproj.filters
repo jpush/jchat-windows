@@ -595,6 +595,15 @@
     <ClCompile Include="RoomInfoPage.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_GroupEventWidget.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_GroupEventWidget.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="GroupEventWidget.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="MainWidget.h">
@@ -915,6 +924,12 @@
     <CustomBuild Include="RoomInfoPage.ui">
       <Filter>Form Files</Filter>
     </CustomBuild>
+    <CustomBuild Include="GroupEventWidget.h">
+      <Filter>Header Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="GroupEventWidget.ui">
+      <Filter>Form Files</Filter>
+    </CustomBuild>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GeneratedFiles\ui_MainWidget.h">
@@ -1071,6 +1086,9 @@
       <Filter>Generated Files</Filter>
     </ClInclude>
     <ClInclude Include="GeneratedFiles\ui_RoomInfoPage.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GeneratedFiles\ui_GroupEventWidget.h">
       <Filter>Generated Files</Filter>
     </ClInclude>
   </ItemGroup>

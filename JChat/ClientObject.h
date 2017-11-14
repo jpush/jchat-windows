@@ -206,6 +206,11 @@ namespace JChat
 
 		Q_SIGNAL void groupMemberSilentChangedEvent(Jmcpp::GroupMemberSilentChangedEvent const&e);
 
+
+		Q_SIGNAL void requestJoinGroupEvent(Jmcpp::RequestJoinGroupEvent const&e);
+		Q_SIGNAL void rejectJoinGroupEvent(Jmcpp::RejectJoinGroupEvent const&e);
+
+
 		Q_SIGNAL void addedToGroupEvent(Jmcpp::AddedToGroupEvent const&e);
 
 		Q_SIGNAL void leavedGroupEvent(Jmcpp::LeavedGroupEvent const&e);
@@ -287,6 +292,10 @@ namespace JChat
 
 
 		void onEvent(Jmcpp::GroupMemberSilentChangedEvent const& e);
+
+
+		void onEvent(Jmcpp::RequestJoinGroupEvent const& e);
+		void onEvent(Jmcpp::RejectJoinGroupEvent const& e);
 
 
 		//////////////////////////////////////////////////////////////////////////

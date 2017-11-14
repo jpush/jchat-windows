@@ -1045,6 +1045,18 @@ JChat::ClientObject::onEvent(Jmcpp::ReceiptsUpdatedEvent const& e)
 }
 
 void 
+JChat::ClientObject::onEvent(Jmcpp::RejectJoinGroupEvent const& e)
+{
+	Q_EMIT rejectJoinGroupEvent(e);
+}
+
+void 
+JChat::ClientObject::onEvent(Jmcpp::RequestJoinGroupEvent const& e)
+{
+	Q_EMIT requestJoinGroupEvent(e);
+}
+
+void 
 JChat::ClientObject::onEvent(Jmcpp::TransCommandEvent const& e)
 {
 	Q_EMIT transCommandEvent(e);

@@ -160,7 +160,29 @@ namespace qx {
 	}
 }
 
+QX_REGISTER_COMPLEX_CLASS_NAME_CPP(JChat::GroupEventT, JChatGroupEventT)
+namespace qx {
+	template <>
+	void register_class(QxClass<JChat::GroupEventT> & t)
+	{
+		using JChat::GroupEventT;
+		t.setName("GroupEventT");
+		t.id(&GroupEventT::id, "id");
+		t.data(&GroupEventT::eventId, "eventId");
+		t.data(&GroupEventT::groupId, "groupId");
 
+		t.data(&GroupEventT::isReject, "isReject");
+		t.data(&GroupEventT::bySelf, "bySelf");
+
+		t.data(&GroupEventT::hasRead, "hasRead");
+
+		t.data(&GroupEventT::fromUser, "fromUser");
+		t.data(&GroupEventT::user, "user");
+
+		t.data(&GroupEventT::status, "status");
+		t.data(&GroupEventT::time, "time");
+	}
+}
 //////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////
 template <>
@@ -327,3 +349,60 @@ qx_bool qx::cvt::from_variant(const QVariant & v, Jmcpp::ConversationId & t, con
 	Q_ASSERT(false);
 	return false;
 }
+
+
+//////////////////////////////////////////////////////////////////////////
+template <>
+QVariant qx::cvt::to_variant(const Jmcpp::GroupId & t, const QString & format, int index, context::ctx_type ctx)
+{
+	switch(index)
+	{
+		case -1:
+		{
+			QByteArray data;
+			QDataStream ds(&data, QIODevice::WriteOnly);
+			ds << t.get();
+			return data;
+		}break;
+		case 0:
+		{
+			return to_variant(t.get(), format, -1, ctx);
+		}break;
+		default:
+			break;
+	}
+	Q_ASSERT(false);
+	return {};
+}
+
+template <>
+qx_bool qx::cvt::from_variant(const QVariant & v, Jmcpp::GroupId & t, const QString & format, int index, context::ctx_type ctx)
+{
+	switch(index)
+	{
+		case -1:
+		{
+			auto data = v.toByteArray();
+			QDataStream ds(data);
+			int64_t groupId = 0;
+			ds >> groupId;
+			if(groupId)
+			{
+				t = groupId;
+			}
+			return true;
+		}break;
+		case 0:
+		{
+			int64_t groupId = 0;
+			from_variant(v, groupId, format, -1, ctx);
+			t = groupId;
+			return true;
+		}break;
+		default:
+			break;
+	}
+	Q_ASSERT(false);
+	return false;
+}
+

@@ -865,7 +865,7 @@ image: url(:/image/resource/欢迎页.png);</string>
                 <enum>QFrame::StyledPanel</enum>
                </property>
                <property name="currentIndex">
-                <number>2</number>
+                <number>0</number>
                </property>
                <widget class="QWidget" name="pageFriendEvent">
                 <layout class="QVBoxLayout" name="verticalLayout_9">
@@ -920,16 +920,62 @@ image: url(:/image/resource/欢迎页.png);</string>
                   </widget>
                  </item>
                  <item>
-                  <widget class="JChat::FriendEventListWidget" name="listWidgetFriendEvent">
-                   <property name="sizePolicy">
-                    <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
-                     <horstretch>0</horstretch>
-                     <verstretch>0</verstretch>
-                    </sizepolicy>
+                  <widget class="QTabWidget" name="tabWidget">
+                   <property name="styleSheet">
+                    <string notr="true">QTabWidget
+{
+	border:none;
+
+}
+
+QTabBar::tab {
+  	font-size:12pt;
+  	border: none;
+	padding:0px 5px;
+	min-width: 66px;
+}
+
+ QTabBar::tab:selected, QTabBar::tab:hover {
+   
+ }
+
+QTabBar::tab:selected {
+    
+	color: rgb(45, 208, 207);
+}
+
+QTabBar::tab:!selected {
+     
+ }</string>
                    </property>
-                   <property name="editTriggers">
-                    <set>QAbstractItemView::NoEditTriggers</set>
+                   <property name="currentIndex">
+                    <number>0</number>
                    </property>
+                   <widget class="QWidget" name="tabFriendEvent">
+                    <attribute name="title">
+                     <string>好友验证</string>
+                    </attribute>
+                    <layout class="QVBoxLayout" name="verticalLayout_10">
+                     <item>
+                      <widget class="JChat::FriendEventListWidget" name="listWidgetFriendEvent">
+                       <property name="sizePolicy">
+                        <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
+                         <horstretch>0</horstretch>
+                         <verstretch>0</verstretch>
+                        </sizepolicy>
+                       </property>
+                       <property name="editTriggers">
+                        <set>QAbstractItemView::NoEditTriggers</set>
+                       </property>
+                      </widget>
+                     </item>
+                    </layout>
+                   </widget>
+                   <widget class="QWidget" name="tabGroupEvent">
+                    <attribute name="title">
+                     <string>群组验证</string>
+                    </attribute>
+                   </widget>
                   </widget>
                  </item>
                 </layout>
