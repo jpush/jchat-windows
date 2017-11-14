@@ -1076,6 +1076,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="emojione.js" />
+    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Resource.rc" />

@@ -50,6 +50,7 @@ namespace JChat{
 			}
 		}
 
+		if(!accounts.empty())
 		{
 			ui.username->setCurrentIndex(0);
 			auto&& account = accounts[0];
