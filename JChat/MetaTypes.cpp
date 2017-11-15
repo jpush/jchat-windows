@@ -36,6 +36,9 @@ namespace
 		qRegisterMetaType<Jmcpp::GroupCreatedEvent >("Jmcpp::GroupCreatedEvent");
 		qRegisterMetaType<Jmcpp::LeavedGroupEvent >("Jmcpp::LeavedGroupEvent");
 		qRegisterMetaType<Jmcpp::AddedToGroupEvent>("Jmcpp::AddedToGroupEvent");
+		qRegisterMetaType<Jmcpp::RequestJoinGroupEvent>("Jmcpp::RequestJoinGroupEvent");
+		qRegisterMetaType<Jmcpp::RejectJoinGroupEvent>("Jmcpp::RejectJoinGroupEvent");
+
 
 		qRegisterMetaType<Jmcpp::GroupMemberSilentChangedEvent>("Jmcpp::GroupMemberSilentChangedEvent");
 
@@ -176,8 +179,12 @@ namespace qx {
 
 		t.data(&GroupEventT::hasRead, "hasRead");
 
-		t.data(&GroupEventT::fromUser, "fromUser");
-		t.data(&GroupEventT::user, "user");
+		t.data(&GroupEventT::fromUsername, "fromUsername");
+		t.data(&GroupEventT::fromAppkey, "fromAppkey");
+		t.data(&GroupEventT::username, "username");
+		t.data(&GroupEventT::appkey, "appkey");
+
+		t.data(&GroupEventT::message, "message");
 
 		t.data(&GroupEventT::status, "status");
 		t.data(&GroupEventT::time, "time");
@@ -359,10 +366,8 @@ QVariant qx::cvt::to_variant(const Jmcpp::GroupId & t, const QString & format, i
 	{
 		case -1:
 		{
-			QByteArray data;
-			QDataStream ds(&data, QIODevice::WriteOnly);
-			ds << t.get();
-			return data;
+			return to_variant(t.get(), format, -1, ctx);
+
 		}break;
 		case 0:
 		{
@@ -382,14 +387,9 @@ qx_bool qx::cvt::from_variant(const QVariant & v, Jmcpp::GroupId & t, const QStr
 	{
 		case -1:
 		{
-			auto data = v.toByteArray();
-			QDataStream ds(data);
 			int64_t groupId = 0;
-			ds >> groupId;
-			if(groupId)
-			{
-				t = groupId;
-			}
+			from_variant(v, groupId, format, -1, ctx);
+			t = groupId;
 			return true;
 		}break;
 		case 0:

@@ -1,10 +1,10 @@
 #include "ItemWidgetVoiceRight.h"
 
-
 #include <QMouseEvent>
 #include <QtMultimedia/QMediaPlayer>
 
 #include "MessageListWidget.h"
+#include "UserInfoWidget.h"
 
 static QMovie* getPlayMoive()
 {
@@ -31,6 +31,15 @@ JChat::ItemWidgetVoiceRight::ItemWidgetVoiceRight(QWidget *parent)
 	setPlaying(false);
 
 	ui.frameVoice->installEventFilter(this);
+	connect(ui.label, &Label::clicked, this, [=]
+	{
+		if(_msg && _msg->sender)
+		{
+			auto listWidget = static_cast<MessageListWidget*>(_item->listWidget());
+			UserInfoWidget::showUserInfo(listWidget->getClientObject(), _msg->sender, this->topLevelWidget());
+		}
+	});
+
 }
 
 JChat::ItemWidgetVoiceRight::~ItemWidgetVoiceRight()

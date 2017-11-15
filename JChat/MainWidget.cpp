@@ -57,8 +57,15 @@ MainWidget::MainWidget(JChat::ClientObjectPtr const& co, QWidget *parent /*= Q_N
 
 	ui.listWidgetFriendEvent->setClientObject(_co);
 
+	ui.listWidgetGroupEvent->setClientObject(_co);
+
 	initTrayIcon();
-	ui.labelAvatar->installEventFilter(this);
+
+	connect(ui.labelAvatar, &Label::clicked, this, [=]
+	{
+		UserInfoWidget::showSelfInfo(_co, this);
+	});
+
 	auto search = ui.lineEditSearch->addAction(QIcon(u8":/image/resource/搜索.png"), QLineEdit::TrailingPosition);
 	connect(search, &QAction::triggered, this, &MainWidget::onSearch);
 
@@ -338,15 +345,7 @@ JChat::MainWidget::switchToRoomPage(Jmcpp::RoomId const& roomId)
 bool
 JChat::MainWidget::eventFilter(QObject *watched, QEvent *event)
 {
-	if(watched == ui.labelAvatar && event->type() == QEvent::MouseButtonPress)
-	{
-		QMouseEvent* ev = static_cast<QMouseEvent*>(event);
-		if(ev->button() == Qt::LeftButton)
-		{
-			UserInfoWidget::showSelfInfo(_co, this);
-		}
-	}
-	else if(watched == ui.pageMessages && event->type() == QEvent::Show)
+	if(watched == ui.pageMessages && event->type() == QEvent::Show)
 	{
 		if(ui.listConversation->currentIndex().isValid())
 		{
@@ -951,24 +950,33 @@ JChat::MainWidget::initEvent()
 		auto self = this | qTrack;
 		auto w = getOrCreateChatWidget(e.groupId) | qTrack;
 
-		QString text = e.fromUser == co->getCurrentUser() ? u8"我" : co_await co->getUserDisplayName(e.fromUser);
-		text += u8"邀请 ";
-		QStringList users;
-		for(auto&& userId : e.users)
-		{
-			users << co_await co->getUserDisplayName(userId);
-			if(users.size() > 3)
-			{
-				break;
-			}
-		}
+		QString text;
 
-		text += users.join(',');
-		if(e.users.size() > (size_t)users.size())
+		if(e.fromUser == co->getCurrentUser() && e.users.size() == 1 && e.users[0] == e.fromUser)
 		{
-			text += u8"...";
+			text = u8"我加入了群聊";
 		}
-		text += u8" 加入了群聊";
+		else
+		{
+			text = e.fromUser == co->getCurrentUser() ? u8"我" : co_await co->getUserDisplayName(e.fromUser);
+			text += u8"邀请 ";
+			QStringList users;
+			for(auto&& userId : e.users)
+			{
+				users << co_await co->getUserDisplayName(userId);
+				if(users.size() > 3)
+				{
+					break;
+				}
+			}
+
+			text += users.join(',');
+			if(e.users.size() > (size_t)users.size())
+			{
+				text += u8"...";
+			}
+			text += u8" 加入了群聊";
+		}
 
 		co_await w;
 		w->listWidget()->insertCenterWidget(text);

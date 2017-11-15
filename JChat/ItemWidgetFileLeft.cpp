@@ -19,7 +19,15 @@ namespace JChat {
 			menu->exec(ui.frameF->mapToGlobal(pt));
 		});
 
-		ui.label->installEventFilter(this);
+
+		connect(ui.label, &Label::clicked, this, [=]
+		{
+			if(_msg && _msg->sender)
+			{
+				auto listWidget = static_cast<MessageListWidget*>(_item->listWidget());
+				UserInfoWidget::showUserInfo(listWidget->getClientObject(), _msg->sender, this->topLevelWidget());
+			}
+		});
 
 
 		ui.frameF->installEventFilter(this);
@@ -96,18 +104,7 @@ namespace JChat {
 				}
 			}
 		}
-		if(watched == ui.label && event->type() == QEvent::MouseButtonRelease)
-		{
-			auto ev = static_cast<QMouseEvent*>(event);
-			if(ev->button() == Qt::LeftButton)
-			{
-				if(_msg && _msg->sender)
-				{
-					auto listWidget = static_cast<MessageListWidget*>(_item->listWidget());
-					UserInfoWidget::showUserInfo(listWidget->getClientObject(), _msg->sender, this->topLevelWidget());
-				}
-			}
-		}
+		
 		return false;
 	}
 

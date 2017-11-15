@@ -9,9 +9,6 @@ namespace JChat {
 	{
 		ui.setupUi(this);
 
-		ui.label->installEventFilter(this);
-
-
 		connect(ui.toolButtonPass, &QToolButton::clicked, this, [=]
 		{
 			Q_EMIT passClicked(_userId, _id);
@@ -20,6 +17,11 @@ namespace JChat {
 		connect(ui.toolButtonReject, &QToolButton::clicked, this, [=]
 		{
 			Q_EMIT rejectClicked(_userId, _id);
+		});
+
+		connect(ui.label, &Label::clicked, this, [=]
+		{
+			Q_EMIT infoClicked(_userId, _id);
 		});
 
 	}
@@ -80,19 +82,6 @@ namespace JChat {
 		auto pixmap = co_await co->getCacheUserAvatar(userId);
 		co_await self;
 		setPixmap(pixmap);
-	}
-
-	bool FriendEventItemWidget::eventFilter(QObject *watched, QEvent *event)
-	{
-		if(event->type() == QEvent::MouseButtonRelease)
-		{
-			auto ev = static_cast<QMouseEvent*>(event);
-			if(ev->button() == Qt::LeftButton)
-			{
-				Q_EMIT infoClicked(_userId, _id);
-			}
-		}
-		return false;
 	}
 
 } // namespace JChat

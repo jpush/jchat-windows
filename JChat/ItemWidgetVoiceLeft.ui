@@ -79,7 +79,7 @@
         <number>0</number>
        </property>
        <item>
-        <widget class="QLabel" name="label">
+        <widget class="JChat::Label" name="label">
          <property name="minimumSize">
           <size>
            <width>45</width>
@@ -320,6 +320,13 @@
   </layout>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
+ <customwidgets>
+  <customwidget>
+   <class>JChat::Label</class>
+   <extends>QLabel</extends>
+   <header>Label.h</header>
+  </customwidget>
+ </customwidgets>
  <resources>
   <include location="Resource.qrc"/>
  </resources>

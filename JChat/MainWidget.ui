@@ -291,7 +291,7 @@ image: url(:/image/resource/聊天pre.png);
             </spacer>
            </item>
            <item>
-            <widget class="QLabel" name="labelAvatar">
+            <widget class="JChat::Label" name="labelAvatar">
              <property name="sizePolicy">
               <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
                <horstretch>0</horstretch>
@@ -927,7 +927,9 @@ image: url(:/image/resource/欢迎页.png);</string>
 	border:none;
 
 }
-
+ QTabWidget::pane {
+     border:none;
+  }
 QTabBar::tab {
   	font-size:12pt;
   	border: none;
@@ -949,7 +951,7 @@ QTabBar::tab:!selected {
  }</string>
                    </property>
                    <property name="currentIndex">
-                    <number>0</number>
+                    <number>1</number>
                    </property>
                    <widget class="QWidget" name="tabFriendEvent">
                     <attribute name="title">
@@ -975,6 +977,11 @@ QTabBar::tab:!selected {
                     <attribute name="title">
                      <string>群组验证</string>
                     </attribute>
+                    <layout class="QVBoxLayout" name="verticalLayout_11">
+                     <item>
+                      <widget class="JChat::GroupEventWidget" name="listWidgetGroupEvent"/>
+                     </item>
+                    </layout>
                    </widget>
                   </widget>
                  </item>
@@ -1298,6 +1305,11 @@ image: url(:/image/resource/欢迎页.png);</string>
  <layoutdefault spacing="6" margin="11"/>
  <customwidgets>
   <customwidget>
+   <class>JChat::Label</class>
+   <extends>QLabel</extends>
+   <header>Label.h</header>
+  </customwidget>
+  <customwidget>
    <class>JChat::FriendEventListWidget</class>
    <extends>QListWidget</extends>
    <header>friendeventlistwidget.h</header>
@@ -1312,6 +1324,11 @@ image: url(:/image/resource/欢迎页.png);</string>
    <extends>QWidget</extends>
    <header>RoomInfoPage.h</header>
    <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>JChat::GroupEventWidget</class>
+   <extends>QListWidget</extends>
+   <header>GroupEventWidget.h</header>
   </customwidget>
  </customwidgets>
  <resources>

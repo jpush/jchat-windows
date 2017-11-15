@@ -46,6 +46,9 @@ Q_DECLARE_METATYPE(Jmcpp::UserUpdatedEvent)
 Q_DECLARE_METATYPE(Jmcpp::GroupCreatedEvent)
 Q_DECLARE_METATYPE(Jmcpp::LeavedGroupEvent)
 Q_DECLARE_METATYPE(Jmcpp::AddedToGroupEvent)
+Q_DECLARE_METATYPE(Jmcpp::RequestJoinGroupEvent)
+Q_DECLARE_METATYPE(Jmcpp::RejectJoinGroupEvent)
+
 Q_DECLARE_METATYPE(Jmcpp::GroupMemberSilentChangedEvent)
 Q_DECLARE_METATYPE(Jmcpp::RemovedFromGroupEvent)
 Q_DECLARE_METATYPE(Jmcpp::GroupInfoUpdatedEvent)
@@ -144,9 +147,9 @@ namespace JChat
 
 	struct GroupEventT
 	{
-		int64_t id;
+		int64_t id{};
 
-		int64_t eventId;
+		int64_t eventId{};
 		Jmcpp::GroupId	groupId;
 
 		enum Status
@@ -161,8 +164,9 @@ namespace JChat
 		bool			isReject = false;
 		bool			bySelf = false;
 
-		Jmcpp::UserId	fromUser;
-		Jmcpp::UserId	user;
+		std::string		fromUsername, fromAppkey;
+		std::string		username, appkey;
+
 
 		QString message;
 		Status			status = undone;

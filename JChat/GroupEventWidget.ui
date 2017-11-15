@@ -1,17 +1,42 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
  <class>GroupEventWidget</class>
- <widget class="QWidget" name="GroupEventWidget">
+ <widget class="QListWidget" name="GroupEventWidget">
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>496</width>
-    <height>380</height>
+    <width>397</width>
+    <height>333</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>GroupEventWidget</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">QListWidget
+{
+
+	
+}
+QListWidget::item
+{
+
+	
+}
+
+QListWidget::item:hover
+{
+	border:1px solid  rgb(113, 225, 219);
+	background-color: rgba(0, 0, 0, 0);
+	
+}
+QListWidget::item:selected
+{
+	border:1px solid  rgb(86, 171, 165);
+	background-color: rgba(0, 0, 0, 0);
+}
+</string>
   </property>
  </widget>
  <layoutdefault spacing="6" margin="11"/>

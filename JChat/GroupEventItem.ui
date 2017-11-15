@@ -1,29 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>FriendEventItemWidget</class>
- <widget class="QWidget" name="FriendEventItemWidget">
+ <class>GroupEventItem</class>
+ <widget class="QWidget" name="GroupEventItem">
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>493</width>
+    <width>492</width>
     <height>64</height>
    </rect>
   </property>
-  <property name="minimumSize">
-   <size>
-    <width>0</width>
-    <height>64</height>
-   </size>
-  </property>
-  <property name="maximumSize">
-   <size>
-    <width>16777215</width>
-    <height>64</height>
-   </size>
-  </property>
   <property name="windowTitle">
-   <string>FriendEventItemWidget</string>
+   <string>GroupEventItem</string>
   </property>
   <property name="styleSheet">
    <string notr="true">QWidget
@@ -108,7 +96,7 @@ QToolButton
      </property>
      <property name="sizeHint" stdset="0">
       <size>
-       <width>40</width>
+       <width>168</width>
        <height>20</height>
       </size>
      </property>

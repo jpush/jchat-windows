@@ -63,8 +63,6 @@ namespace JChat {
 			ui.labelMessage->setText(text);
 		}
 
-		virtual bool eventFilter(QObject *watched, QEvent *event) override;
-
 	private:
 		Ui::FriendEventItemWidget ui;
 
