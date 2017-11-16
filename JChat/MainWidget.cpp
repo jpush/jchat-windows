@@ -682,18 +682,29 @@ JChat::MainWidget::initContactPage()
 			if(current.row() == 0)
 			{
 				ui.listWidgetFriendEvent->clearUnread();
+				ui.listWidgetGroupEvent->clearUnread();
 			}
 		}
 	});
 
 	connect(ui.listWidgetFriendEvent, &FriendEventListWidget::unreadChanged, this, [=](int count)
 	{
-		contactModel->getFriendEventRootItem()->setData(count);
+		contactModel->getFriendEventRootItem()->setData(count + ui.listWidgetGroupEvent->unreadCount());
 		if(!ui.pageContacts->isVisible())
 		{
-			ui.btnContacts->addCount(count);
+			ui.btnContacts->setCount(count);
 		}
 	});
+
+	connect(ui.listWidgetGroupEvent, &GroupEventWidget::unreadChanged, this, [=](int count)
+	{
+		contactModel->getFriendEventRootItem()->setData(count + ui.listWidgetFriendEvent->unreadCount());
+		if(!ui.pageContacts->isVisible())
+		{
+			ui.btnContacts->setCount(count);
+		}
+	});
+
 
 	ui.listContactType->setCurrentIndex(contactModel->getFriendRootItem()->index());
 }

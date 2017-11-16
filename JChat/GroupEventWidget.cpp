@@ -1,6 +1,8 @@
 #include "GroupEventWidget.h"
 
 #include "UserInfoWidget.h"
+#include "GroupInfoDialog.h"
+#include "BusyIndicator.h"
 namespace JChat {
 
 	GroupEventWidget::GroupEventWidget(QWidget *parent)
@@ -229,6 +231,21 @@ namespace JChat {
 			UserInfoWidget::showUserInfo(_co, userId, this->topLevelWidget());
 		});
 
+		connect(w, &GroupEventItem::groupInfoClicked, this, [=](Jmcpp::GroupId const& groupId)
+		{
+			GroupInfoDialog d(_co, groupId, this->topLevelWidget());
+			try
+			{
+				BusyIndicator busy(this->topLevelWidget());
+				qAwait(d.setGroup(groupId));
+				d.exec();
+			}
+			catch(std::runtime_error& e)
+			{
+			}
+		});
+
+
 		connect(w, &GroupEventItem::passClicked, this, &GroupEventWidget::onPassClicked);
 
 		connect(w, &GroupEventItem::rejectClicked, this, &GroupEventWidget::onRejectClicked);
@@ -243,8 +260,7 @@ namespace JChat {
 		GroupEventT et = w->getGroupEventT();
 
 		co_await _co->passJoinGroup(groupId, eventId, user, fromUser);
-
-		if (et.id)
+		if(et.id)
 		{
 			et.status = GroupEventT::passed;
 			qx::dao::save(et);
@@ -264,7 +280,7 @@ namespace JChat {
 
 		GroupEventT et = w->getGroupEventT();
 
-		co_await _co->rejectJoinGroup(groupId, eventId, user, fromUser,"");
+		co_await _co->rejectJoinGroup(groupId, eventId, user, fromUser, "");
 
 		if(et.id)
 		{
