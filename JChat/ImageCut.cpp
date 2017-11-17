@@ -15,6 +15,9 @@ namespace JChat {
 
 		ui.graphicsView->setScene(&_scene);
 		ui.graphicsView->viewport()->installEventFilter(this);
+
+		ui.rotateLeft->hide();
+		ui.rotateRight->hide();
 	}
 
 	ImageCut::~ImageCut()
@@ -43,6 +46,16 @@ namespace JChat {
 	{
 		_rotate -= 90;
 		ui.graphicsView->rotate(-90);
+	}
+
+	Q_SLOT void ImageCut::on_btnScaleDown_clicked()
+	{
+		ui.horizontalSlider->setValue(ui.horizontalSlider->value() - ui.horizontalSlider->pageStep());
+	}
+
+	Q_SLOT void ImageCut::on_btnScaleUp_clicked()
+	{
+		ui.horizontalSlider->setValue(ui.horizontalSlider->value() + ui.horizontalSlider->pageStep());
 	}
 
 	Q_SLOT void ImageCut::on_horizontalSlider_valueChanged(int value)

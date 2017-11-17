@@ -68,6 +68,12 @@ namespace JChat{
 			addConversationItem(msg);
 		});
 
+		connect(_co, &ClientObject::sendMessageFailed, this, [=](Jmcpp::MessagePtr const& msg)
+		{
+			addConversationItem(msg, false);
+		});
+
+
 		connect(_co, &ClientObject::messageReceived, this, [=](Jmcpp::MessagePtr const& msg)
 		{
 			addConversationItem(msg);
@@ -79,9 +85,9 @@ namespace JChat{
 		});
 	}
 
-	void ConversationModel::addConversationItem(Jmcpp::MessagePtr const& msg)
+	void ConversationModel::addConversationItem(Jmcpp::MessagePtr const& msg, bool successed)
 	{
-		if (msg->conId.isRoom())
+		if(msg->conId.isRoom())
 		{
 			return;
 		}
@@ -91,7 +97,7 @@ namespace JChat{
 		{
 			if(item->data(Role::ConIdRole).value<Jmcpp::ConversationId>() == conId)
 			{
-				_updateMessagRole(item.current, msg);
+				_updateMessagRole(item.current, msg, successed);
 				_addConversationToDB(msg);
 				return;
 			}
@@ -105,7 +111,7 @@ namespace JChat{
 		item->setData(getMessageDisplayString(msg), Role::MessageRole);
 		this->appendRow(item);
 		_updateItem(item);
-		_updateMessagRole(item, msg);
+		_updateMessagRole(item, msg, successed);
 
 		ConversationT con;
 		con.conId = conId;
@@ -214,6 +220,8 @@ namespace JChat{
 			auto err = qx::dao::fetch_by_id(con);
 			con.unreadMsgCount = unreadMsgCount;
 			qx::dao::save(con);
+
+			Q_EMIT unreadMessageCountChanged(conId, unreadMsgCount);
 		}
 	}
 
@@ -237,6 +245,16 @@ namespace JChat{
 				break;
 			}
 		}
+	}
+
+	int ConversationModel::getTotalUnreadMessageCount() const
+	{
+		int total = 0;
+		for(auto&& item : this | depthFirst)
+		{
+			total += item->data(ConversationModel::UnreadRole).toInt();
+		}
+		return total;
 	}
 
 	Q_SLOT None ConversationModel::onUserLogined()
@@ -275,9 +293,12 @@ namespace JChat{
 
 			this->appendRow(item);
 
+			Q_EMIT unreadMessageCountChanged(conId, con.unreadMsgCount);
+
 		SKIP:;
 
 		}
+
 
 		std::vector<QPersistentModelIndex> items;
 		for(auto&& item : this | depthFirst)
@@ -320,7 +341,7 @@ namespace JChat{
 	}
 
 
-	None ConversationModel::_updateMessagRole(QStandardItem* item, Jmcpp::MessagePtr msg)
+	None ConversationModel::_updateMessagRole(QStandardItem* item, Jmcpp::MessagePtr msg, bool successed)
 	{
 		auto self = this | qTrack;
 		auto co = _co;
@@ -330,6 +351,12 @@ namespace JChat{
 		if(msg->isOutgoing || !msg->conId.isGroup())
 		{
 			QString msgRole = getMessageDisplayString(msg);
+
+			if(!successed)
+			{
+				msgRole = u8R"(<img  src=":/image/resource/错误提示.png"  width="15" height="15" />)" + msgRole;
+			}
+
 			item->setData(msgRole, Role::MessageRole);
 		}
 		else
@@ -342,6 +369,10 @@ namespace JChat{
 			{
 				item = itemFromIndex(index);
 				QString msgRole = getMessageDisplayString(msg, senderInfo);
+				if(!successed)
+				{
+					msgRole = u8R"(<img  src=":/image/resource/错误提示.png"  width="15" height="15" />)" + msgRole;
+				}
 				if(item->data(TimeRole).toDateTime().toMSecsSinceEpoch() == msg->time)
 				{
 					item->setData(msgRole, Role::MessageRole);

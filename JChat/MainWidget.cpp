@@ -125,6 +125,8 @@ MainWidget::~MainWidget()
 	}
 }
 
+
+
 void
 JChat::MainWidget::switchToConversation(Jmcpp::ConversationId const& conId)
 {
@@ -172,13 +174,15 @@ JChat::MainWidget::_switchToConversation(Jmcpp::ConversationId const& conId)
 }
 
 
+
 void
 JChat::MainWidget::searchUser(Jmcpp::UserId const& userId)
 {
 	UserInfoWidget::showUserInfo(_co, userId, this);
 }
 
-void JChat::MainWidget::searchGroup(Jmcpp::GroupId groupId)
+void
+JChat::MainWidget::searchGroup(Jmcpp::GroupId groupId)
 {
 
 }
@@ -382,6 +386,8 @@ MainWidget::closeEvent(QCloseEvent *event)
 		firstTime = false;
 	}
 }
+
+
 
 //////////////////////////////////////////////////////////////////////////
 
@@ -630,6 +636,12 @@ JChat::MainWidget::initMessagePage()
 		}
 	});
 
+
+	connect(_conModel, &ConversationModel::unreadMessageCountChanged, this, [=]
+	{
+		ui.btnMessages->setCount(_conModel->getTotalUnreadMessageCount());
+	});
+
 	//////////////////////////////////////////////////////////////////////////
 	_trayMessage = new TrayIconMessage(_tray, this);
 	connect(_trayMessage, &TrayIconMessage::cancelFlash, this, [=]
@@ -681,30 +693,51 @@ JChat::MainWidget::initContactPage()
 			ui.stackedWidgetContact->setCurrentIndex(current.row());
 			if(current.row() == 0)
 			{
-				ui.listWidgetFriendEvent->clearUnread();
-				ui.listWidgetGroupEvent->clearUnread();
+				if(ui.tabWidget->currentIndex() == 0)
+				{
+					ui.listWidgetFriendEvent->clearUnread();
+				}
+				else
+				{
+					ui.listWidgetGroupEvent->clearUnread();
+				}
 			}
 		}
 	});
 
+
+	connect(ui.tabWidget, &QTabWidget::currentChanged,
+			this, [=](int index)
+	{
+		if(index == 0)
+		{
+			ui.listWidgetFriendEvent->clearUnread();
+		}
+		else
+		{
+			ui.listWidgetGroupEvent->clearUnread();
+		}
+	});
+
+
 	connect(ui.listWidgetFriendEvent, &FriendEventListWidget::unreadChanged, this, [=](int count)
 	{
-		contactModel->getFriendEventRootItem()->setData(count + ui.listWidgetGroupEvent->unreadCount());
-		if(!ui.pageContacts->isVisible())
-		{
-			ui.btnContacts->setCount(count);
-		}
+		auto total = count + ui.listWidgetGroupEvent->unreadCount();
+		contactModel->getFriendEventRootItem()->setData(total);
+		ui.btnContacts->setCount(total);
+
+		ui.tabWidget->setTabText(0, u8"好友验证" + (count ? QString("(%1)").arg(count) : ""));
 	});
 
 	connect(ui.listWidgetGroupEvent, &GroupEventWidget::unreadChanged, this, [=](int count)
 	{
-		contactModel->getFriendEventRootItem()->setData(count + ui.listWidgetFriendEvent->unreadCount());
-		if(!ui.pageContacts->isVisible())
-		{
-			ui.btnContacts->setCount(count);
-		}
-	});
+		auto total = count + ui.listWidgetFriendEvent->unreadCount();
+		contactModel->getFriendEventRootItem()->setData(total);
+		ui.btnContacts->setCount(total);
 
+		ui.tabWidget->setTabText(0, u8"群组验证" + (count ? QString("(%1)").arg(count) : ""));
+
+	});
 
 	ui.listContactType->setCurrentIndex(contactModel->getFriendRootItem()->index());
 }
@@ -838,7 +871,7 @@ JChat::MainWidget::initEvent()
 
 			if(ui.stackedWidget->currentWidget() != ui.pageMessages)
 			{
-				ui.btnMessages->addCount(1);
+				//ui.btnMessages->addCount(1);
 			}
 		}
 
@@ -893,7 +926,7 @@ JChat::MainWidget::initEvent()
 
 			if(ui.stackedWidget->currentWidget() != ui.pageMessages)
 			{
-				ui.btnMessages->addCount(sz);
+				//ui.btnMessages->addCount(sz);
 			}
 		}
 

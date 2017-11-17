@@ -26,6 +26,14 @@ namespace JChat {
 		Q_SLOT void on_rotateRight_clicked();
 		Q_SLOT void on_rotateLeft_clicked();
 
+
+
+
+		Q_SLOT void on_btnScaleDown_clicked();
+
+		Q_SLOT void on_btnScaleUp_clicked();
+
+
 		Q_SLOT void on_btnOK_clicked()
 		{
 			this->accept();
@@ -48,7 +56,7 @@ namespace JChat {
 
 		QImage getImage() const;
 
-	
+
 		virtual bool eventFilter(QObject *watched, QEvent *event) override;
 
 		bool isEnableScale() const{ return (1 - _initScale) > 0 && _item; }

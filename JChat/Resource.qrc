@@ -87,6 +87,11 @@
         <file>resource/room-normal.png</file>
         <file>resource/Group.png</file>
         <file>resource/slient.png</file>
+        <file>resource/放大.png</file>
+        <file>resource/禁言.png</file>
+        <file>resource/聊天2.png</file>
+        <file>resource/聊天2pre.png</file>
+        <file>resource/缩小.png</file>
     </qresource>
     <qresource prefix="/js">
         <file>emojione.js</file>

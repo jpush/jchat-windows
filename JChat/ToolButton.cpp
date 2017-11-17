@@ -11,7 +11,7 @@ namespace JChat {
 		_unread = new QLabel(this);
 		_unread->setSizePolicy(QSizePolicy::Policy::Maximum, QSizePolicy::Policy::Preferred);
 		_unread->setAlignment(Qt::AlignCenter);
-		_unread->setGeometry(36, 0, 16, 16);
+		_unread->setGeometry(20, 0, 16, 16);
 		_unread->setStyleSheet(R"(
 QLabel
 {
@@ -28,10 +28,6 @@ QLabel
 
 		_unread->hide();
 
-		connect(this, &QToolButton::clicked, this, [=]
-		{
-			setCount(0);
-		});
 
 	}
 
@@ -42,9 +38,25 @@ QLabel
 	void ToolButton::setCount(int count)
 	{
 		_count = count;
-		if(_count)
+
+		if(count > 999)
 		{
-			_unread->setText(QString::number(_count));
+			_unread->setText("...");
+			_unread->resize(30, 16);
+			_unread->raise();
+			_unread->show();
+		}
+		else if(count > 99)
+		{
+			_unread->setText(QString::number(count));
+			_unread->resize(30, 16);
+			_unread->raise();
+			_unread->show();
+		}
+		else if(count > 1)
+		{
+			_unread->setText(QString::number(count));
+			_unread->resize(20, 16);
 			_unread->raise();
 			_unread->show();
 		}
@@ -55,20 +67,10 @@ QLabel
 	}
 
 
-
 	void ToolButton::addCount(int count)
 	{
 		_count += count;
-		if(_count)
-		{
-			_unread->setText(QString::number(_count));
-			_unread->raise();
-			_unread->show();
-		}
-		else
-		{
-			_unread->hide();
-		}
+		setCount(_count);
 	}
 
 } // namespace JChat

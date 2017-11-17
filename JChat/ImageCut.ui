@@ -13,6 +13,12 @@
   <property name="windowTitle">
    <string>图片剪切</string>
   </property>
+  <property name="styleSheet">
+   <string notr="true">QToolButton
+{
+	border:none;
+}</string>
+  </property>
   <layout class="QVBoxLayout" name="verticalLayout">
    <property name="spacing">
     <number>15</number>
@@ -88,12 +94,63 @@
    <item>
     <layout class="QHBoxLayout" name="horizontalLayout">
      <item>
+      <widget class="QToolButton" name="btnScaleDown">
+       <property name="styleSheet">
+        <string notr="true">QToolButton
+{
+	image: url(:/image/resource/缩小.png);
+}
+</string>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+      </widget>
+     </item>
+     <item>
       <widget class="QSlider" name="horizontalSlider">
+       <property name="styleSheet">
+        <string notr="true">QSlider
+{
+	height:13px;
+}
+  QSlider::groove:horizontal {
+ 
+  }
+
+ QSlider::handle:horizontal {
+
+	background-color: rgb(45, 208, 207);
+    width: 13px;
+	height:13px;
+    border-radius: 5px;
+  }
+</string>
+       </property>
        <property name="maximum">
         <number>100</number>
        </property>
        <property name="orientation">
         <enum>Qt::Horizontal</enum>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QToolButton" name="btnScaleUp">
+       <property name="styleSheet">
+        <string notr="true">QToolButton
+{
+	
+	image: url(:/image/resource/放大.png);
+}
+
+QToolButton:pressed
+{
+	
+}</string>
+       </property>
+       <property name="text">
+        <string/>
        </property>
       </widget>
      </item>
@@ -157,6 +214,8 @@
   </layout>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
- <resources/>
+ <resources>
+  <include location="Resource.qrc"/>
+ </resources>
  <connections/>
 </ui>

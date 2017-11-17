@@ -439,11 +439,11 @@ namespace JChat
 			iw->setUnreadUserCount(msg->unreadUserCount);
 			co_return;
 		}
-		catch(std::system_error& e)
+		catch(std::runtime_error& e)
 		{
 
 		}
-		catch(Jmcpp::ServerException& e)
+		catch(...)
 		{
 		}
 
@@ -493,14 +493,13 @@ namespace JChat
 
 			co_return;
 		}
-		catch(std::system_error& e)
+		catch(std::runtime_error& e)
 		{
 
 		}
-		catch(Jmcpp::ServerException& e)
+		catch(...)
 		{
 		}
-
 		co_await iw;
 		iw->setFailed();
 	}
@@ -539,11 +538,11 @@ namespace JChat
 
 			co_return;
 		}
-		catch(std::system_error& e)
+		catch(std::runtime_error& e)
 		{
 
 		}
-		catch(Jmcpp::ServerException& e)
+		catch(...)
 		{
 
 		}

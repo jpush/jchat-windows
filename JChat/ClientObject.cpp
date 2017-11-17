@@ -758,6 +758,18 @@ JChat::ClientObject::sendMessage(Jmcpp::MessagePtr const& msg) const
 
 	Q_EMIT messageSent(msg);
 
+	result.then([=,self = shared_from_this()](pplx::task<Jmcpp::MessagePtr> t)
+	{
+		try
+		{
+			t.get();
+		}
+		catch(...)
+		{
+			Q_EMIT sendMessageFailed(msg);
+		}
+	});
+
 	return result;
 }
 
@@ -1044,19 +1056,19 @@ JChat::ClientObject::onEvent(Jmcpp::ReceiptsUpdatedEvent const& e)
 	Q_EMIT receiptsUpdatedEvent(e);
 }
 
-void 
+void
 JChat::ClientObject::onEvent(Jmcpp::RejectJoinGroupEvent const& e)
 {
 	Q_EMIT rejectJoinGroupEvent(e);
 }
 
-void 
+void
 JChat::ClientObject::onEvent(Jmcpp::RequestJoinGroupEvent const& e)
 {
 	Q_EMIT requestJoinGroupEvent(e);
 }
 
-void 
+void
 JChat::ClientObject::onEvent(Jmcpp::TransCommandEvent const& e)
 {
 	Q_EMIT transCommandEvent(e);

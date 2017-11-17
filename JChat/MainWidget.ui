@@ -228,11 +228,11 @@ QToolButton
 
 #btnMessages
 {
-	image: url(:/image/resource/聊天.png);
+	image: url(:/image/resource/聊天2.png);
 }
 #btnMessages:checked
 {
-image: url(:/image/resource/聊天pre.png);
+image: url(:/image/resource/聊天2pre.png);
 }
 
 #btnContacts
@@ -246,11 +246,11 @@ image: url(:/image/resource/聊天pre.png);
 
 #btnRooms
 {
-	image: url(:/image/resource/room-normal.png);
+	image: url(:/image/resource/聊天.png);
 }
 #btnRooms:checked
 {
-	image: url(:/image/resource/room-active.png);
+	image: url(:/image/resource/聊天pre.png);
 }</string>
         </property>
         <property name="frameShape">
@@ -951,7 +951,7 @@ QTabBar::tab:!selected {
  }</string>
                    </property>
                    <property name="currentIndex">
-                    <number>1</number>
+                    <number>0</number>
                    </property>
                    <widget class="QWidget" name="tabFriendEvent">
                     <attribute name="title">

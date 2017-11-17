@@ -161,6 +161,8 @@ namespace JChat
 
 		Q_SIGNAL void messageSent(Jmcpp::MessagePtr const& msg) const;
 
+		Q_SIGNAL void sendMessageFailed(Jmcpp::MessagePtr const& msg) const;
+
 		Q_SIGNAL void messageReceived(Jmcpp::MessagePtr const& msg);
 
 		Q_SIGNAL void messagesReceived(std::vector<Jmcpp::MessagePtr> const& msgs);

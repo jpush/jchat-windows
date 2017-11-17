@@ -42,7 +42,7 @@ namespace JChat{
 
 		QStandardItem*  addConversationItem(Jmcpp::ConversationId const& conId);
 
-		void			addConversationItem(Jmcpp::MessagePtr const& msg);
+		void			addConversationItem(Jmcpp::MessagePtr const& msg, bool successed = true);
 
 		void			setSticktop(Jmcpp::ConversationId const& conId, bool enabled);
 
@@ -56,6 +56,9 @@ namespace JChat{
 
 		void			remove(Jmcpp::ConversationId const& conId);
 
+		int				getTotalUnreadMessageCount() const;
+
+		Q_SIGNAL void	unreadMessageCountChanged(Jmcpp::ConversationId const& conId, int unreadMsgCount);
 
 		static void		sortFn(const QModelIndex &source_left, const QModelIndex &source_right, bool& ret);
 
@@ -67,7 +70,7 @@ namespace JChat{
 
 		None	_updateMessagRole(QStandardItem* item);
 
-		None	_updateMessagRole(QStandardItem* item, Jmcpp::MessagePtr msg);
+		None	_updateMessagRole(QStandardItem* item, Jmcpp::MessagePtr msg, bool successed = true);
 
 
 
