@@ -1725,7 +1725,7 @@
   <ImportGroup Label="ExtensionTargets">
     <Import Project="..\packages\cpprestsdk.v140.windesktop.msvcstl.dyn.rt-dyn.2.9.1\build\native\cpprestsdk.v140.windesktop.msvcstl.dyn.rt-dyn.targets" Condition="Exists('..\packages\cpprestsdk.v140.windesktop.msvcstl.dyn.rt-dyn.2.9.1\build\native\cpprestsdk.v140.windesktop.msvcstl.dyn.rt-dyn.targets')" />
     <Import Project="..\packages\openssl-vc141.1.1.0\build\native\openssl-vc141.targets" Condition="Exists('..\packages\openssl-vc141.1.1.0\build\native\openssl-vc141.targets')" />
-    <Import Project="..\packages\jmessage-cpp.1.1.0-beta171114-5\build\native\jmessage-cpp.targets" Condition="Exists('..\packages\jmessage-cpp.1.1.0-beta171114-5\build\native\jmessage-cpp.targets')" />
+    <Import Project="..\packages\jmessage-cpp.1.1.0-beta171121-2\build\native\jmessage-cpp.targets" Condition="Exists('..\packages\jmessage-cpp.1.1.0-beta171121-2\build\native\jmessage-cpp.targets')" />
   </ImportGroup>
   <ProjectExtensions>
     <VisualStudio>
@@ -1738,6 +1738,6 @@
     </PropertyGroup>
     <Error Condition="!Exists('..\packages\cpprestsdk.v140.windesktop.msvcstl.dyn.rt-dyn.2.9.1\build\native\cpprestsdk.v140.windesktop.msvcstl.dyn.rt-dyn.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\cpprestsdk.v140.windesktop.msvcstl.dyn.rt-dyn.2.9.1\build\native\cpprestsdk.v140.windesktop.msvcstl.dyn.rt-dyn.targets'))" />
     <Error Condition="!Exists('..\packages\openssl-vc141.1.1.0\build\native\openssl-vc141.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\openssl-vc141.1.1.0\build\native\openssl-vc141.targets'))" />
-    <Error Condition="!Exists('..\packages\jmessage-cpp.1.1.0-beta171114-5\build\native\jmessage-cpp.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\jmessage-cpp.1.1.0-beta171114-5\build\native\jmessage-cpp.targets'))" />
+    <Error Condition="!Exists('..\packages\jmessage-cpp.1.1.0-beta171121-2\build\native\jmessage-cpp.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\jmessage-cpp.1.1.0-beta171121-2\build\native\jmessage-cpp.targets'))" />
   </Target>
 </Project>

@@ -98,7 +98,7 @@ MainWidget::MainWidget(JChat::ClientObjectPtr const& co, QWidget *parent /*= Q_N
 		auto roomId = _co->getCurrentRoomId();
 		if(roomId.get())
 		{
-			if(auto w = getChatWidget(roomId))
+			if(auto w = getOrCreateChatWidget(roomId))
 			{
 				ui.stackedWidgetRoom->setCurrentWidget(w);
 			}

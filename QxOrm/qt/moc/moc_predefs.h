@@ -7,6 +7,5 @@
 #define _M_IX86 600
 #define _M_IX86_FP 2
 #define _CPPRTTI 
-#define _DEBUG 
 #define _MT 
 #define _DLL 
