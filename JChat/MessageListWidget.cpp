@@ -359,7 +359,7 @@ namespace JChat
 							  | ItemWidgetInterface::file
 							  | ItemWidgetInterface::usercard
 							  | ItemWidgetInterface::location
-							  | ItemWidgetInterface::voice))
+							  ))
 			{
 				menu->addAction(u8"×ª·¢", this, [=]
 				{
