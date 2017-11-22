@@ -368,8 +368,8 @@ image: url(:/image/resource/聊天2pre.png);
            </property>
            <property name="iconSize">
             <size>
-             <width>32</width>
-             <height>32</height>
+             <width>25</width>
+             <height>25</height>
             </size>
            </property>
            <property name="checkable">
@@ -396,8 +396,8 @@ image: url(:/image/resource/聊天2pre.png);
            </property>
            <property name="iconSize">
             <size>
-             <width>32</width>
-             <height>32</height>
+             <width>25</width>
+             <height>25</height>
             </size>
            </property>
            <property name="checkable">
@@ -421,8 +421,8 @@ image: url(:/image/resource/聊天2pre.png);
            </property>
            <property name="iconSize">
             <size>
-             <width>32</width>
-             <height>32</height>
+             <width>25</width>
+             <height>25</height>
             </size>
            </property>
            <property name="checkable">
@@ -471,8 +471,8 @@ image: url(:/image/resource/聊天2pre.png);
              </property>
              <property name="iconSize">
               <size>
-               <width>32</width>
-               <height>32</height>
+               <width>25</width>
+               <height>25</height>
               </size>
              </property>
              <property name="popupMode">
@@ -503,8 +503,8 @@ image: url(:/image/resource/聊天2pre.png);
              </property>
              <property name="iconSize">
               <size>
-               <width>32</width>
-               <height>32</height>
+               <width>25</width>
+               <height>25</height>
               </size>
              </property>
             </widget>
@@ -541,7 +541,25 @@ image: url(:/image/resource/聊天2pre.png);
 {
 	border:none;
 	border-bottom:1px solid lightgray;
-}</string>
+}
+
+			#btnClose ,#btnMax, #btnMin
+			{ 
+				background: none;
+				border:none;
+				border-radius: 0px;
+				padding:0px;
+				min-height: 30px;
+				min-width: 40px;
+			}
+
+			#btnClose:hover,#btnMax:hover,#btnMin:hover
+			{ 
+				background-color:rgb(203, 203, 203);
+			}
+
+
+</string>
           </property>
           <property name="frameShape">
            <enum>QFrame::StyledPanel</enum>
@@ -550,26 +568,62 @@ image: url(:/image/resource/聊天2pre.png);
            <enum>QFrame::Raised</enum>
           </property>
           <layout class="QHBoxLayout" name="horizontalLayout_2">
+           <property name="spacing">
+            <number>1</number>
+           </property>
+           <property name="leftMargin">
+            <number>0</number>
+           </property>
            <property name="topMargin">
-            <number>5</number>
+            <number>0</number>
+           </property>
+           <property name="rightMargin">
+            <number>0</number>
            </property>
            <property name="bottomMargin">
-            <number>5</number>
+            <number>0</number>
            </property>
            <item>
-            <widget class="QLineEdit" name="lineEditSearch">
-             <property name="minimumSize">
-              <size>
-               <width>180</width>
-               <height>30</height>
-              </size>
+            <widget class="QFrame" name="frame_7">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
              </property>
-             <property name="maximumSize">
-              <size>
-               <width>180</width>
-               <height>16777215</height>
-              </size>
+             <property name="frameShape">
+              <enum>QFrame::StyledPanel</enum>
              </property>
+             <property name="frameShadow">
+              <enum>QFrame::Raised</enum>
+             </property>
+             <layout class="QHBoxLayout" name="horizontalLayout_8">
+              <property name="leftMargin">
+               <number>9</number>
+              </property>
+              <item>
+               <widget class="QLineEdit" name="lineEditSearch">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
+                </property>
+                <property name="minimumSize">
+                 <size>
+                  <width>180</width>
+                  <height>30</height>
+                 </size>
+                </property>
+                <property name="maximumSize">
+                 <size>
+                  <width>180</width>
+                  <height>16777215</height>
+                 </size>
+                </property>
+               </widget>
+              </item>
+             </layout>
             </widget>
            </item>
            <item>
@@ -584,6 +638,75 @@ image: url(:/image/resource/聊天2pre.png);
               </size>
              </property>
             </spacer>
+           </item>
+           <item>
+            <layout class="QVBoxLayout" name="verticalLayout_12">
+             <property name="spacing">
+              <number>0</number>
+             </property>
+             <property name="topMargin">
+              <number>0</number>
+             </property>
+             <property name="rightMargin">
+              <number>0</number>
+             </property>
+             <property name="bottomMargin">
+              <number>0</number>
+             </property>
+             <item>
+              <layout class="QHBoxLayout" name="horizontalLayout_10">
+               <property name="leftMargin">
+                <number>0</number>
+               </property>
+               <item>
+                <widget class="QToolButton" name="btnMin">
+                 <property name="text">
+                  <string/>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QToolButton" name="btnMax">
+                 <property name="text">
+                  <string/>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QToolButton" name="btnClose">
+                 <property name="sizePolicy">
+                  <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+                   <horstretch>0</horstretch>
+                   <verstretch>0</verstretch>
+                  </sizepolicy>
+                 </property>
+                 <property name="styleSheet">
+                  <string notr="true"/>
+                 </property>
+                 <property name="text">
+                  <string/>
+                 </property>
+                </widget>
+               </item>
+              </layout>
+             </item>
+             <item>
+              <spacer name="verticalSpacer_7">
+               <property name="orientation">
+                <enum>Qt::Vertical</enum>
+               </property>
+               <property name="sizeType">
+                <enum>QSizePolicy::Ignored</enum>
+               </property>
+               <property name="sizeHint" stdset="0">
+                <size>
+                 <width>20</width>
+                 <height>20</height>
+                </size>
+               </property>
+              </spacer>
+             </item>
+            </layout>
            </item>
           </layout>
          </widget>

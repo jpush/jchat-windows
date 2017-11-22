@@ -622,6 +622,15 @@
     <ClCompile Include="Label.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="MetroStyle.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_MetroStyle.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_MetroStyle.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="MainWidget.h">
@@ -955,6 +964,9 @@
       <Filter>Form Files</Filter>
     </CustomBuild>
     <CustomBuild Include="Label.h">
+      <Filter>Header Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="MetroStyle.h">
       <Filter>Header Files</Filter>
     </CustomBuild>
   </ItemGroup>

@@ -48,15 +48,39 @@
 using namespace JChat;
 
 MainWidget::MainWidget(JChat::ClientObjectPtr const& co, QWidget *parent /*= Q_NULLPTR*/)
-	: QWidget(parent)
+	: base(parent)
 	, _co(co)
 {
 	qApp->setProperty(staticMetaObject.className(), QVariant::fromValue(this));
 	ui.setupUi(this);
 	this->setAttribute(Qt::WA_DeleteOnClose);
 
-	ui.listWidgetFriendEvent->setClientObject(_co);
+	addDragger(ui.frame_header);
+	addDragger(ui.frame);
 
+	ui.btnMin->setIcon(style()->standardPixmap(QStyle::SP_TitleBarMinButton));
+	connect(ui.btnMin, &QToolButton::clicked, this, [=]
+	{
+		setWindowState(windowState() | Qt::WindowState::WindowMinimized);
+	});
+
+	auto pixmap = (windowState() & Qt::WindowState::WindowMaximized) ? QStyle::SP_TitleBarNormalButton : QStyle::SP_TitleBarMaxButton;
+	ui.btnMax->setIcon(style()->standardPixmap(pixmap));
+
+	connect(ui.btnMax, &QToolButton::clicked, this, [=]
+	{
+		switchNormalMaximized();
+	});
+
+	ui.btnClose->setIcon(style()->standardPixmap(QStyle::SP_TitleBarCloseButton));
+	connect(ui.btnClose, &QToolButton::clicked, this, [=]
+	{
+		close();
+	});
+
+
+
+	ui.listWidgetFriendEvent->setClientObject(_co);
 	ui.listWidgetGroupEvent->setClientObject(_co);
 
 	initTrayIcon();
@@ -371,6 +395,16 @@ JChat::MainWidget::showEvent(QShowEvent *event)
 			auto conId = ui.listConversation->currentIndex().data(ConversationModel::Role::ConIdRole).value<Jmcpp::ConversationId>();
 			_switchToConversation(conId);
 		}
+	}
+}
+
+void
+JChat::MainWidget::changeEvent(QEvent * e)
+{
+	if(e->type() == QEvent::WindowStateChange)
+	{
+		auto pixmap = (windowState() & Qt::WindowState::WindowMaximized) ? QStyle::SP_TitleBarNormalButton : QStyle::SP_TitleBarMaxButton;
+		ui.btnMax->setIcon(style()->standardPixmap(pixmap));
 	}
 }
 

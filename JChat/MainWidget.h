@@ -15,14 +15,18 @@
 #include "ConversationModel.h"
 #include "ProxyModel.h"
 
+
+#include "MetroStyle.h"
 class QSystemTrayIcon;
 
 namespace JChat{
 	class TrayIconMessage;
 
-	class MainWidget : public QWidget
+	class MainWidget : public QxWin::MetroStyle< QWidget, true, false>
 	{
 		Q_OBJECT
+
+			using base = MetroStyle;
 	public:
 
 		MainWidget(JChat::ClientObjectPtr const& co, QWidget *parent = Q_NULLPTR);
@@ -138,6 +142,9 @@ namespace JChat{
 		virtual bool eventFilter(QObject *watched, QEvent *event) override;
 		virtual void closeEvent(QCloseEvent *event) override;
 		virtual void showEvent(QShowEvent *event) override;
+
+
+		virtual void changeEvent(QEvent *) override;
 
 	private:
 		Ui::MainWidgetClass ui;
