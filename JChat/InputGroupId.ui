@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>323</width>
-    <height>141</height>
+    <width>326</width>
+    <height>157</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -31,6 +31,13 @@
    </property>
    <item>
     <widget class="QLineEdit" name="lineEdit">
+     <property name="styleSheet">
+      <string notr="true">QLineEdit
+{
+	min-height:40px;
+	max-height:40px;
+}</string>
+     </property>
      <property name="placeholderText">
       <string>输入公开群的群组ID</string>
      </property>

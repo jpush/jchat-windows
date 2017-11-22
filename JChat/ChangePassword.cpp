@@ -3,12 +3,13 @@
 #include <QMessageBox>
 #include "BusyIndicator.h"
 
-JChat::ChangePassword::ChangePassword(ClientObjectPtr const& co,  QWidget *parent)
-	: QWidget(parent,Qt::Window)
+JChat::ChangePassword::ChangePassword(ClientObjectPtr const& co, QWidget *parent)
+	: QWidget(parent, Qt::Window)
 	, _co(co)
 {
 	ui.setupUi(this);
 
+	setWindowFlags(Qt::Window | Qt::WindowType::CustomizeWindowHint | Qt::WindowType::WindowCloseButtonHint);
 	this->setWindowModality(Qt::WindowModal);
 	this->setAttribute(Qt::WA_DeleteOnClose);
 	this->setFixedSize(size());
@@ -47,7 +48,7 @@ JChat::ChangePassword::on_btnOK_clicked()
 	}
 	catch(Jmcpp::ServerException& e)
 	{
-		if (e.code()== 882002)
+		if(e.code() == 882002)
 		{
 			QMessageBox::warning(this, "", u8"原密码不正确!", QMessageBox::Ok);
 		}

@@ -62,14 +62,14 @@
         <widget class="JChat::Label" name="label">
          <property name="minimumSize">
           <size>
-           <width>45</width>
-           <height>45</height>
+           <width>40</width>
+           <height>40</height>
           </size>
          </property>
          <property name="maximumSize">
           <size>
-           <width>45</width>
-           <height>45</height>
+           <width>40</width>
+           <height>40</height>
           </size>
          </property>
          <property name="text">

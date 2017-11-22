@@ -57,7 +57,7 @@ namespace JChat{
 		{
 			auto item = new QStandardItem();
 			item->setText(u8"验证消息");
-			auto icon = QIcon(u8":/image/resource/u18.png");
+			auto icon = QIcon(u8":/image/resource/验证消息.png");
 			item->setIcon(icon);
 			this->appendRow(item);
 		}

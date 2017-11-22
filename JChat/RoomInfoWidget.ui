@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>278</width>
-    <height>574</height>
+    <height>601</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -31,16 +31,6 @@ QLineEdit,QTextEdit {
   <layout class="QVBoxLayout" name="verticalLayout">
    <item>
     <layout class="QHBoxLayout" name="horizontalLayout_4">
-     <item>
-      <widget class="QLabel" name="labelRoomId">
-       <property name="text">
-        <string>ID:</string>
-       </property>
-       <property name="textInteractionFlags">
-        <set>Qt::LinksAccessibleByMouse|Qt::TextSelectableByMouse</set>
-       </property>
-      </widget>
-     </item>
      <item>
       <spacer name="horizontalSpacer_2">
        <property name="orientation">
@@ -69,14 +59,14 @@ QLineEdit,QTextEdit {
       <widget class="QLabel" name="labelAvatar">
        <property name="minimumSize">
         <size>
-         <width>40</width>
-         <height>40</height>
+         <width>60</width>
+         <height>60</height>
         </size>
        </property>
        <property name="maximumSize">
         <size>
-         <width>40</width>
-         <height>40</height>
+         <width>60</width>
+         <height>60</height>
         </size>
        </property>
        <property name="text">
@@ -106,7 +96,29 @@ QLineEdit,QTextEdit {
         </widget>
        </item>
        <item>
+        <widget class="QLabel" name="labelRoomId">
+         <property name="styleSheet">
+          <string notr="true">QLabel
+{
+	color: rgb(153, 153, 153);
+}</string>
+         </property>
+         <property name="text">
+          <string>聊天室ID:</string>
+         </property>
+         <property name="textInteractionFlags">
+          <set>Qt::LinksAccessibleByMouse|Qt::TextSelectableByMouse</set>
+         </property>
+        </widget>
+       </item>
+       <item>
         <widget class="QLabel" name="labelMembers">
+         <property name="styleSheet">
+          <string notr="true">QLabel
+{
+	color: rgb(153, 153, 153);
+}</string>
+         </property>
          <property name="text">
           <string>聊天室成员:</string>
          </property>

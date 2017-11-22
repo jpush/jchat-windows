@@ -21,10 +21,11 @@ JChat::SelectMemberWidget::SelectMemberWidget(ClientObjectPtr const&co, QWidget 
 	, _co(co)
 {
 	ui.setupUi(this);
+	setWindowFlags(Qt::Window | Qt::WindowType::CustomizeWindowHint | Qt::WindowType::WindowCloseButtonHint);
+	setWindowModality(Qt::ApplicationModal);
 
 	ui.labelAvatar->installEventFilter(this);
 
-	setWindowModality(Qt::ApplicationModal);
 
 	ui.stackedWidget->setCurrentIndex(0);
 

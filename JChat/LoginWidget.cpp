@@ -100,9 +100,12 @@ namespace JChat{
 				auto lock = std::make_unique<QSharedMemory>(ui.username->currentText());
 				if(!lock->create(1))
 				{
-					QMessageBox::warning(this, "", QString(u8"用户[%1]已登录,不能重复登录").arg(ui.username->currentText()), QMessageBox::Ok);
+					ui.labelError->setText(QString(u8"用户[%1]已登录,不能重复登录").arg(ui.username->currentText()));
 					return;
 				}
+
+
+				ui.labelError->clear();
 
 				BusyIndicator busy(this);
 				ui.btnLogin->setEnabled(false);
@@ -142,16 +145,16 @@ namespace JChat{
 			{
 				if(e.code() == 880104 || e.code() == 880103)
 				{
-					QMessageBox::warning(this, tr("warning"), u8"用户名或密码错误!");
+					ui.labelError->setText(u8"用户名或密码错误!");
 				}
 				else
 				{
-					QMessageBox::warning(this, tr("warning"), e.what());
+					ui.labelError->setText(e.what());
 				}
 			}
 			catch(std::runtime_error& e)
 			{
-				QMessageBox::warning(this, tr("warning"), e.what());
+				ui.labelError->setText(e.what());
 			}
 
 			ui.btnLogin->setEnabled(true);
@@ -170,10 +173,10 @@ namespace JChat{
 			{
 				if(ui.password1->text() != ui.password2->text())
 				{
-					QMessageBox::warning(this, tr("warning"), u8"您两次输入的密码不一致!");
+					ui.labelError2->setText(u8"您两次输入的密码不一致!");
 					return;
 				}
-
+				ui.labelError2->clear();
 				ui.btnRegister->setEnabled(false);
 				qAwait(_co->registers(ui.usernameR->text().toStdString(), ui.password1->text().toStdString(), ClientObject::getAuthorization()));
 				QMessageBox::information(this, tr("info"), u8"注册成功!");
@@ -182,16 +185,16 @@ namespace JChat{
 			{
 				if(e.code() == 882002)
 				{
-					QMessageBox::warning(this, tr("warning"), u8"用户名已存在!");
+					ui.labelError2->setText(u8"用户名已存在!");
 				}
 				else
 				{
-					QMessageBox::warning(this, tr("warning"), e.what());
+					ui.labelError2->setText(e.what());
 				}
 			}
 			catch(std::system_error& e)
 			{
-
+				ui.labelError2->setText(e.what());
 			}
 
 			ui.btnRegister->setEnabled(true);

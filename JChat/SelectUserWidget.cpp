@@ -21,6 +21,8 @@ JChat::SelectUserWidget::SelectUserWidget(ClientObjectPtr const&co, bool onlyFri
 {
 	ui.setupUi(this);
 	setWindowModality(Qt::ApplicationModal);
+	setWindowFlags(Qt::Window | Qt::WindowType::CustomizeWindowHint | Qt::WindowType::WindowCloseButtonHint);
+
 	auto search = ui.lineEditSearch->addAction(QIcon(u8":/image/resource/ËÑË÷.png"), QLineEdit::TrailingPosition);
 
 	auto model = new QStandardItemModel(this);

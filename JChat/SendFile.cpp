@@ -10,6 +10,8 @@ namespace JChat {
 	{
 		ui.setupUi(this);
 		setWindowModality(Qt::ApplicationModal);
+		setWindowFlags(Qt::Window | Qt::WindowType::CustomizeWindowHint | Qt::WindowType::WindowCloseButtonHint);
+
 		this->setFixedSize(size());
 	}
 

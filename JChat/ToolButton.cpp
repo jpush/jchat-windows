@@ -42,21 +42,21 @@ QLabel
 		if(count > 999)
 		{
 			_unread->setText("...");
-			_unread->resize(30, 16);
+			_unread->setGeometry(20, 0, 30, 16);
 			_unread->raise();
 			_unread->show();
 		}
 		else if(count > 99)
 		{
 			_unread->setText(QString::number(count));
-			_unread->resize(30, 16);
+			_unread->setGeometry(20, 0, 30, 16);
 			_unread->raise();
 			_unread->show();
 		}
 		else if(count > 1)
 		{
 			_unread->setText(QString::number(count));
-			_unread->resize(20, 16);
+			_unread->setGeometry(30, 0, 20, 16);
 			_unread->raise();
 			_unread->show();
 		}

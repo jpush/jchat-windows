@@ -27,6 +27,13 @@ JChat::FileManager::FileManager(QWidget *parent)
 	connect(ui.btnClose, &QToolButton::clicked, this, &FileManager::close);
 	parent->installEventFilter(this);
 
+
+	auto btnGroup = new QButtonGroup(this);
+	btnGroup->addButton(ui.btnShowDoc);
+	btnGroup->addButton(ui.btnShowImage);
+	btnGroup->addButton(ui.btnShowMusic);
+	btnGroup->addButton(ui.btnShowOther);
+	btnGroup->addButton(ui.btnShowVideo);
 }
 
 JChat::FileManager::~FileManager()

@@ -317,9 +317,9 @@ namespace JChat {
 		if(!info.groupName.empty())
 			ui.lineEditGroupName->setText(info.groupName.data());
 
-		ui.labelGroupId->setText(QString(u8"群ID:%1").arg(info.groupId.get()));
+		ui.labelGroupId->setText(QString(u8"群ID: %1").arg(info.groupId.get()));
 
-		ui.labelIsPublic->setText(info.isPublic ? u8"公开群" : u8"私有群");
+		ui.labelIsPublic->setText(info.isPublic ? u8"群类型: 公开群" : u8"群类型: 私有群");
 
 		ui.labelAvatar->setPixmap(pixmap);
 
