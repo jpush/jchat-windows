@@ -55,6 +55,9 @@ MainWidget::MainWidget(JChat::ClientObjectPtr const& co, QWidget *parent /*= Q_N
 	ui.setupUi(this);
 	this->setAttribute(Qt::WA_DeleteOnClose);
 
+
+	this->setBorderColor(Qt::gray);
+
 	addDragger(ui.frame_header);
 	addDragger(ui.frame);
 

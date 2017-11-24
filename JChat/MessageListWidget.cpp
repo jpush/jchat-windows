@@ -46,7 +46,6 @@ namespace JChat
 		_loadIndicator->setStyleSheet(" background-color: rgba(0, 0, 0,0 ); ");
 		_loadIndicator->hide();
 
-
 		_timer = new QTimer(this);
 		_timer->setSingleShot(true);
 		connect(_timer, &QTimer::timeout, this, [=]
@@ -80,7 +79,6 @@ namespace JChat
 		{
 			sendMessageReceipts(visible, ItemWidgetInterface::ItemFlags(ItemWidgetInterface::type_mask) & ~ItemWidgetInterface::voice);
 		});
-
 	}
 
 	MessageListWidget::~MessageListWidget()
@@ -136,7 +134,6 @@ namespace JChat
 			insertCenterWidget(getTimeDisplayStringEx(msgTime), row);
 		}
 
-
 		auto item = new QListWidgetItem();
 		if(row == -1)
 		{
@@ -156,7 +153,6 @@ namespace JChat
 				iwif->setAvatarPixmap(*_rightAvatar);
 			}
 		}
-
 
 		updateItemWidgetSize(item, viewport()->size());
 		if(row == -1)
@@ -192,8 +188,6 @@ namespace JChat
 		}, msg->content);
 		return iw;
 	}
-
-
 
 
 	void MessageListWidget::setLeftAvatar(std::optional<QPixmap> const& img)
@@ -826,7 +820,6 @@ namespace JChat
 			iw->setMessage(msg);
 			insertItemWidget(iw, row);
 			iwif = iw;
-
 			if(msg->msgId)
 			{
 				iw->setUnreadUserCount(msg->unreadUserCount);

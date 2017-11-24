@@ -1,6 +1,7 @@
 
 #include "UserInfoWidget.h"
 
+#include <QBuffer>
 #include <QMessageBox>
 #include <QMouseEvent>
 #include <QFileDialog>
@@ -390,16 +391,14 @@ namespace JChat
 							return false;
 						}
 
-
-						auto tmp = QDir::temp();
-						auto tmpImge = tmp.absoluteFilePath(QString("JChat_%1.jpg").arg(QString::number(QDateTime::currentMSecsSinceEpoch())));
-						if(image.save(tmpImge, "JPG"))
+						QByteArray data;
+						QBuffer buf(&data);
+						buf.open(QBuffer::ReadWrite);
+						if(image.save(&buf, "JPG"))
 						{
-							auto mediaId = qAwait(_co->updateSelfAvatar(tmpImge.toStdString()));
+							auto mediaId = qAwait(_co->updateSelfAvatar(data.constData(), data.size(), ".jpg"));
 							auto pixmap = qAwait(_co->getCacheUserAvatar(_userId, mediaId, true));
 							ui.label->setPixmap(pixmap);
-
-							QFile::remove(tmpImge);
 						}
 					}
 					catch(std::runtime_error& e)

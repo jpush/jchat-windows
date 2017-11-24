@@ -49,7 +49,7 @@ namespace JChat {
 		try
 		{
 
-			auto result = co_await _co->getRooms(_start);
+			auto result = co_await _co->getAppRooms(_start);
 
 			co_await self;
 			_start += result.rooms.size();
@@ -68,6 +68,7 @@ namespace JChat {
 				item->setData(QString::fromStdString(room.description), DescRole);
 				this->appendRow(item);
 			}
+
 			co_return;
 		}
 		catch(std::runtime_error& e)

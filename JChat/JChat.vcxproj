@@ -60,7 +60,7 @@
       <AdditionalIncludeDirectories>..\QxOrm\include;..\;.\GeneratedFiles;.;$(QTDIR)\include;.\GeneratedFiles\$(ConfigurationName);$(QTDIR)\include\QtCore;$(QTDIR)\include\QtGui;$(QTDIR)\include\QtWidgets;$(QTDIR)\include\QtSql;$(QTDIR)\include\QtSvg;$(QTDIR)\include\QtQml;$(QTDIR)\include\QtXml;$(QTDIR)\include\QtMultimedia;$(QTDIR)\include\QtNetwork;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
-      <AdditionalOptions>/await %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalOptions>/await /MP %(AdditionalOptions)</AdditionalOptions>
       <SuppressStartupBanner>true</SuppressStartupBanner>
     </ClCompile>
     <Link>
@@ -1742,7 +1742,7 @@
   <ImportGroup Label="ExtensionTargets">
     <Import Project="..\packages\cpprestsdk.v140.windesktop.msvcstl.dyn.rt-dyn.2.9.1\build\native\cpprestsdk.v140.windesktop.msvcstl.dyn.rt-dyn.targets" Condition="Exists('..\packages\cpprestsdk.v140.windesktop.msvcstl.dyn.rt-dyn.2.9.1\build\native\cpprestsdk.v140.windesktop.msvcstl.dyn.rt-dyn.targets')" />
     <Import Project="..\packages\openssl-vc141.1.1.0\build\native\openssl-vc141.targets" Condition="Exists('..\packages\openssl-vc141.1.1.0\build\native\openssl-vc141.targets')" />
-    <Import Project="..\packages\jmessage-cpp.1.1.0-beta171121-2\build\native\jmessage-cpp.targets" Condition="Exists('..\packages\jmessage-cpp.1.1.0-beta171121-2\build\native\jmessage-cpp.targets')" />
+    <Import Project="..\packages\jmessage-cpp.1.1.0\build\native\jmessage-cpp.targets" Condition="Exists('..\packages\jmessage-cpp.1.1.0\build\native\jmessage-cpp.targets')" />
   </ImportGroup>
   <ProjectExtensions>
     <VisualStudio>
@@ -1755,6 +1755,6 @@
     </PropertyGroup>
     <Error Condition="!Exists('..\packages\cpprestsdk.v140.windesktop.msvcstl.dyn.rt-dyn.2.9.1\build\native\cpprestsdk.v140.windesktop.msvcstl.dyn.rt-dyn.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\cpprestsdk.v140.windesktop.msvcstl.dyn.rt-dyn.2.9.1\build\native\cpprestsdk.v140.windesktop.msvcstl.dyn.rt-dyn.targets'))" />
     <Error Condition="!Exists('..\packages\openssl-vc141.1.1.0\build\native\openssl-vc141.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\openssl-vc141.1.1.0\build\native\openssl-vc141.targets'))" />
-    <Error Condition="!Exists('..\packages\jmessage-cpp.1.1.0-beta171121-2\build\native\jmessage-cpp.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\jmessage-cpp.1.1.0-beta171121-2\build\native\jmessage-cpp.targets'))" />
+    <Error Condition="!Exists('..\packages\jmessage-cpp.1.1.0\build\native\jmessage-cpp.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\jmessage-cpp.1.1.0\build\native\jmessage-cpp.targets'))" />
   </Target>
 </Project>

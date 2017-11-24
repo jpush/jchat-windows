@@ -25,7 +25,6 @@ public:
 	}
 };
 
-
 QDir JChat::ClientObject::_storageRootPath = []{
 	QDir dir = "./JChat";
 	dir.makeAbsolute();
@@ -758,7 +757,7 @@ JChat::ClientObject::sendMessage(Jmcpp::MessagePtr const& msg) const
 
 	Q_EMIT messageSent(msg);
 
-	result.then([=,self = shared_from_this()](pplx::task<Jmcpp::MessagePtr> t)
+	result.then([=, self = shared_from_this()](pplx::task<Jmcpp::MessagePtr> t)
 	{
 		try
 		{
@@ -1335,6 +1334,7 @@ JChat::ClientObject::_getGroupDummyName(Jmcpp::GroupId groupId)
 	{
 
 	}
+
 	co_return userNames.join(',');
 }
 
