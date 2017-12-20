@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.27004.2005
+VisualStudioVersion = 15.0.27130.2010
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "QxOrm", "QxOrm\QxOrm.vcxproj", "{3D9BA35E-D91B-3866-9090-C3EDCDEAB8D1}"
 EndProject
@@ -32,7 +32,7 @@ Global
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		Qt5Version = $(DefaultQtVersion)
 		SolutionGuid = {93914589-5AC9-4804-83A2-3ABFFA9A6813}
+		Qt5Version = $(DefaultQtVersion)
 	EndGlobalSection
 EndGlobal
