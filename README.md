@@ -37,4 +37,6 @@ JChat 是基于 [Windows C++ SDK](https://docs.jiguang.cn/jmessage/client/im_win
 ### 依赖
 
 - QxOrm :基于Qt的对象关系映射（ORM）操作数据库(工程已包含)
+- EmojiOne: [emoji 表情](https://www.emojione.com/developers/download)
+
 
