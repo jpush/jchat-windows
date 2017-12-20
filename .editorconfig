@@ -1,0 +1,10 @@
+# top-most EditorConfig file
+root = true
+
+
+# Tab indentation
+[**.{h,cpp,hpp}]
+indent_style = tab
+indent_size = 4
+
+charset = utf-8-bom
