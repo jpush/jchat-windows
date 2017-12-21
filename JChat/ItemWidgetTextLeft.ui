@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>446</width>
-    <height>107</height>
+    <height>78</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -128,6 +128,13 @@
          <family>微软雅黑</family>
          <pointsize>10</pointsize>
         </font>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">QTextEdit
+{
+	padding:-4px 0px -4px 0px;
+	margin:4px 0px 4px 0px;
+}</string>
        </property>
        <property name="verticalScrollBarPolicy">
         <enum>Qt::ScrollBarAlwaysOff</enum>

@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>566</width>
-    <height>499</height>
+    <width>555</width>
+    <height>526</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -29,7 +29,7 @@
      </property>
      <property name="sizeHint" stdset="0">
       <size>
-       <width>136</width>
+       <width>120</width>
        <height>20</height>
       </size>
      </property>
@@ -141,9 +141,21 @@
      </item>
      <item>
       <widget class="QTextBrowser" name="textBrowser">
+       <property name="maximumSize">
+        <size>
+         <width>16777215</width>
+         <height>100</height>
+        </size>
+       </property>
        <property name="styleSheet">
         <string notr="true">border:none;
 padding:0px -4px;</string>
+       </property>
+       <property name="verticalScrollBarPolicy">
+        <enum>Qt::ScrollBarAlwaysOff</enum>
+       </property>
+       <property name="horizontalScrollBarPolicy">
+        <enum>Qt::ScrollBarAlwaysOff</enum>
        </property>
        <property name="html">
         <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
@@ -163,7 +175,7 @@ p, li { white-space: pre-wrap; }
          </property>
          <property name="sizeHint" stdset="0">
           <size>
-           <width>40</width>
+           <width>100</width>
            <height>20</height>
           </size>
          </property>
@@ -180,7 +192,8 @@ p, li { white-space: pre-wrap; }
          <property name="styleSheet">
           <string notr="true">QPushButton
 {
-	min-height:25px;
+	width:200px;
+	min-height:30px;
 	color:rgb(255, 255, 255);
 	border:1px solid white;
 	border-radius:4px;
@@ -205,13 +218,26 @@ QPushButton:hover
          </property>
          <property name="sizeHint" stdset="0">
           <size>
-           <width>40</width>
+           <width>100</width>
            <height>20</height>
           </size>
          </property>
         </spacer>
        </item>
       </layout>
+     </item>
+     <item>
+      <spacer name="verticalSpacer">
+       <property name="orientation">
+        <enum>Qt::Vertical</enum>
+       </property>
+       <property name="sizeHint" stdset="0">
+        <size>
+         <width>20</width>
+         <height>40</height>
+        </size>
+       </property>
+      </spacer>
      </item>
     </layout>
    </item>
@@ -222,7 +248,7 @@ QPushButton:hover
      </property>
      <property name="sizeHint" stdset="0">
       <size>
-       <width>136</width>
+       <width>120</width>
        <height>20</height>
       </size>
      </property>

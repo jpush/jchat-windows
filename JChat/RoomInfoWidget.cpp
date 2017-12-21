@@ -1,4 +1,4 @@
-#include "RoomInfoWidget.h"
+ï»¿#include "RoomInfoWidget.h"
 #include <QPainter>
 #include <QResizeEvent>
 #include <QGraphicsDropShadowEffect>
@@ -18,7 +18,7 @@ namespace JChat {
 		, _roomId(roomId)
 	{
 		ui.setupUi(this);
-
+		ui.labelMembers->hide();
 		connect(qApp, &QApplication::focusChanged, this, [=](QWidget *old, QWidget *now)
 		{
 			if(!isVisible() || !now){ return; }
@@ -100,10 +100,10 @@ namespace JChat {
 
 		co_await self;
 
-		ui.labelRoomName->setText(QString(u8"ÁÄÌìÊÒÃû³Æ: %1").arg(roomInfo.roomName.data()));
+		ui.labelRoomName->setText(QString(u8"èŠå¤©å®¤åç§°: %1").arg(roomInfo.roomName.data()));
 
-		ui.labelRoomId->setText(QString(u8"ÁÄÌìÊÒID: %1").arg(roomId.get()));
-		ui.labelMembers->setText(QString(u8"ÁÄÌìÊÒ³ÉÔ±: %1ÈË").arg(roomInfo.currentMemberCount));
+		ui.labelRoomId->setText(QString(u8"èŠå¤©å®¤ID: %1").arg(roomId.get()));
+		ui.labelMembers->setText(QString(u8"èŠå¤©å®¤æˆå‘˜: %1äºº").arg(roomInfo.currentMemberCount));
 
 		ui.textBrowser->setText(QString(u8"%1").arg(roomInfo.description.c_str()));
 

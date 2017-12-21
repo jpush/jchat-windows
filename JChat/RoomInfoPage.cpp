@@ -1,4 +1,4 @@
-#include "RoomInfoPage.h"
+Ôªø#include "RoomInfoPage.h"
 
 #include "MainWidget.h"
 
@@ -12,6 +12,8 @@ namespace JChat {
 		: QWidget(parent)
 	{
 		ui.setupUi(this);
+
+		ui.labelMembers->hide();
 	}
 
 	RoomInfoPage::~RoomInfoPage()
@@ -27,9 +29,9 @@ namespace JChat {
 		if(_roomId == 0)
 		{
 			ui.labelRoomName->setText("");
-			ui.labelRoomId->setText(QString(u8"¡ƒÃÏ “ID:"));
-			ui.labelMembers->setText(QString(u8"¡ƒÃÏ “≥…‘±:"));
-			ui.textBrowser->setText(QString(u8"ΩÈ…‹:"));
+			ui.labelRoomId->setText(QString(u8"ËÅäÂ§©ÂÆ§ID:"));
+			ui.labelMembers->setText(QString(u8"ËÅäÂ§©ÂÆ§ÊàêÂëò:"));
+			ui.textBrowser->setText(QString(u8"‰ªãÁªç:"));
 
 			ui.btnJoinRoom->hide();
 			co_return;
@@ -45,10 +47,10 @@ namespace JChat {
 
 			ui.labelRoomName->setText(roomInfo.roomName.data());
 
-			ui.labelRoomId->setText(QString(u8"¡ƒÃÏ “ID: %1").arg(roomId.get()));
-			ui.labelMembers->setText(QString(u8"¡ƒÃÏ “≥…‘±: %1»À").arg(roomInfo.currentMemberCount));
+			ui.labelRoomId->setText(QString(u8"ËÅäÂ§©ÂÆ§ID: %1").arg(roomId.get()));
+			ui.labelMembers->setText(QString(u8"ËÅäÂ§©ÂÆ§ÊàêÂëò: %1‰∫∫").arg(roomInfo.currentMemberCount));
 
-			ui.textBrowser->setText(QString(u8"ΩÈ…‹: %1").arg(roomInfo.description.c_str()));
+			ui.textBrowser->setText(QString(u8"‰ªãÁªç: %1").arg(roomInfo.description.c_str()));
 		}
 	}
 

@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>504</width>
-    <height>61</height>
+    <height>59</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -188,8 +188,12 @@
         <string notr="true">QLabel
 {
 	background-color: rgba(0, 0, 0, 0);
-	
 	color: rgb(141, 141, 141);
+}
+QFrame
+{
+	padding:-6px 0px -6px 0px;
+	margin:6px 0px 6px 0px;
 }</string>
        </property>
        <property name="frameShape">

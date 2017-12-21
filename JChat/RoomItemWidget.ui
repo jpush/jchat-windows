@@ -159,6 +159,12 @@ QFrame[sticktop=&quot;true&quot;]
             <kerning>true</kerning>
            </font>
           </property>
+          <property name="styleSheet">
+           <string notr="true">QLabel
+{
+	color: rgb(153, 153, 153);
+}</string>
+          </property>
           <property name="text">
            <string>desc</string>
           </property>
