@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 
 #include <QObject>
 #include <QDebug>
@@ -45,7 +45,8 @@ namespace JChat {
 		{
 			return _people;
 		}
-
+	private:
+		void htmlToText(QString& result, QDomNode const& n);
 	private:
 		QJSEngine				_js;
 
