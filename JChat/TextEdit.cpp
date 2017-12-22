@@ -1,4 +1,4 @@
-#include "TextEdit.h"
+﻿#include "TextEdit.h"
 
 #include <optional>
 #include <QKeyEvent>
@@ -542,12 +542,6 @@ namespace JChat {
 					widget->sendImage(filePath);
 				}
 			}
-
-		}
-		else if(source->hasHtml())
-		{
-			auto text = source->html();
-			this->insertHtml(text);
 		}
 		else if(source->hasText())
 		{
@@ -557,6 +551,12 @@ namespace JChat {
 			auto html = e->toImage(text);
 			this->insertHtml(html);
 		}
+		else if(source->hasHtml())
+		{
+			auto text = source->html();
+			this->insertHtml(text);
+		}
+		
 	}
 
 } // namespace JChat
