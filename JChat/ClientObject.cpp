@@ -812,62 +812,62 @@ JChat::ClientObject::_download(QUrl const& url, std::function<void(int)> progres
 {
 	pplx::task_completion_event<QByteArray> tce;
 	post(_netThread, [this, self = shared_from_this(), url, tce, progress = std::move(progress)]
-	{
-		auto reply = _manager->get(QNetworkRequest(url));
-		if(progress)
-		{
-			connect(reply, &QNetworkReply::downloadProgress, reply,
-					[progress = std::move(progress),flag = false](qint64 bytesReceived, qint64 bytesTotal) mutable
-			{
-				if(bytesTotal == bytesReceived && bytesTotal == 0)
-				{
-					return;
-				}
+		 {
+			 auto reply = _manager->get(QNetworkRequest(url));
+			 if(progress)
+			 {
+				 connect(reply, &QNetworkReply::downloadProgress, reply,
+						 [progress = std::move(progress),flag = false](qint64 bytesReceived, qint64 bytesTotal) mutable
+				 {
+					 if(bytesTotal == bytesReceived && bytesTotal == 0)
+					 {
+						 return;
+					 }
 
-				if(bytesTotal == -1)
-				{
-					if(!flag)
-					{
-						post(qApp, [=]
-						{
-							progress(-1);
-						});
-						flag = true;
-					}
-				}
-				else
-				{
-					post(qApp, [=]
-					{
-						progress((float)bytesReceived / bytesTotal * 100);
-					});
-				}
-			});
-		}
+					 if(bytesTotal == -1)
+					 {
+						 if(!flag)
+						 {
+							 post(qApp, [=]
+							 {
+								 progress(-1);
+							 });
+							 flag = true;
+						 }
+					 }
+					 else
+					 {
+						 post(qApp, [=]
+						 {
+							 progress((float)bytesReceived / bytesTotal * 100);
+						 });
+					 }
+				 });
+			 }
 
 
-		connect(reply, &QNetworkReply::finished, reply, [=]
-		{
-			reply->deleteLater();
-			auto data = reply->readAll();
-			tce.set(data);
-		});
+			 connect(reply, &QNetworkReply::finished, reply, [=]
+			 {
+				 reply->deleteLater();
+				 auto data = reply->readAll();
+				 tce.set(data);
+			 });
 
-		connect(reply, (void(QNetworkReply::*)(QNetworkReply::NetworkError)) &QNetworkReply::error, reply, [=](QNetworkReply::NetworkError err)
-		{
-			reply->deleteLater();
-			if(err != QNetworkReply::NetworkError::NoError)
-			{
-				tce.set_exception(std::system_error(std::make_error_code(std::errc::io_error)));
-			}
-		});
+			 connect(reply, (void(QNetworkReply::*)(QNetworkReply::NetworkError)) &QNetworkReply::error, reply, [=](QNetworkReply::NetworkError err)
+			 {
+				 reply->deleteLater();
+				 if(err != QNetworkReply::NetworkError::NoError)
+				 {
+					 tce.set_exception(std::system_error(std::make_error_code(std::errc::io_error)));
+				 }
+			 });
 
-		connect(reply, &QNetworkReply::sslErrors, reply, [=](const QList<QSslError> &errors)
-		{
-			reply->deleteLater();
-			tce.set_exception(std::system_error(std::make_error_code(std::errc::protocol_not_supported)));
-		});
-	});
+			 connect(reply, &QNetworkReply::sslErrors, reply, [=](const QList<QSslError> &errors)
+			 {
+				 reply->deleteLater();
+				 tce.set_exception(std::system_error(std::make_error_code(std::errc::protocol_not_supported)));
+			 });
+		 });
 
 	return pplx::create_task(tce);
 
@@ -1027,13 +1027,13 @@ JChat::ClientObject::init()
 		Q_EMIT messagesReceived(msgs);
 	});
 
-	onEventReceive([this](Jmcpp::Event event){
+	onEventReceive(std::bind([this](Jmcpp::Event event){
 
 		std::visit([=](auto&& ev)
 		{
 			onEvent(ev);
 		}, event);
-	});
+	},std::placeholders::_1));
 
 	onEventSync([this](std::vector<Jmcpp::Event> eventList)
 	{

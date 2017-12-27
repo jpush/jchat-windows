@@ -1741,8 +1741,7 @@
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
     <Import Project="..\packages\cpprestsdk.v140.windesktop.msvcstl.dyn.rt-dyn.2.9.1\build\native\cpprestsdk.v140.windesktop.msvcstl.dyn.rt-dyn.targets" Condition="Exists('..\packages\cpprestsdk.v140.windesktop.msvcstl.dyn.rt-dyn.2.9.1\build\native\cpprestsdk.v140.windesktop.msvcstl.dyn.rt-dyn.targets')" />
-    <Import Project="..\packages\openssl-vc141.1.1.0\build\native\openssl-vc141.targets" Condition="Exists('..\packages\openssl-vc141.1.1.0\build\native\openssl-vc141.targets')" />
-    <Import Project="..\packages\jmessage-cpp.1.1.0\build\native\jmessage-cpp.targets" Condition="Exists('..\packages\jmessage-cpp.1.1.0\build\native\jmessage-cpp.targets')" />
+    <Import Project="..\packages\jmessage-cpp.1.2.0-beta171227-0\build\native\jmessage-cpp.targets" Condition="Exists('..\packages\jmessage-cpp.1.2.0-beta171227-0\build\native\jmessage-cpp.targets')" />
   </ImportGroup>
   <ProjectExtensions>
     <VisualStudio>
@@ -1754,7 +1753,6 @@
       <ErrorText>此项目引用这台计算机上缺少的 NuGet 程序包。使用 NuGet 程序包还原可下载这些程序包。有关详细信息，请参阅 http://go.microsoft.com/fwlink/?LinkID=322105。缺少的文件是 {0}。</ErrorText>
     </PropertyGroup>
     <Error Condition="!Exists('..\packages\cpprestsdk.v140.windesktop.msvcstl.dyn.rt-dyn.2.9.1\build\native\cpprestsdk.v140.windesktop.msvcstl.dyn.rt-dyn.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\cpprestsdk.v140.windesktop.msvcstl.dyn.rt-dyn.2.9.1\build\native\cpprestsdk.v140.windesktop.msvcstl.dyn.rt-dyn.targets'))" />
-    <Error Condition="!Exists('..\packages\openssl-vc141.1.1.0\build\native\openssl-vc141.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\openssl-vc141.1.1.0\build\native\openssl-vc141.targets'))" />
-    <Error Condition="!Exists('..\packages\jmessage-cpp.1.1.0\build\native\jmessage-cpp.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\jmessage-cpp.1.1.0\build\native\jmessage-cpp.targets'))" />
+    <Error Condition="!Exists('..\packages\jmessage-cpp.1.2.0-beta171227-0\build\native\jmessage-cpp.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\jmessage-cpp.1.2.0-beta171227-0\build\native\jmessage-cpp.targets'))" />
   </Target>
 </Project>
