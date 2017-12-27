@@ -15,16 +15,20 @@ Global
 		Release|x86 = Release|x86
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{3D9BA35E-D91B-3866-9090-C3EDCDEAB8D1}.Debug|x64.ActiveCfg = Debug|Win32
+		{3D9BA35E-D91B-3866-9090-C3EDCDEAB8D1}.Debug|x64.ActiveCfg = Debug|x64
+		{3D9BA35E-D91B-3866-9090-C3EDCDEAB8D1}.Debug|x64.Build.0 = Debug|x64
 		{3D9BA35E-D91B-3866-9090-C3EDCDEAB8D1}.Debug|x86.ActiveCfg = Debug|Win32
 		{3D9BA35E-D91B-3866-9090-C3EDCDEAB8D1}.Debug|x86.Build.0 = Debug|Win32
-		{3D9BA35E-D91B-3866-9090-C3EDCDEAB8D1}.Release|x64.ActiveCfg = Release|Win32
+		{3D9BA35E-D91B-3866-9090-C3EDCDEAB8D1}.Release|x64.ActiveCfg = Release|x64
+		{3D9BA35E-D91B-3866-9090-C3EDCDEAB8D1}.Release|x64.Build.0 = Release|x64
 		{3D9BA35E-D91B-3866-9090-C3EDCDEAB8D1}.Release|x86.ActiveCfg = Release|Win32
 		{3D9BA35E-D91B-3866-9090-C3EDCDEAB8D1}.Release|x86.Build.0 = Release|Win32
-		{B12702AD-ABFB-343A-A199-8E24837244A3}.Debug|x64.ActiveCfg = Debug|Win32
+		{B12702AD-ABFB-343A-A199-8E24837244A3}.Debug|x64.ActiveCfg = Debug|x64
+		{B12702AD-ABFB-343A-A199-8E24837244A3}.Debug|x64.Build.0 = Debug|x64
 		{B12702AD-ABFB-343A-A199-8E24837244A3}.Debug|x86.ActiveCfg = Debug|Win32
 		{B12702AD-ABFB-343A-A199-8E24837244A3}.Debug|x86.Build.0 = Debug|Win32
-		{B12702AD-ABFB-343A-A199-8E24837244A3}.Release|x64.ActiveCfg = Release|Win32
+		{B12702AD-ABFB-343A-A199-8E24837244A3}.Release|x64.ActiveCfg = Release|x64
+		{B12702AD-ABFB-343A-A199-8E24837244A3}.Release|x64.Build.0 = Release|x64
 		{B12702AD-ABFB-343A-A199-8E24837244A3}.Release|x86.ActiveCfg = Release|Win32
 		{B12702AD-ABFB-343A-A199-8E24837244A3}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
@@ -32,7 +36,7 @@ Global
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {93914589-5AC9-4804-83A2-3ABFFA9A6813}
 		Qt5Version = $(DefaultQtVersion)
+		SolutionGuid = {93914589-5AC9-4804-83A2-3ABFFA9A6813}
 	EndGlobalSection
 EndGlobal
