@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 
 #include <memory>
 #include <type_traits>
@@ -83,7 +83,6 @@ namespace QxWin
 		friend _qx_win::StyleBase;
 	};
 
-
 	template<class T, bool ResizeEnabled = true, bool TitleBarEnabled = true>
 	class MetroStyle : public T, _qx_win::StyleBase
 	{
@@ -93,12 +92,22 @@ namespace QxWin
 
 		using base_type = T;
 	public:
+
+	#if defined(_MSC_VER)
 		MetroStyle(QWidget* parent = 0, Qt::WindowFlags f = Qt::WindowFlags())
 			:base_type(parent, f | ((f&Qt::WindowType_Mask) ? Qt::WindowType(0) : Qt::Window) | Qt::FramelessWindowHint)
 			, StyleBase(this, ResizeEnabled, TitleBarEnabled)
 		{
 
 		}
+	#else
+		MetroStyle(QWidget* parent = 0, Qt::WindowFlags f = Qt::WindowFlags())
+			: base_type(parent, f), StyleBase(this, ResizeEnabled, TitleBarEnabled)
+		{
+
+		}
+
+	#endif // _MSC_VER
 
 		~MetroStyle(){}
 

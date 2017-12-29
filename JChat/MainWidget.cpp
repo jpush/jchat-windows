@@ -55,6 +55,7 @@ MainWidget::MainWidget(JChat::ClientObjectPtr const& co, QWidget *parent /*= Q_N
 	ui.setupUi(this);
 	this->setAttribute(Qt::WA_DeleteOnClose);
 
+#if defined(_MSC_VER)
 
 	this->setBorderColor(Qt::gray);
 
@@ -81,6 +82,11 @@ MainWidget::MainWidget(JChat::ClientObjectPtr const& co, QWidget *parent /*= Q_N
 		close();
 	});
 
+#else
+	ui.btnMin->hide();
+	ui.btnMax->hide();
+	ui.btnClose->hide();
+#endif
 
 
 	ui.listWidgetFriendEvent->setClientObject(_co);
@@ -151,7 +157,6 @@ MainWidget::~MainWidget()
 		_co->logout();
 	}
 }
-
 
 
 void

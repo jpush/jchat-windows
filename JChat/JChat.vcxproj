@@ -1600,6 +1600,7 @@
       <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
       </Command>
     </CustomBuild>
+    <ClInclude Include="pplxawait.h" />
     <ClInclude Include="resource.h" />
     <CustomBuild Include="RoomListModel.h">
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>

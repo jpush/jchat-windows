@@ -1,6 +1,10 @@
-﻿#include <windows.h>
+﻿
+#ifdef _MSC_VER
+#include <windows.h>
 #include <DbgHelp.h>
 #pragma comment(lib,"DbgHelp")
+#endif // _MSC_VER
+
 
 #include <QTranslator>
 #include <QLibraryInfo>
@@ -9,7 +13,7 @@
 
 #include "LoginWidget.h"
 
-
+#ifdef _MSC_VER
 static LONG WINAPI crashHandler(EXCEPTION_POINTERS * ExceptionInfo)
 {
 	MINIDUMP_EXCEPTION_INFORMATION  M;
@@ -99,14 +103,15 @@ static void loggerFn(QtMsgType type, const QMessageLogContext &context, const QS
 		}break;
 	}
 }
+#endif // _MSC_VER
 
 
 int main(int argc, char *argv[])
 {
-
+#ifdef _MSC_VER
 	SetUnhandledExceptionFilter(crashHandler);
-
 	qInstallMessageHandler(loggerFn);
+#endif
 
 	qputenv("QT_SCALE_FACTOR", "1");
 

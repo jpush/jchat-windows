@@ -1,6 +1,4 @@
 ﻿#pragma once
-
-#include <windows.h>
 #include <optional>
 #include <QCoreApplication>
 #include <QEventLoop>
@@ -13,11 +11,11 @@
 
 #include <pplx/pplxtasks.h>
 
-#if defined(_RESUMABLE_FUNCTIONS_SUPPORTED) && _RESUMABLE_FUNCTIONS_SUPPORTED
+#if defined(_RESUMABLE_FUNCTIONS_SUPPORTED) && _RESUMABLE_FUNCTIONS_SUPPORTED || defined(__cpp_coroutines) && __cpp_coroutines >= 201703L
 
 #include <experimental/coroutine>
 #include "Dispatch.h"
-#include <pplawait.h>
+#include "pplxawait.h"
 
 template < class T, int ResumePolicy = 0, bool ResumeOnIdle = (ResumePolicy == 1), bool ResumeOnShow = (ResumePolicy > 1) >
 class Pointer : public QPointer<T>
@@ -356,50 +354,6 @@ struct ResumeBackground
 		QThreadPool::globalInstance()->start(new Task{ handle });
 	}
 };
-
-
-struct ResumeAfter
-{
-	template<class Rep, class Period>
-	explicit ResumeAfter(std::chrono::duration<Rep, Period> const& duration) noexcept
-		:_duration(duration){}
-
-	~ResumeAfter()
-	{
-		if(_timer)
-		{
-			CloseThreadpoolTimer(_timer);
-		}
-	}
-
-	bool await_ready() const noexcept
-	{
-		return _duration.count() <= 0;
-	}
-
-	void await_suspend(std::experimental::coroutine_handle<> handle)
-	{
-		_timer = CreateThreadpoolTimer(callback, handle.address(), nullptr);
-		if(!_timer)
-		{
-			throw std::system_error(std::make_error_code(std::errc::resource_unavailable_try_again));
-		}
-		int64_t relative_count = -_duration.count() * 10;
-		SetThreadpoolTimer(_timer, reinterpret_cast<PFILETIME>(&relative_count), 0, 0);
-	}
-
-	void await_resume() const noexcept{	}
-
-private:
-	static void __stdcall callback(PTP_CALLBACK_INSTANCE, void * context, PTP_TIMER) noexcept
-	{
-		std::experimental::coroutine_handle<>::from_address(context)();
-	}
-
-	PTP_TIMER					_timer{};
-	std::chrono::microseconds	_duration;
-};
-
 
 struct FireAndForget{};
 using None = FireAndForget;

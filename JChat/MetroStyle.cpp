@@ -17,10 +17,13 @@
 #include <QStyle>
 #include <QLibrary>
 
-#include <windows.h>
-#include <qt_windows.h>
 
 #include "MetroStyle.h"
+
+#if defined(_MSC_VER)
+
+#include <windows.h>
+#include <qt_windows.h>
 
 namespace QxWin{
 
@@ -93,7 +96,7 @@ namespace QxWin{
 		class BorderWidget :public QWidget
 		{
 		public:
-			QWidget*					mainWidget;
+			QWidget * mainWidget;
 			QColor						borderColor{ 0,100,255 };
 			const qint8					resizeBorderWidth = 30;
 			qint8						borderWidth = 9;
@@ -403,7 +406,7 @@ namespace QxWin{
 		class StyleBase::WidgetData :public QObject
 		{
 		public:
-			StyleBase*					styleBase = nullptr;
+			StyleBase * styleBase = nullptr;
 
 			QWidget*					mainWidget = nullptr;
 			_qx_win::BorderWidget*		border = nullptr;
@@ -554,7 +557,7 @@ namespace QxWin{
 	class TitleBar::Impl
 	{
 	public:
-		QWidget*				widget = nullptr;
+		QWidget * widget = nullptr;
 		_qx_win::StyleBase*	styleBase = nullptr;
 
 		QWidget*				titleBarWidget = nullptr;
@@ -1089,3 +1092,154 @@ namespace QxWin{
 		}
 	}
 }
+
+#else
+
+namespace QxWin
+{
+	class TitleBar::Impl{};
+
+	TitleBar::TitleBar(_qx_win::StyleBase* styleBase)
+	{
+
+	}
+
+	TitleBar::~TitleBar()
+	{
+
+	}
+
+	QWidget* TitleBar::widget() const
+	{
+		return nullptr;
+	}
+
+	void TitleBar::onResizeEnableChanged(bool resizeEnable)
+	{
+
+	}
+
+	void TitleBar::setMinButtonVisible(bool visible)
+	{
+
+	}
+
+	bool TitleBar::minButtonVisible() const
+	{
+		return true;
+	}
+
+	void TitleBar::setMaxButtonVisible(bool visible)
+	{
+	}
+
+	bool TitleBar::maxButtonVisible() const
+	{
+		return true;
+	}
+
+	void TitleBar::setCloseButtonVisible(bool visible)
+	{
+	}
+
+	bool TitleBar::closeButtonVisible() const
+	{
+		return true;
+	}
+
+	bool TitleBar::eventFilter(QObject *watched, QEvent *e)
+	{
+		return false;
+	}
+}
+
+
+namespace QxWin::_qx_win
+{
+
+
+	class StyleBase::WidgetData :public QObject
+	{
+
+	};
+
+	StyleBase::StyleBase(QWidget* mainWidget, bool resizeEnabled, bool titleBarEnabled)
+		: _p(std::make_unique<WidgetData>())
+	{
+
+	}
+
+	StyleBase::~StyleBase()
+	{
+
+	}
+
+	void StyleBase::setResizeEnabled(bool enable)
+	{
+
+	}
+
+	bool StyleBase::resizeEnabled() const
+	{
+		return true;
+	}
+
+	QColor const& StyleBase::borderColor() const
+	{
+		static QColor color;
+		return color;
+	}
+
+	void StyleBase::setBorderColor(QColor const& color)
+	{
+
+	}
+
+	void StyleBase::dragMove() const
+	{
+
+	}
+
+	void StyleBase::switchNormalMaximized() const
+	{
+	}
+
+	void StyleBase::setTitleBarEnabled(bool enable)
+	{
+
+	}
+
+	bool StyleBase::titleBarEnabled() const
+	{
+		return true;
+	}
+
+	TitleBar* StyleBase::titleBar() const
+	{
+		return nullptr;
+	}
+
+	void StyleBase::addDragger(QWidget* widget, bool maximizedByDoubleClick /*= false*/)
+	{
+
+	}
+
+	void StyleBase::removeDragger(QWidget* widget)
+	{
+
+	}
+
+	//////////////////////////////////////////////////////////////////////////
+	bool StyleBase::_eventImpl(QEvent * e)
+	{
+		return false;
+	}
+
+	bool StyleBase::_nativeEventImpl(const QByteArray &, void *message, long *result)
+	{
+		return false;
+	}
+}
+
+#endif // _MSC_VER
+

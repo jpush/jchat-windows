@@ -1,4 +1,4 @@
-#include "SearchUser.h"
+﻿#include "SearchUser.h"
 
 #include <QGraphicsDropShadowEffect>
 
@@ -87,7 +87,6 @@ JChat::SearchUser::searchUser(ClientObjectPtr co, QString const& text)
 	Jmcpp::ConversationId searched;
 	try
 	{
-		//co_await ResumeAfter(std::chrono::seconds(3));
 		auto info = co_await co->getCacheUserInfo({ text.toStdString(),currentUserId.appKey });
 		searched = info.userId;
 		auto image = co_await co->getCacheUserAvatar(info.userId, info.avatar);
