@@ -7,7 +7,7 @@ class Settings : public QSettings
 {
 	Q_OBJECT
 public:
-	Settings::Settings(QString const& filename, QObject *parent = 0)
+	Settings(QString const& filename, QObject *parent = 0)
 		: QSettings(filename, QSettings::IniFormat, parent)
 	{
 

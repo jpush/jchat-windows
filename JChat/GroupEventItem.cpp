@@ -49,7 +49,7 @@ namespace JChat {
 		co_await self;
 		if(et.isReject)
 		{
-			QString msg = u8R"(ÈºÖ÷¾Ü¾ø <a href=""><span style="text-decoration: none; color:#0000ff;">%1</span></a> ÈëÈº)";
+			QString msg = u8R"(ç¾¤ä¸»æ‹’ç» <a href=""><span style="text-decoration: none; color:#0000ff;">%1</span></a> å…¥ç¾¤)";
 
 			auto name = getUserDisplayName(userInfo);
 
@@ -88,7 +88,7 @@ namespace JChat {
 
 				co_await self;
 
-				QString t = u8R"(<a href="1"><span style="text-decoration: none; color:#0000ff;">%1</span></a> ÉêÇë¼ÓÈëÈº <a href="2"><span style="text-decoration: none; color:#0000ff;">%2</span></a>)";
+				QString t = u8R"(<a href="1"><span style="text-decoration: none; color:#0000ff;">%1</span></a> ç”³è¯·åŠ å…¥ç¾¤ <a href="2"><span style="text-decoration: none; color:#0000ff;">%2</span></a>)";
 
 				ui.labelTitle->setText(t.arg(getUserDisplayName(fromUserInfo), groupName));
 
@@ -105,7 +105,7 @@ namespace JChat {
 				});
 
 
-				ui.labelMessage->setText(u8"¸½¼ÓĞÅÏ¢£º" + et.message);
+				ui.labelMessage->setText(u8"é™„åŠ ä¿¡æ¯ï¼š" + et.message);
 
 				ui.label->setPixmap(avatar);
 
@@ -120,7 +120,7 @@ namespace JChat {
 
 				co_await self;
 
-				QString t = u8R"(<a href="1"><span style="text-decoration: none; color:#0000ff;">%1</span></a> ÉêÇë¼ÓÈëÈº <a href="2"><span style="text-decoration: none; color:#0000ff;">%2</span></a>)";
+				QString t = u8R"(<a href="1"><span style="text-decoration: none; color:#0000ff;">%1</span></a> ç”³è¯·åŠ å…¥ç¾¤ <a href="2"><span style="text-decoration: none; color:#0000ff;">%2</span></a>)";
 
 				ui.labelTitle->setText(t.arg(getUserDisplayName(userInfo), groupName));
 
@@ -137,7 +137,7 @@ namespace JChat {
 				});
 
 
-				ui.labelMessage->setText(u8"ÑûÇëÈË£º" + getUserDisplayName(fromUserInfo));
+				ui.labelMessage->setText(u8"é‚€è¯·äººï¼š" + getUserDisplayName(fromUserInfo));
 
 				ui.label->setPixmap(avatar);
 

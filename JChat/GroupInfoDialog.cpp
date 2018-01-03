@@ -44,18 +44,18 @@ namespace JChat {
 
 		ui.labelGroupName->setText(info.groupName.c_str());
 
-		ui.labelGroupId->setText(QString(u8"ÈºID:%1").arg(info.groupId.get()));
+		ui.labelGroupId->setText(QString(u8"ç¾¤ID:%1").arg(info.groupId.get()));
 		ui.labelOwnerName->setText(onwer.username.c_str());
-		ui.labelCount->setText(QString(u8"%1ÈË").arg(members.size()));
+		ui.labelCount->setText(QString(u8"%1äºº").arg(members.size()));
 
-		ui.textBrowser->setText(QString(u8"ÈºÃèÊö:%1").arg(info.description.c_str()));
+		ui.textBrowser->setText(QString(u8"ç¾¤æè¿°:%1").arg(info.description.c_str()));
 	}
 
 	Q_SLOT void GroupInfoDialog::on_btnJoinGroup_clicked()
 	{
 
 		bool ok = false;
-		auto text = QInputDialog::getMultiLineText(this, "", u8"ÇëÌîĞ´ÑéÖ¤ĞÅÏ¢", {}, &ok);
+		auto text = QInputDialog::getMultiLineText(this, "", u8"è¯·å¡«å†™éªŒè¯ä¿¡æ¯", {}, &ok);
 		if(!ok)
 		{
 			return;
@@ -64,7 +64,7 @@ namespace JChat {
 		try
 		{
 			qAwait(_co->joinGroup(_groupId, text.toStdString()));
-			QMessageBox::information(this, "", u8"ÈëÈºÉêÇëÒÑ·¢ËÍ£¬ÇëµÈ´ıÉóºË", QMessageBox::Ok);
+			QMessageBox::information(this, "", u8"å…¥ç¾¤ç”³è¯·å·²å‘é€ï¼Œè¯·ç­‰å¾…å®¡æ ¸", QMessageBox::Ok);
 		}
 		catch(std::runtime_error& e)
 		{

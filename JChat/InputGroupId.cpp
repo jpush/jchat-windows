@@ -26,7 +26,7 @@ namespace JChat {
 		Jmcpp::GroupId groupId = ui.lineEdit->text().toLongLong(&ok);
 		if(!ok)
 		{
-			QMessageBox::warning(this, "", u8"Èº×é²»´æÔÚ", QMessageBox::Ok);
+			QMessageBox::warning(this, "", u8"ç¾¤ç»„ä¸å­˜åœ¨", QMessageBox::Ok);
 			return;
 		}
 
@@ -41,7 +41,7 @@ namespace JChat {
 
 			if(!info.isPublic)
 			{
-				//QMessageBox::warning(this, "", u8"Èº×é²»´æÔÚ", QMessageBox::Ok);
+				//QMessageBox::warning(this, "", u8"ç¾¤ç»„ä¸å­˜åœ¨", QMessageBox::Ok);
 				//return;
 			}
 
@@ -53,7 +53,7 @@ namespace JChat {
 		}
 		catch(std::runtime_error& e)
 		{
-			QMessageBox::warning(this, "", u8"Èº×é²»´æÔÚ", QMessageBox::Ok);
+			QMessageBox::warning(this, "", u8"ç¾¤ç»„ä¸å­˜åœ¨", QMessageBox::Ok);
 		}
 	}
 

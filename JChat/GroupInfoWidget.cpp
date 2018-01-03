@@ -34,11 +34,11 @@ namespace JChat {
 
 		connect(_memberModel, &MemberModel::rowsInserted, this, [=]
 		{
-			ui.labelMemberCount->setText(QString(u8"³ÉÔ±:%1").arg(_memberModel->rowCount()));
+			ui.labelMemberCount->setText(QString(u8"æˆå‘˜:%1").arg(_memberModel->rowCount()));
 		});
 		connect(_memberModel, &MemberModel::rowsRemoved, this, [=]
 		{
-			ui.labelMemberCount->setText(QString(u8"³ÉÔ±:%1").arg(_memberModel->rowCount()));
+			ui.labelMemberCount->setText(QString(u8"æˆå‘˜:%1").arg(_memberModel->rowCount()));
 		});
 
 		connect(_co.get(), &ClientObject::notDisturbChanged, this, [=](Jmcpp::ConversationId const& conId, bool on)
@@ -99,7 +99,7 @@ namespace JChat {
 
 					QMenu myMenu;
 
-					myMenu.addAction(isSlient ? u8"½â³ý½ûÑÔ" : u8"½ûÑÔ", this, [=]
+					myMenu.addAction(isSlient ? u8"è§£é™¤ç¦è¨€" : u8"ç¦è¨€", this, [=]
 					{
 						try
 						{
@@ -107,11 +107,11 @@ namespace JChat {
 						}
 						catch(std::system_error& e)
 						{
-							QMessageBox::warning(this, "", u8"½ûÑÔÊ§°Ü!", QMessageBox::Ok);
+							QMessageBox::warning(this, "", u8"ç¦è¨€å¤±è´¥!", QMessageBox::Ok);
 						}
 					});
 
-					myMenu.addAction(u8"ÒÆ³öÈºÁÄ", this, [=]
+					myMenu.addAction(u8"ç§»å‡ºç¾¤èŠ", this, [=]
 					{
 						removeMember({ userId });
 					});
@@ -229,7 +229,7 @@ namespace JChat {
 
 	void GroupInfoWidget::on_btnQuitGroup_clicked()
 	{
-		if(QMessageBox::warning(this, "", u8"È·¶¨ÒªÍË³öÈºÂð?",
+		if(QMessageBox::warning(this, "", u8"ç¡®å®šè¦é€€å‡ºç¾¤å—?",
 								QMessageBox::Yes | QMessageBox::No, QMessageBox::No) == QMessageBox::Yes)
 		{
 			try
@@ -246,7 +246,7 @@ namespace JChat {
 	void GroupInfoWidget::on_btnAddMember_clicked()
 	{
 		QString groupName;
-		auto userIds = SelectMemberWidget::getUserIds(_co, u8"Ìí¼ÓÈº³ÉÔ±", groupName, this);
+		auto userIds = SelectMemberWidget::getUserIds(_co, u8"æ·»åŠ ç¾¤æˆå‘˜", groupName, this);
 		if(!userIds){ return; }
 
 		BusyIndicator busy(this);
@@ -277,7 +277,7 @@ namespace JChat {
 
 		if(!failed)
 		{
-			QMessageBox::warning(this, "", u8"Ìí¼ÓÈº³ÉÔ±³É¹¦", QMessageBox::Ok);
+			QMessageBox::warning(this, "", u8"æ·»åŠ ç¾¤æˆå‘˜æˆåŠŸ", QMessageBox::Ok);
 		}
 
 	}
@@ -290,7 +290,7 @@ namespace JChat {
 		try
 		{
 			auto name = qAwait(_co->getUserDisplayName(userIds.front()));
-			if(QMessageBox::question(this, u8"É¾³ýÈº³ÉÔ±", QString(u8"È·¶¨½« %1 ÒÆ³öÈºÁÄÂð").arg(name), QMessageBox::Cancel | QMessageBox::Default, QMessageBox::Ok) == QMessageBox::Ok)
+			if(QMessageBox::question(this, u8"åˆ é™¤ç¾¤æˆå‘˜", QString(u8"ç¡®å®šå°† %1 ç§»å‡ºç¾¤èŠå—").arg(name), QMessageBox::Cancel | QMessageBox::Default, QMessageBox::Ok) == QMessageBox::Ok)
 			{
 				qAwait(_co->removeGroupMembers(_groupId, userIds));
 			}
@@ -317,9 +317,9 @@ namespace JChat {
 		if(!info.groupName.empty())
 			ui.lineEditGroupName->setText(info.groupName.data());
 
-		ui.labelGroupId->setText(QString(u8"ÈºID: %1").arg(info.groupId.get()));
+		ui.labelGroupId->setText(QString(u8"ç¾¤ID: %1").arg(info.groupId.get()));
 
-		ui.labelIsPublic->setText(info.isPublic ? u8"ÈºÀàÐÍ: ¹«¿ªÈº" : u8"ÈºÀàÐÍ: Ë½ÓÐÈº");
+		ui.labelIsPublic->setText(info.isPublic ? u8"ç¾¤ç±»åž‹: å…¬å¼€ç¾¤" : u8"ç¾¤ç±»åž‹: ç§æœ‰ç¾¤");
 
 		ui.labelAvatar->setPixmap(pixmap);
 

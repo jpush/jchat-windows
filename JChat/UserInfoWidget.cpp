@@ -31,7 +31,7 @@ namespace JChat
 
 		auto menu = new QMenu(this);
 
-		menu->addAction(u8"·¢ËÍÃûÆ¬", [=]
+		menu->addAction(u8"å‘é€åç‰‡", [=]
 		{
 			auto conIds = SelectUserWidget::getConversationIds(_co, this);
 			auto mainWidget = MainWidget::getCurrentMainWidget();
@@ -43,13 +43,13 @@ namespace JChat
 				}
 				if(!conIds.empty())
 				{
-					//QMessageBox::information(this->topLevelWidget(), "", u8"³É¹¦", QMessageBox::Ok);
+					//QMessageBox::information(this->topLevelWidget(), "", u8"æˆåŠŸ", QMessageBox::Ok);
 				}
 			}
 
 		});
 
-		auto notDisturb = menu->addAction(u8"ÏûÏ¢Ãâ´òÈÅ", [=](bool checked)
+		auto notDisturb = menu->addAction(u8"æ¶ˆæ¯å…æ‰“æ‰°", [=](bool checked)
 		{
 			try
 			{
@@ -64,7 +64,7 @@ namespace JChat
 		});
 		notDisturb->setCheckable(true);
 
-		auto blackList = menu->addAction(u8"¼ÓÈëºÚÃûµ¥", [=](bool checked)
+		auto blackList = menu->addAction(u8"åŠ å…¥é»‘åå•", [=](bool checked)
 		{
 			try
 			{
@@ -109,7 +109,7 @@ namespace JChat
 		{
 			if(ui.lineEditRemark->text().isEmpty())
 			{
-				QMessageBox::warning(this, "", u8"±¸×¢²»ÄÜÎª¿Õ", QMessageBox::Ok);
+				QMessageBox::warning(this, "", u8"å¤‡æ³¨ä¸èƒ½ä¸ºç©º", QMessageBox::Ok);
 				ui.lineEditRemark->setFocus();
 				return;
 			}
@@ -330,11 +330,11 @@ namespace JChat
 		{
 			if(e.code() == 882002)
 			{
-				QMessageBox::warning(parent, u8"ÌáÊ¾", u8"ÓÃ»§²»´æÔÚ", QMessageBox::Ok);
+				QMessageBox::warning(parent, u8"æç¤º", u8"ç”¨æˆ·ä¸å­˜åœ¨", QMessageBox::Ok);
 			}
 			else
 			{
-				QMessageBox::warning(parent, u8"ÌáÊ¾", e.what(), QMessageBox::Ok);
+				QMessageBox::warning(parent, u8"æç¤º", e.what(), QMessageBox::Ok);
 			}
 		}
 		catch(std::runtime_error& e)

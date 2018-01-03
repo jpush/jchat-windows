@@ -6,7 +6,6 @@
 
 QT       += core gui widgets network sql multimedia multimediawidgets svg xml quick
 
-
 TARGET = JChat
 TEMPLATE = app
 
@@ -22,16 +21,17 @@ DEFINES += QT_DEPRECATED_WARNINGS
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 RC_FILE=Resource.rc
-RESOURCES+=Resource.qrc
+
+RESOURCES = Resource.qrc
 
 FORMS += $$files(*.ui, false)
-
 
 HEADERS += $$files(*.h, false)
 HEADERS += $$files(*.hpp, false)
 
 SOURCES += $$files(*.cpp, false)
 
+CONFIG+=c++1z
 
 CONFIG(debug, debug|release):TARGET=JChatd
 CONFIG(release, debug|release):TARGET=JChat
@@ -66,6 +66,7 @@ win32{
 
 }
 else{
+	DEFINES+=_LIBCPP_ENABLE_CXX17_REMOVED_FEATURES _LIBCPP_DISABLE_AVAILABILITY
 
 	QMAKE_CXX= /usr/local/opt/llvm/bin/clang++
 	QMAKE_LINK= $$QMAKE_CXX
@@ -78,6 +79,11 @@ else{
 	INCLUDEPATH+= /usr/local/include
 	LIBS+= -L/usr/local/lib -L/usr/local/opt/openssl/lib -lssl -lcrypto
 	LIBS+= -lc++experimental -lcpprest -lboost_system -lboost_filesystem-mt   -lboost_thread-mt -lboost_chrono
+
+	INCLUDEPATH+=../Jmcppd.framework/1.2.0/1/Headers
+	LIBS+=-F../ -framework Jmcppd
+
+
 }
 
 CONFIG(debug, debug|release): LIBS += -L$$OUT_PWD/../QxOrm/debug/ -lQxOrmd

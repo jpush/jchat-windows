@@ -24,7 +24,7 @@ namespace JChat
 
 		virtual ItemFlags  flags() override
 		{
-			return ItemFlag::text | ItemFlag::incoming;
+			return  ItemFlag::text | ItemFlag::incoming;
 		}
 
 		virtual void setDisplayName(QString const&) override;

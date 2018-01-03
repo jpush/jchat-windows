@@ -74,7 +74,7 @@ void JChat::ItemWidgetVoiceLeft::setComplete()
 {
 	if(_msg->needReceipt)
 	{
-		static QPixmap icon(u8":/image/resource/ÓïÒôÎ´¶Á.png");
+		static QPixmap icon(u8":/image/resource/è¯­éŸ³æœªè¯».png");
 		ui.labelStatus->setPixmap(icon);
 		ui.labelStatus->setScaledContents(false);
 	}

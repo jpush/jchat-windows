@@ -272,28 +272,30 @@ namespace JChat{
 				}
 			}
 
-			auto item = new QStandardItem();
-			item->setData(QVariant::fromValue(conId), ConIdRole);
-			item->setData(_co->getConversationImage(conId), Role::ImageRole);
-
-			item->setData(getConversationDisplayName(conId), Role::TitleRole);
-			item->setData(con.lastChatTime, Role::TimeRole);
-
-			//item->setData(con.lastMessageStr, Role::MessageRole);
-
-			if(conId.isGroup())
 			{
-				item->setData(_co->isShield(conId.getGroupId()), Role::ShieldRole);
+				auto item = new QStandardItem();
+				item->setData(QVariant::fromValue(conId), ConIdRole);
+				item->setData(_co->getConversationImage(conId), Role::ImageRole);
+
+				item->setData(getConversationDisplayName(conId), Role::TitleRole);
+				item->setData(con.lastChatTime, Role::TimeRole);
+
+				//item->setData(con.lastMessageStr, Role::MessageRole);
+
+				if(conId.isGroup())
+				{
+					item->setData(_co->isShield(conId.getGroupId()), Role::ShieldRole);
+				}
+
+				item->setData(_co->isNotDisturb(conId), NotDisturb);
+				//
+				item->setData(con.unreadMsgCount, UnreadRole);
+				item->setData(con.sticktopTime, Role::SticktopTimeRole);
+
+				this->appendRow(item);
+
+				Q_EMIT unreadMessageCountChanged(conId, con.unreadMsgCount);
 			}
-
-			item->setData(_co->isNotDisturb(conId), NotDisturb);
-			// 
-			item->setData(con.unreadMsgCount, UnreadRole);
-			item->setData(con.sticktopTime, Role::SticktopTimeRole);
-
-			this->appendRow(item);
-
-			Q_EMIT unreadMessageCountChanged(conId, con.unreadMsgCount);
 
 		SKIP:;
 

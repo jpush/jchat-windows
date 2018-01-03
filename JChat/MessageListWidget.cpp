@@ -325,7 +325,7 @@ namespace JChat
 
 		if(msg && !msg->conId.isRoom() && iw->flags() & ItemWidgetInterface::outgoing)
 		{
-			menu->addAction(u8"³·»Ø", this, [=]
+			menu->addAction(u8"æ’¤å›", this, [=]
 			{
 				if(itemWidget)
 				{
@@ -335,7 +335,7 @@ namespace JChat
 		}
 		if(iw->flags() & ItemWidgetInterface::text)
 		{
-			menu->addAction(u8"¸´ÖÆ", this, [=]
+			menu->addAction(u8"å¤åˆ¶", this, [=]
 			{
 				if(msg && std::holds_alternative<Jmcpp::TextContent>(msg->content))
 				{
@@ -355,7 +355,7 @@ namespace JChat
 							  | ItemWidgetInterface::location
 							  ))
 			{
-				menu->addAction(u8"×ª·¢", this, [=]
+				menu->addAction(u8"è½¬å‘", this, [=]
 				{
 					auto conIds = SelectUserWidget::getConversationIds(_co, this->topLevelWidget());
 					auto content = msg->content;
@@ -369,13 +369,13 @@ namespace JChat
 						}
 						if(!conIds.empty())
 						{
-							QMessageBox::information(this->topLevelWidget(), "", u8"×ª·¢³É¹¦", QMessageBox::Ok);
+							QMessageBox::information(this->topLevelWidget(), "", u8"è½¬å‘æˆåŠŸ", QMessageBox::Ok);
 						}
 					}
 				});
 			}
 
-			menu->addAction(u8"É¾³ı", this, [=]
+			menu->addAction(u8"åˆ é™¤", this, [=]
 			{
 				if(msg){
 					if(itemWidget)
@@ -928,7 +928,7 @@ namespace JChat
 			}
 			else
 			{
-				QMessageBox::warning(this->topLevelWidget(), u8"ÌáÊ¾", u8"·¢ËÍÊ±¼ä¹ı³¤£¬²»ÄÜ³·»Ø", QMessageBox::StandardButton::Ok);
+				QMessageBox::warning(this->topLevelWidget(), u8"æç¤º", u8"å‘é€æ—¶é—´è¿‡é•¿ï¼Œä¸èƒ½æ’¤å›", QMessageBox::StandardButton::Ok);
 			}
 		}
 	}
@@ -952,7 +952,7 @@ namespace JChat
 
 						if(_co->getCurrentUser() == e.fromUser)
 						{
-							insertCenterWidget(u8"Äã³·»ØÁËÒ»ÌõÏûÏ¢", row);
+							insertCenterWidget(u8"ä½ æ’¤å›äº†ä¸€æ¡æ¶ˆæ¯", row);
 						}
 						else
 						{
@@ -961,11 +961,11 @@ namespace JChat
 								auto self = this | qTrack;
 								auto name = co_await _co->getUserDisplayName(e.fromUser);
 								co_await self;
-								insertCenterWidget(QString(u8"%1³·»ØÁËÒ»ÌõÏûÏ¢").arg(name), row);
+								insertCenterWidget(QString(u8"%1æ’¤å›äº†ä¸€æ¡æ¶ˆæ¯").arg(name), row);
 							}
 							else
 							{
-								insertCenterWidget(u8"¶Ô·½³·»ØÁËÒ»ÌõÏûÏ¢", row);
+								insertCenterWidget(u8"å¯¹æ–¹æ’¤å›äº†ä¸€æ¡æ¶ˆæ¯", row);
 							}
 						}
 						break;

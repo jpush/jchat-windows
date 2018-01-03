@@ -87,6 +87,7 @@ namespace JChat
 		QPersistentModelIndex  _index;
 	};
 
-
-
 }
+
+Q_DECLARE_OPERATORS_FOR_FLAGS(JChat::ItemWidgetInterface::ItemFlags)
+

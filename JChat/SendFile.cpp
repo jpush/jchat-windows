@@ -26,7 +26,7 @@ namespace JChat {
 		QFileInfo info(filePath);
 
 		widget.ui.labelFileName->setText(info.fileName());
-		widget.ui.labelFileSize->setText(QString(u8"¥Û–°: %1KB").arg(info.size() / 1000));
+		widget.ui.labelFileSize->setText(QString(u8"Â§ßÂ∞è: %1KB").arg(info.size() / 1000));
 
 		widget.show();
 

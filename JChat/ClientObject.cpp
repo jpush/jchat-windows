@@ -26,7 +26,7 @@ public:
 };
 
 QDir JChat::ClientObject::_storageRootPath = []{
-	QDir dir = "./JChat";
+	QDir dir {"./JChat"};
 	dir.makeAbsolute();
 	dir.mkdir("./");
 	return dir;

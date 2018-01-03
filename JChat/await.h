@@ -8,6 +8,7 @@
 #include <QPointer>
 #include <QDebug>
 #include <QShowEvent>
+#include <QWidget>
 
 #include <pplx/pplxtasks.h>
 
@@ -66,7 +67,7 @@ class Pointer : public QPointer<T>
 					handle.destroy();
 				});
 
-				QTimer::singleShot(0, QCoreApplication::instance(), [=]
+				QTimer::singleShot(0, QCoreApplication::instance(), [=]() mutable
 				{
 					QObject::disconnect(connection);
 					handle();
@@ -78,7 +79,7 @@ class Pointer : public QPointer<T>
 	};
 
 public:
-	using QPointer::QPointer;
+	using QPointer<T>::QPointer;
 
 	bool await_ready() const noexcept
 	{
@@ -91,7 +92,7 @@ public:
 
 	void await_resume() const noexcept{}
 
-	auto await_suspend(std::experimental::coroutine_handle<> handle) const
+	void await_suspend(std::experimental::coroutine_handle<> handle) const
 	{
 		auto connection = QObject::connect(QCoreApplication::instance(), &QCoreApplication::aboutToQuit, [=]() mutable
 		{
@@ -104,7 +105,7 @@ public:
 			if(QThread::currentThread() != QCoreApplication::instance()->thread()){
 				el.emplace();
 			}
-			QTimer::singleShot(0, QCoreApplication::instance(), [=]
+			QTimer::singleShot(0, QCoreApplication::instance(), [=]() mutable
 			{
 				QObject::disconnect(connection);
 				if(this->data())
@@ -130,7 +131,7 @@ public:
 			if(QThread::currentThread() != QCoreApplication::instance()->thread())	{
 				el.emplace();
 			}
-			QTimer::singleShot(0, QCoreApplication::instance(), [=]
+			QTimer::singleShot(0, QCoreApplication::instance(), [=]() mutable
 			{
 				QObject::disconnect(connection);
 				if(this->data())
@@ -314,7 +315,7 @@ struct ResumeMainThread
 				el.emplace();
 			}
 
-			QTimer::singleShot(0, QCoreApplication::instance(), [=]
+			QTimer::singleShot(0, QCoreApplication::instance(), [=]()mutable
 			{
 				QObject::disconnect(connection);
 				handle();
@@ -322,7 +323,7 @@ struct ResumeMainThread
 		}
 		else
 		{
-			JChat::post(QCoreApplication::instance(), [=]()
+			JChat::post(QCoreApplication::instance(), [=]()mutable
 			{
 				QObject::disconnect(connection);
 				handle();

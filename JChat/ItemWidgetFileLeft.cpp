@@ -49,7 +49,7 @@ namespace JChat {
 	{
 		ui.progressBar->setRange(0, 100);
 		ui.progressBar->setValue(100);
-		ui.btnFileAction->setText(u8"ÒÑÏÂÔØ");
+		ui.btnFileAction->setText(u8"å·²ä¸‹è½½");
 		ui.btnFileAction->setEnabled(false);
 	}
 
@@ -57,7 +57,7 @@ namespace JChat {
 	{
 		ui.progressBar->setRange(0, 100);
 		ui.progressBar->setValue(0);
-		ui.btnFileAction->setText(u8"½ÓÊÕÊ§°Ü");
+		ui.btnFileAction->setText(u8"æŽ¥æ”¶å¤±è´¥");
 		ui.btnFileAction->setEnabled(true);
 	}
 
@@ -73,7 +73,7 @@ namespace JChat {
 			ui.progressBar->setValue(value);
 		}
 
-		ui.btnFileAction->setText(u8"ÕýÔÚÏÂÔØ");
+		ui.btnFileAction->setText(u8"æ­£åœ¨ä¸‹è½½");
 		ui.btnFileAction->setEnabled(false);
 
 		//ui.labelStatus->setMovie(getProgressMovie());

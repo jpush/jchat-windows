@@ -60,8 +60,8 @@ namespace JChat {
 
 			co_await self;
 
-			ui.labelUnread->setText(QString(u8"未读成员(%1)").arg(result.unreadUserList.size()));
-			ui.labelRead->setText(QString(u8"已读成员(%1)").arg(result.readUserList.size()));
+			ui.labelUnread->setText(QString(u8"鏈鎴愬憳(%1)").arg(result.unreadUserList.size()));
+			ui.labelRead->setText(QString(u8"宸茶鎴愬憳(%1)").arg(result.readUserList.size()));
 
 
 			for(auto&& userId : result.unreadUserList)

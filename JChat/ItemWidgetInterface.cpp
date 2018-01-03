@@ -102,22 +102,22 @@ QString JChat::ItemWidgetInterface::getUnreadCountText(size_t count) const
 	{
 		if(count)
 		{
-			return QString(u8R"(<html><head/><body><p><span style=" color:#0000ff;">%1ÈËÎ´¶Á</span></p></body></html>)").arg(count);
+			return QString(u8R"(<html><head/><body><p><span style=" color:#0000ff;">%1äººæœªè¯»</span></p></body></html>)").arg(count);
 		}
 		else
 		{
-			return QString(u8R"(<html><head/><body><p><span style=" color:#9a9a9a;">È«²¿ÒÑ¶Á</span></p></body></html>)");
+			return QString(u8R"(<html><head/><body><p><span style=" color:#9a9a9a;">å…¨éƒ¨å·²è¯»</span></p></body></html>)");
 		}
 	}
 	else if(_msg->conId.isUser())
 	{
 		if(count)
 		{
-			return QString(u8R"(<html><head/><body><p><span style=" color:#0000ff;">Î´¶Á</span></p></body></html>)");
+			return QString(u8R"(<html><head/><body><p><span style=" color:#0000ff;">æœªè¯»</span></p></body></html>)");
 		}
 		else
 		{
-			return QString(u8R"(<html><head/><body><p><span style=" color:#9a9a9a;">ÒÑ¶Á</span></p></body></html>)");
+			return QString(u8R"(<html><head/><body><p><span style=" color:#9a9a9a;">å·²è¯»</span></p></body></html>)");
 		}
 	}
 	else
@@ -140,7 +140,7 @@ QMovie* JChat::ItemWidgetInterface::getProgressMovie()
 
 QPixmap JChat::ItemWidgetInterface::getFailedPixmap()
 {
-	static	QPixmap pixmap(u8":/image/resource/·¢ËÍÎÄ¼ş Ê§°Ü.png");
+	static	QPixmap pixmap(u8":/image/resource/å‘é€æ–‡ä»¶ å¤±è´¥.png");
 	return pixmap;
 }
 

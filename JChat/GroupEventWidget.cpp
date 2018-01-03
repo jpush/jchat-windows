@@ -269,7 +269,7 @@ namespace JChat {
 		co_await w;
 
 		w->setStatus(et);
-		w->setStatusLabel(u8"ÒÑÍ¬Òâ");
+		w->setStatusLabel(u8"å·²åŒæ„");
 
 		co_return;
 	}
@@ -291,7 +291,7 @@ namespace JChat {
 		co_await w;
 
 		w->setStatus(et);
-		w->setStatusLabel(u8"ÒÑ¾Ü¾ø");
+		w->setStatusLabel(u8"å·²æ‹’ç»");
 
 		co_return;
 	}

@@ -274,7 +274,7 @@ namespace JChat {
 		co_await w;
 
 		w->setStatus(false, FriendEventT::passed);
-		w->setStatusLabel(u8"ÒÑÍ¬Òâ");
+		w->setStatusLabel(u8"å·²åŒæ„");
 
 	}
 
@@ -294,7 +294,7 @@ namespace JChat {
 
 		co_await w;
 		w->setStatus(false, FriendEventT::rejected);
-		w->setStatusLabel(u8"ÒÑ¾Ü¾ø");
+		w->setStatusLabel(u8"å·²æ‹’ç»");
 	}
 
 
@@ -312,7 +312,7 @@ namespace JChat {
 			auto rect = opt.rect.adjusted(opt.rect.width() - 50, h, 0, 0);
 			rect.setSize({ 16,16 });
 			QPixmap img;
-			img.load(u8":/image/resource/ÏûÏ¢ÊýÁ¿ÏÔÊ¾.png");
+			img.load(u8":/image/resource/æ¶ˆæ¯æ•°é‡æ˜¾ç¤º.png");
 			painter->drawPixmap(rect, img);
 
 			painter->setPen(Qt::white);

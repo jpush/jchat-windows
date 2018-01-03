@@ -58,21 +58,21 @@ namespace JChat {
 		{
 			setTitleLabel(name);
 
-			auto text = et.status == et.undone ? u8"µÈ´ı¶Ô·½ÑéÖ¤"
-				: et.status == et.passed ? u8"Í¬ÒâÁËÄúµÄºÃÓÑÇëÇó"
-				: u8"¾Ü¾øÁËÄúµÄºÃÓÑÇëÇó";
+			auto text = et.status == et.undone ? u8"ç­‰å¾…å¯¹æ–¹éªŒè¯"
+				: et.status == et.passed ? u8"åŒæ„äº†æ‚¨çš„å¥½å‹è¯·æ±‚"
+				: u8"æ‹’ç»äº†æ‚¨çš„å¥½å‹è¯·æ±‚";
 
 			setStatusLabel(text);
 
 		}
 		else
 		{
-			auto text = QString(u8"%1 ÇëÇóÌí¼ÓÄúÎªºÃÓÑ").arg(name);
+			auto text = QString(u8"%1 è¯·æ±‚æ·»åŠ æ‚¨ä¸ºå¥½å‹").arg(name);
 			setTitleLabel(text);
 
 			text = et.status == et.undone ? u8""
-				: et.status == et.passed ? u8"ÒÑÍ¬Òâ"
-				: u8"ÒÑ¾Ü¾ø";
+				: et.status == et.passed ? u8"å·²åŒæ„"
+				: u8"å·²æ‹’ç»";
 
 			setStatusLabel(text);
 		}

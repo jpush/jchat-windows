@@ -225,7 +225,7 @@ JChat::MainWidget::onSearch()
 	if(ui.lineEditSearch->text().isEmpty())
 	{
 		_conPrxModel->invalidateFilter();
-		return;
+		co_return;
 	}
 
 	std::vector<Jmcpp::ConversationId> conIds;

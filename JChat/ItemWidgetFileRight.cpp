@@ -51,14 +51,14 @@ namespace JChat
 
 	void ItemWidgetFileRight::setComplete()
 	{
-		ui.labelStatusText->setText(u8"ÒÑ·¢ËÍ");
+		ui.labelStatusText->setText(u8"å·²å‘é€");
 		ui.progressBar->setValue(100);
 		ui.labelStatus->clear();
 	}
 
 	void ItemWidgetFileRight::setFailed()
 	{
-		ui.labelStatusText->setText(u8"·¢ËÍÊ§°Ü");
+		ui.labelStatusText->setText(u8"å‘é€å¤±è´¥");
 		ui.labelStatus->setPixmap(getFailedPixmap());
 	}
 

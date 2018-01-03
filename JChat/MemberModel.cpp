@@ -52,7 +52,7 @@ namespace JChat {
 		{
 			_completerModel->clear();
 			auto item = new QStandardItem();
-			item->setText(u8"ËùÓÐÈË");
+			item->setText(u8"æ‰€æœ‰äºº");
 			item->setIcon(QIcon(":/image/resource/logo.ico"));
 			_completerModel->appendRow(item);
 		}

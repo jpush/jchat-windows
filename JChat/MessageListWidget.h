@@ -86,7 +86,7 @@ namespace JChat
 		template<class T>
 		void insertMessage(Jmcpp::MessagePtr const& msg, const T &, ItemWidgetInterface*&iwif, int row)
 		{
-			qDebug() << __FUNCSIG__;
+			//qDebug() << __FUNCSIG__;
 		}
 
 		None insertMessage(Jmcpp::MessagePtr const& msg, Jmcpp::TextContent const& text, ItemWidgetInterface*&iwif, int row);

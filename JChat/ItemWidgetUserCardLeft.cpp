@@ -85,7 +85,7 @@ namespace JChat {
 		ui.labelDisplayName->setText(display);
 		ui.labelDisplayName->setToolTip(display);
 
-		auto name = QString(u8"ÓÃ»§Ãû:") + info.userId.username.c_str();
+		auto name = QString(u8"ç”¨æˆ·å:") + info.userId.username.c_str();
 		ui.labelUserName->setText(name);
 		ui.labelUserName->setToolTip(name);
 	}

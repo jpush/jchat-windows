@@ -253,7 +253,7 @@ namespace JChat
 			iw->setMessage(msg);
 			iw->setComplete();
 			iw->setUnreadUserCount(msg->unreadUserCount);
-			return;
+			co_return;
 		}
 		catch(std::exception& e)
 		{

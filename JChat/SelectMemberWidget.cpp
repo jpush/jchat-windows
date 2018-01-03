@@ -29,7 +29,7 @@ JChat::SelectMemberWidget::SelectMemberWidget(ClientObjectPtr const&co, QWidget 
 
 	ui.stackedWidget->setCurrentIndex(0);
 
-	auto search = ui.lineEditSearch->addAction(QIcon(u8":/image/resource/ËÑË÷.png"), QLineEdit::TrailingPosition);
+	auto search = ui.lineEditSearch->addAction(QIcon(u8":/image/resource/æœç´¢.png"), QLineEdit::TrailingPosition);
 
 	auto model = new QStandardItemModel(this);
 	ui.listView->setModel(model);
@@ -249,7 +249,7 @@ JChat::SelectMemberWidget::getUserIds(ClientObjectPtr const&co, QString const& t
 	{
 		if(w.ui.lineEditGroupName->text().isEmpty())
 		{
-			QMessageBox::warning(&w, "", u8"ÇëÊäÈëÈº×éÃû³Æ", QMessageBox::Ok);
+			QMessageBox::warning(&w, "", u8"è¯·è¾“å…¥ç¾¤ç»„åç§°", QMessageBox::Ok);
 			return;
 		}
 
@@ -319,7 +319,7 @@ JChat::SelectMemberWidget::on_btnPrev_clicked()
 Q_SLOT
 void JChat::SelectMemberWidget::on_radioButton_toggled(bool checked)
 {
-	ui.label_6->setText(checked ? u8"Ë½ÓÐÈº£ºÖ»ÄÜÍ¨¹ýÈº³ÉÔ±ÑûÇëÈëÈº£¬ÎÞÐèÉóºË" : u8"¹«¿ªÈº£ºÓÃ»§¿ÉÖ÷¶¯ÉêÇëÈëÈº£¬ÐèÈºÖ÷ÉóºË");
+	ui.label_6->setText(checked ? u8"ç§æœ‰ç¾¤ï¼šåªèƒ½é€šè¿‡ç¾¤æˆå‘˜é‚€è¯·å…¥ç¾¤ï¼Œæ— éœ€å®¡æ ¸" : u8"å…¬å¼€ç¾¤ï¼šç”¨æˆ·å¯ä¸»åŠ¨ç”³è¯·å…¥ç¾¤ï¼Œéœ€ç¾¤ä¸»å®¡æ ¸");
 }
 
 std::vector<Jmcpp::UserId>

@@ -28,14 +28,14 @@ JChat::ChangePassword::on_btnOK_clicked()
 
 	if(newPwd1 != newPwd2)
 	{
-		QMessageBox::warning(this, "", u8"ĞÂÃÜÂëÊäÈë²»Ò»ÖÂ!", QMessageBox::Ok);
+		QMessageBox::warning(this, "", u8"æ–°å¯†ç è¾“å…¥ä¸ä¸€è‡´!", QMessageBox::Ok);
 		return;
 	}
 	auto oldPwd = ui.lineEditOldPwd->text();
 
 	if(oldPwd.isEmpty() || newPwd1.isEmpty() || newPwd2.isEmpty())
 	{
-		QMessageBox::warning(this, "", u8"ÃÜÂë²»ÄÜÎª¿Õ!", QMessageBox::Ok);
+		QMessageBox::warning(this, "", u8"å¯†ç ä¸èƒ½ä¸ºç©º!", QMessageBox::Ok);
 		return;
 	}
 
@@ -43,14 +43,14 @@ JChat::ChangePassword::on_btnOK_clicked()
 	{
 		BusyIndicator busy(this);
 		qAwait(_co->updateSelfPassword(oldPwd.toStdString(), newPwd1.toStdString()));
-		QMessageBox::warning(this, "", u8"ĞŞ¸Ä³É¹¦!", QMessageBox::Ok);
+		QMessageBox::warning(this, "", u8"ä¿®æ”¹æˆåŠŸ!", QMessageBox::Ok);
 		close();
 	}
 	catch(Jmcpp::ServerException& e)
 	{
 		if(e.code() == 882002)
 		{
-			QMessageBox::warning(this, "", u8"Ô­ÃÜÂë²»ÕıÈ·!", QMessageBox::Ok);
+			QMessageBox::warning(this, "", u8"åŸå¯†ç ä¸æ­£ç¡®!", QMessageBox::Ok);
 		}
 		else
 		{

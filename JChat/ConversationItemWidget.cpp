@@ -11,10 +11,10 @@ namespace JChat {
 		ui.setupUi(this);
 
 		auto menu = new QMenu(this);
-		auto act = menu->addAction(u8"会话置顶");
+		auto act = menu->addAction(u8"浼氳瘽缃《");
 		act->setCheckable(true);
 
-		menu->addAction(u8"删除会话", [=]
+		menu->addAction(u8"鍒犻櫎浼氳瘽", [=]
 		{
 			Q_EMIT closeClicked();
 		});

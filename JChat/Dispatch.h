@@ -4,6 +4,8 @@
 #include <QEvent>
 #include <QThread>
 #include <QVariant>
+#include <QPointer>
+#include <QCoreApplication>
 
 namespace JChat
 {
@@ -109,7 +111,7 @@ namespace JChat
 										   slot2 = std::forward<_Slot2>(_slot2)]() mutable
 		{
 			if(c) (receiver_->*pmf)();
-			else _slot2();
+			else slot2();
 		});
 		e->handler.moveToThread(receiver->thread());
 		QCoreApplication::postEvent(&e->handler, e);
