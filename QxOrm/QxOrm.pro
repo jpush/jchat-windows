@@ -39,7 +39,8 @@ include(./QxOrm.pri)
 TEMPLATE = lib
 CONFIG += dll
 DEFINES += _QX_BUILDING_QX_ORM
-DESTDIR = $$PWD/lib/
+
+#DESTDIR = $$PWD/lib/
 
 !contains(DEFINES, _QX_NO_PRECOMPILED_HEADER) {
 PRECOMPILED_HEADER = ./include/QxPrecompiled.h
