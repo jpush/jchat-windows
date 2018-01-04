@@ -57,7 +57,7 @@
   }
  QCheckBox::indicator:unchecked {
  
-	image: url(:/image/resource/未选框.png);
+	image: url(:/image/resource/Unchecked.png);
   }
 
   QCheckBox::indicator:unchecked:hover {
@@ -69,7 +69,7 @@
   }
 
   QCheckBox::indicator:checked {
-     image: url(:/image/resource/已选框.png);
+     image: url(:/image/resource/Checked.png);
   }
 
   QCheckBox::indicator:checked:hover {
@@ -82,12 +82,12 @@
 
   #btnClose {
     border:none;
-	image: url(:/image/resource/x常态.png);
+	image: url(:/image/resource/xClose.png);
   }
 
   #btnClose:pressed {
    
-	image: url(:/image/resource/x点选.png);
+	image: url(:/image/resource/xClosePressed.png);
   }</string>
      </property>
      <layout class="QHBoxLayout" name="horizontalLayout_2">

@@ -68,12 +68,12 @@ QFrame[sticktop=&quot;true&quot;]
 
 #btnClose
 {
-	image: url(:/image/resource/删除列表会话.png);
+	image: url(:/image/resource/DeleteConList.png);
 }
 
 #btnClose:hover
 {
-	image: url(:/image/resource/删除列表会话 hover.png);
+	image: url(:/image/resource/DeleteConList hover.png);
 }
 #btnClose:disabled
 {
@@ -241,7 +241,7 @@ QFrame[sticktop=&quot;true&quot;]
              <string/>
             </property>
             <property name="pixmap">
-             <pixmap resource="Resource.qrc">:/image/resource/屏蔽.png</pixmap>
+             <pixmap resource="Resource.qrc">:/image/resource/Shield.png</pixmap>
             </property>
             <property name="scaledContents">
              <bool>true</bool>

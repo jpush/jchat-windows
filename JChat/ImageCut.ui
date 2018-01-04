@@ -98,7 +98,7 @@
        <property name="styleSheet">
         <string notr="true">QToolButton
 {
-	image: url(:/image/resource/缩小.png);
+	image: url(:/image/resource/scaleout.png);
 }
 </string>
        </property>
@@ -141,7 +141,7 @@
         <string notr="true">QToolButton
 {
 	
-	image: url(:/image/resource/放大.png);
+	image: url(:/image/resource/ScaleIn.png);
 }
 
 QToolButton:pressed

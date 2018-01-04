@@ -29,7 +29,7 @@ JChat::SelectMemberWidget::SelectMemberWidget(ClientObjectPtr const&co, QWidget 
 
 	ui.stackedWidget->setCurrentIndex(0);
 
-	auto search = ui.lineEditSearch->addAction(QIcon(u8":/image/resource/搜索.png"), QLineEdit::TrailingPosition);
+	auto search = ui.lineEditSearch->addAction(QIcon(u8":/image/resource/Search.png"), QLineEdit::TrailingPosition);
 
 	auto model = new QStandardItemModel(this);
 	ui.listView->setModel(model);

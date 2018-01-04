@@ -312,7 +312,7 @@ namespace JChat {
 			auto rect = opt.rect.adjusted(opt.rect.width() - 50, h, 0, 0);
 			rect.setSize({ 16,16 });
 			QPixmap img;
-			img.load(u8":/image/resource/消息数量显示.png");
+			img.load(u8":/image/resource/MsgCountBkg.png");
 			painter->drawPixmap(rect, img);
 
 			painter->setPen(Qt::white);

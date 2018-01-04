@@ -22,7 +22,7 @@
 
 #frame_2
 {	
-	border-image: url(:/image/resource/气泡.png);
+	border-image: url(:/image/resource/popo.png);
  	border-top-width:10px;
     border-bottom-width:10px;
 
@@ -34,7 +34,7 @@
 
 #frame_3
 {	
-	border-image: url(:/image/resource/气泡.png);
+	border-image: url(:/image/resource/popo.png);
  	border-top-width:10px;
     border-bottom-width:4px;
 
@@ -263,7 +263,7 @@
               <string/>
              </property>
              <property name="pixmap">
-              <pixmap resource="Resource.qrc">:/image/resource/头像60px.png</pixmap>
+              <pixmap resource="Resource.qrc">:/image/resource/Avatar60px.png</pixmap>
              </property>
              <property name="scaledContents">
               <bool>true</bool>
@@ -376,7 +376,7 @@
           <string/>
          </property>
          <property name="pixmap">
-          <pixmap resource="Resource.qrc">:/image/resource/头像60px.png</pixmap>
+          <pixmap resource="Resource.qrc">:/image/resource/Avatar60px.png</pixmap>
          </property>
          <property name="scaledContents">
           <bool>true</bool>

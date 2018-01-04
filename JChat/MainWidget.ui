@@ -97,11 +97,11 @@ QScrollBar::add-line:vertical {
 }
 
 QScrollBar::up-arrow:vertical {
-	image: url(:/image/resource/滚动上.png);
+	image: url(:/image/resource/ScrollUp.png);
 }
 
 QScrollBar::down-arrow:vertical {
-	image:url(:/image/resource/滚动下.png);
+	image:url(:/image/resource/ScrollDown.png);
 }
 
 QScrollBar::add-page:vertical, QScrollBar::sub-page:vertical {
@@ -137,11 +137,11 @@ QScrollBar::add-line:horizontal {
 }
 
 QScrollBar::left-arrow:horizontal {
-	image: url(:/image/resource/滚动Left.png)
+	image: url(:/image/resource/ScrollLeft.png)
 }
 
 QScrollBar::right-arrow:horizontal {
-	image: url(:/image/resource/滚动Right.png);
+	image: url(:/image/resource/ScrollRight.png);
 }
 
 QScrollBar::add-page:horizontal, QScrollBar::sub-page:horizontal {
@@ -229,29 +229,29 @@ QToolButton
 
 #btnMessages
 {
-	image: url(:/image/resource/聊天2.png);
+	image: url(:/image/resource/ChatNormal.png);
 }
 #btnMessages:checked
 {
-image: url(:/image/resource/聊天2pre.png);
+image: url(:/image/resource/ChatSelect.png);
 }
 
 #btnContacts
 {
-	image: url(:/image/resource/通讯录.png);
+	image: url(:/image/resource/boolmark.png);
 }
 #btnContacts:checked
 {
-	image: url(:/image/resource/通讯录pre.png);
+	image: url(:/image/resource/boolmarkpre.png);
 }
 
 #btnRooms
 {
-	image: url(:/image/resource/聊天.png);
+	image: url(:/image/resource/Chat.png);
 }
 #btnRooms:checked
 {
-	image: url(:/image/resource/聊天pre.png);
+	image: url(:/image/resource/Chat_select.png);
 }</string>
         </property>
         <property name="frameShape">
@@ -318,7 +318,7 @@ image: url(:/image/resource/聊天2pre.png);
               <string/>
              </property>
              <property name="pixmap">
-              <pixmap resource="Resource.qrc">:/image/resource/头像60px.png</pixmap>
+              <pixmap resource="Resource.qrc">:/image/resource/Avatar60px.png</pixmap>
              </property>
              <property name="scaledContents">
               <bool>true</bool>
@@ -471,7 +471,7 @@ image: url(:/image/resource/聊天2pre.png);
              </property>
              <property name="icon">
               <iconset resource="Resource.qrc">
-               <normaloff>:/image/resource/添加 常态.png</normaloff>:/image/resource/添加 常态.png</iconset>
+               <normaloff>:/image/resource/add_normal.png</normaloff>:/image/resource/add_normal.png</iconset>
              </property>
              <property name="iconSize">
               <size>
@@ -503,7 +503,7 @@ image: url(:/image/resource/聊天2pre.png);
              </property>
              <property name="icon">
               <iconset resource="Resource.qrc">
-               <normaloff>:/image/resource/菜单 常态.png</normaloff>:/image/resource/菜单 常态.png</iconset>
+               <normaloff>:/image/resource/menu_normal.png</normaloff>:/image/resource/menu_normal.png</iconset>
              </property>
              <property name="iconSize">
               <size>
@@ -853,7 +853,7 @@ image: url(:/image/resource/聊天2pre.png);
                    </property>
                    <property name="styleSheet">
                     <string notr="true">
-image: url(:/image/resource/欢迎页.png);</string>
+image: url(:/image/resource/WelcomePage.png);</string>
                    </property>
                    <property name="frameShape">
                     <enum>QFrame::StyledPanel</enum>
@@ -1377,7 +1377,7 @@ QTabBar::tab:!selected {
                    </property>
                    <property name="styleSheet">
                     <string notr="true">
-image: url(:/image/resource/欢迎页.png);</string>
+image: url(:/image/resource/WelcomePage.png);</string>
                    </property>
                    <property name="frameShape">
                     <enum>QFrame::StyledPanel</enum>

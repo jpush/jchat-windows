@@ -356,7 +356,7 @@ namespace JChat{
 
 			if(!successed)
 			{
-				msgRole = u8R"(<img  src=":/image/resource/错误提示.png"  width="15" height="15" />)" + msgRole;
+				msgRole = u8R"(<img  src=":/image/resource/error.png"  width="15" height="15" />)" + msgRole;
 			}
 
 			item->setData(msgRole, Role::MessageRole);
@@ -373,7 +373,7 @@ namespace JChat{
 				QString msgRole = getMessageDisplayString(msg, senderInfo);
 				if(!successed)
 				{
-					msgRole = u8R"(<img  src=":/image/resource/错误提示.png"  width="15" height="15" />)" + msgRole;
+					msgRole = u8R"(<img  src=":/image/resource/error.png"  width="15" height="15" />)" + msgRole;
 				}
 				if(item->data(TimeRole).toDateTime().toMSecsSinceEpoch() == msg->time)
 				{

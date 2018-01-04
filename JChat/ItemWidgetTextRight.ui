@@ -16,7 +16,7 @@
   <property name="styleSheet">
    <string notr="true">#textBrowser
 {	
-	border-image: url(:/image/resource/气泡.png);
+	border-image: url(:/image/resource/popo.png);
  	border-top-width:10px;
     border-bottom-width: 5px;
 
@@ -26,7 +26,7 @@
 
 #textBrowser[pressed=&quot;true&quot;]
 {	
-	border-image: url(:/image/resource/气泡 右键点选2.png);
+	border-image: url(:/image/resource/popoMenuR.png);
  	border-top-width:10px;
     border-bottom-width: 5px;
     border-left-width: 8px;
@@ -218,7 +218,7 @@ p, li { white-space: pre-wrap; }
         <string/>
        </property>
        <property name="pixmap">
-        <pixmap resource="Resource.qrc">:/image/resource/头像60px.png</pixmap>
+        <pixmap resource="Resource.qrc">:/image/resource/Avatar60px.png</pixmap>
        </property>
        <property name="scaledContents">
         <bool>true</bool>

@@ -99,7 +99,7 @@ MainWidget::MainWidget(JChat::ClientObjectPtr const& co, QWidget *parent /*= Q_N
 		UserInfoWidget::showSelfInfo(_co, this);
 	});
 
-	auto search = ui.lineEditSearch->addAction(QIcon(u8":/image/resource/搜索.png"), QLineEdit::TrailingPosition);
+	auto search = ui.lineEditSearch->addAction(QIcon(u8":/image/resource/Search.png"), QLineEdit::TrailingPosition);
 	connect(search, &QAction::triggered, this, &MainWidget::onSearch);
 
 	connect(ui.lineEditSearch, &QLineEdit::returnPressed, this, &MainWidget::onSearch);

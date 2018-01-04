@@ -34,7 +34,7 @@ QLabel {
 #btnClose
 {
 	border:none;
-	image: url(:/image/resource/弹窗 关闭.png);
+	image: url(:/image/resource/Close.png);
 }
 
 

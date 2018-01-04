@@ -57,7 +57,7 @@ namespace JChat{
 		{
 			auto item = new QStandardItem();
 			item->setText(u8"验证消息");
-			auto icon = QIcon(u8":/image/resource/验证消息.png");
+			auto icon = QIcon(u8":/image/resource/RequestMsg.png");
 			item->setIcon(icon);
 			this->appendRow(item);
 		}
@@ -65,14 +65,14 @@ namespace JChat{
 		{
 			auto item = new QStandardItem();
 			item->setText(u8"联系人");
-			auto icon = QIcon(u8":/image/resource/联系人.png");
+			auto icon = QIcon(u8":/image/resource/Friend.png");
 			item->setIcon(icon);
 			this->appendRow(item);
 		}
 		{
 			auto item = new QStandardItem();
 			item->setText(u8"群组");
-			auto icon = QIcon(u8":/image/resource/群组.png");
+			auto icon = QIcon(u8":/image/resource/Group.png");
 			item->setIcon(icon);
 			this->appendRow(item);
 		}

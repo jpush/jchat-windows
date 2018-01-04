@@ -36,23 +36,23 @@ namespace
 {
 	QString userAvatarFile()
 	{
-		return u8":/image/resource/头像60px.png";
+		return u8":/image/resource/Avatar60px.png";
 	}
 
 	QString groupAvatarFile()
 	{
-		return u8":/image/resource/群组头像60px.png";
+		return u8":/image/resource/GroupAvatar60px.png";
 	}
 
 	QPixmap const& userAvatar()
 	{
-		static QPixmap img{ u8":/image/resource/头像60px.png" };
+		static QPixmap img{ u8":/image/resource/Avatar60px.png" };
 		return img;
 	}
 
 	QPixmap const& groupAvatar()
 	{
-		static QPixmap img{ u8":/image/resource/群组头像60px.png" };
+		static QPixmap img{ u8":/image/resource/GroupAvatar60px.png" };
 		return img;
 	}
 }

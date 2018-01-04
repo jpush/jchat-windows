@@ -21,7 +21,7 @@
 
 #frameVoice
 {	
-	border-image: url(:/image/resource/气泡 copy.png);
+	border-image: url(:/image/resource/popo copy.png);
  	border-top-width:10px;
     border-bottom-width: 10px;
 
@@ -32,7 +32,7 @@
 
 #frameVoice[pressed=&quot;true&quot;]
 {	
-	border-image: url(:/image/resource/气泡 右键点选.png);
+	border-image: url(:/image/resource/popoMenuL.png);
  	border-top-width:10px;
     border-bottom-width: 5px;
 
@@ -96,7 +96,7 @@
           <string/>
          </property>
          <property name="pixmap">
-          <pixmap resource="Resource.qrc">:/image/resource/头像60px.png</pixmap>
+          <pixmap resource="Resource.qrc">:/image/resource/Avatar60px.png</pixmap>
          </property>
          <property name="scaledContents">
           <bool>true</bool>

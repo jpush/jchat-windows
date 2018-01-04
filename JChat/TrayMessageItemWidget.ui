@@ -68,13 +68,13 @@ QFrame[sticktop=&quot;true&quot;]
 
 #btnClose
 {
-	image: url(:/image/resource/删除列表会话.png);
+	image: url(:/image/resource/DeleteConList.png);
 }
 
 #btnClose:hover
 {
 	
-	image: url(:/image/resource/删除列表会话 hover.png);
+	image: url(:/image/resource/DeleteConList hover.png);
 }
 #btnClose:disabled
 {

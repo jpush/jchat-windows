@@ -140,7 +140,7 @@ QMovie* JChat::ItemWidgetInterface::getProgressMovie()
 
 QPixmap JChat::ItemWidgetInterface::getFailedPixmap()
 {
-	static	QPixmap pixmap(u8":/image/resource/发送文件 失败.png");
+	static	QPixmap pixmap(u8":/image/resource/SendFileFailed.png");
 	return pixmap;
 }
 

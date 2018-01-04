@@ -19,8 +19,8 @@ namespace JChat{
 
 		this->setWindowFlags(Qt::WindowType::CustomizeWindowHint | Qt::WindowType::WindowCloseButtonHint);
 
-		auto userIcon = QIcon(u8":/image/resource/用户名 icon.png");
-		auto passwordIcon = QIcon(u8":/image/resource/密码 icon.png");
+		auto userIcon = QIcon(u8":/image/resource/username_icon.png");
+		auto passwordIcon = QIcon(u8":/image/resource/password_icon.png");
 
 		ui.username->lineEdit()->addAction(userIcon, QLineEdit::LeadingPosition);
 		ui.password->addAction(passwordIcon, QLineEdit::LeadingPosition);

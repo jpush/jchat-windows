@@ -1,74 +1,74 @@
 ﻿<RCC>
     <qresource prefix="/image">
         <file>resource/JChatLogo.png</file>
-        <file>resource/欢迎页.png</file>
-        <file>resource/删除列表会话 hover.png</file>
-        <file>resource/删除列表会话.png</file>
+        <file>resource/WelcomePage.png</file>
+        <file>resource/DeleteConList hover.png</file>
+        <file>resource/DeleteConList.png</file>
         <file>resource/u48.png</file>
         <file>resource/JCHAT.png</file>
-        <file>resource/极光 logo.png</file>
-        <file>resource/记住用户名 未选框.png</file>
-        <file>resource/记住用户名 已选框.png</file>
-        <file>resource/密码 icon.png</file>
-        <file>resource/用户名 icon.png</file>
-        <file>resource/表情 常态.png</file>
-        <file>resource/表情 点选.png</file>
-        <file>resource/菜单 常态.png</file>
-        <file>resource/菜单 点选.png</file>
-        <file>resource/聊天.png</file>
-        <file>resource/聊天pre.png</file>
-        <file>resource/群组头像60px.png</file>
-        <file>resource/添加 常态.png</file>
-        <file>resource/添加 点选.png</file>
-        <file>resource/通讯录.png</file>
-        <file>resource/通讯录pre.png</file>
-        <file>resource/头像60px.png</file>
-        <file>resource/搜索.png</file>
-        <file>resource/屏蔽.png</file>
-        <file>resource/屏蔽消息提示.png</file>
-        <file>resource/消息数量显示.png</file>
-        <file>resource/语音未读.png</file>
+        <file>resource/Jiguang logo.png</file>
+        <file>resource/remember_uncheck.png</file>
+        <file>resource/remember_checked.png</file>
+        <file>resource/password_icon.png</file>
+        <file>resource/username_icon.png</file>
+        <file>resource/face_normal.png</file>
+        <file>resource/face_pressed.png</file>
+        <file>resource/menu_normal.png</file>
+        <file>resource/menu_pressed.png</file>
+        <file>resource/Chat.png</file>
+        <file>resource/Chat_select.png</file>
+        <file>resource/GroupAvatar60px.png</file>
+        <file>resource/add_normal.png</file>
+        <file>resource/add_pressed.png</file>
+        <file>resource/boolmark.png</file>
+        <file>resource/boolmarkpre.png</file>
+        <file>resource/Avatar60px.png</file>
+        <file>resource/Search.png</file>
+        <file>resource/Shield.png</file>
+        <file>resource/ShieldBkg.png</file>
+        <file>resource/MsgCountBkg.png</file>
+        <file>resource/VoiceUnread.png</file>
         <file>resource/icon.png</file>
-        <file>resource/联系人 pre.png</file>
-        <file>resource/联系人.png</file>
-        <file>resource/群组 pre.png</file>
-        <file>resource/群组.png</file>
-        <file>resource/验证消息 pre.png</file>
-        <file>resource/验证消息.png</file>
-        <file>resource/气泡 copy.png</file>
-        <file>resource/气泡.png</file>
-        <file>resource/添加多人会话 常态.png</file>
-        <file>resource/添加多人会话 点选.png</file>
-        <file>resource/图片 常态.png</file>
-        <file>resource/图片 点选.png</file>
-        <file>resource/文件 常态.png</file>
-        <file>resource/文件 点选.png</file>
-        <file>resource/其他.png</file>
-        <file>resource/视频.png</file>
-        <file>resource/文件.png</file>
-        <file>resource/音.png</file>
+        <file>resource/Friend pre.png</file>
+        <file>resource/Friend.png</file>
+        <file>resource/Group pre.png</file>
+        <file>resource/Group.png</file>
+        <file>resource/RequestMsg pre.png</file>
+        <file>resource/RequestMsg.png</file>
+        <file>resource/popo copy.png</file>
+        <file>resource/popo.png</file>
+        <file>resource/AddUser.png</file>
+        <file>resource/AddUserPressed.png</file>
+        <file>resource/ImageNormal.png</file>
+        <file>resource/ImagePressed.png</file>
+        <file>resource/FileNormal.png</file>
+        <file>resource/FilePressed.png</file>
+        <file>resource/OtherFile.png</file>
+        <file>resource/Video.png</file>
+        <file>resource/File.png</file>
+        <file>resource/Music.png</file>
         <file>resource/Double Ring.gif</file>
         <file>resource/Double Ring.svg</file>
         <file>resource/logo.ico</file>
-        <file>resource/播放 常态.png</file>
-        <file>resource/播放 点选.png</file>
-        <file>resource/播放 显示状态.png</file>
-        <file>resource/关.png</file>
-        <file>resource/开.png</file>
-        <file>resource/群设置 常态.png</file>
-        <file>resource/群设置 点选.png</file>
-        <file>resource/群主.png</file>
-        <file>resource/x常态.png</file>
-        <file>resource/x点选.png</file>
-        <file>resource/弹窗 关闭.png</file>
-        <file>resource/未选框.png</file>
-        <file>resource/已选框.png</file>
-        <file>resource/气泡 右键点选.png</file>
-        <file>resource/气泡 右键点选2.png</file>
-        <file>resource/错误提示.png</file>
-        <file>resource/发送文件 失败.png</file>
-        <file>resource/发送文件 未下载.png</file>
-        <file>resource/发送文件.png</file>
+        <file>resource/PlayNormal.png</file>
+        <file>resource/PlayPressed.png</file>
+        <file>resource/PlayShow.png</file>
+        <file>resource/off.png</file>
+        <file>resource/on.png</file>
+        <file>resource/GroupSettingNormal.png</file>
+        <file>resource/GroupSettingPressed.png</file>
+        <file>resource/GroupOwner.png</file>
+        <file>resource/xClose.png</file>
+        <file>resource/xClosePressed.png</file>
+        <file>resource/Close.png</file>
+        <file>resource/Unchecked.png</file>
+        <file>resource/Checked.png</file>
+        <file>resource/popoMenuL.png</file>
+        <file>resource/popoMenuR.png</file>
+        <file>resource/error.png</file>
+        <file>resource/SendFileFailed.png</file>
+        <file>resource/FileToDownLoad.png</file>
+        <file>resource/FileSend.png</file>
         <file>resource/Spinner.gif</file>
         <file>resource/imageFailed.png</file>
         <file>resource/marker.png</file>
@@ -77,21 +77,21 @@
         <file>resource/voice-active-you.gif</file>
         <file>resource/voice_me.png</file>
         <file>resource/voice_you.png</file>
-        <file>resource/名片 常态.png</file>
-        <file>resource/名片 点选.png</file>
-        <file>resource/滚动Left.png</file>
-        <file>resource/滚动Right.png</file>
-        <file>resource/滚动上.png</file>
-        <file>resource/滚动下.png</file>
+        <file>resource/CardNormal.png</file>
+        <file>resource/CardPressed.png</file>
+        <file>resource/ScrollLeft.png</file>
+        <file>resource/ScrollRight.png</file>
+        <file>resource/ScrollUp.png</file>
+        <file>resource/ScrollDown.png</file>
         <file>resource/room-active.png</file>
         <file>resource/room-normal.png</file>
         <file>resource/Group.png</file>
         <file>resource/slient.png</file>
-        <file>resource/放大.png</file>
-        <file>resource/禁言.png</file>
-        <file>resource/聊天2.png</file>
-        <file>resource/聊天2pre.png</file>
-        <file>resource/缩小.png</file>
+        <file>resource/ScaleIn.png</file>
+        <file>resource/Silent.png</file>
+        <file>resource/ChatNormal.png</file>
+        <file>resource/ChatSelect.png</file>
+        <file>resource/scaleout.png</file>
     </qresource>
     <qresource prefix="/js">
         <file>emojione.js</file>

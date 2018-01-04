@@ -45,33 +45,33 @@
 #btnEmoji
 {
 	border:none;
-	image: url(:/image/resource/表情 常态.png);
+	image: url(:/image/resource/face_normal.png);
 }
 
 #btnEmoji:hover
 {
-	image: url(:/image/resource/表情 点选.png)
+	image: url(:/image/resource/face_pressed.png)
 }
 #btnImage
 {
 	border:none;
 	
-	image: url(:/image/resource/图片 常态.png);
+	image: url(:/image/resource/ImageNormal.png);
 }
 
 #btnImage:hover
 {
-	image: url(:/image/resource/图片 点选.png);
+	image: url(:/image/resource/ImagePressed.png);
 }
 #btnFile
 {
 	border:none;
-	image: url(:/image/resource/文件 常态.png);
+	image: url(:/image/resource/FileNormal.png);
 }
 
 #btnFile:hover
 {
-	image: url(:/image/resource/文件 点选.png);
+	image: url(:/image/resource/FilePressed.png);
 }
 
 
@@ -79,12 +79,12 @@
 {
 	border:none;
 	
-	image: url(:/image/resource/名片 常态.png);
+	image: url(:/image/resource/CardNormal.png);
 }
 
 #btnUserCard:hover
 {
-	image: url(:/image/resource/名片 点选.png);
+	image: url(:/image/resource/CardPressed.png);
 }
 
 
@@ -177,24 +177,24 @@
 #btnAdd
 {
 	border:none;
-	image: url(:/image/resource/添加多人会话 常态.png);
+	image: url(:/image/resource/AddUser.png);
 }
 
 #btnAdd:pressed
 {
-	image: url(:/image/resource/添加多人会话 点选.png);
+	image: url(:/image/resource/AddUserPressed.png);
 }
 
 #btnSetting
 {
 	border:none;
 
-	image: url(:/image/resource/群设置 常态.png);
+	image: url(:/image/resource/GroupSettingNormal.png);
 }
 
 #btnSetting:pressed
 {
-	image: url(:/image/resource/群设置 点选.png);
+	image: url(:/image/resource/GroupSettingPressed.png);
 }
 
 #btnFileManager

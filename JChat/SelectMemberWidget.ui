@@ -58,13 +58,13 @@ QListView
 
   QCheckBox::indicator:unchecked {
      
-	image: url(:/image/resource/关.png);
+	image: url(:/image/resource/off.png);
   }
 
 
   QCheckBox::indicator:checked {
       
-	image: url(:/image/resource/开.png);
+	image: url(:/image/resource/on.png);
   }
 
  
@@ -281,7 +281,7 @@ subcontrol-position:  right center;
               <string/>
              </property>
              <property name="pixmap">
-              <pixmap resource="Resource.qrc">:/image/resource/群组头像60px.png</pixmap>
+              <pixmap resource="Resource.qrc">:/image/resource/GroupAvatar60px.png</pixmap>
              </property>
              <property name="scaledContents">
               <bool>true</bool>
@@ -315,7 +315,7 @@ subcontrol-position:  right center;
            <item>
             <widget class="QLineEdit" name="lineEditGroupName">
              <property name="placeholderText">
-              <string>请输入群组名称</string>
+              <string>请输入Group名称</string>
              </property>
             </widget>
            </item>

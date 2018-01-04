@@ -54,7 +54,7 @@ QLabel {
 #btnClose
 {
 	border:none;
-	image: url(:/image/resource/弹窗 关闭.png);
+	image: url(:/image/resource/Close.png);
 }
 
 #btnAddMember
@@ -96,13 +96,13 @@ QLabel {
 
   QCheckBox::indicator:unchecked {
      
-	image: url(:/image/resource/关.png);
+	image: url(:/image/resource/off.png);
   }
 
 
   QCheckBox::indicator:checked {
       
-	image: url(:/image/resource/开.png);
+	image: url(:/image/resource/on.png);
   }
 
  
