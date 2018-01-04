@@ -1,4 +1,4 @@
-#include "ItemWidgetUserCardRight.h"
+﻿#include "ItemWidgetUserCardRight.h"
 
 #include <QMouseEvent>
 #include "MessageListWidget.h"
