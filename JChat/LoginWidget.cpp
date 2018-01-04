@@ -100,10 +100,14 @@ namespace JChat{
 				auto lock = std::make_unique<QSharedMemory>(ui.username->currentText());
 				if(!lock->create(1))
 				{
-					ui.labelError->setText(QString(u8"用户[%1]已登录,不能重复登录").arg(ui.username->currentText()));
-					return;
+					lock->attach();//for unix
+					lock->detach();//...
+					if(!lock->create(1))
+					{
+						ui.labelError->setText(QString(u8"用户[%1]已登录,不能重复登录").arg(ui.username->currentText()));
+						return;
+					}
 				}
-
 
 				ui.labelError->clear();
 

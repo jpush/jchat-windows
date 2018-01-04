@@ -22,7 +22,7 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 RC_FILE=Resource.rc
 
-RESOURCES = Resource.qrc
+#RESOURCES = Resource.qrc
 
 FORMS += $$files(*.ui, false)
 
@@ -31,7 +31,7 @@ HEADERS += $$files(*.hpp, false)
 
 SOURCES += $$files(*.cpp, false)
 
-CONFIG+=c++1z
+CONFIG+=c++1z warn_off
 
 CONFIG(debug, debug|release):TARGET=JChatd
 CONFIG(release, debug|release):TARGET=JChat
@@ -80,14 +80,23 @@ else{
 	LIBS+= -L/usr/local/lib -L/usr/local/opt/openssl/lib -lssl -lcrypto
 	LIBS+= -lc++experimental -lcpprest -lboost_system -lboost_filesystem-mt   -lboost_thread-mt -lboost_chrono
 
-	INCLUDEPATH+=../Jmcppd.framework/1.2.0/1/Headers
-	LIBS+=-F../ -framework Jmcppd
 
+	DESTDIR+=/users/never/__projects__/_out
+
+
+	CONFIG(debug, debug|release){
+		INCLUDEPATH+= /users/never/__projects__/_out/Jmcppd.framework/Headers
+		LIBS+= -F/users/never/__projects__/_out -framework Jmcppd
+	}
+	CONFIG(release, debug|release){
+		INCLUDEPATH+=/users/never/__projects__/_out/Jmcpp.framework/Headers
+		LIBS+= -F/users/never/__projects__/_out -framework Jmcpp
+	}
 
 }
 
-CONFIG(debug, debug|release): LIBS += -L$$OUT_PWD/../QxOrm/debug/ -lQxOrmd
-CONFIG(release, debug|release): LIBS += -L$$OUT_PWD/../QxOrm/release/ -lQxOrm
+CONFIG(debug, debug|release):	LIBS += -L$$OUT_PWD/../QxOrm/ -L$$OUT_PWD/../QxOrm/debug/ -lQxOrmd
+CONFIG(release, debug|release): LIBS += -L$$OUT_PWD/../QxOrm/ -L$$OUT_PWD/../QxOrm/release/ -lQxOrm
 
-INCLUDEPATH += $$PWD/../QxOrm $$PWD/../QxOrm/include
-DEPENDPATH += $$PWD/../QxOrm $$PWD/../QxOrm/include
+INCLUDEPATH += $$PWD/../QxOrm/include
+DEPENDPATH +=  $$PWD/../QxOrm/include

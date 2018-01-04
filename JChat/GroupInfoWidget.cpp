@@ -1,4 +1,4 @@
-#include "GroupInfoWidget.h"
+﻿#include "GroupInfoWidget.h"
 #include <QPainter>
 #include <QResizeEvent>
 #include <QGraphicsDropShadowEffect>

@@ -1,4 +1,4 @@
-#include "SelectMemberWidget.h"
+﻿#include "SelectMemberWidget.h"
 #include <QPainter>
 #include <QApplication>
 #include <QMouseEvent>

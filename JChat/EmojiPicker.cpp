@@ -1,4 +1,4 @@
-#include "EmojiPicker.h"
+﻿#include "EmojiPicker.h"
 
 #include <QStandardItemModel>
 

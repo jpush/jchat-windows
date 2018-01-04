@@ -1,4 +1,4 @@
-#include "InputGroupId.h"
+﻿#include "InputGroupId.h"
 
 #include <QMessageBox>
 

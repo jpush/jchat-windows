@@ -1,4 +1,4 @@
-#include "GroupEventWidget.h"
+﻿#include "GroupEventWidget.h"
 
 #include "UserInfoWidget.h"
 #include "GroupInfoDialog.h"

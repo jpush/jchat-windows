@@ -69,7 +69,7 @@ namespace
 	Q_CONSTRUCTOR_FUNCTION(registerTypes);
 }
 
-QX_REGISTER_COMPLEX_CLASS_NAME_CPP(JChat::KeyValueT, JChatKeyValueT)
+QX_REGISTER_COMPLEX_CLASS_NAME_CPP_EXPORT_DLL(JChat::KeyValueT, JChatKeyValueT)
 
 namespace qx {
 	template <>
@@ -82,7 +82,7 @@ namespace qx {
 	}
 }
 
-QX_REGISTER_COMPLEX_CLASS_NAME_CPP(JChat::UserInfo, JChatUserInfo)
+QX_REGISTER_COMPLEX_CLASS_NAME_CPP_EXPORT_DLL(JChat::UserInfo, JChatUserInfo)
 
 namespace qx {
 	template <>
@@ -104,7 +104,7 @@ namespace qx {
 	}
 }
 
-QX_REGISTER_COMPLEX_CLASS_NAME_CPP(JChat::ConversationT, JChatConversationT)
+QX_REGISTER_COMPLEX_CLASS_NAME_CPP_EXPORT_DLL(JChat::ConversationT, JChatConversationT)
 
 namespace qx {
 	template <>
@@ -126,7 +126,7 @@ namespace qx {
 }
 
 
-QX_REGISTER_COMPLEX_CLASS_NAME_CPP(JChat::Account, JChatAccount)
+QX_REGISTER_COMPLEX_CLASS_NAME_CPP_EXPORT_DLL(JChat::Account, JChatAccount)
 namespace qx {
 	template <>
 	void register_class(QxClass<JChat::Account> & t)
@@ -142,7 +142,7 @@ namespace qx {
 }
 
 
-QX_REGISTER_COMPLEX_CLASS_NAME_CPP(JChat::FriendEventT, JChatFriendEventT)
+QX_REGISTER_COMPLEX_CLASS_NAME_CPP_EXPORT_DLL(JChat::FriendEventT, JChatFriendEventT)
 namespace qx {
 	template <>
 	void register_class(QxClass<JChat::FriendEventT> & t)
@@ -163,7 +163,7 @@ namespace qx {
 	}
 }
 
-QX_REGISTER_COMPLEX_CLASS_NAME_CPP(JChat::GroupEventT, JChatGroupEventT)
+QX_REGISTER_COMPLEX_CLASS_NAME_CPP_EXPORT_DLL(JChat::GroupEventT, JChatGroupEventT)
 namespace qx {
 	template <>
 	void register_class(QxClass<JChat::GroupEventT> & t)

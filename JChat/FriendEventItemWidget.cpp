@@ -1,4 +1,4 @@
-#include "FriendEventItemWidget.h"
+﻿#include "FriendEventItemWidget.h"
 #include <QMouseEvent>
 
 #include "Util.h"

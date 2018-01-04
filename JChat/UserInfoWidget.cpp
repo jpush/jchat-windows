@@ -1,4 +1,4 @@
-
+﻿
 #include "UserInfoWidget.h"
 
 #include <QBuffer>

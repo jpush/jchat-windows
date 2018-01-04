@@ -1,4 +1,4 @@
-#include "ChangePassword.h"
+﻿#include "ChangePassword.h"
 
 #include <QMessageBox>
 #include "BusyIndicator.h"

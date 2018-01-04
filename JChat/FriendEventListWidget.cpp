@@ -1,4 +1,4 @@
-
+﻿
 #include "FriendEventListWidget.h"
 #include <QPainter>
 

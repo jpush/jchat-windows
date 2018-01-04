@@ -1,4 +1,4 @@
-#include "ItemWidgetFileLeft.h"
+﻿#include "ItemWidgetFileLeft.h"
 
 #include <QDesktopServices>
 #include <QMouseEvent>

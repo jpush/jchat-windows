@@ -1,4 +1,4 @@
-#include "GroupInfoDialog.h"
+﻿#include "GroupInfoDialog.h"
 
 #include <QInputDialog>
 #include <QMessageBox>

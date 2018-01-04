@@ -1,4 +1,4 @@
-#include "GroupEventItem.h"
+﻿#include "GroupEventItem.h"
 
 #include "Util.h"
 namespace JChat {

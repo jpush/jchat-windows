@@ -282,7 +282,7 @@ CONFIG += rtti_off
 #   3- BUT PLEASE : in your program, add a "readme.txt" file and a "about my program..." window to indicate that your application is based on Qt, boost and QxOrm libraries !
 # Note : on Windows, static mode works with only 1 EXE, it will never work mixing DLL and EXE (because of singleton implementation of boost::serialization and QxOrm libraries)
 
-# DEFINES += _QX_STATIC_BUILD
+DEFINES += _QX_STATIC_BUILD
 
 ################################
 # No JSON Serialization Engine #

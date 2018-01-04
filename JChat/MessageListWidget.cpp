@@ -1,4 +1,4 @@
-
+﻿
 #include "MessageListWidget.h"
 #include <QResizeEvent>
 #include <QMessageBox>
