@@ -22,6 +22,9 @@
 	font-family:&quot;微软雅黑&quot;;	
 	background-color: rgb(255, 255, 255);
 }
+QLabel{
+	border:none;
+}
 QPushButton
 {
 	color: rgb(0, 0, 0);
@@ -595,9 +598,6 @@ image: url(:/image/resource/ChatSelect.png);
                <verstretch>0</verstretch>
               </sizepolicy>
              </property>
-             <property name="frameShape">
-              <enum>QFrame::StyledPanel</enum>
-             </property>
              <property name="frameShadow">
               <enum>QFrame::Raised</enum>
              </property>
@@ -727,6 +727,9 @@ image: url(:/image/resource/ChatSelect.png);
 
 </string>
           </property>
+          <property name="currentIndex">
+           <number>1</number>
+          </property>
           <widget class="QWidget" name="pageMessages">
            <property name="styleSheet">
             <string notr="true">#listConversation
@@ -802,6 +805,9 @@ image: url(:/image/resource/ChatSelect.png);
                  <height>16777215</height>
                 </size>
                </property>
+               <property name="frameShape">
+                <enum>QFrame::NoFrame</enum>
+               </property>
                <property name="verticalScrollBarPolicy">
                 <enum>Qt::ScrollBarAsNeeded</enum>
                </property>
@@ -856,7 +862,7 @@ image: url(:/image/resource/ChatSelect.png);
 image: url(:/image/resource/WelcomePage.png);</string>
                    </property>
                    <property name="frameShape">
-                    <enum>QFrame::StyledPanel</enum>
+                    <enum>QFrame::NoFrame</enum>
                    </property>
                    <property name="frameShadow">
                     <enum>QFrame::Raised</enum>
@@ -1017,9 +1023,6 @@ image: url(:/image/resource/WelcomePage.png);</string>
                  </property>
                  <item>
                   <widget class="QFrame" name="frame_5">
-                   <property name="frameShape">
-                    <enum>QFrame::StyledPanel</enum>
-                   </property>
                    <property name="frameShadow">
                     <enum>QFrame::Raised</enum>
                    </property>
@@ -1378,9 +1381,6 @@ QTabBar::tab:!selected {
                    <property name="styleSheet">
                     <string notr="true">
 image: url(:/image/resource/WelcomePage.png);</string>
-                   </property>
-                   <property name="frameShape">
-                    <enum>QFrame::StyledPanel</enum>
                    </property>
                    <property name="frameShadow">
                     <enum>QFrame::Raised</enum>

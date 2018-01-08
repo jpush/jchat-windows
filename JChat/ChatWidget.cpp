@@ -50,6 +50,8 @@ namespace JChat
 		, _conId(conId)
 	{
 		ui.setupUi(this);
+		this->setAttribute(Qt::WA_MacShowFocusRect,false);
+
 		ui.listWidget->setClientObject(_co);
 		ui.textEdit->installEventFilter(this);
 

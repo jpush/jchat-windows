@@ -23,6 +23,11 @@ JChat::SelectMemberWidget::SelectMemberWidget(ClientObjectPtr const&co, QWidget 
 	ui.setupUi(this);
 	setWindowFlags(Qt::Window | Qt::WindowType::CustomizeWindowHint | Qt::WindowType::WindowCloseButtonHint);
 	setWindowModality(Qt::ApplicationModal);
+	for(auto&& c:this->findChildren<QFrame*>())
+	{
+		c->setAttribute(Qt::WA_MacShowFocusRect,false);
+	}
+
 
 	ui.labelAvatar->installEventFilter(this);
 

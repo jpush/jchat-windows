@@ -39,7 +39,7 @@ namespace JChat
 	MessageListWidget::MessageListWidget(QWidget *parent) : QListWidget(parent)
 	{
 		ui.setupUi(this);
-
+		this->setAttribute(Qt::WA_MacShowFocusRect,false);
 		_loadIndicator = new QLabel(this);
 		_loadIndicator->setFixedSize(30, 30);
 		_loadIndicator->setScaledContents(true);

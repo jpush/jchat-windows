@@ -8,6 +8,7 @@ QT       += core gui widgets network sql multimedia multimediawidgets svg xml qu
 
 TARGET = JChat
 TEMPLATE = app
+CONFIG+=app_bundle
 
 # The following define makes your compiler emit warnings if you use
 # any feature of Qt which has been marked as deprecated (the exact warnings
@@ -78,7 +79,7 @@ else{
 	INCLUDEPATH+= /usr/local/opt/openssl/include
 	INCLUDEPATH+= /usr/local/include
 	LIBS+= -L/usr/local/lib -L/usr/local/opt/openssl/lib -lssl -lcrypto
-	LIBS+= -lc++experimental -lcpprest -lboost_system -lboost_filesystem-mt   -lboost_thread-mt -lboost_chrono
+	LIBS+= -lc++experimental -lcpprest -lboost_system -lboost_filesystem   -lboost_thread -lboost_chrono
 
 
 	DESTDIR+=/users/never/__projects__/_out
@@ -93,6 +94,9 @@ else{
 		LIBS+= -F/users/never/__projects__/_out -framework Jmcpp
 	}
 
+	QMAKE_RPATHDIR+=/users/never/__projects__/_out
+
+	QMAKE_POST_LINK += install_name_tool -change Jmcpp.framework/Versions/1.2.0/Jmcpp  @executable_path/../Frameworks/Jmcpp.framework/Versions/1.2.0/Jmcpp $$DESTDIR/JChat.app/Contents/MacOS/JChat
 }
 
 CONFIG(debug, debug|release):	LIBS += -L$$OUT_PWD/../QxOrm/ -L$$OUT_PWD/../QxOrm/debug/ -lQxOrmd

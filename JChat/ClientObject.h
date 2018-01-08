@@ -230,7 +230,7 @@ namespace JChat
 
 		static Jmcpp::Authorization getAuthorization();
 
-		static QDir storageRootPath(){ return _storageRootPath; }
+		static QDir storageRootPath();
 
 		QSqlDatabase & memoryDb()
 		{

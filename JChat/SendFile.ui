@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>330</width>
-    <height>225</height>
+    <height>243</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -28,9 +28,6 @@
    </property>
    <item>
     <widget class="QFrame" name="frame_2">
-     <property name="frameShape">
-      <enum>QFrame::StyledPanel</enum>
-     </property>
      <property name="frameShadow">
       <enum>QFrame::Raised</enum>
      </property>
@@ -80,6 +77,9 @@
           <family>微软雅黑</family>
           <pointsize>12</pointsize>
          </font>
+        </property>
+        <property name="styleSheet">
+         <string notr="true"/>
         </property>
         <property name="text">
          <string>FileNames</string>

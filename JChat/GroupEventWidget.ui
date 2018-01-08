@@ -38,6 +38,9 @@ QListWidget::item:selected
 }
 </string>
   </property>
+  <property name="frameShape">
+   <enum>QFrame::Panel</enum>
+  </property>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
  <resources/>

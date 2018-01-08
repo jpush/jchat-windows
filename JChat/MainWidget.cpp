@@ -55,6 +55,8 @@ MainWidget::MainWidget(JChat::ClientObjectPtr const& co, QWidget *parent /*= Q_N
 	ui.setupUi(this);
 	this->setAttribute(Qt::WA_DeleteOnClose);
 
+	this->setAttribute(Qt::WA_MacShowFocusRect,false);
+
 #if defined(_MSC_VER)
 
 	this->setBorderColor(Qt::gray);
@@ -146,6 +148,12 @@ MainWidget::MainWidget(JChat::ClientObjectPtr const& co, QWidget *parent /*= Q_N
 	initContactPage();
 	initRoomPage();
 	initEvent();
+
+
+	for(auto&& c:this->findChildren<QFrame*>())
+	{
+		c->setAttribute(Qt::WA_MacShowFocusRect,false);
+	}
 
 }
 

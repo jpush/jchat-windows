@@ -25,17 +25,7 @@ public:
 	}
 };
 
-QDir JChat::ClientObject::_storageRootPath = []{
-	QDir dir {"./JChatData"};
-	dir.makeAbsolute();
-	qDebug()<<dir;
-	if(!dir.mkpath("."))
-	{
-		qDebug()<< "./JChatData Failed";
-	}
-
-	return dir;
-}();
+QDir JChat::ClientObject::_storageRootPath;
 
 namespace
 {
@@ -105,6 +95,26 @@ JChat::ClientObject::getAuthorization()
 		return auth;
 	}
 
+}
+
+QDir JChat::ClientObject::storageRootPath(){
+
+	static bool init=false;
+
+	if(!init)
+	{
+		init=true;
+		QDir dir = QCoreApplication::applicationDirPath();
+		if(!dir.mkpath("JChatData"))
+		{
+			qDebug()<< "./JChatData Failed";
+		}
+		dir.cd("./JChatData");
+		_storageRootPath = dir;
+		qDebug()<<dir;
+	}
+
+	return _storageRootPath;
 }
 
 
@@ -1267,7 +1277,7 @@ JChat::ClientObject::onEvent(Jmcpp::MultiUnreadMsgCountChangedEvent const& e)
 void
 JChat::ClientObject::initPath()
 {
-	auto root = _storageRootPath;
+	auto root = storageRootPath();
 
 	_userRootPath = root.absoluteFilePath(getCurrentUser().toString().data());
 	_userRootPath.mkpath("./");

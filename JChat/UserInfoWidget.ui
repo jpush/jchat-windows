@@ -341,9 +341,6 @@ QComboBox {
          <height>20</height>
         </size>
        </property>
-       <property name="frameShape">
-        <enum>QFrame::StyledPanel</enum>
-       </property>
        <property name="frameShadow">
         <enum>QFrame::Raised</enum>
        </property>
@@ -388,9 +385,6 @@ QComboBox {
          <height>20</height>
         </size>
        </property>
-       <property name="frameShape">
-        <enum>QFrame::StyledPanel</enum>
-       </property>
        <property name="frameShadow">
         <enum>QFrame::Raised</enum>
        </property>
@@ -422,9 +416,6 @@ QComboBox {
      </item>
      <item>
       <widget class="QFrame" name="frame">
-       <property name="frameShape">
-        <enum>QFrame::StyledPanel</enum>
-       </property>
        <property name="frameShadow">
         <enum>QFrame::Raised</enum>
        </property>
@@ -501,9 +492,6 @@ QComboBox {
          <height>20</height>
         </size>
        </property>
-       <property name="frameShape">
-        <enum>QFrame::StyledPanel</enum>
-       </property>
        <property name="frameShadow">
         <enum>QFrame::Raised</enum>
        </property>
@@ -562,9 +550,6 @@ QComboBox {
          <width>0</width>
          <height>20</height>
         </size>
-       </property>
-       <property name="frameShape">
-        <enum>QFrame::StyledPanel</enum>
        </property>
        <property name="frameShadow">
         <enum>QFrame::Raised</enum>
@@ -672,8 +657,6 @@ QComboBox {
   </layout>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
- <resources>
-  <include location="Resource.qrc"/>
- </resources>
+ <resources/>
  <connections/>
 </ui>
