@@ -39,7 +39,7 @@ namespace JChat {
 		)");
 
 		QJSValueList args;
-		args << "./EmojiOne_3.1.1_32x32_png/";
+		args << ":/emoji/emoji/EmojiOne_3.1.1_32x32_png/";
 		fn.call(args);
 
 

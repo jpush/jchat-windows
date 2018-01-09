@@ -24,6 +24,7 @@ DEFINES += QT_DEPRECATED_WARNINGS
 RC_FILE=Resource.rc
 
 RESOURCES = Resource.qrc
+RESOURCES += ResourceEmoji.qrc
 
 FORMS += $$files(*.ui, false)
 
