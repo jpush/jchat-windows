@@ -120,11 +120,11 @@ int main(int argc, char *argv[])
 	a.setApplicationDisplayName("JChat");
 	a.setQuitOnLastWindowClosed(false);
 	a.setWindowIcon(QIcon(":/image/resource/icon.png"));
-	QFontDatabase::addApplicationFont("font/msyh.ttc");
+	//QFontDatabase::addApplicationFont("font/msyh.ttc");
 
 	a.setStyleSheet(R"( QWidget{ font-family:"Microsoft YaHei";	} )");
 
-	
+	a.setApplicationName("JChat");
 
 	QTranslator qtTranslator;
 	if(qtTranslator.load(QLocale::system(),

@@ -4,6 +4,7 @@
 
 #include <experimental/filesystem>
 
+#include <QStandardPaths>
 #include <QtNetwork/QtNetwork>
 
 #include "Settings.h"
@@ -61,12 +62,13 @@ namespace
 	auto dataPath()
 	{
 	#if defined(Q_OS_MACOS)
-		fs::path root = "~/Library/Application support";
+		fs::path root = QStandardPaths::standardLocations(QStandardPaths::StandardLocation::AppDataLocation).front().toStdString();
+		return root;
 	#else
 		fs::path root = QCoreApplication::applicationDirPath().toStdWString();
-	#endif
 		auto dataDir = root / "JChat";
 		return dataDir;
+	#endif
 	}
 
 	auto getSettingFile()

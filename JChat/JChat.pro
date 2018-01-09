@@ -79,7 +79,7 @@ else{
 
 	INCLUDEPATH+= /usr/local/opt/openssl/include
 	INCLUDEPATH+= /usr/local/include
-	LIBS+= -L/usr/local/lib -L/usr/local/opt/openssl/lib -lssl -lcrypto
+	LIBS+= -L/usr/local/lib
 	LIBS+= -lc++experimental -lcpprest -lboost_system -lboost_filesystem   -lboost_thread -lboost_chrono
 
 
@@ -97,7 +97,14 @@ else{
 
 	QMAKE_RPATHDIR+=/users/never/__projects__/_out
 
-	QMAKE_POST_LINK += install_name_tool -change Jmcpp.framework/Versions/1.2.0/Jmcpp  @executable_path/../Frameworks/Jmcpp.framework/Versions/1.2.0/Jmcpp $$DESTDIR/JChat.app/Contents/MacOS/JChat
+	install_name_tools.depends+=all
+	install_name_tools.commands+=install_name_tool -change Jmcpp.framework/Versions/1.2.0/Jmcpp  @executable_path/../Frameworks/Jmcpp.framework/Versions/1.2.0/Jmcpp $$DESTDIR/JChat.app/Contents/MacOS/JChat
+
+
+	#QMAKE_EXTRA_TARGETS+=install_name_tools
+
+
+	#QMAKE_POST_LINK += install_name_tool -change Jmcpp.framework/Versions/1.2.0/Jmcpp  @executable_path/../Frameworks/Jmcpp.framework/Versions/1.2.0/Jmcpp $$DESTDIR/JChat.app/Contents/MacOS/JChat
 }
 
 CONFIG(debug, debug|release):	LIBS += -L$$OUT_PWD/../QxOrm/ -L$$OUT_PWD/../QxOrm/debug/ -lQxOrmd
