@@ -133,7 +133,7 @@
       <widget class="QLabel" name="labelUnread">
        <property name="font">
         <font>
-         <family>微软雅黑</family>
+         <family>Microsoft YaHei</family>
         </font>
        </property>
        <property name="text">

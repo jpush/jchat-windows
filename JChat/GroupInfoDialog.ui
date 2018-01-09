@@ -99,7 +99,7 @@ QLabel , QTextEdit
       <widget class="QLabel" name="labelGroupName">
        <property name="font">
         <font>
-         <family>微软雅黑</family>
+         <family>Microsoft YaHei</family>
          <pointsize>12</pointsize>
         </font>
        </property>
@@ -142,7 +142,7 @@ QLabel , QTextEdit
       <widget class="QLabel" name="labelGroupId">
        <property name="font">
         <font>
-         <family>微软雅黑</family>
+         <family>Microsoft YaHei</family>
          <pointsize>10</pointsize>
         </font>
        </property>

@@ -21,7 +21,7 @@
   </property>
   <property name="styleSheet">
    <string notr="true">QWidget {
-    font-family: &quot;微软雅黑&quot;;
+    font-family: &quot;Microsoft YaHei&quot;;
 }
 
 QLineEdit {
@@ -239,7 +239,7 @@ QComboBox {
       <widget class="QLabel" name="labelNickName">
        <property name="font">
         <font>
-         <family>微软雅黑</family>
+         <family>Microsoft YaHei</family>
          <pointsize>12</pointsize>
         </font>
        </property>

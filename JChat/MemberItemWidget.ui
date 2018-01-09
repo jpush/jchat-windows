@@ -31,7 +31,7 @@
      <property name="styleSheet">
       <string notr="true">QWidget
 {
-	font-family:&quot;微软雅黑&quot;;
+	font-family:&quot;Microsoft YaHei&quot;;
 	
 	background-color: rgba(0, 0, 0, 0);
 }
@@ -111,7 +111,7 @@
        <widget class="JChat::ElidedLabel" name="labelTitle">
         <property name="font">
          <font>
-          <family>微软雅黑</family>
+          <family>Microsoft YaHei</family>
           <pointsize>12</pointsize>
          </font>
         </property>

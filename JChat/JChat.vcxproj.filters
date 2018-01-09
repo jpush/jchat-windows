@@ -631,6 +631,9 @@
     <ClCompile Include="GeneratedFiles\Release\moc_MetroStyle.cpp">
       <Filter>Generated Files\Release</Filter>
     </ClCompile>
+    <ClCompile Include="GeneratedFiles\qrc_ResourceEmoji.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="MainWidget.h">
@@ -968,6 +971,9 @@
     </CustomBuild>
     <CustomBuild Include="MetroStyle.h">
       <Filter>Header Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="ResourceEmoji.qrc">
+      <Filter>Resource Files</Filter>
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>

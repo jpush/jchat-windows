@@ -28,7 +28,7 @@
   <property name="styleSheet">
    <string notr="true">QWidget
 {
-	font-family:&quot;微软雅黑&quot;;
+	font-family:&quot;Microsoft YaHei&quot;;
 	
 	background-color: rgb(255, 255, 255);
 }
@@ -77,7 +77,7 @@ QToolButton
       <widget class="QLabel" name="labelTitle">
        <property name="font">
         <font>
-         <family>微软雅黑</family>
+         <family>Microsoft YaHei</family>
          <pointsize>10</pointsize>
         </font>
        </property>
@@ -90,7 +90,7 @@ QToolButton
       <widget class="QLabel" name="labelMessage">
        <property name="font">
         <font>
-         <family>微软雅黑</family>
+         <family>Microsoft YaHei</family>
          <pointsize>10</pointsize>
         </font>
        </property>
@@ -118,7 +118,7 @@ QToolButton
     <widget class="QLabel" name="labelStatus">
      <property name="font">
       <font>
-       <family>微软雅黑</family>
+       <family>Microsoft YaHei</family>
        <pointsize>10</pointsize>
       </font>
      </property>

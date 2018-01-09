@@ -16,7 +16,7 @@
   <property name="styleSheet">
    <string notr="true">QWidget
 {
-	font-family: &quot;微软雅黑&quot;;
+	font-family: &quot;Microsoft YaHei&quot;;
 }
 
 #frameVoice
@@ -60,7 +60,7 @@
     <widget class="QLabel" name="labelName">
      <property name="font">
       <font>
-       <family>微软雅黑</family>
+       <family>Microsoft YaHei</family>
       </font>
      </property>
      <property name="text">
@@ -190,7 +190,7 @@ QFrame
          <widget class="QLabel" name="labelDuration">
           <property name="font">
            <font>
-            <family>微软雅黑</family>
+            <family>Microsoft YaHei</family>
             <pointsize>14</pointsize>
            </font>
           </property>
@@ -294,7 +294,7 @@ QFrame
         <widget class="QLabel" name="labelUnread">
          <property name="font">
           <font>
-           <family>微软雅黑</family>
+           <family>Microsoft YaHei</family>
           </font>
          </property>
          <property name="text">

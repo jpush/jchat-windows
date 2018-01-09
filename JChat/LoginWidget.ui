@@ -44,7 +44,7 @@
          <property name="styleSheet">
           <string notr="true">QWidget
 {
-	font: 10pt &quot;微软雅黑&quot;;
+	font: 10pt &quot;Microsoft YaHei&quot;;
 }
 
 QComboBox , QLineEdit
@@ -270,7 +270,7 @@ QComboBox , QLineEdit
          <property name="styleSheet">
           <string notr="true">QWidget
 {
-	font: 10pt &quot;微软雅黑&quot;;
+	font: 10pt &quot;Microsoft YaHei&quot;;
 }
 
 QLineEdit

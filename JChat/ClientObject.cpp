@@ -1,10 +1,16 @@
 ﻿
 #include "ClientObject.h"
 
+
+#include <experimental/filesystem>
+
 #include <QtNetwork/QtNetwork>
 
 #include "Settings.h"
 #include "Util.h"
+
+
+namespace fs = std::experimental::filesystem;
 
 class qLogger :public Jmcpp::Logger
 {
@@ -50,16 +56,40 @@ namespace
 		static QPixmap img{ u8":/image/resource/GroupAvatar60px.png" };
 		return img;
 	}
+
+
+	auto dataPath()
+	{
+	#if defined(Q_OS_MACOS)
+		fs::path root = "~/Library/Application support";
+	#else
+		fs::path root = QCoreApplication::applicationDirPath().toStdWString();
+	#endif
+		auto dataDir = root / "JChat";
+		return dataDir;
+	}
+
+	auto getSettingFile()
+	{
+		return QString::fromStdString((dataPath() / "JChat.ini").u8string());
+	}
 }
+
 
 Jmcpp::Configuration
 JChat::ClientObject::getSDKConfig()
 {
-	Settings setting(QCoreApplication::applicationFilePath() + ".ini");
+	fs::create_directories(dataPath());
+	Settings setting(getSettingFile());
+
 	Jmcpp::Configuration cfg;
 	cfg.serverUrl = setting.value<QString>("serverUrl", QString()).toStdString();
 	cfg.uploadUrl = setting.value<QString>("uploadUrl", QString()).toStdString();
 	cfg.downloadUrl = setting.value<QString>("downloadUrl", QString()).toStdString();
+
+	auto jm = dataPath() / "Jmcpp";
+	fs::create_directories(jm);
+	cfg.storagePath = jm.u8string();
 
 	cfg.logLevel = 4;
 	cfg.logger = std::make_shared<qLogger>();
@@ -69,7 +99,9 @@ JChat::ClientObject::getSDKConfig()
 Jmcpp::Authorization
 JChat::ClientObject::getAuthorization()
 {
-	Settings setting(QCoreApplication::applicationFilePath() + ".ini");
+	fs::create_directories(dataPath());
+	Settings setting(getSettingFile());
+
 	auto appKey = setting.value<QString>("appKey", QString());
 	auto masterSecret = setting.value<QString>("masterSecret", QString());
 	if(appKey.isEmpty() || (appKey == "4f7aef34fb361292c566a1cd" && masterSecret.isEmpty()))
@@ -94,24 +126,15 @@ JChat::ClientObject::getAuthorization()
 		auth.signature = QCryptographicHash::hash(str.toUtf8(), QCryptographicHash::Md5).toHex().toStdString();
 		return auth;
 	}
-
 }
 
-QDir JChat::ClientObject::storageRootPath(){
-
-	static bool init=false;
-
+QDir JChat::ClientObject::storageRootPath()
+{
+	static bool init = false;
 	if(!init)
 	{
-		init=true;
-		QDir dir = QCoreApplication::applicationDirPath();
-		if(!dir.mkpath("JChatData"))
-		{
-			qDebug()<< "./JChatData Failed";
-		}
-		dir.cd("./JChatData");
-		_storageRootPath = dir;
-		qDebug()<<dir;
+		init = true;
+		_storageRootPath = QDir{ QString::fromStdString(dataPath().u8string()) };
 	}
 
 	return _storageRootPath;
@@ -1048,7 +1071,7 @@ JChat::ClientObject::init()
 		{
 			onEvent(ev);
 		}, event);
-	},std::placeholders::_1));
+	}, std::placeholders::_1));
 
 	onEventSync([this](std::vector<Jmcpp::Event> eventList)
 	{

@@ -524,7 +524,7 @@ namespace QxWin{
 		static const QString titleBarQSS = QString::fromWCharArray(LR"(
 			QWidget
 			{
-				font-family: "微软雅黑";
+				font-family: "Microsoft YaHei";
 			}
 
 			QLabel

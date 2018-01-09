@@ -1,5 +1,6 @@
-﻿<RCC>
+<RCC>
     <qresource prefix="/image">
+        <file>resource/Group.png</file>
         <file>resource/JChatLogo.png</file>
         <file>resource/WelcomePage.png</file>
         <file>resource/DeleteConList hover.png</file>
@@ -31,8 +32,6 @@
         <file>resource/icon.png</file>
         <file>resource/Friend pre.png</file>
         <file>resource/Friend.png</file>
-        <file>resource/Group pre.png</file>
-        <file>resource/Group.png</file>
         <file>resource/RequestMsg pre.png</file>
         <file>resource/RequestMsg.png</file>
         <file>resource/popo copy.png</file>
@@ -85,13 +84,14 @@
         <file>resource/ScrollDown.png</file>
         <file>resource/room-active.png</file>
         <file>resource/room-normal.png</file>
-        <file>resource/Group.png</file>
         <file>resource/slient.png</file>
         <file>resource/ScaleIn.png</file>
         <file>resource/Silent.png</file>
         <file>resource/ChatNormal.png</file>
         <file>resource/ChatSelect.png</file>
         <file>resource/scaleout.png</file>
+        <file>resource/GroupIcon.png</file>
+        <file>resource/GroupIconPre.png</file>
     </qresource>
     <qresource prefix="/js">
         <file>emojione.js</file>
@@ -123,4 +123,5 @@
         <file>resource/guang/23.png</file>
         <file>resource/guang/24.png</file>
     </qresource>
+    <qresource prefix="/font"/>
 </RCC>

@@ -16,7 +16,7 @@
   <property name="styleSheet">
    <string notr="true">QWidget
 {
-	font-family: &quot;微软雅黑&quot;;
+	font-family: &quot;Microsoft YaHei&quot;;
 	
 	background-color: rgba(0, 0, 0, 0);
 }
@@ -77,7 +77,7 @@ QProgressBar::chunk {
     <widget class="QLabel" name="labelName">
      <property name="font">
       <font>
-       <family>微软雅黑</family>
+       <family>Microsoft YaHei</family>
       </font>
      </property>
      <property name="text">
@@ -221,7 +221,7 @@ QProgressBar::chunk {
              </property>
              <property name="font">
               <font>
-               <family>微软雅黑</family>
+               <family>Microsoft YaHei</family>
                <pointsize>12</pointsize>
               </font>
              </property>
@@ -379,7 +379,7 @@ QProgressBar::chunk {
         <widget class="QLabel" name="labelUnread">
          <property name="font">
           <font>
-           <family>微软雅黑</family>
+           <family>Microsoft YaHei</family>
           </font>
          </property>
          <property name="text">

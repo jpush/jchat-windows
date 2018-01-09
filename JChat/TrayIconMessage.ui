@@ -16,7 +16,7 @@
   <property name="styleSheet">
    <string notr="true">
 QWidget {
-    font-family: &quot;微软雅黑&quot;;
+    font-family: &quot;Microsoft YaHei&quot;;
 	background-color: rgb(255, 255, 255);
 }
 

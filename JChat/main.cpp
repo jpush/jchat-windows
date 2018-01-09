@@ -6,6 +6,7 @@
 #endif // _MSC_VER
 
 
+#include <QFontDatabase>
 #include <QTranslator>
 #include <QLibraryInfo>
 #include <QtWidgets/QApplication>
@@ -119,6 +120,11 @@ int main(int argc, char *argv[])
 	a.setApplicationDisplayName("JChat");
 	a.setQuitOnLastWindowClosed(false);
 	a.setWindowIcon(QIcon(":/image/resource/icon.png"));
+	QFontDatabase::addApplicationFont("font/msyh.ttc");
+
+	a.setStyleSheet(R"( QWidget{ font-family:"Microsoft YaHei";	} )");
+
+	
 
 	QTranslator qtTranslator;
 	if(qtTranslator.load(QLocale::system(),

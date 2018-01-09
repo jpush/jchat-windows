@@ -72,7 +72,7 @@ namespace JChat{
 		{
 			auto item = new QStandardItem();
 			item->setText(u8"群组");
-			auto icon = QIcon(u8":/image/resource/Group.png");
+			auto icon = QIcon(u8":/image/resource/GroupIcon.png");
 			item->setIcon(icon);
 			this->appendRow(item);
 		}

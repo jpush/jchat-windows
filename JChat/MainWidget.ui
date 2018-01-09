@@ -19,12 +19,16 @@
   <property name="styleSheet">
    <string notr="true">QWidget
 {
-	font-family:&quot;微软雅黑&quot;;	
+	font-family:&quot;Microsoft YaHei&quot;;	
 	background-color: rgb(255, 255, 255);
 }
 QLabel{
 	border:none;
 }
+QTabWidget::tab-bar {
+    left: 3px; 
+}
+
 QPushButton
 {
 	color: rgb(0, 0, 0);
@@ -873,7 +877,7 @@ image: url(:/image/resource/WelcomePage.png);</string>
                   <widget class="QLabel" name="label_4">
                    <property name="font">
                     <font>
-                     <family>微软雅黑</family>
+                     <family>Microsoft YaHei</family>
                      <pointsize>11</pointsize>
                     </font>
                    </property>
@@ -1031,7 +1035,7 @@ image: url(:/image/resource/WelcomePage.png);</string>
                      <widget class="QLabel" name="label_3">
                       <property name="font">
                        <font>
-                        <family>微软雅黑</family>
+                        <family>Microsoft YaHei</family>
                         <pointsize>14</pointsize>
                        </font>
                       </property>
@@ -1151,7 +1155,7 @@ QTabBar::tab:!selected {
                      <widget class="QLabel" name="label">
                       <property name="font">
                        <font>
-                        <family>微软雅黑</family>
+                        <family>Microsoft YaHei</family>
                         <pointsize>14</pointsize>
                        </font>
                       </property>
@@ -1218,7 +1222,7 @@ QTabBar::tab:!selected {
                      <widget class="QLabel" name="label_2">
                       <property name="font">
                        <font>
-                        <family>微软雅黑</family>
+                        <family>Microsoft YaHei</family>
                         <pointsize>14</pointsize>
                        </font>
                       </property>
@@ -1391,7 +1395,7 @@ image: url(:/image/resource/WelcomePage.png);</string>
                   <widget class="QLabel" name="label_5">
                    <property name="font">
                     <font>
-                     <family>微软雅黑</family>
+                     <family>Microsoft YaHei</family>
                      <pointsize>11</pointsize>
                     </font>
                    </property>

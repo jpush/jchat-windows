@@ -55,7 +55,7 @@ MainWidget::MainWidget(JChat::ClientObjectPtr const& co, QWidget *parent /*= Q_N
 	ui.setupUi(this);
 	this->setAttribute(Qt::WA_DeleteOnClose);
 
-	this->setAttribute(Qt::WA_MacShowFocusRect,false);
+	this->setAttribute(Qt::WA_MacShowFocusRect, false);
 
 #if defined(_MSC_VER)
 
@@ -150,9 +150,9 @@ MainWidget::MainWidget(JChat::ClientObjectPtr const& co, QWidget *parent /*= Q_N
 	initEvent();
 
 
-	for(auto&& c:this->findChildren<QFrame*>())
+	for(auto&& c : this->findChildren<QFrame*>())
 	{
-		c->setAttribute(Qt::WA_MacShowFocusRect,false);
+		c->setAttribute(Qt::WA_MacShowFocusRect, false);
 	}
 
 }
