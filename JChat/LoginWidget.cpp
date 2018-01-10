@@ -208,6 +208,16 @@ namespace JChat{
 		{
 			ui.stackedWidget->setCurrentWidget(ui.pageRegister);
 		});
+
+
+		for(auto&& c : this->findChildren<QFrame*>())
+		{
+			c->setAttribute(Qt::WA_MacShowFocusRect, false);
+		}
+		for(auto&& c : this->findChildren<QLineEdit*>())
+		{
+			c->setAttribute(Qt::WA_MacShowFocusRect, false);
+		}
 	}
 
 	LoginWidget::~LoginWidget()

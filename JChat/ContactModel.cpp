@@ -152,6 +152,7 @@ namespace JChat{
 
 	void ContactDelegate::paint(QPainter *painter, const QStyleOptionViewItem &option, const QModelIndex &index) const
 	{
+		QStyledItemDelegate::paint(painter, option, index);
 		painter->save();
 
 		QStyleOptionViewItem opt = option;
@@ -201,7 +202,7 @@ namespace JChat{
 
 
 		painter->restore();
-		QStyledItemDelegate::paint(painter, option, index);
+
 	}
 
 	QSize ContactDelegate::sizeHint(const QStyleOptionViewItem &option, const QModelIndex &index) const

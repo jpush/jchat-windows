@@ -117,14 +117,23 @@ int main(int argc, char *argv[])
 	qputenv("QT_SCALE_FACTOR", "1");
 
 	QApplication a(argc, argv);
+
+	a.setApplicationName("JChat");
 	a.setApplicationDisplayName("JChat");
 	a.setQuitOnLastWindowClosed(false);
 	a.setWindowIcon(QIcon(":/image/resource/icon.png"));
-	//QFontDatabase::addApplicationFont("font/msyh.ttc");
 
+#ifdef Q_OS_MACOS
+	QDir dir=a.applicationDirPath();
+	dir.cdUp();
+	auto fontFile= dir.absoluteFilePath("Resources/msyh.ttc");
+	//QFontDatabase::addApplicationFont(fontFile);
+#endif
+
+	QCoreApplication::setAttribute(Qt::AA_Use96Dpi);
+
+	a.setFont(QFont("Microsoft YaHei",10));
 	a.setStyleSheet(R"( QWidget{ font-family:"Microsoft YaHei";	} )");
-
-	a.setApplicationName("JChat");
 
 	QTranslator qtTranslator;
 	if(qtTranslator.load(QLocale::system(),

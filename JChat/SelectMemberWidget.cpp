@@ -191,6 +191,14 @@ JChat::SelectMemberWidget::SelectMemberWidget(ClientObjectPtr const&co, QWidget 
 		searchUser->show();
 	});
 
+	for(auto&& c : this->findChildren<QFrame*>())
+	{
+		c->setAttribute(Qt::WA_MacShowFocusRect, false);
+	}
+	for(auto&& c : this->findChildren<QLineEdit*>())
+	{
+		c->setAttribute(Qt::WA_MacShowFocusRect, false);
+	}
 }
 
 JChat::SelectMemberWidget::~SelectMemberWidget()

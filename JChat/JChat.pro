@@ -75,7 +75,7 @@ else{
 
 	QMAKE_CXXFLAGS+= -nostdinc++ -I/usr/local/opt/llvm/include -I/usr/local/opt/llvm/include/c++/v1
 	QMAKE_CXXFLAGS+= -fcoroutines-ts
-	QMAKE_LFLAGS+= -L/usr/local/opt/llvm/lib -Wl,-rpath,/usr/local/opt/llvm/lib
+	QMAKE_LFLAGS+= -L/usr/local/opt/llvm/lib -Wl,-rpath,@executable_path/../Frameworks  #-Wl,-rpath,/usr/local/opt/llvm/lib
 
 	INCLUDEPATH+= /usr/local/opt/openssl/include
 	INCLUDEPATH+= /usr/local/include
@@ -97,14 +97,6 @@ else{
 
 	QMAKE_RPATHDIR+=/users/never/__projects__/_out
 
-	install_name_tools.depends+=all
-	install_name_tools.commands+=install_name_tool -change Jmcpp.framework/Versions/1.2.0/Jmcpp  @executable_path/../Frameworks/Jmcpp.framework/Versions/1.2.0/Jmcpp $$DESTDIR/JChat.app/Contents/MacOS/JChat
-
-
-	#QMAKE_EXTRA_TARGETS+=install_name_tools
-
-
-	#QMAKE_POST_LINK += install_name_tool -change Jmcpp.framework/Versions/1.2.0/Jmcpp  @executable_path/../Frameworks/Jmcpp.framework/Versions/1.2.0/Jmcpp $$DESTDIR/JChat.app/Contents/MacOS/JChat
 }
 
 CONFIG(debug, debug|release):	LIBS += -L$$OUT_PWD/../QxOrm/ -L$$OUT_PWD/../QxOrm/debug/ -lQxOrmd

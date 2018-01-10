@@ -147,6 +147,7 @@
        <property name="font">
         <font>
          <family>Microsoft YaHei</family>
+         <pointsize>9</pointsize>
         </font>
        </property>
        <property name="text">

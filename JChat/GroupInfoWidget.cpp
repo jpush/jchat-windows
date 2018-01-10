@@ -193,6 +193,15 @@ namespace JChat {
 		_memberModel->updateItems();
 
 		updateInfo();
+
+		for(auto&& c : this->findChildren<QFrame*>())
+		{
+			c->setAttribute(Qt::WA_MacShowFocusRect, false);
+		}
+		for(auto&& c : this->findChildren<QLineEdit*>())
+		{
+			c->setAttribute(Qt::WA_MacShowFocusRect, false);
+		}
 	}
 
 	GroupInfoWidget::~GroupInfoWidget()

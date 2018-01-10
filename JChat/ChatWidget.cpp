@@ -50,7 +50,6 @@ namespace JChat
 		, _conId(conId)
 	{
 		ui.setupUi(this);
-		this->setAttribute(Qt::WA_MacShowFocusRect,false);
 
 		ui.listWidget->setClientObject(_co);
 		ui.textEdit->installEventFilter(this);
@@ -136,6 +135,15 @@ namespace JChat
 		});
 		ui.listWidget->verticalScrollBar()->installEventFilter(this);
 
+
+		for(auto&& c : this->findChildren<QFrame*>())
+		{
+			c->setAttribute(Qt::WA_MacShowFocusRect, false);
+		}
+		for(auto&& c : this->findChildren<QLineEdit*>())
+		{
+			c->setAttribute(Qt::WA_MacShowFocusRect, false);
+		}
 	}
 
 	ChatWidget::~ChatWidget()

@@ -256,6 +256,15 @@ JChat::SelectUserWidget::SelectUserWidget(ClientObjectPtr const&co, bool onlyFri
 		searchUser->show();
 	});
 
+	for(auto&& c : this->findChildren<QFrame*>())
+	{
+		c->setAttribute(Qt::WA_MacShowFocusRect, false);
+	}
+	for(auto&& c : this->findChildren<QLineEdit*>())
+	{
+		c->setAttribute(Qt::WA_MacShowFocusRect, false);
+	}
+
 }
 
 JChat::SelectUserWidget::~SelectUserWidget()

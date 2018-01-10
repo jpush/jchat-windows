@@ -154,7 +154,10 @@ MainWidget::MainWidget(JChat::ClientObjectPtr const& co, QWidget *parent /*= Q_N
 	{
 		c->setAttribute(Qt::WA_MacShowFocusRect, false);
 	}
-
+	for(auto&& c : this->findChildren<QLineEdit*>())
+	{
+		c->setAttribute(Qt::WA_MacShowFocusRect, false);
+	}
 }
 
 

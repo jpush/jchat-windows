@@ -61,8 +61,8 @@ namespace JChat
 		auto sz = doc.size().toSize();
 		auto w = doc.idealWidth();
 
-		ui.textBrowser->setMinimumSize(w + 20, sz.height() + 20);
-		ui.textBrowser->setMaximumSize(w + 20, sz.height() + 20);
+		ui.textBrowser->setMinimumSize(w + 22, sz.height() + 20);
+		ui.textBrowser->setMaximumSize(w + 22, sz.height() + 20);
 
 		auto result = newSize;
 		result.setHeight(sz.height() + 25);

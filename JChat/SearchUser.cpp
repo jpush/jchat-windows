@@ -19,9 +19,13 @@ JChat::SearchUser::SearchUser(QWidget *parent, bool multiChecked)
 	ui.setupUi(this);
 	this->setWindowFlags(Qt::WindowType::Popup);
 
-	for(auto&& c:this->findChildren<QFrame*>())
+	for(auto&& c : this->findChildren<QFrame*>())
 	{
-		c->setAttribute(Qt::WA_MacShowFocusRect,false);
+		c->setAttribute(Qt::WA_MacShowFocusRect, false);
+	}
+	for(auto&& c : this->findChildren<QLineEdit*>())
+	{
+		c->setAttribute(Qt::WA_MacShowFocusRect, false);
 	}
 
 	auto effect = new QGraphicsDropShadowEffect(this);

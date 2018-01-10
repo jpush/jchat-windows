@@ -29,6 +29,12 @@ QTabWidget::tab-bar {
     left: 3px; 
 }
 
+QAbstractItemView::item:selected
+{	
+	color:black;
+	background-color: #F3F7FB ;
+}
+
 QPushButton
 {
 	color: rgb(0, 0, 0);
@@ -1006,10 +1012,10 @@ image: url(:/image/resource/WelcomePage.png);</string>
 </string>
                </property>
                <property name="frameShape">
-                <enum>QFrame::StyledPanel</enum>
+                <enum>QFrame::NoFrame</enum>
                </property>
                <property name="currentIndex">
-                <number>0</number>
+                <number>1</number>
                </property>
                <widget class="QWidget" name="pageFriendEvent">
                 <layout class="QVBoxLayout" name="verticalLayout_9">
@@ -1145,7 +1151,7 @@ QTabBar::tab:!selected {
                  <item>
                   <widget class="QFrame" name="frame_3">
                    <property name="frameShape">
-                    <enum>QFrame::StyledPanel</enum>
+                    <enum>QFrame::NoFrame</enum>
                    </property>
                    <property name="frameShadow">
                     <enum>QFrame::Raised</enum>
@@ -1212,7 +1218,7 @@ QTabBar::tab:!selected {
                  <item>
                   <widget class="QFrame" name="frame_4">
                    <property name="frameShape">
-                    <enum>QFrame::StyledPanel</enum>
+                    <enum>QFrame::NoFrame</enum>
                    </property>
                    <property name="frameShadow">
                     <enum>QFrame::Raised</enum>
