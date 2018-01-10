@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 
 #include <QObject>
 #include <QStandardItemModel>
@@ -19,7 +19,8 @@ namespace JChat {
 			NameInfo,
 			ImageRole,
 			IsOwnerRole,
-			IsSlientRole
+			IsSlientRole,
+			IsAdminRole,
 		};
 
 		MemberModel(ClientObjectPtr const& co, Jmcpp::GroupId groupId, QObject *parent = nullptr);

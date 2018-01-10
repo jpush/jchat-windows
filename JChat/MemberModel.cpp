@@ -1,4 +1,4 @@
-#include "MemberModel.h"
+﻿#include "MemberModel.h"
 
 #include <QPainter>
 #include <QApplication>
@@ -73,7 +73,7 @@ namespace JChat {
 				item->setData(QVariant::fromValue(info.avatar), AvatarIdRole);
 				item->setData(getUserDisplayName(info), NameInfo);
 				item->setData(info.isSilent, IsSlientRole);
-
+				item->setData(info.isAdmin, IsAdminRole);
 				//item->setData(QVariant::fromValue(image), ImageRole);
 				this->appendRow(item);
 				if(info.isOwner)

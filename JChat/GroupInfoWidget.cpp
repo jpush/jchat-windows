@@ -93,6 +93,9 @@ namespace JChat {
 
 				auto isSlient = idx.data(MemberModel::IsSlientRole).toBool();
 
+				auto isAdmin = idx.data(MemberModel::IsAdminRole).toBool();
+
+
 				if(_memberModel->isOwner())
 				{
 					QPoint globalPos = widget->mapToGlobal(pt);
@@ -115,6 +118,29 @@ namespace JChat {
 					{
 						removeMember({ userId });
 					});
+
+
+					//#TODO
+					myMenu.addAction(isAdmin ? u8"取消管理员" : u8"设置管理员", this, [=]
+					{
+						try
+						{
+							if(isAdmin)
+							{
+								qAwait(_co->removeGroupAdmins(groupId, { userId }));
+							}
+							else
+							{
+								qAwait(_co->addGroupAdmins(groupId, { userId }));
+							}
+
+						}
+						catch(std::system_error& e)
+						{
+							QMessageBox::warning(this, "", u8"操作失败!", QMessageBox::Ok);
+						}
+					});
+
 
 					myMenu.exec(globalPos);
 				}
@@ -362,7 +388,7 @@ namespace JChat {
 						BusyIndicator busy(this);
 						qAwait(_co->updateGroupInfo(_groupId, {}, {}, tmpImge.toStdString()));
 					}
-					catch (std::runtime_error& e)
+					catch(std::runtime_error& e)
 					{
 					}
 				}
