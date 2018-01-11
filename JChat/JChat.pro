@@ -4,7 +4,7 @@
 #
 #-------------------------------------------------
 
-QT       += core gui widgets network sql multimedia multimediawidgets svg xml quick
+QT       += core gui widgets network sql multimedia multimediawidgets svg xml quick macextras
 
 TARGET = JChat
 TEMPLATE = app
