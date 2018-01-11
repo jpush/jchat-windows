@@ -137,6 +137,7 @@ QDir JChat::ClientObject::storageRootPath()
 	{
 		init = true;
 		_storageRootPath = QDir{ QString::fromStdString(dataPath().u8string()) };
+		_storageRootPath.mkpath(".");
 	}
 
 	return _storageRootPath;

@@ -127,7 +127,7 @@ int main(int argc, char *argv[])
 	QDir dir=a.applicationDirPath();
 	dir.cdUp();
 	auto fontFile= dir.absoluteFilePath("Resources/msyh.ttc");
-	//QFontDatabase::addApplicationFont(fontFile);
+	QFontDatabase::addApplicationFont(fontFile);
 #endif
 
 	QCoreApplication::setAttribute(Qt::AA_Use96Dpi);
