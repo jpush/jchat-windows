@@ -14,6 +14,10 @@
 #include <QJsonDocument>
 #include <QJsonValue>
 
+#ifdef Q_OS_MACOS
+#include <QtMac>
+#endif // Q_OS_MACOS
+
 #include <QxModelView.h>
 
 #include "Dispatch.h"
@@ -692,7 +696,11 @@ JChat::MainWidget::initMessagePage()
 
 	connect(_conModel, &ConversationModel::unreadMessageCountChanged, this, [=]
 	{
-		ui.btnMessages->setCount(_conModel->getTotalUnreadMessageCount());
+		auto count = _conModel->getTotalUnreadMessageCount();
+		ui.btnMessages->setCount(count);
+	#ifdef Q_OS_MACOS
+		QtMac::setBadgeLabelText(count ? QString::number(count) : QString());
+	#endif
 	});
 
 	//////////////////////////////////////////////////////////////////////////
@@ -921,11 +929,6 @@ JChat::MainWidget::initEvent()
 		if(!msg->isOutgoing)
 		{
 			flashTrayIcon(!isVisible());
-
-			if(ui.stackedWidget->currentWidget() != ui.pageMessages)
-			{
-				//ui.btnMessages->addCount(1);
-			}
 		}
 
 	});
