@@ -120,9 +120,10 @@ namespace JChat{
 					Emoji::getSingleton()->moveToThread(qApp->thread());
 				}));
 
-				qAwait(_co->login(ui.username->currentText().toStdString(),
-								  ui.password->text().toStdString(), ClientObject::getAuthorization(),
-								  ui.password->property("encoded").toBool()));
+				auto records = qAwait(_co->login(ui.username->currentText().toStdString(),
+												 ui.password->text().toStdString(), ClientObject::getAuthorization(),
+												 ui.password->property("encoded").toBool()));
+
 
 				lock.release();
 

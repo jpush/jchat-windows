@@ -37,6 +37,7 @@ Q_DECLARE_METATYPE(Jmcpp::MessagePtr)
 Q_DECLARE_METATYPE(std::vector<Jmcpp::MessagePtr>)
 
 
+Q_DECLARE_METATYPE(Jmcpp::Event)
 Q_DECLARE_METATYPE(Jmcpp::ForceLogoutEvent)
 Q_DECLARE_METATYPE(Jmcpp::RequestAddFriendEvent)
 Q_DECLARE_METATYPE(Jmcpp::RejectAddFriendEvent)

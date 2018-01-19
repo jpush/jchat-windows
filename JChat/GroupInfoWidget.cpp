@@ -59,7 +59,7 @@ namespace JChat {
 			}
 		});
 
-		connect(_co.get(), &ClientObject::groupInfoUpdatedEvent, this, [=](Jmcpp::GroupInfoUpdatedEvent const& e)
+		_co->onEvent(this, [=](Jmcpp::GroupInfoUpdatedEvent const& e)
 		{
 			if(e.groupId != _groupId)
 			{
@@ -67,6 +67,7 @@ namespace JChat {
 			}
 			updateInfo();
 		});
+
 
 		auto model = new ProxyModel(this);
 		model->setSourceModel(_memberModel);
@@ -95,7 +96,6 @@ namespace JChat {
 
 				auto isAdmin = idx.data(MemberModel::IsAdminRole).toBool();
 
-
 				if(_memberModel->isOwner())
 				{
 					QPoint globalPos = widget->mapToGlobal(pt);
@@ -119,28 +119,31 @@ namespace JChat {
 						removeMember({ userId });
 					});
 
-
-					//#TODO
-					myMenu.addAction(isAdmin ? u8"取消管理员" : u8"设置管理员", this, [=]
+					//#TODO TEST
+					myMenu.addAction(u8"转移群主身份", this, [=]
 					{
 						try
 						{
-							if(isAdmin)
-							{
-								qAwait(_co->removeGroupAdmins(groupId, { userId }));
-							}
-							else
-							{
-								qAwait(_co->addGroupAdmins(groupId, { userId }));
-							}
-
+							qAwait(_co->setGroupOwner(groupId, userId));
 						}
-						catch(std::system_error& e)
+						catch(std::runtime_error& e)
 						{
 							QMessageBox::warning(this, "", u8"操作失败!", QMessageBox::Ok);
 						}
 					});
 
+					myMenu.addAction(isAdmin ? u8"取消管理员" : u8"设置管理员", this, [=]
+					{
+						try
+						{
+							BusyIndicator busy(this);
+							qAwait(_co->setGroupAdmins(groupId, { userId }, !isAdmin));
+						}
+						catch(std::runtime_error& e)
+						{
+							QMessageBox::warning(this, "", u8"操作失败!", QMessageBox::Ok);
+						}
+					});
 
 					myMenu.exec(globalPos);
 				}

@@ -13,9 +13,20 @@ namespace JChat{
 	{
 		qApp->setProperty(staticMetaObject.className(), QVariant::fromValue(this));
 
+		_co->onEvent(this, [=](Jmcpp::GroupInfoUpdatedEvent const& e)
+		{
+			for(auto&& iter : getGroupRootItem() | depthFirst)
+			{
+				if(iter->data(ConIdRole).value<Jmcpp::ConversationId>() == e.groupId)
+				{
+					_updateItemGroupInfo(iter.current, e.groupId);
+					break;
+				}
+			}
+		});
+
 		connect(co.get(), &ClientObject::userInfoUpdated, this, &ContactModel::onUserInfoUpdated);
 
-		connect(co.get(), &ClientObject::groupInfoUpdated, this, &ContactModel::onGroupInfoUpdated);
 
 		connect(co.get(), &ClientObject::friendListUpdated, this, [=](Jmcpp::UserInfoList const& userInfos)
 		{
@@ -96,18 +107,6 @@ namespace JChat{
 		}
 	}
 
-
-	void ContactModel::onGroupInfoUpdated(Jmcpp::GroupId groupId)
-	{
-		for(auto&& iter : getGroupRootItem() | depthFirst)
-		{
-			if(iter->data(ConIdRole).value<Jmcpp::ConversationId>() == groupId)
-			{
-				_updateItemGroupInfo(iter.current, groupId);
-				break;
-			}
-		}
-	}
 
 	None ContactModel::_updateItemUserInfo(QStandardItem* item, Jmcpp::UserId userId)
 	{

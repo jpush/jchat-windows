@@ -9,6 +9,7 @@
 #include "ModelRange.h"
 namespace JChat {
 
+
 	MemberModel::MemberModel(ClientObjectPtr const& co, Jmcpp::GroupId groupId, QObject *parent)
 		: QStandardItemModel(parent)
 		, _co(co)
@@ -16,17 +17,57 @@ namespace JChat {
 	{
 		_completerModel = new QStandardItemModel(this);
 
+		_co->onEvent(this, &MemberModel::onUserInfoUpdated);
 
-		connect(co.get(), &ClientObject::userInfoUpdated, this, &MemberModel::onUserInfoUpdated);
+		_co->onEvent(this, &MemberModel::onAddedToGroupEvent);
 
-		connect(_co.get(), &ClientObject::addedToGroupEvent, this, &MemberModel::onAddedToGroupEvent);
+		_co->onEvent(this, &MemberModel::onLeavedGroupEvent);
 
-		connect(_co.get(), &ClientObject::leavedGroupEvent, this, &MemberModel::onLeavedGroupEvent);
+		_co->onEvent(this, &MemberModel::onRemovedFromGroupEvent);
 
-		connect(_co.get(), &ClientObject::removedFromGroupEvent, this, &MemberModel::onRemovedFromGroupEvent);
+		_co->onEvent(this, &MemberModel::onGroupMemberSilentChangedEvent);
 
+		_co->onEvent(this, [=](Jmcpp::GroupAdminChangedEvent const& e)
+		{
+			if(e.groupId != _groupId)
+			{
+				return;
+			}
+			for(auto&& userId : e.users)
+			{
+				for(auto&& item : this | depthFirst)
+				{
+					auto userId0 = item->data(UserIdRole).value<Jmcpp::UserId>();
+					if(userId0 == userId)
+					{
+						item->setData(e.added, IsAdminRole);
+					}
+				}
+			}
+		});
 
-		connect(_co.get(), &ClientObject::groupMemberSilentChangedEvent, this, &MemberModel::onGroupMemberSilentChangedEvent);
+		_co->onEvent(this, [=](Jmcpp::GroupOwnerChangedEvent const& e)
+		{
+			if(e.groupId != _groupId)
+			{
+				return;
+			}
+
+			for(auto&& item : this | depthFirst)
+			{
+				auto userId0 = item->data(UserIdRole).value<Jmcpp::UserId>();
+				if(userId0 == e.oldOwner)
+				{
+					item->setData(false, IsOwnerRole);
+				}
+
+				if(userId0 == e.newOwner)
+				{
+					item->setData(true, IsOwnerRole);
+				}
+			}
+
+		});
 
 	}
 
@@ -242,6 +283,10 @@ namespace JChat {
 
 	void MemberModel::onGroupMemberSilentChangedEvent(Jmcpp::GroupMemberSilentChangedEvent const&e)
 	{
+		if(e.groupId != _groupId)
+		{
+			return;
+		}
 		for(auto&& userId : e.users)
 		{
 			for(auto&& item : this | depthFirst)

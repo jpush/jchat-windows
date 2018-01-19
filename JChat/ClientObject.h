@@ -9,6 +9,8 @@
 
 #include <Jmcpp/Client.h>
 
+#include <boost/callable_traits.hpp>
+
 #include "await.h"
 #include "MetaTypes.h"
 
@@ -151,10 +153,13 @@ namespace JChat
 		pplx::task<void>	passAddFriend(Jmcpp::UserId const& userId);
 	public:
 
-
 		pplx::task<QByteArray> _download(QUrl const& url, std::function<void(int)> progress = nullptr);
 
 
+		//
+		Q_SIGNAL void onEventSignal(Jmcpp::Event ev);
+
+		//
 		Q_SIGNAL void userLogined();
 
 		Q_SIGNAL void disconnected();
@@ -186,44 +191,8 @@ namespace JChat
 		Q_SIGNAL void blackListChanged(Jmcpp::UserId const& userId, bool added);
 
 		// events
-
-		Q_SIGNAL void forceLogoutEvent(Jmcpp::ForceLogoutEvent const& e);
-
-		Q_SIGNAL void messageRetracted(Jmcpp::MessageRetractedEvent const& e);
-
 		Q_SIGNAL void requestAddFriendSent(Jmcpp::UserId const& userId, bool isFriend);
 
-		Q_SIGNAL void requestAddFriendEvent(Jmcpp::RequestAddFriendEvent const& e);
-		Q_SIGNAL void passAddFriendEvent(Jmcpp::PassAddFriendEvent const& e);
-		Q_SIGNAL void rejectAddFriendEvent(Jmcpp::RejectAddFriendEvent const& e);
-
-		Q_SIGNAL void multiFriendAddedEvent(Jmcpp::MultiFriendAddedEvent const& e);
-		Q_SIGNAL void multiFriendRemovedEvent(Jmcpp::MultiFriendRemovedEvent const& e);
-		Q_SIGNAL void multiFriendRemarkUpdatedEvent(Jmcpp::MultiFriendRemarkUpdatedEvent const& e);
-
-		//
-
-		Q_SIGNAL void groupCreatedEvent(Jmcpp::GroupCreatedEvent const&e);
-		Q_SIGNAL void groupInfoUpdatedEvent(Jmcpp::GroupInfoUpdatedEvent const&e);
-
-		Q_SIGNAL void groupMemberSilentChangedEvent(Jmcpp::GroupMemberSilentChangedEvent const&e);
-
-
-		Q_SIGNAL void requestJoinGroupEvent(Jmcpp::RequestJoinGroupEvent const&e);
-		Q_SIGNAL void rejectJoinGroupEvent(Jmcpp::RejectJoinGroupEvent const&e);
-
-
-		Q_SIGNAL void addedToGroupEvent(Jmcpp::AddedToGroupEvent const&e);
-
-		Q_SIGNAL void leavedGroupEvent(Jmcpp::LeavedGroupEvent const&e);
-		Q_SIGNAL void removedFromGroupEvent(Jmcpp::RemovedFromGroupEvent const&e);
-
-
-		Q_SIGNAL void multiUnreadMsgCountChangedEvent(Jmcpp::MultiUnreadMsgCountChangedEvent const&e);
-
-		Q_SIGNAL void receiptsUpdatedEvent(Jmcpp::ReceiptsUpdatedEvent const&e);
-
-		Q_SIGNAL void transCommandEvent(Jmcpp::TransCommandEvent const&e);
 
 
 		static Jmcpp::Configuration getSDKConfig();
@@ -255,89 +224,87 @@ namespace JChat
 
 		pplx::task<void> getNotDisturbInfo();
 
-
 		pplx::task<void> getGroupShieldsInfo();
 
 		pplx::task<void> updateBlackList();
 
 
+		template<class E, class F>
+		struct VisitSlot
+		{
+			std::decay_t<F> _f;
+
+			void operator()(E const& ev) const
+			{
+				_f(ev);
+			}
+
+			template<class U>
+			void operator()(U const&) const
+			{// discard
+			}
+		};
+
+		template<class E, class F>
+		static auto visitSlot(F&& f)
+		{
+			return VisitSlot<E, F>{std::forward<F>(f)};
+		}
+
+	public:
+		template<class E, class F, class = std::enable_if_t< !std::is_member_function_pointer< std::decay_t<F> >::value >>
+		auto onEvent(QObject* context, F&& f) const
+		{
+			return connect(this, &ClientObject::onEventSignal, context, [f = std::forward<F>(f)](Jmcpp::Event const& ev) mutable
+			{
+				std::visit(visitSlot<E>(std::forward<F>(f)), ev);
+			});
+		}
+
+		template<int..., class F = void, class E = std::tuple_element_t<1, boost::callable_traits::args_t<decltype(&std::decay_t<F>::operator())>> >
+		auto onEvent(QObject* context, F&& f) const
+		{
+			return connect(this, &ClientObject::onEventSignal, context, [f = std::forward<F>(f)](Jmcpp::Event const& ev) mutable
+			{
+				std::visit(visitSlot<std::decay_t<E>>(std::forward<F>(f)), ev);
+			});
+		}
+
+
+		template<int..., class E, class R, class C, class = std::enable_if_t< std::is_base_of<QObject, C>::value >>
+		auto onEvent(const std::remove_reference_t<C>* obj, R(C::*pmf)(E)) const
+		{
+			return connect(this, &ClientObject::onEventSignal, obj, [obj, pmf](Jmcpp::Event const& ev) mutable
+			{
+				std::visit(visitSlot<std::decay_t<E>>(std::bind(pmf, const_cast<C*>(obj), std::placeholders::_1)), ev);
+			});
+		}
 
 	private:
 		template<class T>
-		void onEvent(T const& e){ qDebug() << "*****" << typeid(e).name(); }
-
-		void onEvent(Jmcpp::ForceLogoutEvent const& e);
-
-		void onEvent(Jmcpp::MessageRetractedEvent const& e);
-
-		void onEvent(Jmcpp::RequestAddFriendEvent const& e);
-
-		void onEvent(Jmcpp::PassAddFriendEvent const& e);
-		void onEvent(Jmcpp::RejectAddFriendEvent const& e);
-
-		void onEvent(Jmcpp::RemovedByFriendEvent const& e);
-
-		void onEvent(Jmcpp::UserUpdatedEvent const& e);
-
-		None onEvent(Jmcpp::UserInfoUpdatedEvent const& e);
-
-		//group
-		void onEvent(Jmcpp::GroupCreatedEvent const& e);
-
-		void onEvent(Jmcpp::LeavedGroupEvent const& e);
-
-		void onEvent(Jmcpp::AddedToGroupEvent const& e);
-
-		void onEvent(Jmcpp::RemovedFromGroupEvent const& e);
-
-		None onEvent(Jmcpp::GroupInfoUpdatedEvent const& e);
-
-
-		void onEvent(Jmcpp::GroupMemberSilentChangedEvent const& e);
-
-
-		void onEvent(Jmcpp::RequestJoinGroupEvent const& e);
-		void onEvent(Jmcpp::RejectJoinGroupEvent const& e);
-
-
-		//////////////////////////////////////////////////////////////////////////
-
-		void onEvent(Jmcpp::MultiFriendAddedEvent const& e)
+		void visitEvent(T const& e)
 		{
-			emit multiFriendAddedEvent(e);
-		}
-		void onEvent(Jmcpp::MultiFriendRemovedEvent const& e)
-		{
-			emit multiFriendRemovedEvent(e);
+			qDebug() << "*****" << typeid(e).name();
 		}
 
-		void onEvent(Jmcpp::MultiFriendRemarkUpdatedEvent const& e);
 
-		void onEvent(Jmcpp::MultiNoDisturbChangedEvent const& e);
-		void onEvent(Jmcpp::MultiBlackListChangedEvent const& e)
-		{
-			std::unique_lock<std::mutex> locker(_lock);
-			if(e.added)
-			{
-				_blackList.insert(e.user);
-			}
-			else
-			{
-				_blackList.erase(e.user);
-			}
+		void visitEvent(Jmcpp::PassAddFriendEvent const& e);
 
-			emit blackListChanged(e.user, e.added);
-
-		}
-		void onEvent(Jmcpp::MultiGroupShieldChangedEvent const& e);
+		void visitEvent(Jmcpp::RemovedByFriendEvent const& e);
 
 
-		//////////////////////////////////////////////////////////////////////////
-		void onEvent(Jmcpp::MultiUnreadMsgCountChangedEvent const& e);
-		void onEvent(Jmcpp::ReceiptsUpdatedEvent const& e);
+		None visitEvent(Jmcpp::UserInfoUpdatedEvent const& e);
+
+	
+		None visitEvent(Jmcpp::GroupInfoUpdatedEvent const& e);
 
 
-		void onEvent(Jmcpp::TransCommandEvent const& e);
+		void visitEvent(Jmcpp::MultiFriendRemarkUpdatedEvent const& e);
+
+		void visitEvent(Jmcpp::MultiNoDisturbChangedEvent const& e);
+		void visitEvent(Jmcpp::MultiBlackListChangedEvent const& e);
+		void visitEvent(Jmcpp::MultiGroupShieldChangedEvent const& e);
+
 
 	private:
 		std::mutex								_lock;

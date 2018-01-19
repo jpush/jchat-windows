@@ -39,7 +39,19 @@ namespace JChat{
 		//});
 
 		connect(_co, &ClientObject::userInfoUpdated, this, &ConversationModel::onUserInfoUpdated);
-		connect(_co, &ClientObject::groupInfoUpdated, this, &ConversationModel::onGroupInfoUpdated);
+
+
+		_co->onEvent(this, [=](Jmcpp::GroupInfoUpdatedEvent const& e)
+		{
+			for(auto&& iter : this | depthFirst)
+			{
+				if(iter->data(Role::ConIdRole).value<Jmcpp::ConversationId>() == e.groupId)
+				{
+					_updateItemGroupInfo(iter.current, e.groupId);
+					break;
+				}
+			}
+		});
 
 		connect(_co, &ClientObject::notDisturbChanged, this, [=](Jmcpp::ConversationId const& conId, bool on)
 		{
@@ -52,16 +64,18 @@ namespace JChat{
 			}
 		});
 
-		connect(_co, &ClientObject::groupShieldChanged, this, [=](Jmcpp::GroupId groupId, bool on)
+
+		_co->onEvent(this, [=](Jmcpp::MultiGroupShieldChangedEvent const& e)
 		{
 			for(auto&& item : this | depthFirst)
 			{
-				if(item->data(Role::ConIdRole).value<Jmcpp::ConversationId>() == groupId)
+				if(item->data(Role::ConIdRole).value<Jmcpp::ConversationId>() == e.groupId)
 				{
-					item->setData(on, Role::ShieldRole);
+					item->setData(e.added, Role::ShieldRole);
 				}
 			}
 		});
+
 
 		connect(_co, &ClientObject::messageSent, this, [=](Jmcpp::MessagePtr const& msg)
 		{
@@ -397,17 +411,7 @@ namespace JChat{
 	}
 
 
-	void ConversationModel::onGroupInfoUpdated(Jmcpp::GroupId groupId)
-	{
-		for(auto&& iter : this | depthFirst)
-		{
-			if(iter->data(Role::ConIdRole).value<Jmcpp::ConversationId>() == groupId)
-			{
-				_updateItemGroupInfo(iter.current, groupId);
-				break;
-			}
-		}
-	}
+
 
 	None ConversationModel::_updateItemUserInfo(QStandardItem* item, Jmcpp::UserId userId)
 	{

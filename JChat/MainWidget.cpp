@@ -796,7 +796,7 @@ JChat::MainWidget::initContactPage()
 		contactModel->getFriendEventRootItem()->setData(total);
 		ui.btnContacts->setCount(total);
 
-		ui.tabWidget->setTabText(0, u8"群组验证" + (count ? QString("(%1)").arg(count) : ""));
+		ui.tabWidget->setTabText(1, u8"群组验证" + (count ? QString("(%1)").arg(count) : ""));
 
 	});
 
@@ -879,23 +879,6 @@ JChat::MainWidget::initEvent()
 		updateSelfInfo();
 	});
 
-
-	connect(_co.get(), &ClientObject::transCommandEvent, this, [=](Jmcpp::TransCommandEvent const& e)
-	{
-		auto conId = e.conId;
-		auto w = getChatWidget(conId);
-		if(w)
-		{
-			auto json = QJsonDocument::fromJson(QByteArray::fromStdString(e.cmd)).object().toVariantMap();
-			auto type = json.value("type").toString();
-			if(type == "input")
-			{
-				auto content = json.value("content").toMap();
-				auto message = content.value("message").toString();
-				w->onInputtingStatusChanged(!message.isEmpty());
-			}
-		}
-	});
 
 	connect(_co.get(), &ClientObject::messageReceived, this, [=](Jmcpp::MessagePtr const& msg)
 	{
@@ -988,7 +971,26 @@ JChat::MainWidget::initEvent()
 
 	});
 
-	connect(_co.get(), &ClientObject::forceLogoutEvent, this, [=](Jmcpp::ForceLogoutEvent const& e){
+
+	_co->onEvent(this, [=](Jmcpp::TransCommandEvent const& e)
+	{
+		auto conId = e.conId;
+		auto w = getChatWidget(conId);
+		if(w)
+		{
+			auto json = QJsonDocument::fromJson(QByteArray::fromStdString(e.cmd)).object().toVariantMap();
+			auto type = json.value("type").toString();
+			if(type == "input")
+			{
+				auto content = json.value("content").toMap();
+				auto message = content.value("message").toString();
+				w->onInputtingStatusChanged(!message.isEmpty());
+			}
+		}
+	});
+
+	_co->onEvent(this, [=](Jmcpp::ForceLogoutEvent const& e)
+	{
 		QString msg;
 		switch(e.reason){
 			case Jmcpp::ForceLogoutEvent::Logined:msg = u8"异地登陆,强制退出,请重新登陆"; break;
@@ -999,12 +1001,13 @@ JChat::MainWidget::initEvent()
 		logout();
 	});
 
-	connect(_co.get(), &ClientObject::messageRetracted, this, [=](Jmcpp::MessageRetractedEvent const& e){
+
+	_co->onEvent(this, [=](Jmcpp::MessageRetractedEvent const& e){
 		auto w = getOrCreateChatWidget(e.conId);
 		w->listWidget()->onRetractMessage(e);
 	});
 
-	connect(_co.get(), &ClientObject::multiUnreadMsgCountChangedEvent, this, [=](Jmcpp::MultiUnreadMsgCountChangedEvent const& e){
+	_co->onEvent(this, [=](Jmcpp::MultiUnreadMsgCountChangedEvent const& e){
 		auto w = getChatWidget(e.conId);
 		if(w)
 		{
@@ -1013,7 +1016,7 @@ JChat::MainWidget::initEvent()
 		}
 	});
 
-	connect(_co.get(), &ClientObject::receiptsUpdatedEvent, this, [=](Jmcpp::ReceiptsUpdatedEvent const& e){
+	_co->onEvent(this, [=](Jmcpp::ReceiptsUpdatedEvent const& e){
 		auto w = getChatWidget(e.conId);
 		if(w)
 		{
@@ -1021,14 +1024,12 @@ JChat::MainWidget::initEvent()
 		}
 	});
 
-	connect(_co.get(), &ClientObject::groupCreatedEvent, this,
-			[=](Jmcpp::GroupCreatedEvent const& e)
+	_co->onEvent(this, [=](Jmcpp::GroupCreatedEvent const& e)
 	{
 
 	});
 
-	connect(_co.get(), &ClientObject::groupInfoUpdatedEvent, this,
-			[=](Jmcpp::GroupInfoUpdatedEvent e)  ->None
+	_co->onEvent(this, [=](Jmcpp::GroupInfoUpdatedEvent const& e) ->None
 	{
 		auto co = _co;
 		auto self = this | qTrack;
@@ -1043,8 +1044,7 @@ JChat::MainWidget::initEvent()
 	});
 
 
-	connect(_co.get(), &ClientObject::addedToGroupEvent, this,
-			[=](Jmcpp::AddedToGroupEvent e) ->None
+	_co->onEvent(this, [=](Jmcpp::AddedToGroupEvent const& e) ->None
 	{
 		auto co = _co;
 		auto self = this | qTrack;
@@ -1084,8 +1084,7 @@ JChat::MainWidget::initEvent()
 		_conModel->setMessageRole(e.groupId, text);
 	});
 
-	connect(_co.get(), &ClientObject::leavedGroupEvent, this,
-			[=](Jmcpp::LeavedGroupEvent e) ->None
+	_co->onEvent(this, [=](Jmcpp::LeavedGroupEvent e) ->None
 	{
 		auto co = _co;
 		auto self = this | qTrack;
@@ -1105,8 +1104,7 @@ JChat::MainWidget::initEvent()
 
 	});
 
-	connect(_co.get(), &ClientObject::removedFromGroupEvent, this,
-			[=](Jmcpp::RemovedFromGroupEvent e) ->None
+	_co->onEvent(this, [=](Jmcpp::RemovedFromGroupEvent e) ->None
 	{
 		auto co = _co;
 		auto self = this | qTrack;
@@ -1130,8 +1128,7 @@ JChat::MainWidget::initEvent()
 		_conModel->setMessageRole(e.groupId, text);
 	});
 
-
-	connect(_co.get(), &ClientObject::groupMemberSilentChangedEvent, this, [=](Jmcpp::GroupMemberSilentChangedEvent const &e)
+	_co->onEvent(this, [=](Jmcpp::GroupMemberSilentChangedEvent const &e)
 	{
 		auto w = getOrCreateChatWidget(e.groupId) | qTrack;
 

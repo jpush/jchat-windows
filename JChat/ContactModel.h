@@ -48,7 +48,6 @@ namespace JChat{
 
 		void onUserInfoUpdated(Jmcpp::UserId const& userId);
 
-		void onGroupInfoUpdated(Jmcpp::GroupId groupId);
 
 		None			_updateItemUserInfo(QStandardItem* item, Jmcpp::UserId userId);
 

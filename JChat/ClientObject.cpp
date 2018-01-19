@@ -177,6 +177,71 @@ JChat::ClientObject::~ClientObject()
 	QSqlDatabase::removeDatabase(name);
 }
 
+void
+JChat::ClientObject::init()
+{
+	onLogined([=](bool firstLogin){
+
+		if(firstLogin)
+		{
+			initPath();
+			initDB();
+			getAllData().then([this, self = shared_from_this()](pplx::task<void> t)
+			{
+				try
+				{
+					t.get();
+				}
+				catch(std::runtime_error& e)
+				{
+					qWarning() << e.what();
+				}
+				Q_EMIT userLogined();
+			});
+		}
+	});
+
+	onDisconnected([=]()
+	{
+		Q_EMIT disconnected();
+	});
+
+	onMessageReceive([=](Jmcpp::MessagePtr msgPtr)
+	{
+		Q_EMIT messageReceived(msgPtr);
+	});
+
+	onMessageSync([=](std::vector<Jmcpp::MessagePtr> msgs)
+	{
+		Q_EMIT messagesReceived(msgs);
+	});
+
+	onEventReceive(std::bind([this](Jmcpp::Event event){
+
+		std::visit([=](auto&& ev)
+		{
+			visitEvent(ev);
+		}, event);
+
+		Q_EMIT onEventSignal(std::move(event));
+
+	}, std::placeholders::_1));
+
+
+	onEventSync([this](std::vector<Jmcpp::Event> eventList)
+	{
+		for(auto&& event : eventList)
+		{
+			std::visit([=](auto&& ev)
+			{
+				visitEvent(ev);
+			}, event);
+
+			Q_EMIT onEventSignal(std::move(event));
+		}
+	});
+
+}
 
 pplx::task<void>
 JChat::ClientObject::getAllData()
@@ -1026,101 +1091,10 @@ JChat::ClientObject::updateBlackList()
 }
 
 
-/************************************************************************/
-/*                                                                      */
-/************************************************************************/
-void
-JChat::ClientObject::init()
-{
-	onLogined([=](bool firstLogin){
-
-		if(firstLogin)
-		{
-			initPath();
-			initDB();
-			getAllData().then([this, self = shared_from_this()](pplx::task<void> t)
-			{
-				try
-				{
-					t.get();
-				}
-				catch(std::runtime_error& e)
-				{
-					qWarning() << e.what();
-				}
-				Q_EMIT userLogined();
-			});
-		}
-	});
-
-	onDisconnected([=]()
-	{
-		Q_EMIT disconnected();
-	});
-
-	onMessageReceive([=](Jmcpp::MessagePtr msgPtr)
-	{
-		Q_EMIT messageReceived(msgPtr);
-	});
-
-	onMessageSync([=](std::vector<Jmcpp::MessagePtr> msgs)
-	{
-		Q_EMIT messagesReceived(msgs);
-	});
-
-	onEventReceive(std::bind([this](Jmcpp::Event event){
-
-		std::visit([=](auto&& ev)
-		{
-			onEvent(ev);
-		}, event);
-	}, std::placeholders::_1));
-
-	onEventSync([this](std::vector<Jmcpp::Event> eventList)
-	{
-		for(auto&& event : eventList)
-		{
-			std::visit([=](auto&& ev)
-			{
-				onEvent(ev);
-			}, event);
-		}
-	});
-
-}
 //////////////////////////////////////////////////////////////////////////
 
 void
-JChat::ClientObject::onEvent(Jmcpp::ReceiptsUpdatedEvent const& e)
-{
-	Q_EMIT receiptsUpdatedEvent(e);
-}
-
-void
-JChat::ClientObject::onEvent(Jmcpp::RejectJoinGroupEvent const& e)
-{
-	Q_EMIT rejectJoinGroupEvent(e);
-}
-
-void
-JChat::ClientObject::onEvent(Jmcpp::RequestJoinGroupEvent const& e)
-{
-	Q_EMIT requestJoinGroupEvent(e);
-}
-
-void
-JChat::ClientObject::onEvent(Jmcpp::TransCommandEvent const& e)
-{
-	Q_EMIT transCommandEvent(e);
-}
-
-void
-JChat::ClientObject::onEvent(Jmcpp::GroupMemberSilentChangedEvent const& e)
-{
-	Q_EMIT groupMemberSilentChangedEvent(e);
-}
-
-void JChat::ClientObject::onEvent(Jmcpp::MultiGroupShieldChangedEvent const& e)
+JChat::ClientObject::visitEvent(Jmcpp::MultiGroupShieldChangedEvent const& e)
 {
 	std::unique_lock<std::mutex> locker(_lock);
 	if(e.added)
@@ -1131,11 +1105,24 @@ void JChat::ClientObject::onEvent(Jmcpp::MultiGroupShieldChangedEvent const& e)
 	{
 		_shieldGroup.erase(e.groupId);
 	}
-
-	emit groupShieldChanged(e.groupId, e.added);
 }
 
-void JChat::ClientObject::onEvent(Jmcpp::MultiNoDisturbChangedEvent const& e)
+void
+JChat::ClientObject::visitEvent(Jmcpp::MultiBlackListChangedEvent const& e)
+{
+	std::unique_lock<std::mutex> locker(_lock);
+	if(e.added)
+	{
+		_blackList.insert(e.user);
+	}
+	else
+	{
+		_blackList.erase(e.user);
+	}
+}
+
+void
+JChat::ClientObject::visitEvent(Jmcpp::MultiNoDisturbChangedEvent const& e)
 {
 	std::unique_lock<std::mutex> locker(_lock);
 
@@ -1150,7 +1137,7 @@ void JChat::ClientObject::onEvent(Jmcpp::MultiNoDisturbChangedEvent const& e)
 			_notDisturbUser.erase(e.conId.getUserId());
 		}
 	}
-	else if(e.conId.isUser())
+	else if(e.conId.isGroup())
 	{
 		if(e.added)
 		{
@@ -1166,7 +1153,7 @@ void JChat::ClientObject::onEvent(Jmcpp::MultiNoDisturbChangedEvent const& e)
 }
 
 void
-JChat::ClientObject::onEvent(Jmcpp::MultiFriendRemarkUpdatedEvent const& e)
+JChat::ClientObject::visitEvent(Jmcpp::MultiFriendRemarkUpdatedEvent const& e)
 {
 	std::unique_lock<std::mutex> locker(_lock);
 	if(auto iter = _friendInfos.find(e.user); iter != _friendInfos.end())
@@ -1185,11 +1172,10 @@ JChat::ClientObject::onEvent(Jmcpp::MultiFriendRemarkUpdatedEvent const& e)
 
 	Q_EMIT userInfoUpdated(e.user);
 
-	emit multiFriendRemarkUpdatedEvent(e);
 }
 
 None
-JChat::ClientObject::onEvent(Jmcpp::UserInfoUpdatedEvent const& e)
+JChat::ClientObject::visitEvent(Jmcpp::UserInfoUpdatedEvent const& e)
 {
 	auto self = shared_from_this();
 
@@ -1209,77 +1195,24 @@ JChat::ClientObject::onEvent(Jmcpp::UserInfoUpdatedEvent const& e)
 	}
 }
 
-void
-JChat::ClientObject::onEvent(Jmcpp::ForceLogoutEvent const& e)
-{
-	Q_EMIT forceLogoutEvent(e);
-}
 
 void
-JChat::ClientObject::onEvent(Jmcpp::MessageRetractedEvent const& e)
+JChat::ClientObject::visitEvent(Jmcpp::PassAddFriendEvent const& e)
 {
-	Q_EMIT messageRetracted(e);
-}
-
-void
-JChat::ClientObject::onEvent(Jmcpp::RequestAddFriendEvent const& e)
-{
-	Q_EMIT requestAddFriendEvent(e);
-}
-
-void
-JChat::ClientObject::onEvent(Jmcpp::PassAddFriendEvent const& e)
-{
-	Q_EMIT passAddFriendEvent(e);
-
 	//#TODO 优化
 	updateFriendList();
 }
 
-void
-JChat::ClientObject::onEvent(Jmcpp::RejectAddFriendEvent const& e)
-{
-	Q_EMIT rejectAddFriendEvent(e);
-}
 
 void
-JChat::ClientObject::onEvent(Jmcpp::RemovedByFriendEvent const& e)
+JChat::ClientObject::visitEvent(Jmcpp::RemovedByFriendEvent const& e)
 {
 	updateFriendList();
 }
 
-void
-JChat::ClientObject::onEvent(Jmcpp::UserUpdatedEvent const& e)
-{
-	qDebug() << e.description.c_str();
-}
-
-void
-JChat::ClientObject::onEvent(Jmcpp::GroupCreatedEvent const& e)
-{
-	Q_EMIT groupCreatedEvent(e);
-}
-
-void
-JChat::ClientObject::onEvent(Jmcpp::LeavedGroupEvent const& e)
-{
-	Q_EMIT leavedGroupEvent(e);
-}
-
-void
-JChat::ClientObject::onEvent(Jmcpp::AddedToGroupEvent const& e)
-{
-	Q_EMIT addedToGroupEvent(e);
-}
-
-void
-JChat::ClientObject::onEvent(Jmcpp::RemovedFromGroupEvent const& e)
-{
-	Q_EMIT removedFromGroupEvent(e);
-}
 
 None
-JChat::ClientObject::onEvent(Jmcpp::GroupInfoUpdatedEvent const& e)
+JChat::ClientObject::visitEvent(Jmcpp::GroupInfoUpdatedEvent const& e)
 {
 	auto groupId = e.groupId;
 	auto ev = e;
@@ -1289,13 +1222,7 @@ JChat::ClientObject::onEvent(Jmcpp::GroupInfoUpdatedEvent const& e)
 
 	Q_EMIT groupInfoUpdated(groupId);
 
-	Q_EMIT groupInfoUpdatedEvent(ev);
-}
-
-void
-JChat::ClientObject::onEvent(Jmcpp::MultiUnreadMsgCountChangedEvent const& e)
-{
-	Q_EMIT multiUnreadMsgCountChangedEvent(e);
+	//Q_EMIT groupInfoUpdatedEvent(ev);
 }
 
 

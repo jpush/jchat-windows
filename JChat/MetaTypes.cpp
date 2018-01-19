@@ -26,6 +26,8 @@ namespace
 
 		qRegisterMetaType<Jmcpp::GroupInfoList>("Jmcpp::GroupInfoList");
 
+		qRegisterMetaType<Jmcpp::Event>("Jmcpp::Event");
+
 		qRegisterMetaType<Jmcpp::ForceLogoutEvent >("Jmcpp::ForceLogoutEvent");
 		qRegisterMetaType<Jmcpp::RequestAddFriendEvent>("Jmcpp::RequestAddFriendEvent");
 		qRegisterMetaType<Jmcpp::RejectAddFriendEvent>("Jmcpp::RejectAddFriendEvent");

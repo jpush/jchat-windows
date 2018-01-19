@@ -24,7 +24,7 @@ namespace JChat {
 			loadFromDB();
 		});
 
-		connect(_co.get(), &ClientObject::requestJoinGroupEvent, this, [=](Jmcpp::RequestJoinGroupEvent const& e)
+		_co->onEvent(this, [=](Jmcpp::RequestJoinGroupEvent const& e)
 		{
 
 			if(e.bySelf)
@@ -89,7 +89,7 @@ namespace JChat {
 
 
 
-		connect(_co.get(), &ClientObject::rejectJoinGroupEvent, this, [=](Jmcpp::RejectJoinGroupEvent const& e)
+		_co->onEvent(this, [=](Jmcpp::RejectJoinGroupEvent const& e)
 		{
 			if(e.bySelf)
 			{

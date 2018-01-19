@@ -29,8 +29,7 @@ namespace JChat {
 		});
 
 
-		connect(_co.get(), &ClientObject::requestAddFriendEvent,
-				this, [=](Jmcpp::RequestAddFriendEvent const& e)
+		_co->onEvent(this, [=](Jmcpp::RequestAddFriendEvent const& e)
 		{
 
 			auto userId = e.fromUser;
@@ -67,8 +66,7 @@ namespace JChat {
 		});
 
 
-		connect(_co.get(), &ClientObject::passAddFriendEvent,
-				this, [=](Jmcpp::PassAddFriendEvent const& e)
+		_co->onEvent(this, [=](Jmcpp::PassAddFriendEvent const& e)
 		{
 
 			auto userId = e.fromUser;
@@ -102,8 +100,7 @@ namespace JChat {
 		});
 
 
-		connect(_co.get(), &ClientObject::rejectAddFriendEvent,
-				this, [=](Jmcpp::RejectAddFriendEvent const& e)
+		_co->onEvent(this, [=](Jmcpp::RejectAddFriendEvent const& e)
 		{
 
 			auto userId = e.fromUser;
