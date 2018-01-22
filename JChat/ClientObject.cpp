@@ -216,14 +216,13 @@ JChat::ClientObject::init()
 		Q_EMIT messagesReceived(msgs);
 	});
 
+
 	onEventReceive(std::bind([this](Jmcpp::Event event){
 
-		std::visit([=](auto&& ev)
+		std::visit([&](auto&& ev)
 		{
-			visitEvent(ev);
+			doVisitEvent(ev, event);
 		}, event);
-
-		Q_EMIT onEventSignal(std::move(event));
 
 	}, std::placeholders::_1));
 
@@ -232,12 +231,10 @@ JChat::ClientObject::init()
 	{
 		for(auto&& event : eventList)
 		{
-			std::visit([=](auto&& ev)
+			std::visit([&](auto&& ev)
 			{
-				visitEvent(ev);
+				doVisitEvent(ev, event);
 			}, event);
-
-			Q_EMIT onEventSignal(std::move(event));
 		}
 	});
 
@@ -1174,7 +1171,7 @@ JChat::ClientObject::visitEvent(Jmcpp::MultiFriendRemarkUpdatedEvent const& e)
 
 }
 
-None
+pplx::task<void>
 JChat::ClientObject::visitEvent(Jmcpp::UserInfoUpdatedEvent const& e)
 {
 	auto self = shared_from_this();
@@ -1211,7 +1208,7 @@ JChat::ClientObject::visitEvent(Jmcpp::RemovedByFriendEvent const& e)
 }
 
 
-None
+pplx::task<void>
 JChat::ClientObject::visitEvent(Jmcpp::GroupInfoUpdatedEvent const& e)
 {
 	auto groupId = e.groupId;

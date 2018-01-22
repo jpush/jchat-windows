@@ -282,6 +282,25 @@ namespace JChat
 
 	private:
 		template<class T>
+		auto doVisitEvent(T const&e, Jmcpp::Event event) ->
+			std::enable_if_t<std::is_void_v<decltype(this->visitEvent(std::declval<T const&>())) > >
+		{
+			visitEvent(e);
+
+			Q_EMIT onEventSignal(std::move(event));
+		}
+
+		template<class T>
+		auto doVisitEvent(T const&e, Jmcpp::Event event)->
+			std::enable_if_t<!std::is_void_v<decltype(this->visitEvent(std::declval<T const&>())) >, None >
+		{
+			co_await visitEvent(e);
+
+			Q_EMIT onEventSignal(std::move(event));
+		}
+
+
+		template<class T>
 		void visitEvent(T const& e)
 		{
 			qDebug() << "*****" << typeid(e).name();
@@ -293,10 +312,10 @@ namespace JChat
 		void visitEvent(Jmcpp::RemovedByFriendEvent const& e);
 
 
-		None visitEvent(Jmcpp::UserInfoUpdatedEvent const& e);
+		pplx::task<void> visitEvent(Jmcpp::UserInfoUpdatedEvent const& e);
 
-	
-		None visitEvent(Jmcpp::GroupInfoUpdatedEvent const& e);
+
+		pplx::task<void> visitEvent(Jmcpp::GroupInfoUpdatedEvent const& e);
 
 
 		void visitEvent(Jmcpp::MultiFriendRemarkUpdatedEvent const& e);

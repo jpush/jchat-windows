@@ -108,7 +108,21 @@ namespace JChat
 
 		connect(_co.get(), &ClientObject::selfInfoUpdated, this, &ChatWidget::onSelfInfoUpdated);
 		connect(_co.get(), &ClientObject::userInfoUpdated, this, &ChatWidget::onUserInfoUpdated);
-		connect(_co.get(), &ClientObject::groupInfoUpdated, this, &ChatWidget::onGroupInfoUpdated);
+
+		_co->onEvent(this, [=](Jmcpp::GroupInfoUpdatedEvent const& e)-> None
+		{
+			if(_conId == e.groupId)
+			{
+				auto self = this | qTrack;
+				auto info = co_await _co->getCacheGroupInfo(_conId.getGroupId());
+				co_await self;
+
+				if(!info.groupName.empty())
+					ui.btnName->setText(info.groupName.data());
+			}
+		});
+
+
 
 		init();
 
