@@ -226,7 +226,6 @@ JChat::ClientObject::init()
 
 	}, std::placeholders::_1));
 
-
 	onEventSync([this](std::vector<Jmcpp::Event> eventList)
 	{
 		for(auto&& event : eventList)

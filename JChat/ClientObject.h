@@ -282,21 +282,19 @@ namespace JChat
 
 	private:
 		template<class T>
-		auto doVisitEvent(T const&e, Jmcpp::Event event) ->
-			std::enable_if_t<std::is_void_v<decltype(this->visitEvent(std::declval<T const&>())) > >
+		None doVisitEvent(T const&e, Jmcpp::Event event)
 		{
-			visitEvent(e);
+			if constexpr(std::is_void_v<decltype(visitEvent(std::declval<T const&>()))>)
+			{
+				visitEvent(e);
+			}
+			else
+			{
+				co_await visitEvent(e);
+			}
 
 			Q_EMIT onEventSignal(std::move(event));
-		}
-
-		template<class T>
-		auto doVisitEvent(T const&e, Jmcpp::Event event)->
-			std::enable_if_t<!std::is_void_v<decltype(this->visitEvent(std::declval<T const&>())) >, None >
-		{
-			co_await visitEvent(e);
-
-			Q_EMIT onEventSignal(std::move(event));
+			co_return;
 		}
 
 
