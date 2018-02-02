@@ -67,6 +67,11 @@ namespace JChat {
 				}
 			}
 
+			if(e.oldOwner == _owner)
+			{
+				_owner = e.newOwner;
+			}
+
 		});
 
 	}

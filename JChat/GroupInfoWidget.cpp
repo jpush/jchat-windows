@@ -119,7 +119,7 @@ namespace JChat {
 						removeMember({ userId });
 					});
 
-					//#TODO TEST
+				
 					myMenu.addAction(u8"转移群主身份", this, [=]
 					{
 						try
