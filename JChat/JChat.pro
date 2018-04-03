@@ -4,7 +4,7 @@
 #
 #-------------------------------------------------
 
-QT       += core gui widgets network sql multimedia multimediawidgets svg xml quick macextras
+QT += core gui widgets network sql multimedia multimediawidgets svg xml quick
 
 TARGET = JChat
 TEMPLATE = app
@@ -40,34 +40,29 @@ CONFIG(release, debug|release):TARGET=JChat
 
 win32{
 	QMAKE_CXXFLAGS+= /std:c++latest /await
+	LIBS+=advapi32.lib gdi32.lib user32.lib
 
-	LIBS+=Advapi32.lib gdi32.lib User32.lib
+	#need boost 1.66+
+	INCLUDEPATH+=E:/__library__/boost_1_66_0_v141_x86
+	LIBS+=-LE:/__library__/boost_1_66_0_v141_x86/lib
 
-	INCLUDEPATH+=D:\__projects__\JChat\packages\jmessage-cpp.1.2.0-beta180102-3\build\native\include
-	LIBS+=-LD:\__projects__\JChat\packages\jmessage-cpp.1.2.0-beta180102-3\build\native\lib\x86
+	DEFINES += _QX_STATIC_BUILD
+
+	INCLUDEPATH+=$$PWD/../jmessage-sdk/jmessage-sdk-win-1.2.0/include
+	LIBS+=-L$$PWD/../jmessage-sdk/jmessage-sdk-win-1.2.0/lib
 
 	CONFIG(debug, debug|release):LIBS+=-ljmcppd
 	CONFIG(release, debug|release)::LIBS+=-ljmcpp
 
-	#boost
-	INCLUDEPATH+=E:\__library__\boost_1_66_0_v141_x86
-	LIBS+=-LE:/__library__/boost_1_66_0_v141_x86/lib
+	CONFIG(debug, debug|release):LIBS+= cpprest140d_2_9.lib
+	CONFIG(release, debug|release): LIBS+= cpprest140_2_9.lib
 
-	#cpprestsdk
-	INCLUDEPATH+=C:\Users\jiguang\.nuget\packages\cpprestsdk.v140.windesktop.msvcstl.dyn.rt-dyn\2.9.1\build\native\include
-	LIBS+=-LC:\Users\jiguang\.nuget\packages\cpprestsdk.v140.windesktop.msvcstl.dyn.rt-dyn\2.9.1\lib\native\v140\windesktop\msvcstl\dyn\rt-dyn\x86
 
-	CONFIG(debug, debug|release):LIBS+=Debug/cpprest140d_2_9.lib
-	CONFIG(release, debug|release): LIBS+=Release/cpprest140_2_9.lib
-
-	#ssl
-	INCLUDEPATH+=D:\__projects__\vcpkg\installed\x86-windows-s\include
-
-	CONFIG(debug, debug|release):LIBS+=-LD:\__projects__\vcpkg\installed\x86-windows-s\debug\lib -llibeay32 -lssleay32
-	CONFIG(release, debug|release)::LIBS+= -LD:\__projects__\vcpkg\installed\x86-windows-s\lib -llibeay32 -lssleay32
-
+	DESTDIR = $$PWD/../build_v141_x86/bin
 }
 else{
+	QT += macextras
+
 	DEFINES+=_LIBCPP_ENABLE_CXX17_REMOVED_FEATURES _LIBCPP_DISABLE_AVAILABILITY
 
 	QMAKE_CXX= /usr/local/opt/llvm/bin/clang++
@@ -77,25 +72,22 @@ else{
 	QMAKE_CXXFLAGS+= -fcoroutines-ts
 	QMAKE_LFLAGS+= -L/usr/local/opt/llvm/lib -Wl,-rpath,@executable_path/../Frameworks  #-Wl,-rpath,/usr/local/opt/llvm/lib
 
-	INCLUDEPATH+= /usr/local/opt/openssl/include
 	INCLUDEPATH+= /usr/local/include
 	LIBS+= -L/usr/local/lib
-	LIBS+= -lc++experimental -lcpprest -lboost_system -lboost_filesystem   -lboost_thread -lboost_chrono
+	LIBS+= -lc++experimental -lcpprest
 
-
-	DESTDIR+=/users/never/__projects__/_out
-
+	DESTDIR+=$$PWD/../../JChatMac
 
 	CONFIG(debug, debug|release){
-		INCLUDEPATH+= /users/never/__projects__/_out/Jmcppd.framework/Headers
-		LIBS+= -F/users/never/__projects__/_out -framework Jmcppd
+		INCLUDEPATH+= $$PWD/../../JChatMac/Jmcppd.framework/Headers
+		LIBS+= -F$$PWD/../../JChatMac -framework Jmcppd
 	}
 	CONFIG(release, debug|release){
-		INCLUDEPATH+=/users/never/__projects__/_out/Jmcpp.framework/Headers
-		LIBS+= -F/users/never/__projects__/_out -framework Jmcpp
+		INCLUDEPATH+=$$PWD/../../JChatMac/Jmcpp.framework/Headers
+		LIBS+= -F$$PWD/../../JChatMac -framework Jmcpp
 	}
 
-	QMAKE_RPATHDIR+=/users/never/__projects__/_out
+	QMAKE_RPATHDIR+=$$PWD/../../JChatMac
 
 }
 

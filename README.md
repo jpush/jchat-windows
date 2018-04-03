@@ -30,13 +30,14 @@ JChat 是基于 [Windows C++ SDK](https://docs.jiguang.cn/jmessage/client/im_win
 
 ### 环境配置
 
-- 项目使用VS2017+Qt5.9开发,VS2017需要先安装[Qt开发插件](https://marketplace.visualstudio.com/items?itemName=TheQtCompany.QtVisualStudioTools-19123)
-- 已添加Jmessage-cpp-sdk NuGet包,编译时会自动联网下载
+- 项目使用VS2017+Qt5.10开发,包含VS2017项目文件和QtCreator 项目文件
+- 使用VS2017编译需要先安装[Qt开发插件](https://marketplace.visualstudio.com/items?itemName=TheQtCompany.QtVisualStudioTools-19123), VS2017项目已添加Jmessage-cpp-sdk NuGet包,编译时会自动联网下载
 
 
 ### 依赖
 
 - QxOrm :基于Qt的对象关系映射（ORM）操作数据库(工程已包含)
+- boost 1.66
 - EmojiOne: [emoji 表情](https://www.emojione.com/developers/download)
 
 

@@ -84,6 +84,24 @@
     <IgnoreImportLibrary Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</IgnoreImportLibrary>
     <IgnoreImportLibrary Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</IgnoreImportLibrary>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <OutDir>$(SolutionDir)build_$(PlatformToolset)_$(PlatformTarget)\lib\</OutDir>
+    <IntDir>$(SolutionDir)build\build_$(PlatformToolset)_$(PlatformTarget)\$(ProjectName)\$(Configuration)\</IntDir>
+    <TargetName>$(ProjectName)d</TargetName>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <OutDir>$(SolutionDir)build_$(PlatformToolset)_$(PlatformTarget)\lib\</OutDir>
+    <IntDir>$(SolutionDir)build\build_$(PlatformToolset)_$(PlatformTarget)\$(ProjectName)\$(Configuration)\</IntDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <OutDir>$(SolutionDir)build_$(PlatformToolset)_$(PlatformTarget)\lib\</OutDir>
+    <IntDir>$(SolutionDir)build\build_$(PlatformToolset)_$(PlatformTarget)\$(ProjectName)\$(Configuration)\</IntDir>
+    <TargetName>$(ProjectName)d</TargetName>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <OutDir>$(SolutionDir)build_$(PlatformToolset)_$(PlatformTarget)\lib\</OutDir>
+    <IntDir>$(SolutionDir)build\build_$(PlatformToolset)_$(PlatformTarget)\$(ProjectName)\$(Configuration)\</IntDir>
+  </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
       <AdditionalIncludeDirectories>.;.\include;$(QTDIR)\include;$(QTDIR)\include\QtSql;$(QTDIR)\include\QtCore;$(QTDIR)\mkspecs\win32-msvc;.\GeneratedFiles\$(ConfigurationName);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>

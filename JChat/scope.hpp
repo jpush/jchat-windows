@@ -1,4 +1,4 @@
-﻿#pragma once
+#pragma once
 
 #include <exception>
 #include <type_traits>
@@ -193,9 +193,7 @@ namespace cpp
 		template<class EF, class Policy /*= on_exit_policy*/>
 		class basic_scope_exit : Policy
 		{
-		#ifdef _MSC_VER
 			static_assert(std::is_invocable_v<EF>, "scope guard must be callable");
-		#endif
 			__scope::_box<EF> exit_function;
 
 			static auto _make_failsafe(std::true_type, const void *)
@@ -212,10 +210,15 @@ namespace cpp
 			template<typename EFP>
 			using _noexcept_ctor_from = std::bool_constant<std::is_nothrow_constructible < __scope::_box<EF>, EFP, __scope::_empty_scope_exit> ::value >;
 		public:
+		#if defined(__INTELLISENSE__)
+			template<typename EFP>
+			explicit basic_scope_exit(EFP &&ef){}
+		#else
 			template<typename EFP, typename = std::enable_if_t<_ctor_from<EFP>::value>>
 			explicit basic_scope_exit(EFP &&ef) noexcept(_noexcept_ctor_from<EFP>::value)
 				: exit_function(std::forward<EFP>(ef), _make_failsafe(_noexcept_ctor_from<EFP>{}, &ef))
 			{}
+		#endif
 			basic_scope_exit(basic_scope_exit &&that) noexcept(noexcept(__scope::_box<EF>(that.exit_function.move(), that)))
 				: Policy(that), exit_function(that.exit_function.move(), that)
 			{}
@@ -412,9 +415,8 @@ namespace cpp
 		{
 			return deleter.get();
 		}
-		template<typename RR = R>
-		auto operator->() const noexcept
-			-> std::enable_if_t<std::is_pointer_v<RR>, decltype(get())>
+		template<typename RR = R, class = std::enable_if_t<std::is_pointer_v<RR> >>
+		decltype(auto) operator->() const noexcept
 		{
 			return get();
 		}
@@ -455,9 +457,9 @@ namespace cpp
 
 #if defined( __INTELLISENSE__ )
 
-#define SCOPE_EXIT(x) ::cpp::scope_exit<::cpp::__scope::_> x{::cpp::__scope::_{}};
-#define SCOPE_FAIL(x) ::cpp::scope_fail<::cpp::__scope::_> x{::cpp::__scope::_{}};
-#define SCOPE_SUCCESS(x) ::cpp::scope_success<::cpp::__scope::_> x{::cpp::__scope::_{}};
+#define SCOPE_EXIT(...) ::cpp::scope_exit<::cpp::__scope::_> __VA_ARGS__{::cpp::__scope::_{}};
+#define SCOPE_FAIL(...) ::cpp::scope_fail<::cpp::__scope::_> __VA_ARGS__{::cpp::__scope::_{}};
+#define SCOPE_SUCCESS(...) ::cpp::scope_success<::cpp::__scope::_> __VA_ARGS__{::cpp::__scope::_{}};
 
 #else
 

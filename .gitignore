@@ -263,3 +263,4 @@ __pycache__/
 /JChat/GeneratedFiles
 /build_v141_x86
 /build
+/QxOrm/qt/moc/moc_predefs.h
