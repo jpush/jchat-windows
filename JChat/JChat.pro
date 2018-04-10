@@ -39,7 +39,7 @@ CONFIG(debug, debug|release):TARGET=JChatd
 CONFIG(release, debug|release):TARGET=JChat
 
 win32{
-	QMAKE_CXXFLAGS+= /std:c++latest /await
+	QMAKE_CXXFLAGS+= /std:c++17 /await
 	LIBS+=advapi32.lib gdi32.lib user32.lib
 
 	#need boost 1.66+
@@ -48,8 +48,8 @@ win32{
 
 	DEFINES += _QX_STATIC_BUILD
 
-	INCLUDEPATH+=$$PWD/../jmessage-sdk/jmessage-sdk-win-1.2.0/include
-	LIBS+=-L$$PWD/../jmessage-sdk/jmessage-sdk-win-1.2.0/lib
+	INCLUDEPATH+=$$PWD/../jmessage-sdk/jmessage-sdk-pc-win-1.2.3/include
+	LIBS+=-L$$PWD/../jmessage-sdk/jmessage-sdk-pc-win-1.2.3/lib
 
 	CONFIG(debug, debug|release):LIBS+=-ljmcppd
 	CONFIG(release, debug|release)::LIBS+=-ljmcpp
@@ -65,29 +65,18 @@ else{
 
 	DEFINES+=_LIBCPP_ENABLE_CXX17_REMOVED_FEATURES _LIBCPP_DISABLE_AVAILABILITY
 
-	QMAKE_CXX= /usr/local/opt/llvm/bin/clang++
-	QMAKE_LINK= $$QMAKE_CXX
-
-	QMAKE_CXXFLAGS+= -nostdinc++ -I/usr/local/opt/llvm/include -I/usr/local/opt/llvm/include/c++/v1
 	QMAKE_CXXFLAGS+= -fcoroutines-ts
-	QMAKE_LFLAGS+= -L/usr/local/opt/llvm/lib -Wl,-rpath,@executable_path/../Frameworks  #-Wl,-rpath,/usr/local/opt/llvm/lib
+
+	QMAKE_RPATHDIR += @executable_path/../Frameworks
 
 	INCLUDEPATH+= /usr/local/include
 	LIBS+= -L/usr/local/lib
-	LIBS+= -lc++experimental -lcpprest
+	LIBS+= -lcpprest -lboost_filesystem-mt
 
-	DESTDIR+=$$PWD/../../JChatMac
+	DESTDIR+=$$PWD/../../JChatMacBin
 
-	CONFIG(debug, debug|release){
-		INCLUDEPATH+= $$PWD/../../JChatMac/Jmcppd.framework/Headers
-		LIBS+= -F$$PWD/../../JChatMac -framework Jmcppd
-	}
-	CONFIG(release, debug|release){
-		INCLUDEPATH+=$$PWD/../../JChatMac/Jmcpp.framework/Headers
-		LIBS+= -F$$PWD/../../JChatMac -framework Jmcpp
-	}
-
-	QMAKE_RPATHDIR+=$$PWD/../../JChatMac
+	INCLUDEPATH+=$$PWD/../jmessage-sdk/jmessage-sdk-pc-mac-1.2.3/Jmcpp.framework/Headers
+	LIBS+= -F$$PWD/../jmessage-sdk/jmessage-sdk-pc-mac-1.2.3 -framework Jmcpp
 
 }
 

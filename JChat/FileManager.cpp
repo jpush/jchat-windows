@@ -1,10 +1,11 @@
-#include "FileManager.h"
+﻿#include "FileManager.h"
 #include <QPainter>
 #include <QResizeEvent>
 #include <QGraphicsDropShadowEffect>
 #include <QPropertyAnimation>
 #include <QMessageBox>
 #include <QApplication>
+#include <QButtonGroup>
 
 JChat::FileManager::FileManager(QWidget *parent)
 	: QWidget(parent)

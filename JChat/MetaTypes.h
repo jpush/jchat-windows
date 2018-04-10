@@ -1,5 +1,7 @@
 ﻿#pragma once
 
+#include <functional>
+#include <string_view>
 #include <QVariant>
 
 #include <Jmcpp/Client.h>

@@ -25,6 +25,7 @@
 #include <windows.h>
 #include <qt_windows.h>
 
+
 namespace QxWin{
 
 	namespace _qx_win
@@ -32,9 +33,14 @@ namespace QxWin{
 		static auto titleBarHeight = 30;
 		using DwmIsCompositionEnabledPtr = HRESULT(__stdcall *)(BOOL*);
 		static DwmIsCompositionEnabledPtr dwmEnableCompositionPtr;
+
+		using DwmGetColorizationColorPtr = HRESULT(__stdcall*)(DWORD*, BOOL*);
+		static DwmGetColorizationColorPtr dwmGetColorizationColorPtr;
+
 		static void initDwmFun()
 		{
 			dwmEnableCompositionPtr = (DwmIsCompositionEnabledPtr)QLibrary::resolve("dwmapi.dll", "DwmIsCompositionEnabled");
+			dwmGetColorizationColorPtr= (DwmGetColorizationColorPtr)QLibrary::resolve("dwmapi.dll", "DwmGetColorizationColor");
 		}
 		Q_COREAPP_STARTUP_FUNCTION(initDwmFun);
 
@@ -61,7 +67,9 @@ namespace QxWin{
 		{
 			if(auto hwnd = ::GetCapture())
 			{
+			#if(QT_VERSION < QT_VERSION_CHECK(5, 12, 0))
 				::ReleaseCapture();
+			#endif
 			}
 			//#define SC_DRAGMOVE 0xF012
 			SendMessageW((HWND)w->winId(), WM_SYSCOMMAND, 0xF012, 0);
@@ -92,6 +100,21 @@ namespace QxWin{
 			}
 		}
 
+		QColor getThemeColor()
+		{
+			DWORD color = 0;
+			BOOL opaque = FALSE;
+			if(dwmGetColorizationColorPtr)
+			{
+				HRESULT hr = dwmGetColorizationColorPtr(&color, &opaque);
+				if(SUCCEEDED(hr))
+				{
+					return QColor(color);
+				}
+			}
+
+			return QColor{ 0, 100, 255 };
+		}
 
 		class BorderWidget :public QWidget
 		{
@@ -943,10 +966,15 @@ namespace QxWin{
 						}
 					}
 				}break;
+				case QEvent::FocusIn:
+				case QEvent::FocusOut:
+				case QEvent::WindowActivate:
+				case QEvent::WindowDeactivate:
 				case QEvent::ActivationChange:
 				{
 					_p->border->update();
-				}break;
+				}
+				break;
 				case QEvent::Close:
 				{
 					_p->border->close();
@@ -1021,8 +1049,8 @@ namespace QxWin{
 				case WM_WINDOWPOSCHANGED:
 				{
 					auto lpos = reinterpret_cast<WINDOWPOS*>(msg->lParam);
-					_p->border->resize(lpos->cx + _p->border->borderWidth * 2, lpos->cy + _p->border->borderWidth * 2);
 					_p->border->move(lpos->x - _p->border->borderWidth, lpos->y - _p->border->borderWidth);
+					_p->border->resize(lpos->cx + _p->border->borderWidth * 2, lpos->cy + _p->border->borderWidth * 2);
 
 					if(_p->titleBarEnabled)
 					{

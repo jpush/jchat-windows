@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|x64">
@@ -62,6 +62,15 @@
     <PrimaryOutput>QxOrmd</PrimaryOutput>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <PropertyGroup Condition="'$(QtMsBuild)'=='' or !Exists('$(QtMsBuild)\qt.targets')">
+    <QtMsBuild>$(MSBuildProjectDirectory)\QtMsBuild</QtMsBuild>
+  </PropertyGroup>
+  <Target Name="QtMsBuildNotFound" BeforeTargets="CustomBuild;ClCompile" Condition="!Exists('$(QtMsBuild)\qt.targets') or !Exists('$(QtMsBuild)\qt.props')">
+    <Message Importance="High" Text="QtMsBuild: could not locate qt.targets, qt.props; project may not build correctly." />
+  </Target>
+  <ImportGroup Condition="Exists('$(QtMsBuild)\qt.props')">
+    <Import Project="$(QtMsBuild)\qt.props" />
+  </ImportGroup>
   <ImportGroup Label="ExtensionSettings" />
   <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="PropertySheets">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" />
@@ -104,7 +113,7 @@
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
-      <AdditionalIncludeDirectories>.;.\include;$(QTDIR)\include;$(QTDIR)\include\QtSql;$(QTDIR)\include\QtCore;$(QTDIR)\mkspecs\win32-msvc;.\GeneratedFiles\$(ConfigurationName);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>.\GeneratedFiles\$(ConfigurationName);.\GeneratedFiles;.;.\include;$(QTDIR)\include;$(QTDIR)\include\QtSql;$(QTDIR)\include\QtCore;$(QTDIR)\mkspecs\win32-msvc;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AdditionalOptions>-Zc:rvalueCast -Zc:inline -Zc:strictStrings -Zc:throwingNew -Zc:referenceBinding -w34100 -w34189 -w44996 -w44456 -w44457 -w44458 %(AdditionalOptions)</AdditionalOptions>
       <AssemblerListingLocation>release\</AssemblerListingLocation>
       <BrowseInformation>false</BrowseInformation>
@@ -121,6 +130,7 @@
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
       <SuppressStartupBanner>true</SuppressStartupBanner>
       <WarningLevel>Level3</WarningLevel>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
     <Link>
       <AdditionalDependencies>$(QTDIR)\lib\Qt5Sql.lib;$(QTDIR)\lib\Qt5Core.lib;%(AdditionalDependencies)</AdditionalDependencies>
@@ -143,10 +153,19 @@
     <ResourceCompile>
       <PreprocessorDefinitions>_WINDOWS;UNICODE;WIN32;_QX_MODE_RELEASE;_QX_BUILDING_QX_ORM;QT_NO_DEBUG;QT_SQL_LIB;QT_CORE_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ResourceCompile>
+    <QtMoc>
+      <QTDIR>$(QTDIR)</QTDIR>
+      <InputFile>%(FullPath)</InputFile>
+      <OutputFile>.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</OutputFile>
+      <Define>_WINDOWS;UNICODE;$(Platform);_QX_BUILDING_QX_ORM;_QX_STATIC_BUILD;QT_NO_DEBUG;QT_SQL_LIB;QT_CORE_LIB;NDEBUG;_HAS_AUTO_PTR_ETC=1</Define>
+      <ExecutionDescription>Moc'ing %(Identity)...</ExecutionDescription>
+      <DynamicSource>output</DynamicSource>
+      <IncludePath>.\GeneratedFiles\$(ConfigurationName);.\GeneratedFiles;.;.\include;$(QTDIR)\include;$(QTDIR)\include\QtSql;$(QTDIR)\include\QtCore;$(QTDIR)\mkspecs\$(Platform)-msvc;.\GeneratedFiles\$(ConfigurationName)\.</IncludePath>
+    </QtMoc>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
-      <AdditionalIncludeDirectories>.;.\include;$(QTDIR)\include;$(QTDIR)\include\QtSql;$(QTDIR)\include\QtCore;$(QTDIR)\mkspecs\win32-msvc;.\GeneratedFiles\$(ConfigurationName);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>.\GeneratedFiles\$(ConfigurationName);.\GeneratedFiles;.;.\include;$(QTDIR)\include;$(QTDIR)\include\QtSql;$(QTDIR)\include\QtCore;$(QTDIR)\mkspecs\win32-msvc;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AdditionalOptions>-Zc:rvalueCast -Zc:inline -Zc:strictStrings -Zc:throwingNew -Zc:referenceBinding -w34100 -w34189 -w44996 -w44456 -w44457 -w44458 %(AdditionalOptions)</AdditionalOptions>
       <AssemblerListingLocation>release\</AssemblerListingLocation>
       <BrowseInformation>false</BrowseInformation>
@@ -163,6 +182,7 @@
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
       <SuppressStartupBanner>true</SuppressStartupBanner>
       <WarningLevel>Level3</WarningLevel>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
     <Link>
       <AdditionalDependencies>$(QTDIR)\lib\Qt5Sql.lib;$(QTDIR)\lib\Qt5Core.lib;%(AdditionalDependencies)</AdditionalDependencies>
@@ -185,10 +205,19 @@
     <ResourceCompile>
       <PreprocessorDefinitions>_WINDOWS;UNICODE;WIN32;_QX_MODE_RELEASE;_QX_BUILDING_QX_ORM;QT_NO_DEBUG;QT_SQL_LIB;QT_CORE_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ResourceCompile>
+    <QtMoc>
+      <QTDIR>$(QTDIR)</QTDIR>
+      <InputFile>%(FullPath)</InputFile>
+      <OutputFile>.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</OutputFile>
+      <Define>_WINDOWS;UNICODE;WIN32;_QX_BUILDING_QX_ORM;_QX_STATIC_BUILD;QT_NO_DEBUG;QT_SQL_LIB;QT_CORE_LIB;NDEBUG;_HAS_AUTO_PTR_ETC=1</Define>
+      <ExecutionDescription>Moc'ing %(Identity)...</ExecutionDescription>
+      <DynamicSource>output</DynamicSource>
+      <IncludePath>.\GeneratedFiles\$(ConfigurationName);.\GeneratedFiles;.;.\include;$(QTDIR)\include;$(QTDIR)\include\QtSql;$(QTDIR)\include\QtCore;$(QTDIR)\mkspecs\win32-msvc;.\GeneratedFiles\$(ConfigurationName)\.</IncludePath>
+    </QtMoc>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
-      <AdditionalIncludeDirectories>.;.\include;$(QTDIR)\include;$(QTDIR)\include\QtSql;$(QTDIR)\include\QtCore;$(QTDIR)\mkspecs\win32-msvc;.\GeneratedFiles\$(ConfigurationName);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>.\GeneratedFiles\$(ConfigurationName);.\GeneratedFiles;.;.\include;$(QTDIR)\include;$(QTDIR)\include\QtSql;$(QTDIR)\include\QtCore;$(QTDIR)\mkspecs\win32-msvc;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AdditionalOptions>-Zc:rvalueCast -Zc:inline -Zc:strictStrings -Zc:throwingNew -Zc:referenceBinding -w34100 -w34189 -w44996 -w44456 -w44457 -w44458 %(AdditionalOptions)</AdditionalOptions>
       <AssemblerListingLocation>debug\</AssemblerListingLocation>
       <BrowseInformation>false</BrowseInformation>
@@ -205,6 +234,7 @@
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
       <SuppressStartupBanner>true</SuppressStartupBanner>
       <WarningLevel>Level3</WarningLevel>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
     <Link>
       <AdditionalDependencies>$(QTDIR)\lib\Qt5Sqld.lib;$(QTDIR)\lib\Qt5Cored.lib;%(AdditionalDependencies)</AdditionalDependencies>
@@ -226,10 +256,19 @@
     <ResourceCompile>
       <PreprocessorDefinitions>_WINDOWS;UNICODE;WIN32;_QX_MODE_DEBUG;_QX_BUILDING_QX_ORM;QT_SQL_LIB;QT_CORE_LIB;_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ResourceCompile>
+    <QtMoc>
+      <QTDIR>$(QTDIR)</QTDIR>
+      <InputFile>%(FullPath)</InputFile>
+      <OutputFile>.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</OutputFile>
+      <Define>_WINDOWS;UNICODE;$(Platform);_QX_BUILDING_QX_ORM;_QX_STATIC_BUILD;QT_SQL_LIB;QT_CORE_LIB;_HAS_AUTO_PTR_ETC=1</Define>
+      <ExecutionDescription>Moc'ing %(Identity)...</ExecutionDescription>
+      <DynamicSource>output</DynamicSource>
+      <IncludePath>.\GeneratedFiles\$(ConfigurationName);.\GeneratedFiles;.;.\include;$(QTDIR)\include;$(QTDIR)\include\QtSql;$(QTDIR)\include\QtCore;$(QTDIR)\mkspecs\$(Platform)-msvc;.\GeneratedFiles\$(ConfigurationName)\.</IncludePath>
+    </QtMoc>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
-      <AdditionalIncludeDirectories>.;.\include;$(QTDIR)\include;$(QTDIR)\include\QtSql;$(QTDIR)\include\QtCore;$(QTDIR)\mkspecs\win32-msvc;.\GeneratedFiles\$(ConfigurationName);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>.\GeneratedFiles\$(ConfigurationName);.\GeneratedFiles;.;.\include;$(QTDIR)\include;$(QTDIR)\include\QtSql;$(QTDIR)\include\QtCore;$(QTDIR)\mkspecs\win32-msvc;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AdditionalOptions>-Zc:rvalueCast -Zc:inline -Zc:strictStrings -Zc:throwingNew -Zc:referenceBinding -w34100 -w34189 -w44996 -w44456 -w44457 -w44458 %(AdditionalOptions)</AdditionalOptions>
       <AssemblerListingLocation>debug\</AssemblerListingLocation>
       <BrowseInformation>false</BrowseInformation>
@@ -246,6 +285,7 @@
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
       <SuppressStartupBanner>true</SuppressStartupBanner>
       <WarningLevel>Level3</WarningLevel>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
     <Link>
       <AdditionalDependencies>$(QTDIR)\lib\Qt5Sqld.lib;$(QTDIR)\lib\Qt5Cored.lib;%(AdditionalDependencies)</AdditionalDependencies>
@@ -267,40 +307,17 @@
     <ResourceCompile>
       <PreprocessorDefinitions>_WINDOWS;UNICODE;WIN32;_QX_MODE_DEBUG;_QX_BUILDING_QX_ORM;QT_SQL_LIB;QT_CORE_LIB;_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ResourceCompile>
+    <QtMoc>
+      <QTDIR>$(QTDIR)</QTDIR>
+      <InputFile>%(FullPath)</InputFile>
+      <OutputFile>.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</OutputFile>
+      <Define>_WINDOWS;UNICODE;WIN32;_QX_BUILDING_QX_ORM;_QX_STATIC_BUILD;QT_SQL_LIB;QT_CORE_LIB;_HAS_AUTO_PTR_ETC=1</Define>
+      <ExecutionDescription>Moc'ing %(Identity)...</ExecutionDescription>
+      <DynamicSource>output</DynamicSource>
+      <IncludePath>.\GeneratedFiles\$(ConfigurationName);.\GeneratedFiles;.;.\include;$(QTDIR)\include;$(QTDIR)\include\QtSql;$(QTDIR)\include\QtCore;$(QTDIR)\mkspecs\win32-msvc;.\GeneratedFiles\$(ConfigurationName)\.</IncludePath>
+    </QtMoc>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="GeneratedFiles\Debug\moc_IxModel.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
-    </ClCompile>
-    <ClCompile Include="GeneratedFiles\Debug\moc_QxDaoAsync.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
-    </ClCompile>
-    <ClCompile Include="GeneratedFiles\Debug\moc_QxThread.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
-    </ClCompile>
-    <ClCompile Include="GeneratedFiles\Debug\moc_QxThreadPool.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
-    </ClCompile>
-    <ClCompile Include="GeneratedFiles\Release\moc_IxModel.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
-    </ClCompile>
-    <ClCompile Include="GeneratedFiles\Release\moc_QxDaoAsync.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
-    </ClCompile>
-    <ClCompile Include="GeneratedFiles\Release\moc_QxThread.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
-    </ClCompile>
-    <ClCompile Include="GeneratedFiles\Release\moc_QxThreadPool.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
-    </ClCompile>
     <ClCompile Include="src\QxSerialize\QxBoostSerializeHelper\IxBoostSerializeRegisterHelper.cpp" />
     <ClCompile Include="src\QxRegister\IxClass.cpp" />
     <ClCompile Include="src\QxDao\IxDao_Helper.cpp" />
@@ -435,24 +452,12 @@
     <ClInclude Include="include\QxDataMember\IxDataMemberX.h" />
     <ClInclude Include="include\QxFactory\IxFactory.h" />
     <ClInclude Include="include\QxFunction\IxFunction.h" />
-    <CustomBuild Include="include\QxModelView\IxModel.h">
-      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -D_WINDOWS -DUNICODE -DWIN32 -D_QX_BUILDING_QX_ORM -D_QX_STATIC_BUILD -DQT_NO_DEBUG -DQT_SQL_LIB -DQT_CORE_LIB -DNDEBUG -D_HAS_AUTO_PTR_ETC=1  "-I." "-I.\include" "-I$(QTDIR)\include" "-I$(QTDIR)\include\QtSql" "-I$(QTDIR)\include\QtCore" "-I$(QTDIR)\mkspecs\win32-msvc" "-I.\GeneratedFiles\$(ConfigurationName)\." "-finclude/QxPrecompiled.h" "-f../../include/QxModelView/IxModel.h"</Command>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -D_WINDOWS -DUNICODE -DWIN32 -D_QX_BUILDING_QX_ORM -D_QX_STATIC_BUILD -DQT_NO_DEBUG -DQT_SQL_LIB -DQT_CORE_LIB -DNDEBUG -D_HAS_AUTO_PTR_ETC=1  "-I." "-I.\include" "-I$(QTDIR)\include" "-I$(QTDIR)\include\QtSql" "-I$(QTDIR)\include\QtCore" "-I$(QTDIR)\mkspecs\win32-msvc" "-I.\GeneratedFiles\$(ConfigurationName)\." "-finclude/QxPrecompiled.h" "-f../../include/QxModelView/IxModel.h"</Command>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Moc%27ing IxModel.h...</Message>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Moc%27ing IxModel.h...</Message>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -D_WINDOWS -DUNICODE -DWIN32 -D_QX_BUILDING_QX_ORM -D_QX_STATIC_BUILD -DQT_SQL_LIB -DQT_CORE_LIB -D_HAS_AUTO_PTR_ETC=1  "-I." "-I.\include" "-I$(QTDIR)\include" "-I$(QTDIR)\include\QtSql" "-I$(QTDIR)\include\QtCore" "-I$(QTDIR)\mkspecs\win32-msvc" "-I.\GeneratedFiles\$(ConfigurationName)\." "-finclude/QxPrecompiled.h" "-f../../include/QxModelView/IxModel.h"</Command>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -D_WINDOWS -DUNICODE -DWIN32 -D_QX_BUILDING_QX_ORM -D_QX_STATIC_BUILD -DQT_SQL_LIB -DQT_CORE_LIB -D_HAS_AUTO_PTR_ETC=1  "-I." "-I.\include" "-I$(QTDIR)\include" "-I$(QTDIR)\include\QtSql" "-I$(QTDIR)\include\QtCore" "-I$(QTDIR)\mkspecs\win32-msvc" "-I.\GeneratedFiles\$(ConfigurationName)\." "-finclude/QxPrecompiled.h" "-f../../include/QxModelView/IxModel.h"</Command>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Moc%27ing IxModel.h...</Message>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Moc%27ing IxModel.h...</Message>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
-    </CustomBuild>
+    <QtMoc Include="include\QxModelView\IxModel.h">
+      <ForceInclude Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">include/QxPrecompiled.h;../../include/QxModelView/%(Filename)%(Extension)</ForceInclude>
+      <ForceInclude Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">include/QxPrecompiled.h;../../include/QxModelView/%(Filename)%(Extension)</ForceInclude>
+      <ForceInclude Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">include/QxPrecompiled.h;../../include/QxModelView/%(Filename)%(Extension)</ForceInclude>
+      <ForceInclude Condition="'$(Configuration)|$(Platform)'=='Release|x64'">include/QxPrecompiled.h;../../include/QxModelView/%(Filename)%(Extension)</ForceInclude>
+    </QtMoc>
     <ClInclude Include="include\QxService\IxParameter.h" />
     <ClInclude Include="include\QxDao\IxPersistable.h" />
     <ClInclude Include="include\QxDao\QxRepository\IxRepository.h" />
@@ -488,24 +493,12 @@
     <ClInclude Include="include\QxConvert\QxConvert_Export.h" />
     <ClInclude Include="include\QxConvert\QxConvert_Impl.h" />
     <ClInclude Include="include\QxDao\QxDao.h" />
-    <CustomBuild Include="include\QxDao\QxDaoAsync.h">
-      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -D_WINDOWS -DUNICODE -DWIN32 -D_QX_BUILDING_QX_ORM -D_QX_STATIC_BUILD -DQT_NO_DEBUG -DQT_SQL_LIB -DQT_CORE_LIB -DNDEBUG -D_HAS_AUTO_PTR_ETC=1  "-I." "-I.\include" "-I$(QTDIR)\include" "-I$(QTDIR)\include\QtSql" "-I$(QTDIR)\include\QtCore" "-I$(QTDIR)\mkspecs\win32-msvc" "-I.\GeneratedFiles\$(ConfigurationName)\." "-finclude/QxPrecompiled.h" "-f../../include/QxDao/QxDaoAsync.h"</Command>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -D_WINDOWS -DUNICODE -DWIN32 -D_QX_BUILDING_QX_ORM -D_QX_STATIC_BUILD -DQT_NO_DEBUG -DQT_SQL_LIB -DQT_CORE_LIB -DNDEBUG -D_HAS_AUTO_PTR_ETC=1  "-I." "-I.\include" "-I$(QTDIR)\include" "-I$(QTDIR)\include\QtSql" "-I$(QTDIR)\include\QtCore" "-I$(QTDIR)\mkspecs\win32-msvc" "-I.\GeneratedFiles\$(ConfigurationName)\." "-finclude/QxPrecompiled.h" "-f../../include/QxDao/QxDaoAsync.h"</Command>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Moc%27ing QxDaoAsync.h...</Message>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Moc%27ing QxDaoAsync.h...</Message>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -D_WINDOWS -DUNICODE -DWIN32 -D_QX_BUILDING_QX_ORM -D_QX_STATIC_BUILD -DQT_SQL_LIB -DQT_CORE_LIB -D_HAS_AUTO_PTR_ETC=1  "-I." "-I.\include" "-I$(QTDIR)\include" "-I$(QTDIR)\include\QtSql" "-I$(QTDIR)\include\QtCore" "-I$(QTDIR)\mkspecs\win32-msvc" "-I.\GeneratedFiles\$(ConfigurationName)\." "-finclude/QxPrecompiled.h" "-f../../include/QxDao/QxDaoAsync.h"</Command>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -D_WINDOWS -DUNICODE -DWIN32 -D_QX_BUILDING_QX_ORM -D_QX_STATIC_BUILD -DQT_SQL_LIB -DQT_CORE_LIB -D_HAS_AUTO_PTR_ETC=1  "-I." "-I.\include" "-I$(QTDIR)\include" "-I$(QTDIR)\include\QtSql" "-I$(QTDIR)\include\QtCore" "-I$(QTDIR)\mkspecs\win32-msvc" "-I.\GeneratedFiles\$(ConfigurationName)\." "-finclude/QxPrecompiled.h" "-f../../include/QxDao/QxDaoAsync.h"</Command>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Moc%27ing QxDaoAsync.h...</Message>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Moc%27ing QxDaoAsync.h...</Message>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
-    </CustomBuild>
+    <QtMoc Include="include\QxDao\QxDaoAsync.h">
+      <ForceInclude Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">include/QxPrecompiled.h;../../include/QxDao/%(Filename)%(Extension)</ForceInclude>
+      <ForceInclude Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">include/QxPrecompiled.h;../../include/QxDao/%(Filename)%(Extension)</ForceInclude>
+      <ForceInclude Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">include/QxPrecompiled.h;../../include/QxDao/%(Filename)%(Extension)</ForceInclude>
+      <ForceInclude Condition="'$(Configuration)|$(Platform)'=='Release|x64'">include/QxPrecompiled.h;../../include/QxDao/%(Filename)%(Extension)</ForceInclude>
+    </QtMoc>
     <ClInclude Include="include\QxDao\QxDaoPointer.h" />
     <ClInclude Include="include\QxDaoRepository.h" />
     <ClInclude Include="include\QxDao\QxDaoStrategy.h" />
@@ -869,42 +862,18 @@ echo #include "QxPrecompiled.h"&gt;&gt;include\QxPrecompiled.h.cpp</Command>
     <ClInclude Include="include\QxDao\QxSqlSaveMode.h" />
     <ClInclude Include="include\QxDao\QxSqlElement\QxSqlSort.h" />
     <ClInclude Include="include\QxExtras\QxStdOptional.h" />
-    <CustomBuild Include="include\QxService\QxThread.h">
-      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -D_WINDOWS -DUNICODE -DWIN32 -D_QX_BUILDING_QX_ORM -D_QX_STATIC_BUILD -DQT_NO_DEBUG -DQT_SQL_LIB -DQT_CORE_LIB -DNDEBUG -D_HAS_AUTO_PTR_ETC=1  "-I." "-I.\include" "-I$(QTDIR)\include" "-I$(QTDIR)\include\QtSql" "-I$(QTDIR)\include\QtCore" "-I$(QTDIR)\mkspecs\win32-msvc" "-I.\GeneratedFiles\$(ConfigurationName)\." "-finclude/QxPrecompiled.h" "-f../../include/QxService/QxThread.h"</Command>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -D_WINDOWS -DUNICODE -DWIN32 -D_QX_BUILDING_QX_ORM -D_QX_STATIC_BUILD -DQT_NO_DEBUG -DQT_SQL_LIB -DQT_CORE_LIB -DNDEBUG -D_HAS_AUTO_PTR_ETC=1  "-I." "-I.\include" "-I$(QTDIR)\include" "-I$(QTDIR)\include\QtSql" "-I$(QTDIR)\include\QtCore" "-I$(QTDIR)\mkspecs\win32-msvc" "-I.\GeneratedFiles\$(ConfigurationName)\." "-finclude/QxPrecompiled.h" "-f../../include/QxService/QxThread.h"</Command>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Moc%27ing QxThread.h...</Message>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Moc%27ing QxThread.h...</Message>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -D_WINDOWS -DUNICODE -DWIN32 -D_QX_BUILDING_QX_ORM -D_QX_STATIC_BUILD -DQT_SQL_LIB -DQT_CORE_LIB -D_HAS_AUTO_PTR_ETC=1  "-I." "-I.\include" "-I$(QTDIR)\include" "-I$(QTDIR)\include\QtSql" "-I$(QTDIR)\include\QtCore" "-I$(QTDIR)\mkspecs\win32-msvc" "-I.\GeneratedFiles\$(ConfigurationName)\." "-finclude/QxPrecompiled.h" "-f../../include/QxService/QxThread.h"</Command>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -D_WINDOWS -DUNICODE -DWIN32 -D_QX_BUILDING_QX_ORM -D_QX_STATIC_BUILD -DQT_SQL_LIB -DQT_CORE_LIB -D_HAS_AUTO_PTR_ETC=1  "-I." "-I.\include" "-I$(QTDIR)\include" "-I$(QTDIR)\include\QtSql" "-I$(QTDIR)\include\QtCore" "-I$(QTDIR)\mkspecs\win32-msvc" "-I.\GeneratedFiles\$(ConfigurationName)\." "-finclude/QxPrecompiled.h" "-f../../include/QxService/QxThread.h"</Command>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Moc%27ing QxThread.h...</Message>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Moc%27ing QxThread.h...</Message>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
-    </CustomBuild>
-    <CustomBuild Include="include\QxService\QxThreadPool.h">
-      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -D_WINDOWS -DUNICODE -DWIN32 -D_QX_BUILDING_QX_ORM -D_QX_STATIC_BUILD -DQT_NO_DEBUG -DQT_SQL_LIB -DQT_CORE_LIB -DNDEBUG -D_HAS_AUTO_PTR_ETC=1  "-I." "-I.\include" "-I$(QTDIR)\include" "-I$(QTDIR)\include\QtSql" "-I$(QTDIR)\include\QtCore" "-I$(QTDIR)\mkspecs\win32-msvc" "-I.\GeneratedFiles\$(ConfigurationName)\." "-finclude/QxPrecompiled.h" "-f../../include/QxService/QxThreadPool.h"</Command>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -D_WINDOWS -DUNICODE -DWIN32 -D_QX_BUILDING_QX_ORM -D_QX_STATIC_BUILD -DQT_NO_DEBUG -DQT_SQL_LIB -DQT_CORE_LIB -DNDEBUG -D_HAS_AUTO_PTR_ETC=1  "-I." "-I.\include" "-I$(QTDIR)\include" "-I$(QTDIR)\include\QtSql" "-I$(QTDIR)\include\QtCore" "-I$(QTDIR)\mkspecs\win32-msvc" "-I.\GeneratedFiles\$(ConfigurationName)\." "-finclude/QxPrecompiled.h" "-f../../include/QxService/QxThreadPool.h"</Command>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Moc%27ing QxThreadPool.h...</Message>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Moc%27ing QxThreadPool.h...</Message>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -D_WINDOWS -DUNICODE -DWIN32 -D_QX_BUILDING_QX_ORM -D_QX_STATIC_BUILD -DQT_SQL_LIB -DQT_CORE_LIB -D_HAS_AUTO_PTR_ETC=1  "-I." "-I.\include" "-I$(QTDIR)\include" "-I$(QTDIR)\include\QtSql" "-I$(QTDIR)\include\QtCore" "-I$(QTDIR)\mkspecs\win32-msvc" "-I.\GeneratedFiles\$(ConfigurationName)\." "-finclude/QxPrecompiled.h" "-f../../include/QxService/QxThreadPool.h"</Command>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -D_WINDOWS -DUNICODE -DWIN32 -D_QX_BUILDING_QX_ORM -D_QX_STATIC_BUILD -DQT_SQL_LIB -DQT_CORE_LIB -D_HAS_AUTO_PTR_ETC=1  "-I." "-I.\include" "-I$(QTDIR)\include" "-I$(QTDIR)\include\QtSql" "-I$(QTDIR)\include\QtCore" "-I$(QTDIR)\mkspecs\win32-msvc" "-I.\GeneratedFiles\$(ConfigurationName)\." "-finclude/QxPrecompiled.h" "-f../../include/QxService/QxThreadPool.h"</Command>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Moc%27ing QxThreadPool.h...</Message>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Moc%27ing QxThreadPool.h...</Message>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
-    </CustomBuild>
+    <QtMoc Include="include\QxService\QxThread.h">
+      <ForceInclude Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">include/QxPrecompiled.h;../../include/QxService/%(Filename)%(Extension)</ForceInclude>
+      <ForceInclude Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">include/QxPrecompiled.h;../../include/QxService/%(Filename)%(Extension)</ForceInclude>
+      <ForceInclude Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">include/QxPrecompiled.h;../../include/QxService/%(Filename)%(Extension)</ForceInclude>
+      <ForceInclude Condition="'$(Configuration)|$(Platform)'=='Release|x64'">include/QxPrecompiled.h;../../include/QxService/%(Filename)%(Extension)</ForceInclude>
+    </QtMoc>
+    <QtMoc Include="include\QxService\QxThreadPool.h">
+      <ForceInclude Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">include/QxPrecompiled.h;../../include/QxService/%(Filename)%(Extension)</ForceInclude>
+      <ForceInclude Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">include/QxPrecompiled.h;../../include/QxService/%(Filename)%(Extension)</ForceInclude>
+      <ForceInclude Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">include/QxPrecompiled.h;../../include/QxService/%(Filename)%(Extension)</ForceInclude>
+      <ForceInclude Condition="'$(Configuration)|$(Platform)'=='Release|x64'">include/QxPrecompiled.h;../../include/QxService/%(Filename)%(Extension)</ForceInclude>
+    </QtMoc>
     <ClInclude Include="include\QxDao\QxTimeNeutral.h" />
     <ClInclude Include="include\QxService\QxTools.h" />
     <ClInclude Include="include\QxService\QxTransaction.h" />
@@ -1023,6 +992,9 @@ echo #include "QxPrecompiled.h"&gt;&gt;include\QxPrecompiled.h.cpp</Command>
     </CustomBuild>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Condition="Exists('$(QtMsBuild)\qt.targets')">
+    <Import Project="$(QtMsBuild)\qt.targets" />
+  </ImportGroup>
   <ImportGroup Label="ExtensionTargets" />
   <ProjectExtensions>
     <VisualStudio>

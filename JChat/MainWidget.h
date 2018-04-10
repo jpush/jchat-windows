@@ -22,11 +22,11 @@ class QSystemTrayIcon;
 namespace JChat{
 	class TrayIconMessage;
 
-	class MainWidget : public QxWin::MetroStyle< QWidget, true, false>
+	class MainWidget : public QWidget//QxWin::MetroStyle< QWidget, true, false>
 	{
 		Q_OBJECT
 
-			using base = MetroStyle;
+			using base = QWidget;
 	public:
 
 		MainWidget(JChat::ClientObjectPtr const& co, QWidget *parent = Q_NULLPTR);
@@ -100,44 +100,6 @@ namespace JChat{
 			ui.labelAvatar->setPixmap(pixmap);
 		}
 
-		//template<class T>
-		//void trackTask(pplx::task<T> t)
-		//{
-		//	auto tsk = t.then([](pplx::task<T> t){
-		//		try
-		//		{
-		//			t.get();
-		//		}
-		//		catch(...)
-		//		{
-		//		}
-		//	});
-		//	_tasks.emplace_back(std::move(tsk));
-		//}
-		//
-		//
-		//void cleanReadyTask()
-		//{
-		//	auto iter = std::remove_if(_tasks.begin(), _tasks.end(), [](pplx::task<void> const&t)
-		//	{
-		//		return t.is_done();
-		//	});
-		//	_tasks.erase(iter, _tasks.end());
-		//}
-		//
-		//void awaitAllTask()
-		//{
-		//	auto t = pplx::when_all(_tasks.begin(), _tasks.end());
-		//	try
-		//	{
-		//		qAwait(t);
-		//	}
-		//	catch(std::runtime_error& e)
-		//	{
-		//
-		//	}
-		//}
-
 
 		virtual bool eventFilter(QObject *watched, QEvent *event) override;
 		virtual void closeEvent(QCloseEvent *event) override;
@@ -162,7 +124,5 @@ namespace JChat{
 		std::map<Jmcpp::ConversationId, Jmcpp::UserInfo> _userInfos;
 		std::map<Jmcpp::ConversationId, Jmcpp::GroupInfo> _groupInfos;
 
-
-		std::vector<pplx::task<void> > _tasks;
 	};
 }

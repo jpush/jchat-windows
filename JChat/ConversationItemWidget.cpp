@@ -1,8 +1,9 @@
-#include "ConversationItemWidget.h"
+﻿#include "ConversationItemWidget.h"
 
 #include <QDebug>
 #include <QResizeEvent>
 #include <QMenu>
+#include <QStyle>
 namespace JChat {
 
 	ConversationItemWidget::ConversationItemWidget(QWidget *parent)

@@ -38,9 +38,6 @@
       <Extensions>cpp;moc</Extensions>
       <SourceControlFiles>False</SourceControlFiles>
     </Filter>
-    <Filter Include="Model">
-      <UniqueIdentifier>{2589f9c2-6d63-4555-9b58-5da939a49fcb}</UniqueIdentifier>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -52,32 +49,11 @@
     <ClCompile Include="LoginWidget.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="GeneratedFiles\Debug\moc_LoginWidget.cpp">
-      <Filter>Generated Files\Debug</Filter>
-    </ClCompile>
-    <ClCompile Include="GeneratedFiles\Release\moc_LoginWidget.cpp">
-      <Filter>Generated Files\Release</Filter>
-    </ClCompile>
-    <ClCompile Include="GeneratedFiles\Debug\moc_MainWidget.cpp">
-      <Filter>Generated Files\Debug</Filter>
-    </ClCompile>
-    <ClCompile Include="GeneratedFiles\Release\moc_MainWidget.cpp">
-      <Filter>Generated Files\Release</Filter>
-    </ClCompile>
     <ClCompile Include="Dispatch.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="ChatWidget.cpp">
       <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="GeneratedFiles\qrc_Resource.cpp">
-      <Filter>Generated Files</Filter>
-    </ClCompile>
-    <ClCompile Include="GeneratedFiles\Debug\moc_ClientObject.cpp">
-      <Filter>Generated Files\Debug</Filter>
-    </ClCompile>
-    <ClCompile Include="GeneratedFiles\Release\moc_ClientObject.cpp">
-      <Filter>Generated Files\Release</Filter>
     </ClCompile>
     <ClCompile Include="ClientObject.cpp">
       <Filter>Source Files</Filter>
@@ -91,137 +67,47 @@
     <ClCompile Include="Util.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="GeneratedFiles\Debug\moc_ContactModel.cpp">
-      <Filter>Generated Files\Debug</Filter>
-    </ClCompile>
-    <ClCompile Include="GeneratedFiles\Release\moc_ContactModel.cpp">
-      <Filter>Generated Files\Release</Filter>
-    </ClCompile>
     <ClCompile Include="ContactModel.cpp">
       <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="GeneratedFiles\Debug\moc_MessageListWidget.cpp">
-      <Filter>Generated Files\Debug</Filter>
-    </ClCompile>
-    <ClCompile Include="GeneratedFiles\Release\moc_MessageListWidget.cpp">
-      <Filter>Generated Files\Release</Filter>
     </ClCompile>
     <ClCompile Include="MessageListWidget.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="GeneratedFiles\Debug\moc_ItemWidgetTextLeft.cpp">
-      <Filter>Generated Files\Debug</Filter>
-    </ClCompile>
-    <ClCompile Include="GeneratedFiles\Release\moc_ItemWidgetTextLeft.cpp">
-      <Filter>Generated Files\Release</Filter>
-    </ClCompile>
     <ClCompile Include="ItemWidgetTextLeft.cpp">
       <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="GeneratedFiles\Debug\moc_ItemWidgetTextRight.cpp">
-      <Filter>Generated Files\Debug</Filter>
-    </ClCompile>
-    <ClCompile Include="GeneratedFiles\Release\moc_ItemWidgetTextRight.cpp">
-      <Filter>Generated Files\Release</Filter>
     </ClCompile>
     <ClCompile Include="ItemWidgetTextRight.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="GeneratedFiles\Debug\moc_ItemWidgetImageRight.cpp">
-      <Filter>Generated Files\Debug</Filter>
-    </ClCompile>
-    <ClCompile Include="GeneratedFiles\Release\moc_ItemWidgetImageRight.cpp">
-      <Filter>Generated Files\Release</Filter>
-    </ClCompile>
     <ClCompile Include="ItemWidgetImageRight.cpp">
       <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="GeneratedFiles\Debug\moc_ItemWidgetImageLeft.cpp">
-      <Filter>Generated Files\Debug</Filter>
-    </ClCompile>
-    <ClCompile Include="GeneratedFiles\Release\moc_ItemWidgetImageLeft.cpp">
-      <Filter>Generated Files\Release</Filter>
     </ClCompile>
     <ClCompile Include="ItemWidgetImageLeft.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="GeneratedFiles\Debug\moc_ItemWidgetFileRight.cpp">
-      <Filter>Generated Files\Debug</Filter>
-    </ClCompile>
-    <ClCompile Include="GeneratedFiles\Release\moc_ItemWidgetFileRight.cpp">
-      <Filter>Generated Files\Release</Filter>
-    </ClCompile>
     <ClCompile Include="ItemWidgetFileRight.cpp">
       <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="GeneratedFiles\Debug\moc_ItemWidgetFileLeft.cpp">
-      <Filter>Generated Files\Debug</Filter>
-    </ClCompile>
-    <ClCompile Include="GeneratedFiles\Release\moc_ItemWidgetFileLeft.cpp">
-      <Filter>Generated Files\Release</Filter>
     </ClCompile>
     <ClCompile Include="ItemWidgetFileLeft.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="GeneratedFiles\Debug\moc_ItemWidgetCenter.cpp">
-      <Filter>Generated Files\Debug</Filter>
-    </ClCompile>
-    <ClCompile Include="GeneratedFiles\Release\moc_ItemWidgetCenter.cpp">
-      <Filter>Generated Files\Release</Filter>
-    </ClCompile>
     <ClCompile Include="ItemWidgetCenter.cpp">
       <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="GeneratedFiles\Debug\moc_UserInfoWidget.cpp">
-      <Filter>Generated Files\Debug</Filter>
-    </ClCompile>
-    <ClCompile Include="GeneratedFiles\Release\moc_UserInfoWidget.cpp">
-      <Filter>Generated Files\Release</Filter>
     </ClCompile>
     <ClCompile Include="UserInfoWidget.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="GeneratedFiles\Debug\moc_Emoji.cpp">
-      <Filter>Generated Files\Debug</Filter>
-    </ClCompile>
-    <ClCompile Include="GeneratedFiles\Release\moc_Emoji.cpp">
-      <Filter>Generated Files\Release</Filter>
-    </ClCompile>
     <ClCompile Include="Emoji.cpp">
       <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="GeneratedFiles\Debug\moc_EmojiPicker.cpp">
-      <Filter>Generated Files\Debug</Filter>
-    </ClCompile>
-    <ClCompile Include="GeneratedFiles\Release\moc_EmojiPicker.cpp">
-      <Filter>Generated Files\Release</Filter>
     </ClCompile>
     <ClCompile Include="EmojiPicker.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="GeneratedFiles\Debug\moc_GroupInfoWidget.cpp">
-      <Filter>Generated Files\Debug</Filter>
-    </ClCompile>
-    <ClCompile Include="GeneratedFiles\Release\moc_GroupInfoWidget.cpp">
-      <Filter>Generated Files\Release</Filter>
-    </ClCompile>
     <ClCompile Include="GroupInfoWidget.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="GeneratedFiles\Debug\moc_MemberModel.cpp">
-      <Filter>Generated Files\Debug</Filter>
-    </ClCompile>
-    <ClCompile Include="GeneratedFiles\Release\moc_MemberModel.cpp">
-      <Filter>Generated Files\Release</Filter>
-    </ClCompile>
     <ClCompile Include="MemberModel.cpp">
       <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="GeneratedFiles\Debug\moc_TextEdit.cpp">
-      <Filter>Generated Files\Debug</Filter>
-    </ClCompile>
-    <ClCompile Include="GeneratedFiles\Release\moc_TextEdit.cpp">
-      <Filter>Generated Files\Release</Filter>
     </ClCompile>
     <ClCompile Include="TextEdit.cpp">
       <Filter>Source Files</Filter>
@@ -229,35 +115,11 @@
     <ClCompile Include="ProxyModel.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="GeneratedFiles\Debug\moc_ProxyModel.cpp">
-      <Filter>Generated Files\Debug</Filter>
-    </ClCompile>
-    <ClCompile Include="GeneratedFiles\Release\moc_ProxyModel.cpp">
-      <Filter>Generated Files\Release</Filter>
-    </ClCompile>
-    <ClCompile Include="GeneratedFiles\Debug\moc_SelectMemberWidget.cpp">
-      <Filter>Generated Files\Debug</Filter>
-    </ClCompile>
-    <ClCompile Include="GeneratedFiles\Release\moc_SelectMemberWidget.cpp">
-      <Filter>Generated Files\Release</Filter>
-    </ClCompile>
     <ClCompile Include="SelectMemberWidget.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="GeneratedFiles\Debug\moc_SelectUserWidget.cpp">
-      <Filter>Generated Files\Debug</Filter>
-    </ClCompile>
-    <ClCompile Include="GeneratedFiles\Release\moc_SelectUserWidget.cpp">
-      <Filter>Generated Files\Release</Filter>
-    </ClCompile>
     <ClCompile Include="SelectUserWidget.cpp">
       <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="GeneratedFiles\Debug\moc_RequestMessageWidget.cpp">
-      <Filter>Generated Files\Debug</Filter>
-    </ClCompile>
-    <ClCompile Include="GeneratedFiles\Release\moc_RequestMessageWidget.cpp">
-      <Filter>Generated Files\Release</Filter>
     </ClCompile>
     <ClCompile Include="RequestMessageWidget.cpp">
       <Filter>Source Files</Filter>
@@ -265,50 +127,20 @@
     <ClCompile Include="FriendEventListWidget.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="GeneratedFiles\Debug\moc_FriendEventItemWidget.cpp">
-      <Filter>Generated Files\Debug</Filter>
-    </ClCompile>
-    <ClCompile Include="GeneratedFiles\Release\moc_FriendEventItemWidget.cpp">
-      <Filter>Generated Files\Release</Filter>
-    </ClCompile>
     <ClCompile Include="FriendEventItemWidget.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Transaction.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="GeneratedFiles\Debug\moc_ItemWidgetMapper.cpp">
-      <Filter>Generated Files\Debug</Filter>
-    </ClCompile>
-    <ClCompile Include="GeneratedFiles\Release\moc_ItemWidgetMapper.cpp">
-      <Filter>Generated Files\Release</Filter>
-    </ClCompile>
     <ClCompile Include="ItemWidgetMapper.cpp">
       <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="GeneratedFiles\Debug\moc_ConversationItemWidget.cpp">
-      <Filter>Generated Files\Debug</Filter>
-    </ClCompile>
-    <ClCompile Include="GeneratedFiles\Release\moc_ConversationItemWidget.cpp">
-      <Filter>Generated Files\Release</Filter>
     </ClCompile>
     <ClCompile Include="ConversationItemWidget.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="GeneratedFiles\Debug\moc_ChatIdItemWidget.cpp">
-      <Filter>Generated Files\Debug</Filter>
-    </ClCompile>
-    <ClCompile Include="GeneratedFiles\Release\moc_ChatIdItemWidget.cpp">
-      <Filter>Generated Files\Release</Filter>
-    </ClCompile>
     <ClCompile Include="ChatIdItemWidget.cpp">
       <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="GeneratedFiles\Debug\moc_ChangePassword.cpp">
-      <Filter>Generated Files\Debug</Filter>
-    </ClCompile>
-    <ClCompile Include="GeneratedFiles\Release\moc_ChangePassword.cpp">
-      <Filter>Generated Files\Release</Filter>
     </ClCompile>
     <ClCompile Include="ChangePassword.cpp">
       <Filter>Source Files</Filter>
@@ -316,80 +148,26 @@
     <ClCompile Include="BusyIndicator.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="GeneratedFiles\Debug\moc_BlackList.cpp">
-      <Filter>Generated Files\Debug</Filter>
-    </ClCompile>
-    <ClCompile Include="GeneratedFiles\Release\moc_BlackList.cpp">
-      <Filter>Generated Files\Release</Filter>
-    </ClCompile>
     <ClCompile Include="BlackList.cpp">
       <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="GeneratedFiles\Debug\moc_BusyIndicator.cpp">
-      <Filter>Generated Files\Debug</Filter>
-    </ClCompile>
-    <ClCompile Include="GeneratedFiles\Release\moc_BusyIndicator.cpp">
-      <Filter>Generated Files\Release</Filter>
-    </ClCompile>
-    <ClCompile Include="GeneratedFiles\Debug\moc_SendImage.cpp">
-      <Filter>Generated Files\Debug</Filter>
-    </ClCompile>
-    <ClCompile Include="GeneratedFiles\Release\moc_SendImage.cpp">
-      <Filter>Generated Files\Release</Filter>
     </ClCompile>
     <ClCompile Include="SendImage.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="GeneratedFiles\Debug\moc_SendFile.cpp">
-      <Filter>Generated Files\Debug</Filter>
-    </ClCompile>
-    <ClCompile Include="GeneratedFiles\Release\moc_SendFile.cpp">
-      <Filter>Generated Files\Release</Filter>
-    </ClCompile>
     <ClCompile Include="SendFile.cpp">
       <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="GeneratedFiles\Debug\moc_ItemWidgetLocationLeft.cpp">
-      <Filter>Generated Files\Debug</Filter>
-    </ClCompile>
-    <ClCompile Include="GeneratedFiles\Release\moc_ItemWidgetLocationLeft.cpp">
-      <Filter>Generated Files\Release</Filter>
     </ClCompile>
     <ClCompile Include="ItemWidgetLocationLeft.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="GeneratedFiles\Debug\moc_UnreadUsers.cpp">
-      <Filter>Generated Files\Debug</Filter>
-    </ClCompile>
-    <ClCompile Include="GeneratedFiles\Release\moc_UnreadUsers.cpp">
-      <Filter>Generated Files\Release</Filter>
-    </ClCompile>
     <ClCompile Include="UnreadUsers.cpp">
       <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="GeneratedFiles\Debug\moc_ItemWidgetUserCardLeft.cpp">
-      <Filter>Generated Files\Debug</Filter>
-    </ClCompile>
-    <ClCompile Include="GeneratedFiles\Release\moc_ItemWidgetUserCardLeft.cpp">
-      <Filter>Generated Files\Release</Filter>
     </ClCompile>
     <ClCompile Include="ItemWidgetUserCardLeft.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="GeneratedFiles\Debug\moc_ItemWidgetUserCardRight.cpp">
-      <Filter>Generated Files\Debug</Filter>
-    </ClCompile>
-    <ClCompile Include="GeneratedFiles\Release\moc_ItemWidgetUserCardRight.cpp">
-      <Filter>Generated Files\Release</Filter>
-    </ClCompile>
     <ClCompile Include="ItemWidgetUserCardRight.cpp">
       <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="GeneratedFiles\Debug\moc_FileManager.cpp">
-      <Filter>Generated Files\Debug</Filter>
-    </ClCompile>
-    <ClCompile Include="GeneratedFiles\Release\moc_FileManager.cpp">
-      <Filter>Generated Files\Release</Filter>
     </ClCompile>
     <ClCompile Include="FileManager.cpp">
       <Filter>Source Files</Filter>
@@ -397,80 +175,26 @@
     <ClCompile Include="EnterUserNameWidget.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="GeneratedFiles\Debug\moc_SearchUser.cpp">
-      <Filter>Generated Files\Debug</Filter>
-    </ClCompile>
-    <ClCompile Include="GeneratedFiles\Release\moc_SearchUser.cpp">
-      <Filter>Generated Files\Release</Filter>
-    </ClCompile>
     <ClCompile Include="SearchUser.cpp">
       <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="GeneratedFiles\Debug\moc_TrayIconMessage.cpp">
-      <Filter>Generated Files\Debug</Filter>
-    </ClCompile>
-    <ClCompile Include="GeneratedFiles\Release\moc_TrayIconMessage.cpp">
-      <Filter>Generated Files\Release</Filter>
     </ClCompile>
     <ClCompile Include="TrayIconMessage.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="GeneratedFiles\Debug\moc_TrayMessageItemWidget.cpp">
-      <Filter>Generated Files\Debug</Filter>
-    </ClCompile>
-    <ClCompile Include="GeneratedFiles\Release\moc_TrayMessageItemWidget.cpp">
-      <Filter>Generated Files\Release</Filter>
-    </ClCompile>
     <ClCompile Include="TrayMessageItemWidget.cpp">
       <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="GeneratedFiles\Debug\moc_ToolButton.cpp">
-      <Filter>Generated Files\Debug</Filter>
-    </ClCompile>
-    <ClCompile Include="GeneratedFiles\Release\moc_ToolButton.cpp">
-      <Filter>Generated Files\Release</Filter>
     </ClCompile>
     <ClCompile Include="ToolButton.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="GeneratedFiles\Debug\moc_EnterUserNameWidget.cpp">
-      <Filter>Generated Files\Debug</Filter>
-    </ClCompile>
-    <ClCompile Include="GeneratedFiles\Release\moc_EnterUserNameWidget.cpp">
-      <Filter>Generated Files\Release</Filter>
-    </ClCompile>
-    <ClCompile Include="GeneratedFiles\Debug\moc_ItemWidgetVoiceLeft.cpp">
-      <Filter>Generated Files\Debug</Filter>
-    </ClCompile>
-    <ClCompile Include="GeneratedFiles\Release\moc_ItemWidgetVoiceLeft.cpp">
-      <Filter>Generated Files\Release</Filter>
-    </ClCompile>
     <ClCompile Include="ItemWidgetVoiceLeft.cpp">
       <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="GeneratedFiles\Debug\moc_ElidedLabel.cpp">
-      <Filter>Generated Files\Debug</Filter>
-    </ClCompile>
-    <ClCompile Include="GeneratedFiles\Release\moc_ElidedLabel.cpp">
-      <Filter>Generated Files\Release</Filter>
     </ClCompile>
     <ClCompile Include="ElidedLabel.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="GeneratedFiles\Debug\moc_ItemWidgetLocationRight.cpp">
-      <Filter>Generated Files\Debug</Filter>
-    </ClCompile>
-    <ClCompile Include="GeneratedFiles\Release\moc_ItemWidgetLocationRight.cpp">
-      <Filter>Generated Files\Release</Filter>
-    </ClCompile>
     <ClCompile Include="ItemWidgetLocationRight.cpp">
       <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="GeneratedFiles\Debug\moc_ItemWidgetVoiceRight.cpp">
-      <Filter>Generated Files\Debug</Filter>
-    </ClCompile>
-    <ClCompile Include="GeneratedFiles\Release\moc_ItemWidgetVoiceRight.cpp">
-      <Filter>Generated Files\Release</Filter>
     </ClCompile>
     <ClCompile Include="ItemWidgetVoiceRight.cpp">
       <Filter>Source Files</Filter>
@@ -481,143 +205,38 @@
     <ClCompile Include="RememberedAccount.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="GeneratedFiles\Debug\moc_User.cpp">
-      <Filter>Generated Files\Debug</Filter>
-    </ClCompile>
-    <ClCompile Include="GeneratedFiles\Release\moc_User.cpp">
-      <Filter>Generated Files\Release</Filter>
-    </ClCompile>
-    <ClCompile Include="User.cpp">
-      <Filter>Model</Filter>
-    </ClCompile>
-    <ClCompile Include="GeneratedFiles\Debug\moc_Binding.cpp">
-      <Filter>Generated Files\Debug</Filter>
-    </ClCompile>
-    <ClCompile Include="GeneratedFiles\Release\moc_Binding.cpp">
-      <Filter>Generated Files\Release</Filter>
-    </ClCompile>
     <ClCompile Include="Binding.cpp">
       <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="GeneratedFiles\Debug\moc_ChatWidget.cpp">
-      <Filter>Generated Files\Debug</Filter>
-    </ClCompile>
-    <ClCompile Include="GeneratedFiles\Release\moc_ChatWidget.cpp">
-      <Filter>Generated Files\Release</Filter>
-    </ClCompile>
-    <ClCompile Include="GeneratedFiles\Debug\moc_ConversationModel.cpp">
-      <Filter>Generated Files\Debug</Filter>
-    </ClCompile>
-    <ClCompile Include="GeneratedFiles\Release\moc_ConversationModel.cpp">
-      <Filter>Generated Files\Release</Filter>
-    </ClCompile>
-    <ClCompile Include="GeneratedFiles\Debug\moc_FriendEventListWidget.cpp">
-      <Filter>Generated Files\Debug</Filter>
-    </ClCompile>
-    <ClCompile Include="GeneratedFiles\Release\moc_FriendEventListWidget.cpp">
-      <Filter>Generated Files\Release</Filter>
-    </ClCompile>
-    <ClCompile Include="GeneratedFiles\Debug\moc_Settings.cpp">
-      <Filter>Generated Files\Debug</Filter>
-    </ClCompile>
-    <ClCompile Include="GeneratedFiles\Release\moc_Settings.cpp">
-      <Filter>Generated Files\Release</Filter>
-    </ClCompile>
-    <ClCompile Include="GeneratedFiles\Debug\moc_ImageCut.cpp">
-      <Filter>Generated Files\Debug</Filter>
-    </ClCompile>
-    <ClCompile Include="GeneratedFiles\Release\moc_ImageCut.cpp">
-      <Filter>Generated Files\Release</Filter>
     </ClCompile>
     <ClCompile Include="ImageCut.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="GeneratedFiles\Debug\moc_MemberItemWidget.cpp">
-      <Filter>Generated Files\Debug</Filter>
-    </ClCompile>
-    <ClCompile Include="GeneratedFiles\Release\moc_MemberItemWidget.cpp">
-      <Filter>Generated Files\Release</Filter>
-    </ClCompile>
     <ClCompile Include="MemberItemWidget.cpp">
       <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="GeneratedFiles\Debug\moc_GroupInfoDialog.cpp">
-      <Filter>Generated Files\Debug</Filter>
-    </ClCompile>
-    <ClCompile Include="GeneratedFiles\Release\moc_GroupInfoDialog.cpp">
-      <Filter>Generated Files\Release</Filter>
     </ClCompile>
     <ClCompile Include="GroupInfoDialog.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="GeneratedFiles\Debug\moc_InputGroupId.cpp">
-      <Filter>Generated Files\Debug</Filter>
-    </ClCompile>
-    <ClCompile Include="GeneratedFiles\Release\moc_InputGroupId.cpp">
-      <Filter>Generated Files\Release</Filter>
-    </ClCompile>
     <ClCompile Include="InputGroupId.cpp">
       <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="GeneratedFiles\Debug\moc_RoomListModel.cpp">
-      <Filter>Generated Files\Debug</Filter>
-    </ClCompile>
-    <ClCompile Include="GeneratedFiles\Release\moc_RoomListModel.cpp">
-      <Filter>Generated Files\Release</Filter>
     </ClCompile>
     <ClCompile Include="RoomListModel.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="GeneratedFiles\Debug\moc_RoomItemWidget.cpp">
-      <Filter>Generated Files\Debug</Filter>
-    </ClCompile>
-    <ClCompile Include="GeneratedFiles\Release\moc_RoomItemWidget.cpp">
-      <Filter>Generated Files\Release</Filter>
-    </ClCompile>
     <ClCompile Include="RoomItemWidget.cpp">
       <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="GeneratedFiles\Debug\moc_RoomInfoWidget.cpp">
-      <Filter>Generated Files\Debug</Filter>
-    </ClCompile>
-    <ClCompile Include="GeneratedFiles\Release\moc_RoomInfoWidget.cpp">
-      <Filter>Generated Files\Release</Filter>
     </ClCompile>
     <ClCompile Include="RoomInfoWidget.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="GeneratedFiles\Debug\moc_RoomInfoPage.cpp">
-      <Filter>Generated Files\Debug</Filter>
-    </ClCompile>
-    <ClCompile Include="GeneratedFiles\Release\moc_RoomInfoPage.cpp">
-      <Filter>Generated Files\Release</Filter>
-    </ClCompile>
     <ClCompile Include="RoomInfoPage.cpp">
       <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="GeneratedFiles\Debug\moc_GroupEventWidget.cpp">
-      <Filter>Generated Files\Debug</Filter>
-    </ClCompile>
-    <ClCompile Include="GeneratedFiles\Release\moc_GroupEventWidget.cpp">
-      <Filter>Generated Files\Release</Filter>
     </ClCompile>
     <ClCompile Include="GroupEventWidget.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="GeneratedFiles\Debug\moc_GroupEventItem.cpp">
-      <Filter>Generated Files\Debug</Filter>
-    </ClCompile>
-    <ClCompile Include="GeneratedFiles\Release\moc_GroupEventItem.cpp">
-      <Filter>Generated Files\Release</Filter>
-    </ClCompile>
     <ClCompile Include="GroupEventItem.cpp">
       <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="GeneratedFiles\Debug\moc_Label.cpp">
-      <Filter>Generated Files\Debug</Filter>
-    </ClCompile>
-    <ClCompile Include="GeneratedFiles\Release\moc_Label.cpp">
-      <Filter>Generated Files\Release</Filter>
     </ClCompile>
     <ClCompile Include="Label.cpp">
       <Filter>Source Files</Filter>
@@ -625,356 +244,344 @@
     <ClCompile Include="MetroStyle.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="GeneratedFiles\Debug\moc_MetroStyle.cpp">
-      <Filter>Generated Files\Debug</Filter>
-    </ClCompile>
-    <ClCompile Include="GeneratedFiles\Release\moc_MetroStyle.cpp">
-      <Filter>Generated Files\Release</Filter>
-    </ClCompile>
-    <ClCompile Include="GeneratedFiles\qrc_ResourceEmoji.cpp">
-      <Filter>Generated Files</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <CustomBuild Include="MainWidget.h">
+    <QtMoc Include="MainWidget.h">
       <Filter>Header Files</Filter>
-    </CustomBuild>
-    <CustomBuild Include="MainWidget.ui">
+    </QtMoc>
+    <QtUic Include="MainWidget.ui">
       <Filter>Form Files</Filter>
-    </CustomBuild>
-    <CustomBuild Include="LoginWidget.h">
+    </QtUic>
+    <QtMoc Include="LoginWidget.h">
       <Filter>Header Files</Filter>
-    </CustomBuild>
-    <CustomBuild Include="LoginWidget.ui">
+    </QtMoc>
+    <QtUic Include="LoginWidget.ui">
       <Filter>Form Files</Filter>
-    </CustomBuild>
-    <CustomBuild Include="ChatWidget.ui">
+    </QtUic>
+    <QtUic Include="ChatWidget.ui">
       <Filter>Form Files</Filter>
-    </CustomBuild>
-    <CustomBuild Include="Resource.qrc">
+    </QtUic>
+    <QtRcc Include="Resource.qrc">
       <Filter>Resource Files</Filter>
-    </CustomBuild>
-    <CustomBuild Include="Settings.h">
+    </QtRcc>
+    <QtMoc Include="Settings.h">
       <Filter>Header Files</Filter>
-    </CustomBuild>
-    <CustomBuild Include="ClientObject.h">
+    </QtMoc>
+    <QtMoc Include="ClientObject.h">
       <Filter>Header Files</Filter>
-    </CustomBuild>
-    <CustomBuild Include="ContactModel.h">
+    </QtMoc>
+    <QtMoc Include="ContactModel.h">
       <Filter>Header Files</Filter>
-    </CustomBuild>
-    <CustomBuild Include="MessageListWidget.h">
+    </QtMoc>
+    <QtMoc Include="MessageListWidget.h">
       <Filter>Header Files</Filter>
-    </CustomBuild>
-    <CustomBuild Include="MessageListWidget.ui">
+    </QtMoc>
+    <QtUic Include="MessageListWidget.ui">
       <Filter>Form Files</Filter>
-    </CustomBuild>
-    <CustomBuild Include="ItemWidgetTextLeft.h">
+    </QtUic>
+    <QtMoc Include="ItemWidgetTextLeft.h">
       <Filter>Header Files</Filter>
-    </CustomBuild>
-    <CustomBuild Include="ItemWidgetTextLeft.ui">
+    </QtMoc>
+    <QtUic Include="ItemWidgetTextLeft.ui">
       <Filter>Form Files</Filter>
-    </CustomBuild>
-    <CustomBuild Include="ItemWidgetTextRight.h">
+    </QtUic>
+    <QtMoc Include="ItemWidgetTextRight.h">
       <Filter>Header Files</Filter>
-    </CustomBuild>
-    <CustomBuild Include="ItemWidgetTextRight.ui">
+    </QtMoc>
+    <QtUic Include="ItemWidgetTextRight.ui">
       <Filter>Form Files</Filter>
-    </CustomBuild>
-    <CustomBuild Include="ItemWidgetImageRight.h">
+    </QtUic>
+    <QtMoc Include="ItemWidgetImageRight.h">
       <Filter>Header Files</Filter>
-    </CustomBuild>
-    <CustomBuild Include="ItemWidgetImageRight.ui">
+    </QtMoc>
+    <QtUic Include="ItemWidgetImageRight.ui">
       <Filter>Form Files</Filter>
-    </CustomBuild>
-    <CustomBuild Include="ItemWidgetImageLeft.h">
+    </QtUic>
+    <QtMoc Include="ItemWidgetImageLeft.h">
       <Filter>Header Files</Filter>
-    </CustomBuild>
-    <CustomBuild Include="ItemWidgetImageLeft.ui">
+    </QtMoc>
+    <QtUic Include="ItemWidgetImageLeft.ui">
       <Filter>Form Files</Filter>
-    </CustomBuild>
-    <CustomBuild Include="ItemWidgetFileRight.h">
+    </QtUic>
+    <QtMoc Include="ItemWidgetFileRight.h">
       <Filter>Header Files</Filter>
-    </CustomBuild>
-    <CustomBuild Include="ItemWidgetFileRight.ui">
+    </QtMoc>
+    <QtUic Include="ItemWidgetFileRight.ui">
       <Filter>Form Files</Filter>
-    </CustomBuild>
-    <CustomBuild Include="ItemWidgetFileLeft.h">
+    </QtUic>
+    <QtMoc Include="ItemWidgetFileLeft.h">
       <Filter>Header Files</Filter>
-    </CustomBuild>
-    <CustomBuild Include="ItemWidgetFileLeft.ui">
+    </QtMoc>
+    <QtUic Include="ItemWidgetFileLeft.ui">
       <Filter>Form Files</Filter>
-    </CustomBuild>
-    <CustomBuild Include="ItemWidgetCenter.h">
+    </QtUic>
+    <QtMoc Include="ItemWidgetCenter.h">
       <Filter>Header Files</Filter>
-    </CustomBuild>
-    <CustomBuild Include="ItemWidgetCenter.ui">
+    </QtMoc>
+    <QtUic Include="ItemWidgetCenter.ui">
       <Filter>Form Files</Filter>
-    </CustomBuild>
-    <CustomBuild Include="UserInfoWidget.h">
+    </QtUic>
+    <QtMoc Include="UserInfoWidget.h">
       <Filter>Header Files</Filter>
-    </CustomBuild>
-    <CustomBuild Include="UserInfoWidget.ui">
+    </QtMoc>
+    <QtUic Include="UserInfoWidget.ui">
       <Filter>Form Files</Filter>
-    </CustomBuild>
-    <CustomBuild Include="Emoji.h">
+    </QtUic>
+    <QtMoc Include="Emoji.h">
       <Filter>Header Files</Filter>
-    </CustomBuild>
-    <CustomBuild Include="EmojiPicker.h">
+    </QtMoc>
+    <QtMoc Include="EmojiPicker.h">
       <Filter>Header Files</Filter>
-    </CustomBuild>
-    <CustomBuild Include="EmojiPicker.ui">
+    </QtMoc>
+    <QtUic Include="EmojiPicker.ui">
       <Filter>Form Files</Filter>
-    </CustomBuild>
-    <CustomBuild Include="GroupInfoWidget.h">
+    </QtUic>
+    <QtMoc Include="GroupInfoWidget.h">
       <Filter>Header Files</Filter>
-    </CustomBuild>
-    <CustomBuild Include="GroupInfoWidget.ui">
+    </QtMoc>
+    <QtUic Include="GroupInfoWidget.ui">
       <Filter>Form Files</Filter>
-    </CustomBuild>
-    <CustomBuild Include="MemberModel.h">
+    </QtUic>
+    <QtMoc Include="MemberModel.h">
       <Filter>Header Files</Filter>
-    </CustomBuild>
-    <CustomBuild Include="TextEdit.h">
+    </QtMoc>
+    <QtMoc Include="TextEdit.h">
       <Filter>Header Files</Filter>
-    </CustomBuild>
-    <CustomBuild Include="ProxyModel.h">
+    </QtMoc>
+    <QtMoc Include="ProxyModel.h">
       <Filter>Header Files</Filter>
-    </CustomBuild>
-    <CustomBuild Include="SelectMemberWidget.h">
+    </QtMoc>
+    <QtMoc Include="SelectMemberWidget.h">
       <Filter>Header Files</Filter>
-    </CustomBuild>
-    <CustomBuild Include="SelectMemberWidget.ui">
+    </QtMoc>
+    <QtUic Include="SelectMemberWidget.ui">
       <Filter>Form Files</Filter>
-    </CustomBuild>
-    <CustomBuild Include="SelectUserWidget.h">
+    </QtUic>
+    <QtMoc Include="SelectUserWidget.h">
       <Filter>Header Files</Filter>
-    </CustomBuild>
-    <CustomBuild Include="SelectUserWidget.ui">
+    </QtMoc>
+    <QtUic Include="SelectUserWidget.ui">
       <Filter>Form Files</Filter>
-    </CustomBuild>
-    <CustomBuild Include="RequestMessageWidget.h">
+    </QtUic>
+    <QtMoc Include="RequestMessageWidget.h">
       <Filter>Header Files</Filter>
-    </CustomBuild>
-    <CustomBuild Include="RequestMessageWidget.ui">
+    </QtMoc>
+    <QtUic Include="RequestMessageWidget.ui">
       <Filter>Form Files</Filter>
-    </CustomBuild>
-    <CustomBuild Include="FriendEventListWidget.ui">
+    </QtUic>
+    <QtUic Include="FriendEventListWidget.ui">
       <Filter>Form Files</Filter>
-    </CustomBuild>
-    <CustomBuild Include="FriendEventItemWidget.h">
+    </QtUic>
+    <QtMoc Include="FriendEventItemWidget.h">
       <Filter>Header Files</Filter>
-    </CustomBuild>
-    <CustomBuild Include="FriendEventItemWidget.ui">
+    </QtMoc>
+    <QtUic Include="FriendEventItemWidget.ui">
       <Filter>Form Files</Filter>
-    </CustomBuild>
+    </QtUic>
     <CustomBuild Include="Transaction.h">
       <Filter>Header Files</Filter>
     </CustomBuild>
-    <CustomBuild Include="ItemWidgetMapper.h">
+    <QtMoc Include="ItemWidgetMapper.h">
       <Filter>Header Files</Filter>
-    </CustomBuild>
-    <CustomBuild Include="ConversationItemWidget.h">
+    </QtMoc>
+    <QtMoc Include="ConversationItemWidget.h">
       <Filter>Header Files</Filter>
-    </CustomBuild>
-    <CustomBuild Include="ConversationItemWidget.ui">
+    </QtMoc>
+    <QtUic Include="ConversationItemWidget.ui">
       <Filter>Form Files</Filter>
-    </CustomBuild>
-    <CustomBuild Include="ChatIdItemWidget.h">
+    </QtUic>
+    <QtMoc Include="ChatIdItemWidget.h">
       <Filter>Header Files</Filter>
-    </CustomBuild>
-    <CustomBuild Include="ChatIdItemWidget.ui">
+    </QtMoc>
+    <QtUic Include="ChatIdItemWidget.ui">
       <Filter>Form Files</Filter>
-    </CustomBuild>
-    <CustomBuild Include="ChangePassword.h">
+    </QtUic>
+    <QtMoc Include="ChangePassword.h">
       <Filter>Header Files</Filter>
-    </CustomBuild>
-    <CustomBuild Include="ChangePassword.ui">
+    </QtMoc>
+    <QtUic Include="ChangePassword.ui">
       <Filter>Form Files</Filter>
-    </CustomBuild>
-    <CustomBuild Include="BusyIndicator.h">
+    </QtUic>
+    <QtMoc Include="BusyIndicator.h">
       <Filter>Header Files</Filter>
-    </CustomBuild>
-    <CustomBuild Include="BlackList.h">
+    </QtMoc>
+    <QtMoc Include="BlackList.h">
       <Filter>Header Files</Filter>
-    </CustomBuild>
-    <CustomBuild Include="BlackList.ui">
+    </QtMoc>
+    <QtUic Include="BlackList.ui">
       <Filter>Form Files</Filter>
-    </CustomBuild>
-    <CustomBuild Include="SendImage.h">
+    </QtUic>
+    <QtMoc Include="SendImage.h">
       <Filter>Header Files</Filter>
-    </CustomBuild>
-    <CustomBuild Include="SendImage.ui">
+    </QtMoc>
+    <QtUic Include="SendImage.ui">
       <Filter>Form Files</Filter>
-    </CustomBuild>
-    <CustomBuild Include="SendFile.h">
+    </QtUic>
+    <QtMoc Include="SendFile.h">
       <Filter>Header Files</Filter>
-    </CustomBuild>
-    <CustomBuild Include="SendFile.ui">
+    </QtMoc>
+    <QtUic Include="SendFile.ui">
       <Filter>Form Files</Filter>
-    </CustomBuild>
-    <CustomBuild Include="ItemWidgetLocationLeft.h">
+    </QtUic>
+    <QtMoc Include="ItemWidgetLocationLeft.h">
       <Filter>Header Files</Filter>
-    </CustomBuild>
-    <CustomBuild Include="ItemWidgetLocationLeft.ui">
+    </QtMoc>
+    <QtUic Include="ItemWidgetLocationLeft.ui">
       <Filter>Form Files</Filter>
-    </CustomBuild>
-    <CustomBuild Include="UnreadUsers.h">
+    </QtUic>
+    <QtMoc Include="UnreadUsers.h">
       <Filter>Header Files</Filter>
-    </CustomBuild>
-    <CustomBuild Include="UnreadUsers.ui">
+    </QtMoc>
+    <QtUic Include="UnreadUsers.ui">
       <Filter>Form Files</Filter>
-    </CustomBuild>
-    <CustomBuild Include="ItemWidgetUserCardLeft.h">
+    </QtUic>
+    <QtMoc Include="ItemWidgetUserCardLeft.h">
       <Filter>Header Files</Filter>
-    </CustomBuild>
-    <CustomBuild Include="ItemWidgetUserCardLeft.ui">
+    </QtMoc>
+    <QtUic Include="ItemWidgetUserCardLeft.ui">
       <Filter>Form Files</Filter>
-    </CustomBuild>
-    <CustomBuild Include="ItemWidgetUserCardRight.h">
+    </QtUic>
+    <QtMoc Include="ItemWidgetUserCardRight.h">
       <Filter>Header Files</Filter>
-    </CustomBuild>
-    <CustomBuild Include="ItemWidgetUserCardRight.ui">
+    </QtMoc>
+    <QtUic Include="ItemWidgetUserCardRight.ui">
       <Filter>Form Files</Filter>
-    </CustomBuild>
-    <CustomBuild Include="FileManager.h">
+    </QtUic>
+    <QtMoc Include="FileManager.h">
       <Filter>Header Files</Filter>
-    </CustomBuild>
-    <CustomBuild Include="FileManager.ui">
+    </QtMoc>
+    <QtUic Include="FileManager.ui">
       <Filter>Form Files</Filter>
-    </CustomBuild>
-    <CustomBuild Include="EnterUserNameWidget.h">
+    </QtUic>
+    <QtMoc Include="EnterUserNameWidget.h">
       <Filter>Header Files</Filter>
-    </CustomBuild>
-    <CustomBuild Include="EnterUserNameWidget.ui">
+    </QtMoc>
+    <QtUic Include="EnterUserNameWidget.ui">
       <Filter>Form Files</Filter>
-    </CustomBuild>
-    <CustomBuild Include="SearchUser.h">
+    </QtUic>
+    <QtMoc Include="SearchUser.h">
       <Filter>Header Files</Filter>
-    </CustomBuild>
-    <CustomBuild Include="SearchUser.ui">
+    </QtMoc>
+    <QtUic Include="SearchUser.ui">
       <Filter>Form Files</Filter>
-    </CustomBuild>
-    <CustomBuild Include="TrayIconMessage.h">
+    </QtUic>
+    <QtMoc Include="TrayIconMessage.h">
       <Filter>Header Files</Filter>
-    </CustomBuild>
-    <CustomBuild Include="TrayIconMessage.ui">
+    </QtMoc>
+    <QtUic Include="TrayIconMessage.ui">
       <Filter>Form Files</Filter>
-    </CustomBuild>
-    <CustomBuild Include="TrayMessageItemWidget.h">
+    </QtUic>
+    <QtMoc Include="TrayMessageItemWidget.h">
       <Filter>Header Files</Filter>
-    </CustomBuild>
-    <CustomBuild Include="TrayMessageItemWidget.ui">
+    </QtMoc>
+    <QtUic Include="TrayMessageItemWidget.ui">
       <Filter>Form Files</Filter>
-    </CustomBuild>
-    <CustomBuild Include="ToolButton.h">
+    </QtUic>
+    <QtMoc Include="ToolButton.h">
       <Filter>Header Files</Filter>
-    </CustomBuild>
-    <CustomBuild Include="ItemWidgetVoiceLeft.h">
+    </QtMoc>
+    <QtMoc Include="ItemWidgetVoiceLeft.h">
       <Filter>Header Files</Filter>
-    </CustomBuild>
-    <CustomBuild Include="ItemWidgetVoiceLeft.ui">
+    </QtMoc>
+    <QtUic Include="ItemWidgetVoiceLeft.ui">
       <Filter>Form Files</Filter>
-    </CustomBuild>
-    <CustomBuild Include="ElidedLabel.h">
+    </QtUic>
+    <QtMoc Include="ElidedLabel.h">
       <Filter>Header Files</Filter>
-    </CustomBuild>
-    <CustomBuild Include="ItemWidgetLocationRight.h">
+    </QtMoc>
+    <QtMoc Include="ItemWidgetLocationRight.h">
       <Filter>Header Files</Filter>
-    </CustomBuild>
-    <CustomBuild Include="ItemWidgetLocationRight.ui">
+    </QtMoc>
+    <QtUic Include="ItemWidgetLocationRight.ui">
       <Filter>Form Files</Filter>
-    </CustomBuild>
-    <CustomBuild Include="ItemWidgetVoiceRight.h">
+    </QtUic>
+    <QtMoc Include="ItemWidgetVoiceRight.h">
       <Filter>Header Files</Filter>
-    </CustomBuild>
-    <CustomBuild Include="ItemWidgetVoiceRight.ui">
+    </QtMoc>
+    <QtUic Include="ItemWidgetVoiceRight.ui">
       <Filter>Form Files</Filter>
-    </CustomBuild>
+    </QtUic>
     <CustomBuild Include="RememberedAccount.h">
       <Filter>Header Files</Filter>
     </CustomBuild>
-    <CustomBuild Include="User.h">
-      <Filter>Model</Filter>
-    </CustomBuild>
-    <CustomBuild Include="Binding.h">
+    <QtMoc Include="Binding.h">
       <Filter>Header Files</Filter>
-    </CustomBuild>
-    <CustomBuild Include="ChatWidget.h">
+    </QtMoc>
+    <QtMoc Include="ChatWidget.h">
       <Filter>Header Files</Filter>
-    </CustomBuild>
-    <CustomBuild Include="ConversationModel.h">
+    </QtMoc>
+    <QtMoc Include="ConversationModel.h">
       <Filter>Header Files</Filter>
-    </CustomBuild>
-    <CustomBuild Include="FriendEventListWidget.h">
+    </QtMoc>
+    <QtMoc Include="FriendEventListWidget.h">
       <Filter>Header Files</Filter>
-    </CustomBuild>
-    <CustomBuild Include="ImageCut.h">
+    </QtMoc>
+    <QtMoc Include="ImageCut.h">
       <Filter>Header Files</Filter>
-    </CustomBuild>
-    <CustomBuild Include="ImageCut.ui">
+    </QtMoc>
+    <QtUic Include="ImageCut.ui">
       <Filter>Form Files</Filter>
-    </CustomBuild>
-    <CustomBuild Include="MemberItemWidget.h">
+    </QtUic>
+    <QtMoc Include="MemberItemWidget.h">
       <Filter>Header Files</Filter>
-    </CustomBuild>
-    <CustomBuild Include="MemberItemWidget.ui">
+    </QtMoc>
+    <QtUic Include="MemberItemWidget.ui">
       <Filter>Form Files</Filter>
-    </CustomBuild>
-    <CustomBuild Include="GroupInfoDialog.h">
+    </QtUic>
+    <QtMoc Include="GroupInfoDialog.h">
       <Filter>Header Files</Filter>
-    </CustomBuild>
-    <CustomBuild Include="GroupInfoDialog.ui">
+    </QtMoc>
+    <QtUic Include="GroupInfoDialog.ui">
       <Filter>Form Files</Filter>
-    </CustomBuild>
-    <CustomBuild Include="InputGroupId.h">
+    </QtUic>
+    <QtMoc Include="InputGroupId.h">
       <Filter>Header Files</Filter>
-    </CustomBuild>
-    <CustomBuild Include="InputGroupId.ui">
+    </QtMoc>
+    <QtUic Include="InputGroupId.ui">
       <Filter>Form Files</Filter>
-    </CustomBuild>
-    <CustomBuild Include="RoomListModel.h">
+    </QtUic>
+    <QtMoc Include="RoomListModel.h">
       <Filter>Header Files</Filter>
-    </CustomBuild>
-    <CustomBuild Include="RoomItemWidget.h">
+    </QtMoc>
+    <QtMoc Include="RoomItemWidget.h">
       <Filter>Header Files</Filter>
-    </CustomBuild>
-    <CustomBuild Include="RoomItemWidget.ui">
+    </QtMoc>
+    <QtUic Include="RoomItemWidget.ui">
       <Filter>Form Files</Filter>
-    </CustomBuild>
-    <CustomBuild Include="RoomInfoWidget.h">
+    </QtUic>
+    <QtMoc Include="RoomInfoWidget.h">
       <Filter>Header Files</Filter>
-    </CustomBuild>
-    <CustomBuild Include="RoomInfoWidget.ui">
+    </QtMoc>
+    <QtUic Include="RoomInfoWidget.ui">
       <Filter>Form Files</Filter>
-    </CustomBuild>
-    <CustomBuild Include="RoomInfoPage.h">
+    </QtUic>
+    <QtMoc Include="RoomInfoPage.h">
       <Filter>Header Files</Filter>
-    </CustomBuild>
-    <CustomBuild Include="RoomInfoPage.ui">
+    </QtMoc>
+    <QtUic Include="RoomInfoPage.ui">
       <Filter>Form Files</Filter>
-    </CustomBuild>
-    <CustomBuild Include="GroupEventWidget.h">
+    </QtUic>
+    <QtMoc Include="GroupEventWidget.h">
       <Filter>Header Files</Filter>
-    </CustomBuild>
-    <CustomBuild Include="GroupEventWidget.ui">
+    </QtMoc>
+    <QtUic Include="GroupEventWidget.ui">
       <Filter>Form Files</Filter>
-    </CustomBuild>
-    <CustomBuild Include="GroupEventItem.h">
+    </QtUic>
+    <QtMoc Include="GroupEventItem.h">
       <Filter>Header Files</Filter>
-    </CustomBuild>
-    <CustomBuild Include="GroupEventItem.ui">
+    </QtMoc>
+    <QtUic Include="GroupEventItem.ui">
       <Filter>Form Files</Filter>
-    </CustomBuild>
-    <CustomBuild Include="Label.h">
+    </QtUic>
+    <QtMoc Include="Label.h">
       <Filter>Header Files</Filter>
-    </CustomBuild>
-    <CustomBuild Include="MetroStyle.h">
+    </QtMoc>
+    <QtMoc Include="MetroStyle.h">
       <Filter>Header Files</Filter>
-    </CustomBuild>
-    <CustomBuild Include="ResourceEmoji.qrc">
+    </QtMoc>
+    <QtRcc Include="ResourceEmoji.qrc">
       <Filter>Resource Files</Filter>
-    </CustomBuild>
+    </QtRcc>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GeneratedFiles\ui_MainWidget.h">

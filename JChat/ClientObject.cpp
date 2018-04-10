@@ -1,8 +1,8 @@
 ﻿
 #include "ClientObject.h"
 
-
-#include <experimental/filesystem>
+#include <codecvt>
+#include <boost/filesystem.hpp>
 
 #include <QStandardPaths>
 #include <QtNetwork/QtNetwork>
@@ -11,7 +11,15 @@
 #include "Util.h"
 
 
-namespace fs = std::experimental::filesystem;
+namespace fs = boost::filesystem;
+
+
+static std::codecvt_utf8_utf16<wchar_t> const & utf8cvt()
+{
+	static std::codecvt_utf8_utf16<wchar_t> cvt(1);
+	return cvt;
+};
+
 
 class qLogger :public Jmcpp::Logger
 {
@@ -73,7 +81,7 @@ namespace
 
 	auto getSettingFile()
 	{
-		return QString::fromStdString((dataPath() / "JChat.ini").u8string());
+		return QString::fromStdWString((dataPath() / "JChat.ini").wstring());
 	}
 }
 
@@ -91,10 +99,10 @@ JChat::ClientObject::getSDKConfig()
 
 	auto jm = dataPath() / "Jmcpp";
 	fs::create_directories(jm);
-	cfg.storagePath = jm.u8string();
+	cfg.storagePath = jm.string(utf8cvt());
 
 	cfg.logLevel = 4;
-	cfg.logger = std::make_shared<qLogger>();
+	//cfg.logger = std::make_shared<qLogger>();
 	return cfg;
 }
 
@@ -136,7 +144,7 @@ QDir JChat::ClientObject::storageRootPath()
 	if(!init)
 	{
 		init = true;
-		_storageRootPath = QDir{ QString::fromStdString(dataPath().u8string()) };
+		_storageRootPath = QDir{ QString::fromStdString(dataPath().string(utf8cvt())) };
 		_storageRootPath.mkpath(".");
 	}
 

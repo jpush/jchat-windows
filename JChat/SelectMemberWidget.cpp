@@ -3,6 +3,7 @@
 #include <QApplication>
 #include <QMouseEvent>
 #include <QMessageBox>
+#include <QAction>
 
 
 #include "ContactModel.h"

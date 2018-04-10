@@ -14,7 +14,6 @@
 #include "await.h"
 #include "MetaTypes.h"
 
-#include "User.h"
 
 namespace JChat
 {
@@ -26,24 +25,6 @@ namespace JChat
 		ClientObject(Jmcpp::Configuration const& cfg);
 
 		~ClientObject();
-
-
-		User* createUser(Jmcpp::UserId const& userId, QObject* parent = nullptr)
-		{
-			Q_ASSERT(QThread::currentThread() == QCoreApplication::instance()->thread());
-			std::unique_lock<std::mutex> locker(_lock);
-			auto iter = _userhandles.find(userId);
-			if(iter != _userhandles.end())
-			{
-				return new User(iter->second, parent);
-			}
-
-			auto handle = std::make_shared<UserHandle>(shared_from_this(), userId);
-
-			_userhandles.insert_or_assign(userId, handle);
-			return new User(handle, parent);
-		}
-
 
 		////
 		pplx::task<void>				getAllData();
@@ -325,8 +306,6 @@ namespace JChat
 
 	private:
 		std::mutex								_lock;
-
-		std::map<Jmcpp::UserId, std::shared_ptr<UserHandle> > _userhandles;
 
 
 		std::unordered_map<std::string, pplx::task<QByteArray > > _resourceTask;

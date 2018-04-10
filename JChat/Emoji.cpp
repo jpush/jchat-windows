@@ -28,13 +28,12 @@ namespace JChat {
 		_js.evaluate(contents, fileName);
 
 		auto fn = _js.evaluate(R"(
-
 		//emojione.greedyMatch=true;
 		
-		function(path)
+		(function(path)
 		{
 			emojione.imagePathPNG=path;
-		}
+		})
 
 		)");
 

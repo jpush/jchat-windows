@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
     <Filter Include="Generated Files">
@@ -409,30 +409,14 @@
     <ClCompile Include="src\QxTraits\unit_test_is_smart_ptr.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="GeneratedFiles\Debug\moc_IxModel.cpp">
-      <Filter>Generated Files\Debug</Filter>
-    </ClCompile>
-    <ClCompile Include="GeneratedFiles\Release\moc_IxModel.cpp">
-      <Filter>Generated Files\Release</Filter>
-    </ClCompile>
-    <ClCompile Include="GeneratedFiles\Debug\moc_QxDaoAsync.cpp">
-      <Filter>Generated Files\Debug</Filter>
-    </ClCompile>
-    <ClCompile Include="GeneratedFiles\Release\moc_QxDaoAsync.cpp">
-      <Filter>Generated Files\Release</Filter>
-    </ClCompile>
-    <ClCompile Include="GeneratedFiles\Debug\moc_QxThread.cpp">
-      <Filter>Generated Files\Debug</Filter>
-    </ClCompile>
-    <ClCompile Include="GeneratedFiles\Release\moc_QxThread.cpp">
-      <Filter>Generated Files\Release</Filter>
-    </ClCompile>
-    <ClCompile Include="GeneratedFiles\Debug\moc_QxThreadPool.cpp">
-      <Filter>Generated Files\Debug</Filter>
-    </ClCompile>
-    <ClCompile Include="GeneratedFiles\Release\moc_QxThreadPool.cpp">
-      <Filter>Generated Files\Release</Filter>
-    </ClCompile>
+    
+    
+    
+    
+    
+    
+    
+    
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\QxSerialize\QxBoostSerializeHelper\IxBoostSerializeRegisterHelper.h">
@@ -459,9 +443,9 @@
     <ClInclude Include="include\QxFunction\IxFunction.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <CustomBuild Include="include\QxModelView\IxModel.h">
+    <QtMoc Include="include\QxModelView\IxModel.h">
       <Filter>Header Files</Filter>
-    </CustomBuild>
+    </QtMoc>
     <ClInclude Include="include\QxService\IxParameter.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -567,9 +551,9 @@
     <ClInclude Include="include\QxDao\QxDao.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <CustomBuild Include="include\QxDao\QxDaoAsync.h">
+    <QtMoc Include="include\QxDao\QxDaoAsync.h">
       <Filter>Header Files</Filter>
-    </CustomBuild>
+    </QtMoc>
     <ClInclude Include="include\QxDao\QxDaoPointer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -1260,12 +1244,12 @@
     <ClInclude Include="include\QxExtras\QxStdOptional.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <CustomBuild Include="include\QxService\QxThread.h">
+    <QtMoc Include="include\QxService\QxThread.h">
       <Filter>Header Files</Filter>
-    </CustomBuild>
-    <CustomBuild Include="include\QxService\QxThreadPool.h">
+    </QtMoc>
+    <QtMoc Include="include\QxService\QxThreadPool.h">
       <Filter>Header Files</Filter>
-    </CustomBuild>
+    </QtMoc>
     <ClInclude Include="include\QxDao\QxTimeNeutral.h">
       <Filter>Header Files</Filter>
     </ClInclude>

@@ -13,6 +13,7 @@
 #include <QInputDialog>
 #include <QJsonDocument>
 #include <QJsonValue>
+#include <QButtonGroup>
 
 #ifdef Q_OS_MACOS
 #include <QtMac>
@@ -61,7 +62,7 @@ MainWidget::MainWidget(JChat::ClientObjectPtr const& co, QWidget *parent /*= Q_N
 
 	this->setAttribute(Qt::WA_MacShowFocusRect, false);
 
-#if defined(_MSC_VER)
+#if defined(_MSC_VER) && 0
 
 	this->setBorderColor(Qt::gray);
 
