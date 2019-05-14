@@ -49,13 +49,13 @@ win32{
 	DEFINES += _QX_STATIC_BUILD
 
 	INCLUDEPATH+=$$PWD/../jmessage-sdk/jmessage-sdk-pc-win-1.2.3/include
-	LIBS+=-L$$PWD/../jmessage-sdk/jmessage-sdk-pc-win-1.2.3/lib
+	LIBS+=-L$$PWD/../jmessage-sdk/jmessage-sdk-pc-win-1.2.3/x86/lib
 
 	CONFIG(debug, debug|release):LIBS+=-ljmcppd
 	CONFIG(release, debug|release)::LIBS+=-ljmcpp
 
-	CONFIG(debug, debug|release):LIBS+= cpprest140d_2_9.lib
-	CONFIG(release, debug|release): LIBS+= cpprest140_2_9.lib
+	CONFIG(debug, debug|release):LIBS+= cpprest141_2_10d.lib
+	CONFIG(release, debug|release): LIBS+= cpprest141_2_10.lib
 
 
 	DESTDIR = $$PWD/../build_v141_x86/bin

@@ -932,7 +932,6 @@ namespace JChat
 			}
 
 			ui.labelInputting->setText(u8"正在输入...");
-			//ui.labelInputting->adjustSize();
 			ui.labelInputting->show();
 		}
 		else

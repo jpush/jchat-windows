@@ -31,7 +31,7 @@ namespace QxWin{
 	namespace _qx_win
 	{
 		static auto titleBarHeight = 30;
-		using DwmIsCompositionEnabledPtr = HRESULT(__stdcall *)(BOOL*);
+		using DwmIsCompositionEnabledPtr = HRESULT(__stdcall*)(BOOL*);
 		static DwmIsCompositionEnabledPtr dwmEnableCompositionPtr;
 
 		using DwmGetColorizationColorPtr = HRESULT(__stdcall*)(DWORD*, BOOL*);
@@ -40,7 +40,7 @@ namespace QxWin{
 		static void initDwmFun()
 		{
 			dwmEnableCompositionPtr = (DwmIsCompositionEnabledPtr)QLibrary::resolve("dwmapi.dll", "DwmIsCompositionEnabled");
-			dwmGetColorizationColorPtr= (DwmGetColorizationColorPtr)QLibrary::resolve("dwmapi.dll", "DwmGetColorizationColor");
+			dwmGetColorizationColorPtr = (DwmGetColorizationColorPtr)QLibrary::resolve("dwmapi.dll", "DwmGetColorizationColor");
 		}
 		Q_COREAPP_STARTUP_FUNCTION(initDwmFun);
 
@@ -67,9 +67,7 @@ namespace QxWin{
 		{
 			if(auto hwnd = ::GetCapture())
 			{
-			#if(QT_VERSION < QT_VERSION_CHECK(5, 12, 0))
 				::ReleaseCapture();
-			#endif
 			}
 			//#define SC_DRAGMOVE 0xF012
 			SendMessageW((HWND)w->winId(), WM_SYSCOMMAND, 0xF012, 0);
@@ -119,7 +117,7 @@ namespace QxWin{
 		class BorderWidget :public QWidget
 		{
 		public:
-			QWidget * mainWidget;
+			QWidget* mainWidget;
 			QColor						borderColor{ 0,100,255 };
 			const qint8					resizeBorderWidth = 30;
 			qint8						borderWidth = 9;
@@ -139,12 +137,12 @@ namespace QxWin{
 			}
 
 		protected:
-			virtual bool event(QEvent *e) override
+			virtual bool event(QEvent * e) override
 			{
 				return QWidget::event(e);
 			}
 
-			virtual bool nativeEvent(const QByteArray &, void *message, long *result) override
+			virtual bool nativeEvent(const QByteArray&, void* message, long* result) override
 			{
 				MSG* msg = static_cast<MSG*>(message);
 				switch(msg->message)
@@ -172,7 +170,7 @@ namespace QxWin{
 				return false;
 			}
 
-			virtual void paintEvent(QPaintEvent *event) override
+			virtual void paintEvent(QPaintEvent * event) override
 			{
 				auto rect = this->rect();
 				auto borderWidth = this->borderWidth;
@@ -274,7 +272,7 @@ namespace QxWin{
 				p.drawRect((rect).adjusted(borderWidth - 1, borderWidth - 1, -borderWidth, -borderWidth));
 			}
 
-			virtual void resizeEvent(QResizeEvent *event) override
+			virtual void resizeEvent(QResizeEvent * event) override
 			{
 				auto rect = this->rect();
 				QRegion maskedRegion(rect);
@@ -282,7 +280,7 @@ namespace QxWin{
 				this->setMask(maskedRegion);
 			}
 
-			virtual void mousePressEvent(QMouseEvent *ev) override
+			virtual void mousePressEvent(QMouseEvent * ev) override
 			{
 				if(ev->buttons() & Qt::LeftButton)
 				{
@@ -355,7 +353,7 @@ namespace QxWin{
 			}
 
 
-			virtual void mouseMoveEvent(QMouseEvent *ev) override
+			virtual void mouseMoveEvent(QMouseEvent * ev) override
 			{
 				const LONG borderWidth = this->resizeBorderWidth; //in pixels
 				RECT winrect;
@@ -429,11 +427,11 @@ namespace QxWin{
 		class StyleBase::WidgetData :public QObject
 		{
 		public:
-			StyleBase * styleBase = nullptr;
+			StyleBase* styleBase = nullptr;
 
-			QWidget*					mainWidget = nullptr;
-			_qx_win::BorderWidget*		border = nullptr;
-			TitleBar*					titleBar = nullptr;
+			QWidget* mainWidget = nullptr;
+			_qx_win::BorderWidget* border = nullptr;
+			TitleBar* titleBar = nullptr;
 
 			std::vector< std::tuple<QPointer<QObject>, bool > > draggerAreas;
 
@@ -477,7 +475,7 @@ namespace QxWin{
 				}
 			}
 
-			virtual bool eventFilter(QObject *watched, QEvent *e) override
+			virtual bool eventFilter(QObject * watched, QEvent * e) override
 			{
 				if(watched == this->border)
 				{
@@ -580,15 +578,15 @@ namespace QxWin{
 	class TitleBar::Impl
 	{
 	public:
-		QWidget * widget = nullptr;
-		_qx_win::StyleBase*	styleBase = nullptr;
+		QWidget* widget = nullptr;
+		_qx_win::StyleBase* styleBase = nullptr;
 
-		QWidget*				titleBarWidget = nullptr;
-		QHBoxLayout*			layout = nullptr;
-		QToolButton				*mini, *maxi, *close;
+		QWidget* titleBarWidget = nullptr;
+		QHBoxLayout* layout = nullptr;
+		QToolButton* mini, * maxi, * close;
 	};
 
-	TitleBar::TitleBar(_qx_win::StyleBase* styleBase)
+	TitleBar::TitleBar(_qx_win::StyleBase * styleBase)
 		:QObject(styleBase->_p->mainWidget)
 		, _p(std::make_unique<Impl>())
 	{
@@ -717,7 +715,7 @@ namespace QxWin{
 		return _p->close->isVisible();
 	}
 
-	bool TitleBar::eventFilter(QObject *watched, QEvent *e)
+	bool TitleBar::eventFilter(QObject * watched, QEvent * e)
 	{
 		if(watched == _p->widget)
 		{
@@ -905,10 +903,11 @@ namespace QxWin{
 		}
 
 		//////////////////////////////////////////////////////////////////////////
-		bool StyleBase::_eventImpl(QEvent * e)
+		bool StyleBase::_eventImpl(QEvent* e)
 		{
 			switch(e->type())
 			{
+				case QEvent::PlatformSurface:
 				case QEvent::WinIdChange:
 				{
 					_p->updateStyle();
@@ -986,7 +985,7 @@ namespace QxWin{
 			return false;
 		}
 
-		bool StyleBase::_nativeEventImpl(const QByteArray &, void *message, long *result)
+		bool StyleBase::_nativeEventImpl(const QByteArray&, void* message, long* result)
 		{
 			MSG* msg = static_cast<MSG*>(message);
 			switch(msg->message)
@@ -1175,7 +1174,7 @@ namespace QxWin
 		return true;
 	}
 
-	bool TitleBar::eventFilter(QObject *watched, QEvent *e)
+	bool TitleBar::eventFilter(QObject* watched, QEvent* e)
 	{
 		return false;
 	}
@@ -1258,12 +1257,12 @@ namespace QxWin::_qx_win
 	}
 
 	//////////////////////////////////////////////////////////////////////////
-	bool StyleBase::_eventImpl(QEvent * e)
+	bool StyleBase::_eventImpl(QEvent* e)
 	{
 		return false;
 	}
 
-	bool StyleBase::_nativeEventImpl(const QByteArray &, void *message, long *result)
+	bool StyleBase::_nativeEventImpl(const QByteArray&, void* message, long* result)
 	{
 		return false;
 	}

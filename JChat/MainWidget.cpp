@@ -62,7 +62,7 @@ MainWidget::MainWidget(JChat::ClientObjectPtr const& co, QWidget *parent /*= Q_N
 
 	this->setAttribute(Qt::WA_MacShowFocusRect, false);
 
-#if defined(_MSC_VER) && 0
+#if defined(_MSC_VER)
 
 	this->setBorderColor(Qt::gray);
 

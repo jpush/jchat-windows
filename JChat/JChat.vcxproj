@@ -21,7 +21,7 @@
   <PropertyGroup Label="Globals">
     <ProjectGuid>{B12702AD-ABFB-343A-A199-8E24837244A3}</ProjectGuid>
     <Keyword>Qt4VSv1.0</Keyword>
-    <WindowsTargetPlatformVersion>8.1</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>10.0.17763.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -72,6 +72,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <IntDir>$(SolutionDir)build\build_$(PlatformToolset)_$(PlatformTarget)\$(ProjectName)\$(Configuration)\</IntDir>
     <OutDir>$(SolutionDir)build_$(PlatformToolset)_$(PlatformTarget)\bin\</OutDir>
+    <TargetName>$(ProjectName)</TargetName>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <OutDir>$(SolutionDir)build_$(PlatformToolset)_$(PlatformTarget)\bin\</OutDir>
@@ -103,7 +104,7 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>libqxormd.lib;qtmaind.lib;Qt5Cored.lib;Qt5Guid.lib;Qt5Widgetsd.lib;Qt5Sqld.lib;Qt5Svgd.lib;Qt5Qmld.lib;Qt5Xmld.lib;Qt5Multimediad.lib;Qt5Networkd.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>qxormd.lib;qtmaind.lib;Qt5Cored.lib;Qt5Guid.lib;Qt5Widgetsd.lib;Qt5Sqld.lib;Qt5Svgd.lib;Qt5Qmld.lib;Qt5Xmld.lib;Qt5Multimediad.lib;Qt5Networkd.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>$(QTDIR)\lib;$(SolutionDir)build_$(PlatformToolset)_$(PlatformTarget)\lib\;E:\__library__\boost_1_66_0_v141_x86\lib32-msvc-14.1;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
     <QtMoc>
@@ -147,7 +148,7 @@
       <SubSystem>Console</SubSystem>
       <AdditionalLibraryDirectories>$(QTDIR)\lib;$(SolutionDir)build_$(PlatformToolset)_$(PlatformTarget)\lib\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>libqxormd.lib;qtmaind.lib;Qt5Cored.lib;Qt5Guid.lib;Qt5Widgetsd.lib;Qt5Sqld.lib;Qt5Svgd.lib;Qt5Qmld.lib;Qt5Xmld.lib;Qt5Multimediad.lib;Qt5Networkd.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>qxormd.lib;qtmaind.lib;Qt5Cored.lib;Qt5Guid.lib;Qt5Widgetsd.lib;Qt5Sqld.lib;Qt5Svgd.lib;Qt5Qmld.lib;Qt5Xmld.lib;Qt5Multimediad.lib;Qt5Networkd.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <QtMoc>
       <QTDIR>$(QTDIR)</QTDIR>
@@ -189,7 +190,7 @@
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>DebugFull</GenerateDebugInformation>
-      <AdditionalDependencies>libqxorm.lib;qtmain.lib;Qt5Core.lib;Qt5Gui.lib;Qt5Widgets.lib;Qt5Sql.lib;Qt5Svg.lib;Qt5Qml.lib;Qt5Xml.lib;Qt5Multimedia.lib;Qt5Network.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>qxorm.lib;qtmain.lib;Qt5Core.lib;Qt5Gui.lib;Qt5Widgets.lib;Qt5Sql.lib;Qt5Svg.lib;Qt5Qml.lib;Qt5Xml.lib;Qt5Multimedia.lib;Qt5Network.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>$(QTDIR)\lib;$(SolutionDir)build_$(PlatformToolset)_$(PlatformTarget)\lib\;E:\__library__\boost_1_66_0_v141_x86\lib32-msvc-14.1;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
     <QtMoc>
@@ -233,7 +234,7 @@
       <SubSystem>Windows</SubSystem>
       <AdditionalLibraryDirectories>$(QTDIR)\lib;$(SolutionDir)build_$(PlatformToolset)_$(PlatformTarget)\lib\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <GenerateDebugInformation>DebugFull</GenerateDebugInformation>
-      <AdditionalDependencies>libqxorm.lib;qtmain.lib;Qt5Core.lib;Qt5Gui.lib;Qt5Widgets.lib;Qt5Sql.lib;Qt5Svg.lib;Qt5Qml.lib;Qt5Xml.lib;Qt5Multimedia.lib;Qt5Network.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>qxorm.lib;qtmain.lib;Qt5Core.lib;Qt5Gui.lib;Qt5Widgets.lib;Qt5Sql.lib;Qt5Svg.lib;Qt5Qml.lib;Qt5Xml.lib;Qt5Multimedia.lib;Qt5Network.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <QtMoc>
       <QTDIR>$(QTDIR)</QTDIR>
@@ -687,8 +688,8 @@
     <Import Project="$(QtMsBuild)\qt.targets" />
   </ImportGroup>
   <ImportGroup Label="ExtensionTargets">
-    <Import Project="..\packages\cpprestsdk.v140.windesktop.msvcstl.dyn.rt-dyn.2.9.1\build\native\cpprestsdk.v140.windesktop.msvcstl.dyn.rt-dyn.targets" Condition="Exists('..\packages\cpprestsdk.v140.windesktop.msvcstl.dyn.rt-dyn.2.9.1\build\native\cpprestsdk.v140.windesktop.msvcstl.dyn.rt-dyn.targets')" />
-    <Import Project="..\packages\jmessage-cpp.1.2.3\build\native\jmessage-cpp.targets" Condition="Exists('..\packages\jmessage-cpp.1.2.3\build\native\jmessage-cpp.targets')" />
+    <Import Project="..\packages\cpprestsdk.v141.2.10.12.1\build\native\cpprestsdk.v141.targets" Condition="Exists('..\packages\cpprestsdk.v141.2.10.12.1\build\native\cpprestsdk.v141.targets')" />
+    <Import Project="..\packages\jmessage-cpp.1.2.3.2\build\native\jmessage-cpp.targets" Condition="Exists('..\packages\jmessage-cpp.1.2.3.2\build\native\jmessage-cpp.targets')" />
   </ImportGroup>
   <ProjectExtensions>
     <VisualStudio>
@@ -699,7 +700,7 @@
     <PropertyGroup>
       <ErrorText>这台计算机上缺少此项目引用的 NuGet 程序包。使用“NuGet 程序包还原”可下载这些程序包。有关更多信息，请参见 http://go.microsoft.com/fwlink/?LinkID=322105。缺少的文件是 {0}。</ErrorText>
     </PropertyGroup>
-    <Error Condition="!Exists('..\packages\cpprestsdk.v140.windesktop.msvcstl.dyn.rt-dyn.2.9.1\build\native\cpprestsdk.v140.windesktop.msvcstl.dyn.rt-dyn.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\cpprestsdk.v140.windesktop.msvcstl.dyn.rt-dyn.2.9.1\build\native\cpprestsdk.v140.windesktop.msvcstl.dyn.rt-dyn.targets'))" />
-    <Error Condition="!Exists('..\packages\jmessage-cpp.1.2.3\build\native\jmessage-cpp.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\jmessage-cpp.1.2.3\build\native\jmessage-cpp.targets'))" />
+    <Error Condition="!Exists('..\packages\cpprestsdk.v141.2.10.12.1\build\native\cpprestsdk.v141.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\cpprestsdk.v141.2.10.12.1\build\native\cpprestsdk.v141.targets'))" />
+    <Error Condition="!Exists('..\packages\jmessage-cpp.1.2.3.2\build\native\jmessage-cpp.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\jmessage-cpp.1.2.3.2\build\native\jmessage-cpp.targets'))" />
   </Target>
 </Project>

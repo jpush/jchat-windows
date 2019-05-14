@@ -275,7 +275,8 @@ namespace JChat
 			}
 
 			Q_EMIT onEventSignal(std::move(event));
-			co_return;
+			
+			co_await std::experimental::suspend_never();
 		}
 
 

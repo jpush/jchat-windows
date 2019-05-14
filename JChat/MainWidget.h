@@ -22,11 +22,11 @@ class QSystemTrayIcon;
 namespace JChat{
 	class TrayIconMessage;
 
-	class MainWidget : public QWidget//QxWin::MetroStyle< QWidget, true, false>
+	class MainWidget : public QxWin::MetroStyle< QWidget, true, false>
 	{
 		Q_OBJECT
 
-			using base = QWidget;
+			using base = QxWin::MetroStyle< QWidget, true, false>;
 	public:
 
 		MainWidget(JChat::ClientObjectPtr const& co, QWidget *parent = Q_NULLPTR);

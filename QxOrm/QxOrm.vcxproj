@@ -22,7 +22,7 @@
     <ProjectGuid>{3D9BA35E-D91B-3866-9090-C3EDCDEAB8D1}</ProjectGuid>
     <RootNamespace>QxOrm</RootNamespace>
     <Keyword>Qt4VSv1.0</Keyword>
-    <WindowsTargetPlatformVersion>8.1</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>10.0.17763.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
@@ -101,6 +101,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <OutDir>$(SolutionDir)build_$(PlatformToolset)_$(PlatformTarget)\lib\</OutDir>
     <IntDir>$(SolutionDir)build\build_$(PlatformToolset)_$(PlatformTarget)\$(ProjectName)\$(Configuration)\</IntDir>
+    <TargetName>$(ProjectName)</TargetName>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <OutDir>$(SolutionDir)build_$(PlatformToolset)_$(PlatformTarget)\lib\</OutDir>
@@ -110,6 +111,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <OutDir>$(SolutionDir)build_$(PlatformToolset)_$(PlatformTarget)\lib\</OutDir>
     <IntDir>$(SolutionDir)build\build_$(PlatformToolset)_$(PlatformTarget)\$(ProjectName)\$(Configuration)\</IntDir>
+    <TargetName>$(ProjectName)</TargetName>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>

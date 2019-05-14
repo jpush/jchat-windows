@@ -259,8 +259,8 @@ paket-files/
 # Python Tools for Visual Studio (PTVS)
 __pycache__/
 *.pyc
-/build_v141_x86/lib
-/JChat/GeneratedFiles
 /build_v141_x86
+/JChat/GeneratedFiles
+/build_v142_x86
 /build
 /QxOrm/qt/moc/moc_predefs.h
